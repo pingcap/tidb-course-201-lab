@@ -1,0 +1,6 @@
+# Required
+mysql-connector
+mysql-connector-python
+# Additional
+tikv_client
+chardet
