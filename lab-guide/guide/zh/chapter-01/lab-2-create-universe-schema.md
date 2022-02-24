@@ -11,7 +11,19 @@
 ## **步骤**
 
 ****************************
-#### 1. 从终端新开启一个 session 以访问 TiDB 测试数据库(本机或 TiDB Cloud):
+#### 1. Clone 示例库到本地:
+```
+$ git clone https://github.com/pingcap/tidb-course-201-lab
+```
+
+****************************
+#### 2. 将工作目录切换为 `tidb-course-201-lab`:
+```
+$ cd tidb-course-201-lab/
+```
+
+****************************
+#### 3. 从终端新开启一个 session 以访问 TiDB 测试数据库(本机或 TiDB Cloud):
 + a. 本地 TiDB(由实验 1a、1b 或 1c 创建): 直接登录
   ```
   $ mysql -h 127.0.0.1 -P 4000 -uroot
@@ -25,32 +37,32 @@
     ```
 
 ****************************
-#### 2. 导入示例 schema - universe:
+#### 4. 导入示例 schema - universe:
 ```sql
-tidb> source universe.sql
+tidb> source chapter-01/universe.sql
 ```
 
 ****************************
-#### 3. 检查结果 - databases
+#### 5. 检查结果 - databases
 ```sql
 tidb> show databases;
 ```
 
-#### 4. 检查结果 - tables
+#### 6. 检查结果 - tables
 ```sql
 tidb> show tables from universe;
 ```
 
-#### 5. 检查带有 `comment` 的字段
+#### 7. 检查带有 `comment` 的字段
 ```sql
-tidb> source show-universe-comments.sql;
+tidb> source chapter-01/show-universe-comments.sql;
 ```
 
 ****************************
 ## 输出样例
 
 ****************************
-#### 步骤3输出参考
+#### 步骤5输出参考
 ```sql
 tidb> show databases;
 ```
@@ -69,7 +81,7 @@ tidb> show databases;
 ```
 
 *******************************
-#### 步骤4输出参考
+#### 步骤6输出参考
 ```sql
 tidb> show tables from universe;
 ```
@@ -86,9 +98,9 @@ tidb> show tables from universe;
 ```
 
 *******************************
-#### 步骤5输出参考
+#### 步骤7输出参考
 ```sql
-tidb> source show-universe-comments.sql
+tidb> source chapter-01/show-universe-comments.sql
 ```
 ```
 +----------------------+----------------+
