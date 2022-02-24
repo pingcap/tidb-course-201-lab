@@ -4,8 +4,8 @@
   + Please ask your instructor for the guidance about how to use the artifacts in this repository.
 
 ## Folders Description
-+ Lab guides are placed in `lab-guide/guide/en` folder
-+ All scripts used in this course are placed in `scripts` folder
++ Lab guides are placed in `lab-guide/guide/en/` folder
++ All scripts used in this course are placed in `scripts/` folder
 
 # TiDB SQL for Developers 课程实验
 + 注意:
@@ -13,8 +13,8 @@
   + 请向培训老师咨询有关如何使用此仓库中的文件的指导
 
 ## 目录说明
-+ 实验指南在 `lab-guide/guide/zh` 目录下
-+ 课程中所有的脚本与示例代码被放置在 `scripts` 目录下
++ 实验指南在 `lab-guide/guide/zh/` 目录下
++ 课程中所有的脚本与示例代码被放置在 `scripts/` 目录下
 
 **************************************************************************************
 <img src="./lab-guide/diagram/201-course-learning-path.png" width="100%" align="top"/>
