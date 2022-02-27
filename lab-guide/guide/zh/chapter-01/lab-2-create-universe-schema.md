@@ -1,5 +1,8 @@
 # **实验 2: 在 TiDB 集群中创建 `universe` 数据库**
 
+## 前提条件
++ 已完成实验 [1a](lab-1a-native-playground.md), 1b, 1c, 1d 或 1e
+
 ## **目的**
 + 创建 `universe` 数据库，作为本课程的实验的数据基础
 + **Note**: `universe` 样例数据库来自 `universe.sql`
@@ -24,7 +27,7 @@ $ cd tidb-course-201-lab/
 
 ****************************
 #### 3. 从终端新开启一个 session 以访问 TiDB 测试数据库(本机或 TiDB Cloud):
-+ a. 本地 TiDB(由实验 1a、1b 或 1c 创建): 直接登录
++ a. 本地 TiDB(由实验 1a、1b、1c 或 1e 创建): 直接登录
   ```
   $ mysql -h 127.0.0.1 -P 4000 -uroot
   ``` 
