@@ -55,7 +55,7 @@ tidb> show tables from universe;
 
 #### 7. 检查带有 `comment` 的字段
 ```sql
-tidb> source chapter-01/zh/show-universe-comments.sql;
+tidb> source scripts/show-universe-comments.sql;
 ```
 
 ****************************
@@ -100,7 +100,7 @@ tidb> show tables from universe;
 *******************************
 #### 步骤7输出参考
 ```sql
-tidb> source chapter-01/zh/show-universe-comments.sql
+tidb> source scripts/show-universe-comments.sql
 ```
 ```
 +----------------------+----------------+
