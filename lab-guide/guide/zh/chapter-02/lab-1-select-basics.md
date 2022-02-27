@@ -1,5 +1,8 @@
 # 实验 1: `SELECT` 基础
 
+## 前提条件
++ 已完成[实验 2](../chapter01/lab-2-create-universe-schema.md)
+
 ## 目的
 + 在 `universe` 数据库中练习以下 `SELECT` 基本操作:
   + 投射
