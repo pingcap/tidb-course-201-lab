@@ -1,7 +1,7 @@
-# **实验 2: 在 TiDB 集群中创建 `universe` 数据库**
+# **实验 201.1.2: 在 TiDB 集群中创建 `universe` 数据库**
 
 ## 前提条件
-+ 已完成[实验 1a](lab-1a-native-playground.md)、 [实验 1b](lab-1b-container-tidb.md)、 [实验 1c](lab-1c-vm-linux-playground.md)、 [实验 1d](lab-1d-tidb-cloud-dev-tier.md) 或 [实验 1e](lab-1e-WSL-linux-playground.md)
++ 已完成[实验 201.1.1a](lab-1a-native-playground.md)、 [实验 201.1.1b](lab-1b-container-tidb.md)、 [实验 201.1.1c](lab-1c-vm-linux-playground.md)、 [实验 201.1.1d](lab-1d-tidb-cloud-dev-tier.md) 或 [实验 201.1.1e](lab-1e-WSL-linux-playground.md)
 
 ## **目的**
 + 创建 `universe` 数据库，作为本课程的实验的数据基础

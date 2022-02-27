@@ -1,4 +1,4 @@
-# **实验 1e: 在单机 `Windows` 中安装 `WSL` `(Ubuntu)`, 并从中启动 `TiDB Playground`**
+# **实验 201.1.1e: 在单机 `Windows` 中安装 `WSL` `(Ubuntu)`, 并从中启动 `TiDB Playground`**
 
 ## **目的**
 部署测试目的 TiDB 集群，作为本课程的实验基础
