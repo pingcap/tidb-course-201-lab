@@ -4,7 +4,7 @@
 部署测试目的 TiDB 集群，作为本课程的实验基础
 
 ## **适用场景**
-+ 在支持容器的环境中，快速启动 TiDB 测试容器镜像，体验 TiDB 的 SQL 接口
++ 在支持 Docker Desktop 的环境中，快速启动 TiDB 测试容器镜像，体验 TiDB 的 SQL 接口
 + 操作系统已经支持容器，比如，已安装 Docker Desktop for [MacOS 或 Windows](https://www.docker.com/products/docker-desktop)，或 [Linux Docker Engine](https://hub.docker.com/search?offering=community&operating_system=linux&q=&type=edition)
 + 操作系统上已经安装了 [mysql client](https://cn.bing.com/search?q=MacOS+%26+Windows+mysql+client+安装) (推荐) 或 [MySQL Workbench (注意选择版本: 6.3.10，页面默认为最新高版本)](https://downloads.mysql.com/archives/workbench/) (备用)
 + 具备互联网连接
@@ -16,7 +16,7 @@
 + 打开终端(Windows 为 `CMD` )，出现提示符，常见的是 `$ `、`% ` (Windows 为 `盘符:\> `)
 + 使用 `pingcap/tidb` 镜像启动容器:
   ```
-  $ docker run --name classroom -p 127.0.0.1:4000:4000 pingcap/tidb:v5.3.0 
+  $ docker run --name classroom -p 127.0.0.1:4000:4000 pingcap/tidb:latest
   ```
 
 ****************************

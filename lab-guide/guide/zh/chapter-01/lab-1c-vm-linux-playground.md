@@ -75,7 +75,7 @@ $ source ~/.bashrc
 ****************************
 #### 10. 启动集群 (指定版本以及各个组件的实例数量):
 ```
-$ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
+$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ```
 
 ****************************
@@ -84,7 +84,7 @@ $ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ****************************
 #### 步骤10输出参考:
 ```
-$ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
+$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 Starting component `playground`: ~/.tiup/components/playground/v1.8.2/tiup-playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 Playground Bootstrapping...
 Start pd instance

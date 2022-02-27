@@ -40,7 +40,7 @@ $ source ~/.bashrc
 ****************************
 #### 6. 启动集群 (指定版本以及各个组件的实例数量):
 ```
-$ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
+$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ```
 
 ****************************
@@ -49,7 +49,7 @@ $ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ****************************
 #### 步骤 6 输出参考:
 ```
-$ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
+$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 tiup is checking updates for component playground ...
 A new version of playground is available:
    The latest version:         v1.9.0
@@ -59,7 +59,7 @@ A new version of playground is available:
 
 The component `playground` version  is not installed; downloading from repository.
 download https://tiup-mirrors.pingcap.com/playground-v1.9.0-linux-amd64.tar.gz 6.91 MiB / 6.91 MiB 100.00% 13.10 MiB/s
-Starting component `playground`: /root/.tiup/components/playground/v1.9.0/tiup-playground /root/.tiup/components/playground/v1.9.0/tiup-playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
+Starting component `playground`: /root/.tiup/components/playground/v1.9.0/tiup-playground /root/.tiup/components/playground/v1.9.0/tiup-playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 Playground Bootstrapping...
 Start pd instance:v5.3.0
 The component `pd` version v5.3.0 is not installed; downloading from repository.

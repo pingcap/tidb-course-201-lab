@@ -24,7 +24,7 @@
 ****************************
 #### 2. 启动集群 (指定版本以及各个组件的实例数量)，保持会话窗口打开:
 ```
-$ tiup playground v5.3.0 --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
+$ tiup playground --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
 ```
 
 ****************************
