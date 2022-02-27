@@ -2,7 +2,8 @@
 *	Sample schema for planets and stars in the universe. No warranty of data correctness. 
 *	It should not be used in any circumstances outside PingCAP training courses. 
 *	Data source: Space research open data set all over the world.
-*	Author: guanglei.bao@pingcap.com.
+*	Contributors: 
+*		guanglei.bao@pingcap.com
 */
 
 SET AUTOCOMMIT = 1;
