@@ -1,5 +1,5 @@
-# TiDB SQL for Developers Course Lab (English readme)
-"From entry level to best practice mastery."
+# TiDB SQL for Developers Course Lab (English README)
+*"From entry level to best practice mastery."*
 
 + Caution:
   + All scripts in this repo provide no production warrenty, use them at your own risks.
@@ -9,8 +9,8 @@
 + Lab guides are placed in `lab-guide/guide/en/` folder
 + All scripts used in this course are placed in `scripts/` folder.
 
-# TiDB SQL for Developers 课程实验 (Chinese readme)
-"从入门级到精通最佳实践。"
+# TiDB SQL for Developers 课程实验 (Chinese README)
+*"从入门级到精通最佳实践。"*
 
 + 注意:
   + 此仓库中所有的脚本均不提供生产环境的保证, 使用它们需要您自担风险。
