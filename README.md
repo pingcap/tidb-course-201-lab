@@ -20,8 +20,9 @@
 + 实验指南在 `lab-guide/guide/zh/` 目录下
 + 课程中所有的脚本与示例代码被放置在 `scripts/` 目录下
 
-### 已推出的课程
+### 201 系列课程
 + [201.1: TiDB 集群的架构与特点](https://learn.pingcap.com/learner/course/600003)
++ [全部课程](https://learn.pingcap.com/learner/course)
 
 **************************************************************************************
 <img src="./lab-guide/diagram/201-course-learning-path.png" width="100%" align="top"/>
