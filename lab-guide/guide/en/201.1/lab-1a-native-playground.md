@@ -54,7 +54,7 @@ exit
 ****************************
 #### 7. Start the sandbox cluster again:
 ```
-$ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
+$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ```
 
 ****************************
@@ -63,7 +63,7 @@ $ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ****************************
 #### **Reference output for Step 2:**
 ```
-$ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
+$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 Starting component `playground`: ~/.tiup/components/playground/v1.8.2/tiup-playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 Playground Bootstrapping...
 Start pd instance
