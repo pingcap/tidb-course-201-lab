@@ -1,11 +1,10 @@
-# **Lab 201.1.1b: Launch TiDB Database in a Container as a Lab Environment on MacOS/Windows/Linux**
+# Lab 201.1.1b: Launch TiDB Database in a Container as a Lab Environment on MacOS/Windows/Linux
 
 ## **Objective**
-Deploy a sandbox TiDB cluster for the labs in this course.
+In an environment that supports Docker Desktop, run TiDB container image and expose the SQL interface of TiDB.
 
 ## **Prerequisites**
 + Internet connection.
-+ In an environment that supports Docker Desktop, quickly start the TiDB test container image and experience the SQL interface of TiDB.
 + Operating System already supports container, for example: Docker Desktop is installed for [MacOS or Windows](https://www.docker.com/products/docker-desktop), or [Linux Docker Engine](https://hub.docker.com/search?offering=community&operating_system=linux&q=&type=edition)
 + Database client installed:
   + Recommand: [MySQL client](https://google.com/search?q=MacOS+mysql+client+install)

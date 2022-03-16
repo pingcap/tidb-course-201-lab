@@ -1,17 +1,18 @@
-# **实验 201.1.1d: 注册并使用 `TiDB Cloud Developer Tier` 作为实验环境**
+# **Lab 201.1.1d: Subscribe the "TiDB Cloud Developer Tier" as the Lab Environment**
 
 ## **Objective**
-Deploy a sandbox TiDB cluster for the labs in this course.
+Deploy a free tier cluster in TiDB Cloud for the labs in this course.
 
-## 适用场景
-+ 在 TiDB Cloud 中部署一个免费的测试集群。
-+ 操作系统上已经安装了 [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85) (推荐) 或 [MySQL Workbench (注意选择版本: 6.3.10，页面默认为最新高版本)](https://downloads.mysql.com/archives/workbench/) (备用)
-+ 具备互联网连接。
+## **Prerequisites**
++ Internet connection.
++ Database client installed:
+  + Recommand: [MySQL client](https://google.com/search?q=MacOS+mysql+client+install)
+  + Alternative: [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/)
 
-## 步骤
+## Steps
 
 ****************************
-#### 1. 注册 TiDB Cloud: 打开浏览器，访问 `https://tidbcloud.com`，点击 `Sign up` 完成注册并登录
+#### 1. Sign up for TiDB Cloud: Open a browser and visit `https://tidbcloud.com`，click `Sign up` to complete registration and login.
 <img src="../../../diagram/tidb-cloud-sign-in.png" width="60%" align="top"/>
 
 ****************************
