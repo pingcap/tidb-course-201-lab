@@ -9,6 +9,9 @@
 + Lab guides are placed in `lab-guide/guide/en/` folder
 + All scripts used in this course are placed in `scripts/` folder.
 
+**************************************************************************************
+<img src="./lab-guide/diagram/201-course-learning-path.png" width="100%" align="top"/>
+
 # TiDB SQL for Developers 课程实验 (Chinese README)
 *"从入门级到精通最佳实践。"*
 
@@ -23,6 +26,3 @@
 ### 201 系列课程
 + [201.1: TiDB 集群的架构与特点](https://learn.pingcap.com/learner/course/600003)
 + [TiDB 全部中文课程](https://learn.pingcap.com/learner/course)
-
-**************************************************************************************
-<img src="./lab-guide/diagram/201-course-learning-path.png" width="100%" align="top"/>
