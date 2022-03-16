@@ -47,6 +47,24 @@ $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ```
 
 ****************************
+#### 7. Open another terminal (in Ubuntu or in Windows, both works), execute the following command to access the TiDB database using the MySQL database client, and the `"mysql> "` prompt appears, in the example shows as `"tidb> "`:
+```
+$ mysql -h 127.0.0.1 -P 4000 -uroot
+```
+
+****************************
+#### 8. Check the database version:
+```sql
+tidb> select version();
+```
+
+****************************
+#### 9. Exit ther datbase session (if needed)
+```
+exit
+```
+
+****************************
 ### Output Samples
 
 ****************************
