@@ -1,4 +1,4 @@
-# **Lab 201.1.1b: Launch `TIDB` Database in a Container as a Lab Environment on MacOS/Windows/Linux**
+# **Lab 201.1.1b: Launch TiDB Database in a Container as a Lab Environment on MacOS/Windows/Linux**
 
 ## **Objective**
 Deploy a sandbox TiDB cluster for the labs in this course.
