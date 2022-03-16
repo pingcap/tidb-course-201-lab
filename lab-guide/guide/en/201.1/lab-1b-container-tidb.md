@@ -1,7 +1,7 @@
-# **实验 201.1.1b: 在单机 `(MacOS/Windows/Linux)` 环境中启动容器中的 `TiDB` 作为实验环境**
+# **Lab 201.1.1b: Launch `TIDB` Database in a Container as a Lab Environment on MacOS/Windows/Linux**
 
-## **目的**
-部署测试目的 TiDB 集群，作为本课程的实验基础
+## **Objective**
+Deploy a sandbox TiDB cluster for the labs in this course.
 
 ## **适用场景**
 + 在支持 Docker Desktop 的环境中，快速启动 TiDB 测试容器镜像，体验 TiDB 的 SQL 接口

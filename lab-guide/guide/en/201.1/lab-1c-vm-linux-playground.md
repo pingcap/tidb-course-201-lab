@@ -1,7 +1,7 @@
 # **实验 201.1.1c: 在单机 `Windows` 中启动虚拟机 `(Ubuntu)`, 并从中启动 `TiDB Playground`**
 
-## **目的**
-部署测试目的 TiDB 集群，作为本课程的实验基础
+## **Objective**
+Deploy a sandbox TiDB cluster for the labs in this course.
 
 ## **适用场景**
 + Windows 系统以及机器自身配置可以创建虚拟机（`Ubuntu`），并且可以部署测试目的 TiDB 集群

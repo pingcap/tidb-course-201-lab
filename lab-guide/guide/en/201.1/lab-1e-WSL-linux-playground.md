@@ -1,7 +1,7 @@
 # **实验 201.1.1e: 在单机 `Windows` 中安装 `WSL` `(Ubuntu)`, 并从中启动 `TiDB Playground`**
 
-## **目的**
-部署测试目的 TiDB 集群，作为本课程的实验基础
+## **Objective**
+Deploy a sandbox TiDB cluster for the labs in this course.
 
 ## **适用场景**
 + Windows 系统版本需要 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11，并且可以部署测试目的 TiDB 集群

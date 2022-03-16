@@ -1,7 +1,7 @@
 # **实验 201.1.1d: 注册并使用 `TiDB Cloud Developer Tier` 作为实验环境**
 
-## 目的
-部署测试目的 TiDB 集群，作为本课程的实验基础。
+## **Objective**
+Deploy a sandbox TiDB cluster for the labs in this course.
 
 ## 适用场景
 + 在 TiDB Cloud 中部署一个免费的测试集群。
