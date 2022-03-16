@@ -1,53 +1,56 @@
-# **实验 201.1.1e: 在单机 `Windows` 中安装 `WSL` `(Ubuntu)`, 并从中启动 `TiDB Playground`**
+# Lab 201.1.1e: Install WSL (Ubuntu) on Windows and Launch TiDB Sandbox Playground from It
 
-## **Objective**
+## Objective
 Deploy a sandbox TiDB cluster for the labs in this course.
 
-## **适用场景**
-+ Windows 系统版本需要 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11，并且可以部署测试目的 TiDB 集群
-+ 具备互联网连接
+## Prerequisites
++ Internet connection.
++ Windows 10 or later.
++ Database client installed:
+  + Recommand: [MySQL client](https://google.com/search?q=MacOS+mysql+client+install)
+  + Alternative: [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/)
 
-## **步骤**
+## Steps
 
 ****************************
-#### 1. 打开管理员 PowerShell 或 Windows 命令提示符安装 WSL :
+#### 1. Open Administrator PowerShell or Windows Command Prompt to install WSL:
 ```
 > wsl --install
 ```
 
 ****************************
-#### 2. 安装完成后重启计算机，开机后会自动进入 Ubuntu 命令行,设置您的 Ubuntu 用户 :
+#### 2. Follow the instructions to restart after the installation is complete, and you will automatically enter the Ubuntu command line after booting, set up for your Ubuntu user:
 <img src="../../../diagram/WSL-settings.png" width="70%" align="top"/>
 
 ****************************
-#### 3. 下载并安装 mysql-client:
+#### 3. Download and install `mysql-client` in Ubuntu, if needed:
 ```
 $ apt install mysql-client-core-8.0
 ```
 
 ****************************
-#### 4. 下载并安装 TiUP 工具:
+#### 4. Download and install the `TiUP`
 ```
 $ curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
 ```
 
 ****************************
-#### 5. 声明全局环境变量: 
+#### 5. Export environment variables: 
 ```
 $ source ~/.bashrc
 ```
 
 ****************************
-#### 6. 启动集群 (指定版本以及各个组件的实例数量):
+#### 6. Launch the cluster (specify the number of instance of each component):
 ```
 $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ```
 
 ****************************
-## 输出样例
+### Output Samples
 
 ****************************
-#### 步骤 6 输出参考:
+#### Reference output for Step 6:
 ```
 $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 tiup is checking updates for component playground ...
