@@ -43,23 +43,23 @@ $ cd tidb-course-201-lab/
 
 ****************************
 #### 4. Import universe schema/databse:
-```sql
+```
 tidb> source scripts/universe.sql
 ```
 
 ****************************
 #### 5. Check the result - database:
-```sql
+```
 tidb> show databases;
 ```
 
 #### 6. Check the result - tables:
-```sql
+```
 tidb> show tables from universe;
 ```
 
 #### 7. Checking for columns with comment:
-```sql
+```
 tidb> source scripts/show-universe-comments.sql;
 ```
 
@@ -68,7 +68,7 @@ tidb> source scripts/show-universe-comments.sql;
 
 ****************************
 #### Reference output for Step 5:
-```sql
+```
 tidb> show databases;
 ```
 ```
@@ -87,7 +87,7 @@ tidb> show databases;
 
 *******************************
 #### Reference output for Step 6:
-```sql
+```
 tidb> show tables from universe;
 ```
 ```
@@ -104,7 +104,7 @@ tidb> show tables from universe;
 
 *******************************
 #### Reference output for Step 7:
-```sql
+```
 tidb> source scripts/show-universe-comments.sql
 ```
 ```
