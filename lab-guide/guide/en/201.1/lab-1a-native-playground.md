@@ -1,4 +1,4 @@
-# **Lab 201.1.1a: Deploying a test cluster as a lab environment on stand-alone MacOS/Linux**
+# **Lab 201.1.1a: Deploying a Sandbox Cluster as a Lab Environment on MacOS/Linux**
 
 ## **Objectives**
 Deploy a sandbox TiDB cluster for the labs in this course.
