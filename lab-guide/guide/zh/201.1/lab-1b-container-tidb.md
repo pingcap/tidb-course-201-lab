@@ -3,7 +3,7 @@
 ## **目的**
 部署测试目的 TiDB 集群，作为本课程的实验基础
 
-## **适用场景**
+## **前提条件**
 + 在支持 Docker Desktop 的环境中，快速启动 TiDB 测试容器镜像，体验 TiDB 的 SQL 接口
 + 操作系统已经支持容器，比如，已安装 Docker Desktop for [MacOS 或 Windows](https://www.docker.com/products/docker-desktop)，或 [Linux Docker Engine](https://hub.docker.com/search?offering=community&operating_system=linux&q=&type=edition)
 + 操作系统上已经安装了 [mysql client](https://cn.bing.com/search?q=MacOS+%26+Windows+mysql+client+安装) (推荐) 或 [MySQL Workbench (注意选择版本: 6.3.10，页面默认为最新高版本)](https://downloads.mysql.com/archives/workbench/) (备用)

@@ -3,59 +3,59 @@
 ## **Objective**
 Deploy a sandbox TiDB cluster for the labs in this course.
 
-## **适用场景**
-+ 在支持 Docker Desktop 的环境中，快速启动 TiDB 测试容器镜像，体验 TiDB 的 SQL 接口
-+ 操作系统已经支持容器，比如，已安装 Docker Desktop for [MacOS 或 Windows](https://www.docker.com/products/docker-desktop)，或 [Linux Docker Engine](https://hub.docker.com/search?offering=community&operating_system=linux&q=&type=edition)
-+ 操作系统上已经安装了 [mysql client](https://cn.bing.com/search?q=MacOS+%26+Windows+mysql+client+安装) (推荐) 或 [MySQL Workbench (注意选择版本: 6.3.10，页面默认为最新高版本)](https://downloads.mysql.com/archives/workbench/) (备用)
-+ 具备互联网连接
+## **Prerequisites**
++ In an environment that supports Docker Desktop, quickly start the TiDB test container image and experience the SQL interface of TiDB.
++ Operating System already supports container, for example: Docker Desktop is installed for [MacOS or Windows](https://www.docker.com/products/docker-desktop), or [Linux Docker Engine](https://hub.docker.com/search?offering=community&operating_system=linux&q=&type=edition)
++ [MySQL client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85) (recommanded) or [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/) (spare) has been already installed.
++ Internet connection.
 
-## **步骤**
+## **Steps**
 
 ****************************
-#### 1. 启动 TiDB 测试集群
-+ 打开终端(Windows 为 `CMD` )，出现提示符，常见的是 `$ `、`% ` (Windows 为 `盘符:\> `)
-+ 使用 `pingcap/tidb` 镜像启动容器:
+#### 1. Launch a sandbox database
++ Open the Terminal (Windows is `CMD` ), the prompt apears, for example: `$ ` or `% ` (Windows is `C:\> `)
++ Start container with `pingcap/tidb` image:
   ```
   $ docker run --name classroom -p 127.0.0.1:4000:4000 pingcap/tidb:latest
   ```
 
 ****************************
-#### 2. 打开另一个终端，执行以下命令使用数据库客户端访问 TiDB 数据库，出现 `"mysql> "`提示符，示例中为 `"tidb> "`:
+#### 2. Open another terminal, execute the following command to access the TiDB database using the database client, and the `"mysql> "`prompt appears, in the example: `"tidb> "`:
 ```
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
 
 ****************************
-#### 3. 查看数据库版本:
+#### 3. Check database version:
 ```sql
 tidb> select version();
 ```
 
 ****************************
-#### 4. 退出数据库会话 (如有必要)
+#### 4. Exit the database session (if needed)
 ```
 tidb> exit
 ```
 
 ****************************
-#### 5. 停止测试集群:
+#### 5. Stop the test database:
 ```
 $ docker stop classroom
 ```
 
 ****************************
-#### 6. 再次启动集群:
+#### 6. Start the database again:
 ```
 $ docker start classroom
 ```
 
 ****************************
-### 输出样例
+### **Output Samples**
 
 ****************************
-#### 步骤1输出参考:
+#### **Reference output for Step 1:**
 ```
-$ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:v5.3.0
+$ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:latest
 [2022/01/25 09:38:19.811 +00:00] [INFO] [printer.go:34] ["Welcome to TiDB."] ["Release Version"=v5.3.0] [Edition=Community]
 [2022/01/25 09:38:19.812 +00:00] [INFO] [trackerRecorder.go:29] ["Mem Profile Tracker started"]
 .
@@ -69,7 +69,7 @@ $ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:v5.3.0
 ```
 
 ****************************
-#### 步骤3输出参考
+#### **Reference output for Step 3:**
 ```sql
 tidb> select version();
 ```

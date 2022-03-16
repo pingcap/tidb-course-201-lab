@@ -3,7 +3,7 @@
 ## **目的**
 部署测试目的 TiDB 集群，作为本课程的实验基础
 
-## **适用场景**
+## **前提条件**
 + 在 Mac 或者单机 Linux 环境快速部署 TiDB 测试集群，体验 TiDB 集群的基本架构
 + 操作系统上已经安装了 [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85) (推荐) 或 [MySQL Workbench (注意选择版本: 6.3.10，页面默认为最新高版本)](https://downloads.mysql.com/archives/workbench/) (备用)
 + 具备互联网连接
