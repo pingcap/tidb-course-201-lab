@@ -1,16 +1,16 @@
 # Lab 201.1.1b: Launch TiDB Database in a Container as a Lab Environment on MacOS/Windows/Linux
 
-## **Objective**
+## Objective
 In an environment that supports Docker Desktop, run TiDB container image and expose the SQL interface of TiDB.
 
-## **Prerequisites**
+## Prerequisites
 + Internet connection.
 + Operating System already supports container, for example: Docker Desktop is installed for [MacOS or Windows](https://www.docker.com/products/docker-desktop), or [Linux Docker Engine](https://hub.docker.com/search?offering=community&operating_system=linux&q=&type=edition)
 + Database client installed:
   + Recommand: [MySQL client](https://google.com/search?q=MacOS+mysql+client+install)
   + Alternative: [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/)
 
-## **Steps**
+## Steps
 
 ****************************
 #### 1. Launch a sandbox database
@@ -51,10 +51,10 @@ $ docker start classroom
 ```
 
 ****************************
-### **Output Samples**
+### Output Samples
 
 ****************************
-#### **Reference output for Step 1:**
+#### Reference output for Step 1:
 ```
 $ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:latest
 [2022/01/25 09:38:19.811 +00:00] [INFO] [printer.go:34] ["Welcome to TiDB."] ["Release Version"=v5.3.0] [Edition=Community]
@@ -70,7 +70,7 @@ $ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:latest
 ```
 
 ****************************
-#### **Reference output for Step 3:**
+#### Reference output for Step 3:
 ```sql
 tidb> select version();
 ```

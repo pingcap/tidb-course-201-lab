@@ -10,7 +10,7 @@ Deploy a sandbox TiDB cluster for the labs in this course.
   + Alternative: [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/)
 
 
-## **Steps**
+## Steps
 
 ****************************
 #### 1. Download and install `TiUP`:
@@ -61,10 +61,10 @@ $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ```
 
 ****************************
-## **Output Samples**
+## Output Samples
 
 ****************************
-#### **Reference output for Step 2:**
+#### Reference output for Step 2:
 ```
 $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 Starting component `playground`: ~/.tiup/components/playground/v1.8.2/tiup-playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
