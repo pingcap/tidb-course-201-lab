@@ -4,7 +4,7 @@
 Deploy a sandbox TiDB cluster for the labs in this course.
 
 ## **Prerequisites**
-+ [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85) (recommanded) or [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/) (spare) has been already installed.
++ [MySQL client](https://google.com/search?q=MacOS+mysql+client+install) (recommanded) or [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/) (spare) has been already installed.
 + Internet connection.
 
 ## **Steps**
