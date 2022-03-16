@@ -22,7 +22,7 @@
   ```
 
 ****************************
-#### 2. 启动集群 (指定版本以及各个组件的实例数量)，保持会话窗口打开:
+#### 2. 启动集群 (指定各个组件的实例数量)，保持会话窗口打开:
 ```
 $ tiup playground --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
 ```
@@ -55,7 +55,7 @@ exit
 ****************************
 #### 7. 再次启动集群
 ```
-$ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
+$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ```
 
 ****************************
@@ -64,7 +64,7 @@ $ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ****************************
 #### **步骤2输出参考:**
 ```
-$ tiup playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
+$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 Starting component `playground`: ~/.tiup/components/playground/v1.8.2/tiup-playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 Playground Bootstrapping...
 Start pd instance
