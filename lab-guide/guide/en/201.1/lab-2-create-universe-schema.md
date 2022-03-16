@@ -28,12 +28,12 @@ $ cd tidb-course-201-lab/
 ```
 
 ****************************
-#### 3. Open a new session from the terminal to access the TiDB sandbox database (local or in TiDB Cloud):
-+ a. Steps for local TiDB (created by lab 1a, 1b, 1c, or 1e) - Login without password:
+#### 3. Open a new session from the terminal to access the TiDB sandbox database (local or in TiDB Cloud, choose a or b not both):
++ a. **Steps for local TiDB (created by lab 1a, 1b, 1c, or 1e) - Login without password:**
   ```
   $ mysql -h 127.0.0.1 -P 4000 -uroot
   ``` 
-+ b. Steps for TiDB Cloud (created by Experiment 1d) - Login with password:
++ b. **Steps for TiDB Cloud (created by Experiment 1d) - Login with password:**
   + Click `Connect` on the TiDB Cloud Cluster page
   + On the `Connect to TiDB` page, in the `Standard Connection`, click `Add Your Current IP Address`
   + Copy the command listed under `Step 2: Connect with a SQL client` and execute it locally
