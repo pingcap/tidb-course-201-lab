@@ -86,7 +86,7 @@ tidb> show databases;
 ```
 
 *******************************
-#### #### Reference output for Step 6:
+#### Reference output for Step 6:
 ```sql
 tidb> show tables from universe;
 ```
@@ -103,7 +103,7 @@ tidb> show tables from universe;
 ```
 
 *******************************
-#### #### Reference output for Step 7:
+#### Reference output for Step 7:
 ```sql
 tidb> source scripts/show-universe-comments.sql
 ```
