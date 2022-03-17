@@ -1,43 +1,45 @@
-# 实验 201.2.3: 利用掌握的技能回答列出的 5 个挑战
+# Lab 201.2.3: Use the Skills You Have Mastered to Answer 5 Challenges Listed on this Page
 
-## 前提条件
-+ 已完成[实验 201.1.2](../201.1/lab-2-create-universe-schema.md)
+## Objectives
++ Practice the comprehensive operations of **SELECT** in **universe** database
++ If possible, try to give multiple query solutions to compare execution plans
++ *Note: Write your own query solutions as possible as you can, don't look at the reference answers easily*
 
-## 目的
-+ 在 `universe` 数据库中练习 `SELECT` 的综合操作
-+ 如有可能，尝试给出多种查询方案，比较执行计划
-+ *Note: 尽可能自行写出查询语句，不要轻易查看参考答案*
+## Duration: 60-90 minutes
+
+## Prerequisites
++ Completed [Lab 201.1.2](../201.1/lab-2-create-universe-schema.md)
 
 --------------------------------------------------------
-## Universe 数据库表结构描述
+## Description of the Universe database table schema
 <img src="../../../diagram/schema-universe.png" width="70%" align="top"/>
 
-## 练习
+## Practice
 
 --------------------------------------------------------
-#### 1. 哪些行星的质量比木星最小的卫星更轻?
+#### 1. Which planets have lighter mass than Jupiter's smallest moons?
 
 --------------------------------------------------------
-#### 2. 按有无小行星带、有无磁场覆盖和卫星数量，这三个信息观察太阳系的行星统计，按卫星数量降序排列（空值作为0显示），并给出行号
+#### 2. Show a planetary statistics of the Solar system. The requirements are: 1) The presence or absence of ring system, 2) Magnetic field coverage and 3) The number of moons, 4) Sort the result in descending order of the number of moons (null values are shown as 0). 5) Last, assign row number to each result row. Achieve all five requirements by one query.
 
 --------------------------------------------------------
-#### 3. 类木(Jovian)行星的平均卫星数量?
+#### 3. What is the average number of moons for Jovian category planets?
 
 --------------------------------------------------------
-#### 4. 太阳系中距离太阳最近的 5 个行星里重力加速度的 Top 3 是?
+#### 4. What are the top 3 gravitational accelerations of the 5 planets in the solar system that are closest to the Sun?
 
 --------------------------------------------------------
-#### 5. 将太阳系中的行星按距太阳距离排列（由近到远），并展示相邻行星的直径之比（自身:上一个）
+#### 5. Sorts planets in the Solar system by distance from the Sun (from near to far) and shows the ratio of the diameters of neighboring planets (self to previous)
 
-## 练习答案
+## Practice Solutions
 --------------------------------------------------------
-### 提示：使用 `DESC` 命令观察 `universe.planets` 表的结构与各个字段
+### Tip: Use the `DESC` command to observe the structure and column of the `universe.planets` table
+
+------------------------------
+### Tip: Use `source show-universe-comments.sql` to observe the column comments in the `universe.planets` table
 
 --------------------------------------------------------
-### 提示：使用 `source show-universe-comments.sql` 观察 `universe.planets` 表中字段的 `comments`
-
---------------------------------------------------------
-#### 1. 哪些行星的质量比木星最小的卫星更轻?
+####  1. Which planets have lighter mass than Jupiter's smallest moons?
 ```sql
 /* Subquery Style */
 SELECT name, mass FROM universe.planets
@@ -53,7 +55,7 @@ WHERE diameter < (SELECT MIN(diameter) FROM universe.moons
 +-------+-------+
 ```
 --------------------------------------------------------
-#### 2. 按有无小行星带、有无磁场覆盖和卫星数量，这三个信息观察太阳系的行星统计，按卫星数量降序排列（空值作为0显示），并给出行号
+#### 2. Show a planetary statistics of the Solar system. The requirements are: 1) The presence or absence of ring system, 2) Magnetic field coverage and 3) The number of moons, 4) Sort the result in descending order of the number of moons (null values are shown as 0). 5) Last, assign row number to each result row. Achieve all five requirements by one query.
 ```sql
 SELECT 
   ROW_NUMBER() OVER(), v.ring_systems, v.global_magnetic_field, v.moon_count
@@ -120,7 +122,7 @@ FROM
 ```
 
 --------------------------------------------------------
-#### 3. 类木(Jovian)行星的平均卫星数量?
+#### 3. What is the average number of moons for Jovian category planets?
 ```sql
 /* Mixed subquery and join style */
 SELECT sum(pm.m_count)/count(*) FROM
@@ -164,7 +166,7 @@ FROM
 +-----------------------+
 ```
 --------------------------------------------------------
-#### 4. 太阳系中距离太阳最近的 5 个行星里重力加速度的 Top 3 是?
+#### 4. What are the top 3 gravitational accelerations of the 5 planets in the solar system that are closest to the Sun?
 ```sql
 SELECT 
   t5.name
@@ -187,8 +189,8 @@ LIMIT 3;
 | Venus   |
 +---------+
 ```
---------------------------------------------------------***********
-#### 5. 将太阳系中的的行星按日距排列（由近到远），并展示相邻行星的直径之比（自身:上一个）
+--------------------------------------------------------
+#### 5. Sorts planets in the Solar system by distance from the Sun (from near to far) and shows the ratio of the diameters of neighboring planets (self to previous)
 ```sql
 SELECT 
  solar.name,
