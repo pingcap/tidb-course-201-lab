@@ -43,11 +43,11 @@ Deploy a free tier cluster in TiDB Cloud for the labs in this course.
 ------------------------------------------------------
 #### 7. Check database version:
 ```sql
-tidb> select version();
+select version();
 ```
 
 ------------------------------------------------------
 #### 8. Exit the database session (if needed)
-```
-tidb> exit
+```sql
+exit
 ```

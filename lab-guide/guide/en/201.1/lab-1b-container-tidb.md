@@ -21,7 +21,7 @@ In an environment that supports Docker Desktop, run TiDB container image and exp
   ```
 
 ------------------------------------------------------
-#### 2. Open another terminal, execute the following command to access the TiDB database using the database client, and the `"mysql> "`prompt appears, in the example: `"tidb> "`:
+#### 2. Open another terminal, execute the following command to access the TiDB database using the database client, and the `"mysql> "`prompt appears:
 ```
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
@@ -29,13 +29,13 @@ $ mysql -h 127.0.0.1 -P 4000 -uroot
 ------------------------------------------------------
 #### 3. Check database version:
 ```sql
-tidb> select version();
+select version();
 ```
 
 ------------------------------------------------------
 #### 4. Exit the database session (if needed)
-```
-tidb> exit
+```sql
+exit
 ```
 
 ------------------------------------------------------
@@ -72,7 +72,7 @@ $ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:latest
 ------------------------------------------------------
 #### Reference output for Step 3:
 ```sql
-tidb> select version();
+select version();
 ```
 ```
 +--------------------+

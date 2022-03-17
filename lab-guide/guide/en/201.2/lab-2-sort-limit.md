@@ -40,9 +40,9 @@ FROM universe.planets
 ------------------------------
 #### 1. Complete the statement in `< >` so that the output is sorted in ascending order of planetary mass
 ```sql
-tidb> SELECT name, mass, escape_velocity, orbital_velocity
-    -> FROM universe.planets
-    -> ORDER BY mass ASC;
+SELECT name, mass, escape_velocity, orbital_velocity
+FROM universe.planets
+ORDER BY mass ASC;
 ```
 ```
 +--------------------+--------+-----------------+------------------+
@@ -65,10 +65,10 @@ tidb> SELECT name, mass, escape_velocity, orbital_velocity
 ------------------------------
 #### 2. Complete the statement in `< >` to find the top three planets that are most difficult to escape from their surface
 ```sql
-tidb> SELECT name, mass, escape_velocity
-    -> FROM universe.planets
-    -> ORDER BY escape_velocity DESC
-    -> LIMIT 3;
+SELECT name, mass, escape_velocity
+FROM universe.planets
+ORDER BY escape_velocity DESC
+LIMIT 3;
 ```
 ```
 +---------+------+-----------------+

@@ -56,9 +56,9 @@ WHERE < >;
 ------------------------------
 #### 1. Complete the conditions in `< >`, find planets whose escape speed is greater than their orbital speed, and practice whether capitalization affects column names and table names
 ```sql
-tidb> SELECT name, escape_velocity, orbital_velocity
-   -> FROM universe.planets
-   -> WHERE escape_velocity > orbital_velocity;
+SELECT name, escape_velocity, orbital_velocity
+ FROM universe.planets
+ WHERE escape_velocity > orbital_velocity;
 ```
 ```
 +---------+-----------------+------------------+
@@ -72,9 +72,9 @@ tidb> SELECT name, escape_velocity, orbital_velocity
 4 rows in set (0.01 sec)
 ```
 ```sql
-tidb> SELECT name, escape_velocity, Orbital_Velocity
-   -> FROM universe.PLANETS
-   -> WHERE escape_velocity > orbital_velocity;
+SELECT name, escape_velocity, Orbital_Velocity
+ FROM universe.PLANETS
+ WHERE escape_velocity > orbital_velocity;
 ```
 ```
 +---------+-----------------+------------------+
@@ -91,9 +91,9 @@ tidb> SELECT name, escape_velocity, Orbital_Velocity
 ------------------------------
 #### 2. Complete the conditions in `< >` and find planets with an average temperature of less than 100 degrees (inclusive)
 ```sql
-tidb> SELECT name, mean_temperature 
-   -> FROM universe.planets 
-   -> WHERE mean_temperature < 100;
+SELECT name, mean_temperature 
+ FROM universe.planets 
+ WHERE mean_temperature < 100;
 ```
 ```
 +--------------------+------------------+
@@ -113,9 +113,9 @@ tidb> SELECT name, mean_temperature
 ------------------------------
 #### 3. Complete the conditions in `< >` and find the names of the planets starting with the letter `P` and their average temperature and gravitational acceleration
 ```sql
-tidb> SELECT name, mean_temperature, gravity
-    -> FROM universe.planets
-    -> WHERE name like 'P%';
+SELECT name, mean_temperature, gravity
+ FROM universe.planets
+ WHERE name like 'P%';
 ```
 ```
 +--------------------+------------------+---------+
@@ -130,10 +130,10 @@ tidb> SELECT name, mean_temperature, gravity
 ------------------------------
 #### 4. Complete the conditions in `< >` and find planets with a magnetic field or gravitational acceleration of 5 (inclusive) to 10 (inclusive)
 ```sql
-tidb> SELECT name, gravity, global_magnetic_field
-    -> FROM universe.planets
-    -> WHERE global_magnetic_field = 1
-    -> OR (gravity BETWEEN 5 AND 10);
+SELECT name, gravity, global_magnetic_field
+ FROM universe.planets
+ WHERE global_magnetic_field = 1
+ OR (gravity BETWEEN 5 AND 10);
 ```
 ```
 +---------+---------+-----------------------+

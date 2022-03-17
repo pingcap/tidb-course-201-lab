@@ -30,7 +30,7 @@ $ tiup playground --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
 ```
 
 ------------------------------------------------------
-#### 3. Open another terminal, execute the following command to access the TiDB database using the MySQL database client, and the `"mysql> "` prompt appears, in the example shows as `"tidb> "`:
+#### 3. Open another terminal, execute the following command to access the TiDB database using the MySQL database client, and the `"mysql> "` prompt appears:
 ```
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
@@ -38,12 +38,12 @@ $ mysql -h 127.0.0.1 -P 4000 -uroot
 ------------------------------------------------------
 #### 4. Check the database version:
 ```sql
-tidb> select version();
+select version();
 ```
 
 ------------------------------------------------------
 #### 5. Exit ther datbase session (if needed)
-```
+```sql
 exit
 ```
 
@@ -95,7 +95,7 @@ To view the Grafana: http://127.0.0.1:3000
 ------------------------------------------------------
 #### Reference output for Step 4:
 ```sql
-tidb> select version();
+select version();
 ```
 ```
 +--------------------+

@@ -40,9 +40,9 @@ FROM universe.planets
 *******************************
 #### 1. 补全 `< >` 中的语句，让输出结果按行星质量升序排列
 ```sql
-tidb> SELECT name, mass, escape_velocity, orbital_velocity
-    -> FROM universe.planets
-    -> ORDER BY mass ASC;
+SELECT name, mass, escape_velocity, orbital_velocity
+FROM universe.planets
+ORDER BY mass ASC;
 ```
 ```
 +--------------------+--------+-----------------+------------------+
@@ -65,10 +65,10 @@ tidb> SELECT name, mass, escape_velocity, orbital_velocity
 *******************************
 #### 2. 补全 `< >` 中的语句，找出最难从其表面逃逸的前三名行星
 ```sql
-tidb> SELECT name, mass, escape_velocity
-    -> FROM universe.planets
-    -> ORDER BY escape_velocity DESC
-    -> LIMIT 3;
+SELECT name, mass, escape_velocity
+FROM universe.planets
+ORDER BY escape_velocity DESC
+LIMIT 3;
 ```
 ```
 +---------+------+-----------------+

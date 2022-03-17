@@ -56,9 +56,9 @@ WHERE < >;
 *******************************
 #### 1. 补全 `< >` 中的条件，找到逃逸速度大于轨道速度的行星, 并且练习一下大小写对字段名、表名有没有影响
 ```sql
-tidb> SELECT name, escape_velocity, orbital_velocity
-   -> FROM universe.planets
-   -> WHERE escape_velocity > orbital_velocity;
+SELECT name, escape_velocity, orbital_velocity
+FROM universe.planets
+WHERE escape_velocity > orbital_velocity;
 ```
 ```
 +---------+-----------------+------------------+
@@ -72,9 +72,9 @@ tidb> SELECT name, escape_velocity, orbital_velocity
 4 rows in set (0.01 sec)
 ```
 ```sql
-tidb> SELECT name, escape_velocity, Orbital_Velocity
-   -> FROM universe.PLANETS
-   -> WHERE escape_velocity > orbital_velocity;
+SELECT name, escape_velocity, Orbital_Velocity
+FROM universe.PLANETS
+WHERE escape_velocity > orbital_velocity;
 ```
 ```
 +---------+-----------------+------------------+
@@ -91,9 +91,9 @@ tidb> SELECT name, escape_velocity, Orbital_Velocity
 *******************************
 #### 2. 补全 `< >` 中的条件，找到平均温度低于100(包含)度的行星
 ```sql
-tidb> SELECT name, mean_temperature 
-   -> FROM universe.planets 
-   -> WHERE mean_temperature < 100;
+SELECT name, mean_temperature 
+FROM universe.planets 
+WHERE mean_temperature < 100;
 ```
 ```
 +--------------------+------------------+
@@ -113,9 +113,9 @@ tidb> SELECT name, mean_temperature
 *******************************
 #### 3. 补全 `< >` 中的条件，找到以字母 `P` 开头的行星名及其平均气温与重力加速度
 ```sql
-tidb> SELECT name, mean_temperature, gravity
-    -> FROM universe.planets
-    -> WHERE name like 'P%';
+SELECT name, mean_temperature, gravity
+ FROM universe.planets
+ WHERE name like 'P%';
 ```
 ```
 +--------------------+------------------+---------+
@@ -130,10 +130,10 @@ tidb> SELECT name, mean_temperature, gravity
 *******************************
 #### 4. 补全 `< >` 中的条件，找到具备磁场或重力加速度为 5 (包含) 到 10 (包含) 的行星
 ```sql
-tidb> SELECT name, gravity, global_magnetic_field
-    -> FROM universe.planets
-    -> WHERE global_magnetic_field = 1
-    -> OR (gravity BETWEEN 5 AND 10);
+SELECT name, gravity, global_magnetic_field
+ FROM universe.planets
+ WHERE global_magnetic_field = 1
+ OR (gravity BETWEEN 5 AND 10);
 ```
 ```
 +---------+---------+-----------------------+

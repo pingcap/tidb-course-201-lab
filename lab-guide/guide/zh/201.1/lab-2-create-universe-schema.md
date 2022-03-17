@@ -47,23 +47,23 @@ $ cd tidb-course-201-lab/
 ****************************
 #### 4. 导入示例 schema - universe:
 ```sql
-tidb> source scripts/universe.sql
+source scripts/universe.sql
 ```
 
 ****************************
 #### 5. 检查结果 - databases
 ```sql
-tidb> show databases;
+show databases;
 ```
 
 #### 6. 检查结果 - tables
 ```sql
-tidb> show tables from universe;
+show tables from universe;
 ```
 
 #### 7. 检查带有 `comment` 的字段
 ```sql
-tidb> source scripts/show-universe-comments.sql;
+source scripts/show-universe-comments.sql;
 ```
 
 ****************************
@@ -72,7 +72,7 @@ tidb> source scripts/show-universe-comments.sql;
 ****************************
 #### 步骤5输出参考
 ```sql
-tidb> show databases;
+show databases;
 ```
 ```
 +--------------------+
@@ -91,7 +91,7 @@ tidb> show databases;
 *******************************
 #### 步骤6输出参考
 ```sql
-tidb> show tables from universe;
+show tables from universe;
 ```
 ```
 +--------------------+
@@ -108,7 +108,7 @@ tidb> show tables from universe;
 *******************************
 #### 步骤7输出参考
 ```sql
-tidb> source scripts/show-universe-comments.sql
+source scripts/show-universe-comments.sql
 ```
 ```
 +----------------------+----------------+
