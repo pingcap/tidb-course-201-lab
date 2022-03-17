@@ -12,7 +12,7 @@ Deploy a sandbox TiDB cluster for the labs in this course.
 
 ## Steps
 
-****************************
+------------------------------------------------------
 #### 1. Download and install `TiUP`:
 + **Open the Terminal**
   + `Linux`: Open `Terminal`
@@ -23,47 +23,47 @@ Deploy a sandbox TiDB cluster for the labs in this course.
   $ export PATH=~/.tiup/bin:$PATH
   ```
 
-****************************
+------------------------------------------------------
 #### 2. Launch a sandbox database cluster (specify the number of instances of each component), keep the session window open:
 ```
 $ tiup playground --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
 ```
 
-****************************
+------------------------------------------------------
 #### 3. Open another terminal, execute the following command to access the TiDB database using the MySQL database client, and the `"mysql> "` prompt appears, in the example shows as `"tidb> "`:
 ```
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
 
-****************************
+------------------------------------------------------
 #### 4. Check the database version:
 ```sql
 tidb> select version();
 ```
 
-****************************
+------------------------------------------------------
 #### 5. Exit ther datbase session (if needed)
 ```
 exit
 ```
 
-****************************
+------------------------------------------------------
 #### 6. Stop the sandbox database cluster:
 + **Go back to the first terminal and press `ctrl+c` to stop the sandbox cluster (do not press `ctrl+c` continuously, just once is enough, please wait patiently for the terminal prompt, such as `$` or `%`)**
   ```
   ctrl + c
   ```
 
-****************************
+------------------------------------------------------
 #### 7. Start the sandbox cluster again:
 ```
 $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ```
 
-****************************
+------------------------------------------------------
 ## Output Samples
 
-****************************
+------------------------------------------------------
 #### Reference output for Step 2:
 ```
 $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
@@ -92,7 +92,7 @@ To view the Prometheus: http://127.0.0.1:9090
 To view the Grafana: http://127.0.0.1:3000
 ```
 
-****************************
+------------------------------------------------------
 #### Reference output for Step 4:
 ```sql
 tidb> select version();

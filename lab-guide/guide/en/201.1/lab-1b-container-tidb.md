@@ -12,7 +12,7 @@ In an environment that supports Docker Desktop, run TiDB container image and exp
 
 ## Steps
 
-****************************
+------------------------------------------------------
 #### 1. Launch a sandbox database
 + Open the Terminal (Windows is `CMD` ), the prompt apears, for example: `$ ` or `% ` (Windows is `C:\> `)
 + Start container with `pingcap/tidb` image:
@@ -20,40 +20,40 @@ In an environment that supports Docker Desktop, run TiDB container image and exp
   $ docker run --name classroom -p 127.0.0.1:4000:4000 pingcap/tidb:latest
   ```
 
-****************************
+------------------------------------------------------
 #### 2. Open another terminal, execute the following command to access the TiDB database using the database client, and the `"mysql> "`prompt appears, in the example: `"tidb> "`:
 ```
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
 
-****************************
+------------------------------------------------------
 #### 3. Check database version:
 ```sql
 tidb> select version();
 ```
 
-****************************
+------------------------------------------------------
 #### 4. Exit the database session (if needed)
 ```
 tidb> exit
 ```
 
-****************************
+------------------------------------------------------
 #### 5. Stop the test database:
 ```
 $ docker stop classroom
 ```
 
-****************************
+------------------------------------------------------
 #### 6. Start the database again:
 ```
 $ docker start classroom
 ```
 
-****************************
+------------------------------------------------------
 ### Output Samples
 
-****************************
+------------------------------------------------------
 #### Reference output for Step 1:
 ```
 $ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:latest
@@ -69,7 +69,7 @@ $ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:latest
 [2022/01/25 09:38:20.005 +00:00] [INFO] [profile.go:92] ["cpu profiler started"]
 ```
 
-****************************
+------------------------------------------------------
 #### Reference output for Step 3:
 ```sql
 tidb> select version();

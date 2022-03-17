@@ -15,19 +15,19 @@
 
 ## Steps
 
-****************************
+------------------------------------------------------
 #### 1. Clone the lab repository to local:
 ```
 $ git clone https://github.com/pingcap/tidb-course-201-lab
 ```
 
-****************************
+------------------------------------------------------
 #### 2. Switch the working directory to `tidb-course-201-lab`:
 ```
 $ cd tidb-course-201-lab/
 ```
 
-****************************
+------------------------------------------------------
 #### 3. Open a new session from the terminal to access the TiDB sandbox database (local or in TiDB Cloud, choose a or b not both):
 + a. **Steps for local TiDB (created by lab 1a, 1b, 1c, or 1e) - Login without password:**
   ```
@@ -41,13 +41,13 @@ $ cd tidb-course-201-lab/
     mysql --connect-timeout 15 -uroot -h <tidb_cloud_server_dns_name> -P 4000 -p
     ```
 
-****************************
+------------------------------------------------------
 #### 4. Import universe schema/databse:
 ```
 tidb> source scripts/universe.sql
 ```
 
-****************************
+------------------------------------------------------
 #### 5. Check the result - database:
 ```
 tidb> show databases;
@@ -63,10 +63,10 @@ tidb> show tables from universe;
 tidb> source scripts/show-universe-comments.sql;
 ```
 
-****************************
+------------------------------------------------------
 ## Output Samples
 
-****************************
+------------------------------------------------------
 #### Reference output for Step 5:
 ```
 tidb> show databases;
@@ -85,7 +85,7 @@ tidb> show databases;
 6 rows in set (0.00 sec)
 ```
 
-*******************************
+------------------------------------------------------***
 #### Reference output for Step 6:
 ```
 tidb> show tables from universe;
@@ -102,7 +102,7 @@ tidb> show tables from universe;
 4 rows in set (0.00 sec)
 ```
 
-*******************************
+------------------------------------------------------***
 #### Reference output for Step 7:
 ```
 tidb> source scripts/show-universe-comments.sql

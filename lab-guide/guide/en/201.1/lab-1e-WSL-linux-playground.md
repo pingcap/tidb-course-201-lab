@@ -12,62 +12,62 @@ Deploy a sandbox TiDB cluster for the labs in this course.
 
 ## Steps
 
-****************************
+------------------------------------------------------
 #### 1. Open Administrator PowerShell or Windows Command Prompt to install WSL:
 ```
 > wsl --install
 ```
 
-****************************
+------------------------------------------------------
 #### 2. Follow the instructions to restart after the installation is complete, and you will automatically enter the Ubuntu command line after booting, set up for your Ubuntu user:
 <img src="../../../diagram/WSL-settings.png" width="70%" align="top"/>
 
-****************************
+------------------------------------------------------
 #### 3. Download and install `mysql-client` in Ubuntu, if needed:
 ```
 $ apt install mysql-client-core-8.0
 ```
 
-****************************
+------------------------------------------------------
 #### 4. Download and install the `TiUP`
 ```
 $ curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
 ```
 
-****************************
+------------------------------------------------------
 #### 5. Export environment variables: 
 ```
 $ source ~/.bashrc
 ```
 
-****************************
+------------------------------------------------------
 #### 6. Launch the cluster (specify the number of instance of each component):
 ```
 $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
 ```
 
-****************************
+------------------------------------------------------
 #### 7. Open another terminal (in Ubuntu or in Windows, both works), execute the following command to access the TiDB database using the MySQL database client, and the `"mysql> "` prompt appears, in the example shows as `"tidb> "`:
 ```
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
 
-****************************
+------------------------------------------------------
 #### 8. Check the database version:
 ```sql
 tidb> select version();
 ```
 
-****************************
+------------------------------------------------------
 #### 9. Exit ther datbase session (if needed)
 ```
 exit
 ```
 
-****************************
+------------------------------------------------------
 ### Output Samples
 
-****************************
+------------------------------------------------------
 #### Reference output for Step 6:
 ```
 $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1

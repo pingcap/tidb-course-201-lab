@@ -1,44 +1,44 @@
-# 实验 201.2.2: 排序与 `Top-N` 分析
+# Lab 201.2.2: Sort and Top-N Analysis
 
-## 前提条件
-+ 已完成[实验 201.1.2](../201.1/lab-2-create-universe-schema.md)
+## Objectives
++ Practice the following basic **SELECT** operations in **universe** database:
+  + **ORDER BY**
+  + **LIMIT**
 
-## 目的
-+ 在 `universe` 数据库中练习以下 `SELECT` 基本操作:
-  + `ORDER BY`
-  + `LIMIT`
+## Prerequisites
++ Completed [Lab 201.1.2](../201.1/lab-2-create-universe-schema.md)
 
-*******************************
-## Universe 数据库表结构描述
+------------------------------
+## Description of the Universe database table schema
 <img src="../../../diagram/schema-universe.png" width="70%" align="top"/>
 
-## 练习
+## Practice
 
-*******************************
-#### 1. 补全 `< >` 中的语句，让输出结果按行星质量升序排列
+------------------------------
+#### 1. Complete the statement in `< >` so that the output is sorted in ascending order of planetary mass
 ```sql
 SELECT name, mass, escape_velocity, orbital_velocity
 FROM universe.planets
 < >;
 ```
 
-*******************************
-#### 2. 补全 `< >` 中的语句，找出最难从其表面逃逸的前三名行星
+------------------------------
+#### 2. Complete the statement in `< >` to find the top three planets that are most difficult to escape from their surface
 ```sql
 SELECT name, mass, escape_velocity
 FROM universe.planets
 < >;
 ```
 
-## 练习答案
-*******************************
-### 提示：使用 `DESC` 命令观察 `universe.planets` 表的结构与各个字段
+## Practice Solutions
+------------------------------
+### Tip: Use the `DESC` command to observe the structure and column of the `universe.planets` table
 
-*******************************
-### 提示：使用 `source show-universe-comments.sql` 观察 `universe.planets` 表中字段的 `comments`
+------------------------------
+### Tip: Use `source show-universe-comments.sql` to observe the column comments in the `universe.planets` table
 
-*******************************
-#### 1. 补全 `< >` 中的语句，让输出结果按行星质量升序排列
+------------------------------
+#### 1. Complete the statement in `< >` so that the output is sorted in ascending order of planetary mass
 ```sql
 tidb> SELECT name, mass, escape_velocity, orbital_velocity
     -> FROM universe.planets
@@ -62,8 +62,8 @@ tidb> SELECT name, mass, escape_velocity, orbital_velocity
 10 rows in set (0.00 sec)
 ```
 
-*******************************
-#### 2. 补全 `< >` 中的语句，找出最难从其表面逃逸的前三名行星
+------------------------------
+#### 2. Complete the statement in `< >` to find the top three planets that are most difficult to escape from their surface
 ```sql
 tidb> SELECT name, mass, escape_velocity
     -> FROM universe.planets
