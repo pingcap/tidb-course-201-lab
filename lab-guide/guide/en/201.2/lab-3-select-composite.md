@@ -1,4 +1,4 @@
-# Lab 201.2.3: Use the Skills You Have Mastered to Answer 5 Challenges Listed on this Page
+# Lab 201.2.3: Answer 5 Challenges Listed on this Page
 
 ## Objectives
 + Practice the comprehensive operations of **SELECT** in **universe** database
