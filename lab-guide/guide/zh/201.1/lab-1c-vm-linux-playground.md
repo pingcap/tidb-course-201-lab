@@ -1,7 +1,7 @@
-# **实验 201.1.1c: 在单机 `Windows` 中启动虚拟机 `(Ubuntu)`, 并从中启动 `TiDB Playground`**
+# **练习 201.1.1c: 在单机 `Windows` 中启动虚拟机 `(Ubuntu)`, 并从中启动 `TiDB Playground`**
 
 ## **目的**
-部署测试目的 TiDB 集群，作为本课程的实验基础
+部署测试目的 TiDB 集群，作为本课程的练习基础
 
 ## **适用场景**
 + Windows 系统以及机器自身配置可以创建虚拟机（`Ubuntu`），并且可以部署测试目的 TiDB 集群
@@ -14,7 +14,7 @@
 <img src="../../../diagram/VirtualBox-Download.png" width="50%" align="top"/>
 
 ****************************
-#### 2. 下载 Ubuntu 虚拟光盘文件：打开浏览器，访问 `https://ubuntu.com/download/desktop` 选择一个版本下载（本实验以18.04版本为例)
+#### 2. 下载 Ubuntu 虚拟光盘文件：打开浏览器，访问 `https://ubuntu.com/download/desktop` 选择一个版本下载（本练习以18.04版本为例)
 <img src="../../../diagram/Ubuntu-Download.png" width="50%" align="top"/>
 
 ****************************
@@ -76,36 +76,4 @@ $ source ~/.bashrc
 #### 10. 启动集群 (指定版本以及各个组件的实例数量):
 ```
 $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
-```
-
-****************************
-## 输出样例
-
-****************************
-#### 步骤10输出参考:
-```
-$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
-Starting component `playground`: ~/.tiup/components/playground/v1.8.2/tiup-playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
-Playground Bootstrapping...
-Start pd instance
-Start pd instance
-Start pd instance
-Start tikv instance
-Start tikv instance
-Start tikv instance
-Start tidb instance
-Start tidb instance
-Waiting for tidb instances ready
-127.0.0.1:4000 ... Done
-127.0.0.1:4001 ... Done
-Start tiflash instance
-Waiting for tiflash instances ready
-127.0.0.1:3930 ... Done
-CLUSTER START SUCCESSFULLY, Enjoy it ^-^
-To connect TiDB: mysql --comments --host 127.0.0.1 --port 4001 -u root -p (no password)
-To connect TiDB: mysql --comments --host 127.0.0.1 --port 4000 -u root -p (no password)
-To view the dashboard: http://127.0.0.1:2379/dashboard
-PD client endpoints: [127.0.0.1:2379 127.0.0.1:2382 127.0.0.1:2384]
-To view the Prometheus: http://127.0.0.1:9090
-To view the Grafana: http://127.0.0.1:3000
 ```

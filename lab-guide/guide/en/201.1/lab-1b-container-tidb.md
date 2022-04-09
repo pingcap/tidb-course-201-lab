@@ -57,7 +57,7 @@ $ docker start classroom
 #### Reference output for Step 1:
 ```
 $ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:latest
-[2022/01/25 09:38:19.811 +00:00] [INFO] [printer.go:34] ["Welcome to TiDB."] ["Release Version"=v5.3.0] [Edition=Community]
+[2022/01/25 09:38:19.811 +00:00] [INFO] [printer.go:34] ["Welcome to TiDB."] ["Release Version"=v6.0.0] [Edition=Community]
 [2022/01/25 09:38:19.812 +00:00] [INFO] [trackerRecorder.go:29] ["Mem Profile Tracker started"]
 .
 .
@@ -67,18 +67,4 @@ $ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:latest
 [2022/01/25 09:38:20.004 +00:00] [INFO] [http_status.go:87] ["for status and metrics report"] ["listening on addr"=0.0.0.0:10080]
 [2022/01/25 09:38:20.005 +00:00] [INFO] [domain.go:1301] ["init stats info time"] ["take time"=2.078047ms]
 [2022/01/25 09:38:20.005 +00:00] [INFO] [profile.go:92] ["cpu profiler started"]
-```
-
-------------------------------------------------------
-#### Reference output for Step 3:
-```sql
-select version();
-```
-```
-+--------------------+
-| version()          |
-+--------------------+
-| 5.7.25-TiDB-v5.3.0 |
-+--------------------+
-1 row in set (0.00 sec)
 ```

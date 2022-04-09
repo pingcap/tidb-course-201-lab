@@ -1,7 +1,7 @@
-# **实验 201.1.1b: 在单机 (MacOS/Windows/Linux) 环境中启动容器中的 TiDB 作为实验环境**
+# **练习 201.1.1b: 在单机 (MacOS/Windows/Linux) 环境中启动容器中的 TiDB 作为练习环境**
 
 ## **目的**
-部署测试目的 TiDB 集群，作为本课程的实验基础
+部署测试目的 TiDB 集群，作为本课程的练习基础
 
 ## **前提条件**
 + 在支持 Docker Desktop 的环境中，快速启动 TiDB 测试容器镜像，体验 TiDB 的 SQL 接口
@@ -47,37 +47,4 @@ $ docker stop classroom
 #### 6. 再次启动集群:
 ```
 $ docker start classroom
-```
-
-****************************
-### 输出样例
-
-****************************
-#### 步骤1输出参考:
-```
-$ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:v5.3.0
-[2022/01/25 09:38:19.811 +00:00] [INFO] [printer.go:34] ["Welcome to TiDB."] ["Release Version"=v5.3.0] [Edition=Community]
-[2022/01/25 09:38:19.812 +00:00] [INFO] [trackerRecorder.go:29] ["Mem Profile Tracker started"]
-.
-.
-.
-[2022/01/25 09:38:20.004 +00:00] [INFO] [server.go:247] ["server is running MySQL protocol"] [addr=0.0.0.0:4000]
-[2022/01/25 09:38:20.004 +00:00] [INFO] [server.go:263] ["server is running MySQL protocol"] [socket=/tmp/tidb-4000.sock]
-[2022/01/25 09:38:20.004 +00:00] [INFO] [http_status.go:87] ["for status and metrics report"] ["listening on addr"=0.0.0.0:10080]
-[2022/01/25 09:38:20.005 +00:00] [INFO] [domain.go:1301] ["init stats info time"] ["take time"=2.078047ms]
-[2022/01/25 09:38:20.005 +00:00] [INFO] [profile.go:92] ["cpu profiler started"]
-```
-
-****************************
-#### 步骤3输出参考
-```sql
-select version();
-```
-```
-+--------------------+
-| version()          |
-+--------------------+
-| 5.7.25-TiDB-v5.3.0 |
-+--------------------+
-1 row in set (0.00 sec)
 ```

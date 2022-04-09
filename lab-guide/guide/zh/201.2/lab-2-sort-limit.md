@@ -1,7 +1,7 @@
-# 实验 201.2.2: 排序与 `Top-N` 分析
+# 练习 201.2.2: 排序与 `Top-N` 分析
 
 ## 前提条件
-+ 已完成[实验 201.1.2](../201.1/lab-2-create-universe-schema.md)
++ 已完成[练习 201.1.2](../201.1/lab-2-create-universe-schema.md)
 
 ## 目的
 + 在 `universe` 数据库中练习以下 `SELECT` 基本操作:

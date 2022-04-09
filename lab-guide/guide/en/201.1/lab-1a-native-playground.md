@@ -26,7 +26,7 @@ Deploy a sandbox TiDB cluster for the labs in this course.
 ------------------------------------------------------
 #### 2. Launch a sandbox database cluster (specify the number of instances of each component), keep the session window open:
 ```
-$ tiup playground --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
+$ tiup playground v6.0.0 --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
 ```
 
 ------------------------------------------------------
