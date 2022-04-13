@@ -30,3 +30,4 @@ ON t5.id = t2.id
 WHERE t5.id > t5.id2
 GROUP BY id2
 ORDER BY id2;
+

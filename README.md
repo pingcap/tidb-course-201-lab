@@ -1,4 +1,4 @@
-# TiDB SQL for Developers Course Lab (English README)
+# TiDB SQL for Developers Course Lab v6.0 (English README)
 *"From entry level to best practice mastery."*
 
 + Caution:
@@ -13,7 +13,7 @@
 
 **************************************************************************************
 
-# TiDB SQL for Developers 课程实验 (Chinese README)
+# TiDB SQL for Developers 课程实验 v6.0 (Chinese README)
 *"从入门级到精通最佳实践。"*
 
 + 注意:
