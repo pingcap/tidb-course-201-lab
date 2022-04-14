@@ -1,5 +1,8 @@
 /* source 07-demo-auto-increment-01-show.sql */
 
+show variables like 'auto_increment_%';
+show variables like 'tidb_allow_remove_auto_inc';
+
 /* Setup the schema for attribute AUTO_INCREMENT */
 DROP TABLE IF EXISTS test.t1;
 CREATE TABLE test.t1 (
