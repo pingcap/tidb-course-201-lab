@@ -65,9 +65,9 @@ INSERT INTO test.shard_test2 SELECT * FROM test.shard_test2;
 
 
 /* Show Results */
-select 'TEST1' as Result;
+select 'TEST1' as Result1;
 select count(*), max(_tidb_rowid) from test.shard_test1;
-select 'TEST2' as Result;
+select 'TEST2' as Result2;
 select count(*), max(_tidb_rowid) from test.shard_test2;
 
 /* Clean up */
