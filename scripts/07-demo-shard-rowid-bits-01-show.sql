@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS test.shard_rb;
 CREATE TABLE test.shard_rb (
     id bigint,
     name char(255)
-) SHARD_ROW_ID_BITS = 2;
+) SHARD_ROW_ID_BITS = 4;
 
 /* Populate Seed */
 INSERT INTO test.shard_rb (name) VALUES ('A');

@@ -15,19 +15,19 @@ CREATE TABLE test.t2 (
     name char(4))
     AUTO_ID_CACHE 300;
 
-/* populate */
+/* Populate */
 INSERT INTO test.t1 (name) VALUES ('A'), ('B'), ('C'), ('D'), ('E');
 
-/* check value */
+/* Check value */
 select id, name from test.t1;
 
-/* explictly assign value to auto_incremental column */
+/* Explictly assign value to auto_incremental column */
 insert into test.t1 values (7, 'G');
-/* check value */
+/* Check value */
 select id, name from test.t1;
 
-/* replying on auto_incremental values */
+/* Relying on auto_incremental values */
 insert into test.t1 (name) values ('F');
 insert into test.t1 (name) values ('H');
-/* check value */
+/* Check value */
 select id, name from test.t1;

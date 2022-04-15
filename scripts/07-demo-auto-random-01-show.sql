@@ -8,7 +8,7 @@ show variables like 'allow_auto_random_explicit_insert';
 
 DROP TABLE IF EXISTS test.auto_random_t1;
 CREATE TABLE test.auto_random_t1 (
-    id bigint PRIMARY KEY AUTO_RANDOM(3),
+    id bigint PRIMARY KEY AUTO_RANDOM(4),
     name char(255));
 
 /* Populate Seed */
@@ -120,10 +120,10 @@ INSERT INTO test.auto_random_t1 (name) VALUES ('x1');
 INSERT INTO test.auto_random_t1 (name) VALUES ('x1');
 
 /* Check last_insert_id() */
-select last_insert_id();
+SELECT LAST_INSERT_ID();
 
 /* Greetings to CBO */
-ANALYZE table test.auto_random_t1;
+ANALYZE TABLE test.auto_random_t1;
 
 select 'test.auto_random_t1' as Title;
 
