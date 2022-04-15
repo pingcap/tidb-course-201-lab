@@ -14,3 +14,4 @@ DROP TABLE IF EXISTS test.t13;
 DROP TABLE IF EXISTS test.t14;
 DROP TABLE IF EXISTS test.dropme;
 DROP TABLE IF EXISTS test.auto_random_t1;
+DROP TABLE IF EXISTS test.shard_rb;

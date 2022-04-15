@@ -8,7 +8,7 @@ show variables like 'allow_auto_random_explicit_insert';
 
 DROP TABLE IF EXISTS test.auto_random_t1;
 CREATE TABLE test.auto_random_t1 (
-    id bigint PRIMARY KEY AUTO_RANDOM(2),
+    id bigint PRIMARY KEY AUTO_RANDOM(3),
     name char(255));
 
 /* Populate Seed */
@@ -129,9 +129,9 @@ select 'test.auto_random_t1' as Title;
 
 desc test.auto_random_t1;
 select TIDB_ROW_ID_SHARDING_INFO, TIDB_PK_TYPE 
-    from information_schema.tables 
-    where table_schema='test' 
-        and table_name='auto_random_t1';
+from information_schema.tables 
+where table_schema='test' 
+and table_name='auto_random_t1';
 
 /* check value */
 SELECT substr(cast(id as CHAR),1,2) as id_prefix, count(*) as approx_rows_in_shard
