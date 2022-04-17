@@ -124,8 +124,8 @@ select 'test.shard_rb' as Title;
 desc test.shard_rb;
 select TIDB_ROW_ID_SHARDING_INFO, TIDB_PK_TYPE 
 from information_schema.tables 
-where table_schema='test' 
-and table_name='shard_rb';
+where table_schema='test'
+and table_name='t9';
 
 /* check value */
 SELECT substr(cast(_tidb_rowid as CHAR),1,2) as id_prefix, count(*) as approx_rows_in_shard
@@ -133,5 +133,3 @@ FROM test.shard_rb
 GROUP BY id_prefix
 HAVING approx_rows_in_shard > 1
 ORDER BY id_prefix;
-
-SHOW TABLE test.shard_rb REGIONS\G

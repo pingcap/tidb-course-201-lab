@@ -39,3 +39,8 @@ explain select * from test.t1 where x=7;
 explain select * from test.t1 where x=8;
 explain select * from test.t1 where x=9;
 
+/* Negative */
+explain select * from test.t1 where x between 7 and 9;
+
+/* Check regions */
+show table test.t1 regions;

@@ -30,3 +30,5 @@ insert into test.t1 select * from test.t1;
 /* Check Partition Pruning */
 explain select * from test.t1 where x between 1 and 4;
 
+/* Check regions */
+show table test.t1 regions;

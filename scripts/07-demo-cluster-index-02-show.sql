@@ -68,19 +68,19 @@ SHOW TABLE test.t7_clustered regions\G
 /* Execution Plan PointGet */
 select 'select * from test.auto_random_t1_clustered where id=32471241834;' as "PointGet";
 select "CLUSTETED" as Explain_t1;
-explain select * from test.auto_random_t1_clustered where id=32471241834;
+explain select * from test.auto_random_t1_clustered where id=8646911284551360512;
 select "NONCLUSTETED" as Explain_t2;
-explain select * from test.t2_nonclustered where id=32471241834;
+explain select * from test.t2_nonclustered where id=8646911284551360512;
 select "NONCLUSTETED" as Explain_t3;
-explain select * from test.t3_nonclustered where id='32471241834';
+explain select * from test.t3_nonclustered where id='8646911284551360512';
 select "CLUSTETED" as Explain_t4;
-explain select * from test.t4_clustered where id='32471241834';
+explain select * from test.t4_clustered where id='8646911284551360512';
 select "NONCLUSTETED" as Explain_t5;
-explain select * from test.t5_nonclustered where id=32471241834;
+explain select * from test.t5_nonclustered where id=8646911284551360512;
 select "NONCLUSTETED" as Explain_t6;
-explain select * from test.t6_nonclustered where id=32471241834 and id2=32471241834;
+explain select * from test.t6_nonclustered where id=8646911284551360512 and id2=8646911284551360512;
 select "CLUSTETED" as Explain_t7;
-explain select * from test.t7_clustered where id=32471241834 and id2=32471241834;
+explain select * from test.t7_clustered where id=8646911284551360512 and id2=8646911284551360512;
 
 /* Execution Plan Range */
 select 'select * from test.auto_random_t1_clustered where id between 1230 and 1232;' as "Range Scan";
