@@ -6,6 +6,6 @@ drop table if exists test.tc;
 create table test.tc(id int, name char(10));
 insert into test.tc values(1, 'O');
 
-start transaction with causal consistency only;
+begin;
 update test.tc set name='A' where id=1;
 

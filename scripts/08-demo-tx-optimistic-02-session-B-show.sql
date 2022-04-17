@@ -2,6 +2,6 @@
 
 set @@tidb_txn_mode='optimistic';
 
-start transaction with causal consistency only;
+begin;
 update test.tc set name='B' where id=1;
 
