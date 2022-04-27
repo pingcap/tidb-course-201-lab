@@ -1,0 +1,2 @@
+[server]
+labels = {"geo"="shanghai", "disk"="hdd"}
