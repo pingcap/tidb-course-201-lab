@@ -1,2 +1,2 @@
 [server]
-labels = {"geo"="tokyo", "disk"="hdd"}
+labels = {"region"="tokyo", "disk"="hdd"}
