@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class DemoJdbcPreparedStatement{
+public class DemoJdbcBatchInsert{
 
     public static void printResultSetStringString(String stmtText, Connection connection) {
         int count = 0;
@@ -27,7 +27,7 @@ public class DemoJdbcPreparedStatement{
         Connection connection = null;
         try{
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=false&rewriteBatchedStatements=true", "root", ""
+                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
             );
             System.out.println("Connection established.");
             // Do something in the connection
@@ -41,37 +41,27 @@ public class DemoJdbcPreparedStatement{
                 connection.prepareStatement(sqlCreateTable),
                 connection.prepareStatement(sqlInsertIntoTable)
             };
-            pss[3].setInt(1, 10);
+            pss[3].setInt(1, 0);
             pss[3].setString(2, "ABC");
             for (PreparedStatement ps:pss){
                 ps.executeUpdate();
                 ps.close();
             }
-            // Reuse PS
-            connection.setAutoCommit(true);
-            PreparedStatement update1_ps = connection.prepareStatement("UPDATE test.t1 SET name = ? WHERE id = 1");
-            System.out.println(">>> Reuse PS Begin repeating update.");
-            long s1 = System.currentTimeMillis();
-            for (int i=0;i<20000;i++){
-                update1_ps.setString(1, Integer.toString(i));
-                update1_ps.executeUpdate();
-            }
-            System.out.println(">>> End repeating update, elapsed: "+Long.toString(System.currentTimeMillis()-s1)+"(ms).");
-            // Non-Reuse PS
-            connection.setAutoCommit(true);
+            // Batch PS
             /**
-             * Try set cachePrepStmts=false|true to see the difference on elapsed time.
+             * Try modify rewriteBatchedStatements=true|false to see the difference.
              */
-            PreparedStatement update2_ps = null;
-            System.out.println(">>> Non-Reuse PS Begin repeating update.");
-            long s2 = System.currentTimeMillis();
-            for (int i=0;i<20000;i++){
-                update2_ps = connection.prepareStatement("UPDATE test.t1 SET name = ? WHERE id = 1");
-                update2_ps.setString(1, Integer.toString(i));
-                update2_ps.executeUpdate();
-                update2_ps.close();
+            connection.setAutoCommit(true);
+            PreparedStatement insert1_ps = connection.prepareStatement("INSERT INTO t1 VALUES (?, ?)");
+            System.out.println(">>> Reuse PS Begin batch insert.");
+            long s1 = System.currentTimeMillis();
+            for (int i=1;i<20001;i++){
+                insert1_ps.setInt(1, i);
+                insert1_ps.setString(2, Integer.toString(i));
+                insert1_ps.addBatch();
             }
-            System.out.println(">>> End repeating update, elapsed: "+Long.toString(System.currentTimeMillis()-s2)+"(ms).");
+            insert1_ps.executeBatch();
+            System.out.println(">>> End repeating update, elapsed: "+Long.toString(System.currentTimeMillis()-s1)+"(ms).");
         }
         catch(SQLException e){
             System.out.println("Error: "+e);
@@ -90,7 +80,7 @@ public class DemoJdbcPreparedStatement{
             if(connection != null){
                 try{
                     // Check the battle field
-                    printResultSetStringString("select * from test.t1", connection);
+                    printResultSetStringString("select count(*), max(name) from test.t1", connection);
                     // Turn on autocommit
                     connection.setAutoCommit(true);
                     System.out.println("Turn on autocommit.");
