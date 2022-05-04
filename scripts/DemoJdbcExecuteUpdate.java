@@ -10,12 +10,12 @@ public class DemoJdbcExecuteUpdate{
             connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
             );
-            System.out.println("Connection established");
+            System.out.println("Connection established.");
             // Do something in the connection
             Statement statement = connection.createStatement();
             statement.executeUpdate("DROP TABLE IF EXISTS t1");
             statement.executeUpdate("CREATE TABLE t1 (id int PRIMARY KEY, name char(4))");
-            System.out.println("Table test.t1 created");
+            System.out.println("Table test.t1 created.");
             int rowCount = 0;
             rowCount = statement.executeUpdate("INSERT INTO t1 VALUES(1, 'ABCD')");
             System.out.println(rowCount+" row inserted into table test.t1");
@@ -33,7 +33,7 @@ public class DemoJdbcExecuteUpdate{
             if(connection != null){
                 try{
                     connection.close();
-                    System.out.println("Connection closed");
+                    System.out.println("Connection closed.");
                 }
                 catch(Exception e){
                     System.out.println("Error disconnecting: "+e.toString());

@@ -28,7 +28,7 @@ public class DemoJdbcExecuteQuery {
         try {
             connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", "");
-            System.out.println("Connection established");
+            System.out.println("Connection established.");
             // Do something in the connection.
             // Show autocommit
             printResultSetStringString("show variables like 'autocommit'", connection);
@@ -47,7 +47,7 @@ public class DemoJdbcExecuteQuery {
             if (connection != null) {
                 try {
                     connection.close();
-                    System.out.println("Connection closed");
+                    System.out.println("Connection closed.");
                 } catch (Exception e) {
                     System.out.println("Error disconnecting: " + e.toString());
                 }

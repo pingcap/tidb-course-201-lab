@@ -10,7 +10,7 @@ public class DemoJdbcConnection{
             connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
             );
-            System.out.println("Connection established");
+            System.out.println("Connection established.");
         }
         catch(Exception e){
             System.out.println("Error: "+e);
@@ -20,7 +20,7 @@ public class DemoJdbcConnection{
                 try{
                     // Release the resources in cascade
                     connection.close();
-                    System.out.println("Connection closed");
+                    System.out.println("Connection closed.");
                 }
                 catch(SQLException e){
                     System.out.println("Error disconnecting: "+e.toString());
