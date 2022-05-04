@@ -5,6 +5,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
+/**
+ * Change rewriteBatchedStatements=true|false on line 34 to see the performane difference.
+ */
+
 public class DemoJdbcBatchInsert{
 
     public static void printResultSetStringString(String stmtText, Connection connection) {

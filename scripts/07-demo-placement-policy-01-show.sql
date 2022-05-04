@@ -131,16 +131,16 @@ analyze table test.rpt1;
 
 /* Show status */
 /* Can you explain the result? */
-select kvrs.region_id, kvss.store_id, kvrp.is_leader, kvss.label, kvss.start_ts
-  from information_schema.tikv_region_status kvrs
-  join information_schema.tikv_region_peers kvrp
-  on kvrs.region_id = kvrp.region_id
-  join information_schema.tikv_store_status kvss
-  on kvrp.store_id = kvss.store_id
-  join information_schema.tables t
-  on t.table_name = kvrs.table_name
-  where t.table_schema='test' 
-  and t.table_name='rpt1';
+  select kvrs.region_id, kvss.store_id, kvrp.is_leader, kvss.label, kvss.start_ts
+    from information_schema.tikv_region_status kvrs
+    join information_schema.tikv_region_peers kvrp
+    on kvrs.region_id = kvrp.region_id
+    join information_schema.tikv_store_status kvss
+    on kvrp.store_id = kvss.store_id
+    join information_schema.tables t
+    on t.table_name = kvrs.table_name
+    where t.table_schema='test' 
+    and t.table_name='rpt1';
 
 /* Check existing lables on TiKV stores */
 /* Use following query to explain above result */
