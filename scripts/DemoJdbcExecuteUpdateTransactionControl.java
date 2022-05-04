@@ -26,8 +26,6 @@ public class DemoJdbcExecuteUpdateTransactionControl{
     public static void main(String[] args){
         Connection connection = null;
         Statement statement = null;
-        String offAutoCommit = "SET @@autocommit = 0";
-        String onAutoCommit = "SET @@autocommit = 1";
         try{
             connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
@@ -40,18 +38,19 @@ public class DemoJdbcExecuteUpdateTransactionControl{
             statement.executeUpdate("CREATE TABLE t1 (id bigint PRIMARY KEY AUTO_RANDOM, name char(4))");
             System.out.println("Table test.t1 created.");
             // Turn off autocommit
-            statement.executeUpdate(offAutoCommit);
+            connection.setAutoCommit(false);
             System.out.println("Turn off autocommit.");
             // DML: inserting
             int rowCount = 0;
             rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('ABCD')");
-            statement.executeUpdate("COMMIT");
+            connection.commit();
             System.out.println(rowCount+" row inserted into table test.t1 (commit).");
             rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('EFGH')");
-            statement.executeUpdate("COMMIT");
+            connection.commit();
             System.out.println(rowCount+" row inserted into table test.t1 (commit).");
-            rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('IJKL'), ('MNOP')");
-            statement.executeUpdate("COMMIT");
+            rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('IJKL')");
+            rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('MNOP')");
+            connection.commit();
             System.out.println(rowCount+" row inserted into table test.t1 (commit).");
             // Finish
         }
@@ -60,7 +59,7 @@ public class DemoJdbcExecuteUpdateTransactionControl{
             // Try something
             if(connection != null && statement != null){
                 try{
-                    statement.executeUpdate("ROLLBACK");
+                    connection.rollback();
                     System.out.println("Transaction rolled back.");
                 }
                 catch(SQLException e2){
@@ -74,7 +73,7 @@ public class DemoJdbcExecuteUpdateTransactionControl{
                     // Check the battle field
                     printResultSetStringString("select * from test.t1", connection);
                     // Turn on autocommit
-                    statement.executeUpdate(onAutoCommit);
+                    connection.setAutoCommit(true);
                     System.out.println("Turn on autocommit.");
                     connection.close();
                     System.out.println("Connection closed.");
