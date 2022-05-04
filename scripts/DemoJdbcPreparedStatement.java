@@ -1,10 +1,11 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.ResultSet;
 
-public class DemoJdbcExecuteUpdateTransactionControl{
+public class DemoJdbcPreparedStatement{
 
     public static void printResultSetStringString(String stmtText, Connection connection) {
         int count = 0;
@@ -22,37 +23,53 @@ public class DemoJdbcExecuteUpdateTransactionControl{
             System.out.println("Error: "+e);
         }
     }
-
     public static void main(String[] args){
         Connection connection = null;
-        Statement statement = null;
         try{
             connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
             );
             System.out.println("Connection established.");
-            
-            statement = connection.createStatement();
-            // Turn off autocommit
-            connection.setAutoCommit(false);
-            System.out.println("Turn off autocommit.");
-            // Prepare
-            statement.executeUpdate("DROP TABLE IF EXISTS t1");
-            statement.executeUpdate("CREATE TABLE t1 (id bigint PRIMARY KEY AUTO_RANDOM, name char(4))");
-            System.out.println("Table test.t1 created.");
-            // DML: inserting
-            int rowCount = 0;
-            rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('ABCD')");
-            connection.commit();
-            System.out.println(rowCount+" row inserted into table test.t1 (commit).");
-            rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('EFGH');");
-            connection.commit();
-            System.out.println(rowCount+" row inserted into table test.t1 (commit).");
-            rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('IJKL')");
-            rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('MNOP')");
-            connection.commit();
-            System.out.println(rowCount+" row inserted into table test.t1 (commit).");
-            // Finish
+            // Do something in the connection
+            String offAutoCommit = "SET @@autocommit = 0";
+            String sqlDropTable = "DROP TABLE IF EXISTS test.t1";
+            String sqlCreateTable = "CREATE TABLE test.t1 (id int primary key, name char(30))";
+            String sqlInsertIntoTable = "INSERT INTO test.t1 (id, name) VALUES (?, ?)";
+            PreparedStatement[] pss = new PreparedStatement[]{
+                connection.prepareStatement(offAutoCommit),
+                connection.prepareStatement(sqlDropTable),
+                connection.prepareStatement(sqlCreateTable),
+                connection.prepareStatement(sqlInsertIntoTable)
+            };
+            pss[3].setInt(1, 10);
+            pss[3].setString(2, "ABC");
+            for (PreparedStatement ps:pss){
+                ps.executeUpdate();
+                ps.close();
+            }
+            // Reuse PS
+            connection.setAutoCommit(true);
+            PreparedStatement update1_ps = connection.prepareStatement("UPDATE test.t1 SET name = ? WHERE id = 1");
+            System.out.println(">>> Reuse PS Begin repeating update.");
+            long s1 = System.currentTimeMillis();
+            for (int i=0;i<20000;i++){
+                update1_ps.setString(1, Integer.toString(i));
+                update1_ps.executeUpdate();
+            }
+            System.out.println(">>> End repeating update, elapsed: "+Long.toString(System.currentTimeMillis()-s1)+"(ms).");
+            // Non-Reuse PS
+            connection.setAutoCommit(true);
+            /* cachePrepStmts=false to see the difference on elapsed time */
+            PreparedStatement update2_ps = null;
+            System.out.println(">>> Non-Reuse PS Begin repeating update.");
+            long s2 = System.currentTimeMillis();
+            for (int i=0;i<20000;i++){
+                update2_ps = connection.prepareStatement("UPDATE test.t1 SET name = ? WHERE id = 1");
+                update2_ps.setString(1, Integer.toString(i));
+                update2_ps.executeUpdate();
+                update2_ps.close();
+            }
+            System.out.println(">>> End repeating update, elapsed: "+Long.toString(System.currentTimeMillis()-s2)+"(ms).");
         }
         catch(SQLException e){
             System.out.println("Error: "+e);
