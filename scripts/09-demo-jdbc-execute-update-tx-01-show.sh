@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Run ./09-demo-jdbc-execute-update-02-show.sh 
+# Run ./09-demo-jdbc-execute-update-tx-01-show.sh 
 
 # With TX control
 

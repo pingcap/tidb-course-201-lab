@@ -12,9 +12,9 @@ public class DemoJdbcExecuteQuery {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(stmtText);
-            System.out.println("Row#, "+resultSet.getMetaData().getColumnName(1)+", "+resultSet.getMetaData().getColumnName(2));
+            System.out.println("\tRow#, "+resultSet.getMetaData().getColumnName(1)+", "+resultSet.getMetaData().getColumnName(2));
             while (resultSet.next()) {
-                System.out.println((++count) + ") " + resultSet.getString(1)+", "+resultSet.getString(2));
+                System.out.println("\t"+(++count) + ") " + resultSet.getString(1)+", "+resultSet.getString(2));
             }
             resultSet.close();
             statement.close();
