@@ -2,24 +2,32 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public class DemoJdbcExecuteQuery {
+/**
+ * Execute multi-statement?
+ *   Error: java.sql.SQLException: client has multi-statement capability disabled.
+ *   Run SET GLOBAL tidb_multi_statement_mode='ON' after you understand the security risk.
+ */
+
+public class DemoJdbcExecute {
 
     public static void printResultSetStringString(String stmtText, Connection connection) {
         int count = 0;
-        System.out.println("\n/* Executing query: "+stmtText+"; */");
+        System.out.println("\n/* Executing: "+stmtText+"; */");
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(stmtText);
-            System.out.println("\tRow#, "+resultSet.getMetaData().getColumnName(1)+", "+resultSet.getMetaData().getColumnName(2));
-            while (resultSet.next()) {
-                System.out.println("\t"+(++count) + ") " + resultSet.getString(1)+", "+resultSet.getString(2));
+            Boolean isResultSet = statement.execute(stmtText);
+            if (isResultSet){
+                ResultSet resultSet = statement.getResultSet();
+                System.out.println("\tRow#,  "+resultSet.getMetaData().getColumnName(1)+", "+resultSet.getMetaData().getColumnName(2));
+                while (resultSet.next()) {
+                    System.out.println("\t"+(++count) + ") " + resultSet.getString(1)+", "+resultSet.getString(2));
+                }    
+                resultSet.close();
             }
-            resultSet.close();
             statement.close();
-        } catch (SQLException e) {
-            System.out.println("Error: "+e);
+        } catch (Exception e) {
+            System.out.println("Error: "+e.toString());
         }
     }
 
@@ -27,9 +35,10 @@ public class DemoJdbcExecuteQuery {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", "");
+                    "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true", "root", "");
             System.out.println("Connection established.");
-            // Do something in the connection.
+            // Turn on multi-statement
+            printResultSetStringString("SET tidb_multi_statement_mode='ON'", connection);
             // Show autocommit
             printResultSetStringString("show variables like 'autocommit'", connection);
             // Create table
@@ -42,12 +51,12 @@ public class DemoJdbcExecuteQuery {
             // Select
             printResultSetStringString("select * from test.t1", connection);
             // Try DML
-            printResultSetStringString("insert into test.t1 values (100, 'WXYZ')", connection);
-            // Select
+            printResultSetStringString("insert into test.t1 values (100, 'WXYZ'); insert into test.t1 values (200, 'ABCD')", connection);
+            // Select again
             printResultSetStringString("select * from test.t1", connection);
             // Finishing.
-        } catch (SQLException e) {
-            System.out.println("Error: " + e);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
         } finally {
             if (connection != null) {
                 try {

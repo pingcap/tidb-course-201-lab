@@ -45,7 +45,7 @@ public class DemoJdbcExecuteUpdateTransactionControl{
             rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('ABCD')");
             connection.commit();
             System.out.println(rowCount+" row inserted into table test.t1 (commit).");
-            rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('EFGH')");
+            rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('EFGH');");
             connection.commit();
             System.out.println(rowCount+" row inserted into table test.t1 (commit).");
             rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('IJKL')");
