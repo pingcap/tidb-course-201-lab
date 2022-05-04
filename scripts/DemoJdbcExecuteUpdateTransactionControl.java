@@ -56,6 +56,8 @@ public class DemoJdbcExecuteUpdateTransactionControl{
         }
         catch(SQLException e){
             System.out.println("Error: "+e);
+            System.out.println("SQLState: "+e.getSQLState());
+            System.out.println("ErrorCode: "+e.getErrorCode());
             // Try something
             if(connection != null){
                 try{
@@ -64,6 +66,8 @@ public class DemoJdbcExecuteUpdateTransactionControl{
                 }
                 catch(SQLException e2){
                     System.out.println("Error: "+e2);
+                    System.out.println("SQLState: "+e2.getSQLState());
+                    System.out.println("ErrorCode: "+e2.getErrorCode());
                 }
             }
         }
@@ -71,15 +75,17 @@ public class DemoJdbcExecuteUpdateTransactionControl{
             if(connection != null){
                 try{
                     // Check the battle field
-                    printResultSetStringString("select * from test.t1", connection);
+                    printResultSetStringString("select count(*), max(id) from test.t1", connection);
                     // Turn on autocommit
                     connection.setAutoCommit(true);
                     System.out.println("Turn on autocommit.");
                     connection.close();
                     System.out.println("Connection closed.");
                 }
-                catch(Exception e){
-                    System.out.println("Error disconnecting: "+e.toString());
+                catch(SQLException e){
+                    System.out.println("Error: "+e);
+                    System.out.println("SQLState: "+e.getSQLState());
+                    System.out.println("ErrorCode: "+e.getErrorCode());
                 }
             }
             else{
