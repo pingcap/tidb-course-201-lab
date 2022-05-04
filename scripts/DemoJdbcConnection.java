@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DemoJdbcConnection{
     public static void main(String[] args){
@@ -7,12 +8,12 @@ public class DemoJdbcConnection{
         try{
             // Connect to TiDB server instance directly
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:4000/test?cachePrepStmts=true&useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
+                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
             );
             System.out.println("Connection established");
         }
         catch(Exception e){
-            System.out.println("Error: "+e.toString());
+            System.out.println("Error: "+e);
         }
         finally{
             if(connection != null){
@@ -21,7 +22,7 @@ public class DemoJdbcConnection{
                     connection.close();
                     System.out.println("Connection closed");
                 }
-                catch(Exception e){
+                catch(SQLException e){
                     System.out.println("Error disconnecting: "+e.toString());
                 }
             }
