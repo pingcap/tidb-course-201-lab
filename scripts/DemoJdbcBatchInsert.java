@@ -31,22 +31,16 @@ public class DemoJdbcBatchInsert{
         Connection connection = null;
         try{
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
+                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=false", "root", ""
             );
             System.out.println("Connection established.");
-            // Do something in the connection
-            String offAutoCommit = "SET @@autocommit = 0";
+            // Prepare the table in the connection
             String sqlDropTable = "DROP TABLE IF EXISTS test.t1";
             String sqlCreateTable = "CREATE TABLE test.t1 (id int primary key, name char(30))";
-            String sqlInsertIntoTable = "INSERT INTO test.t1 (id, name) VALUES (?, ?)";
             PreparedStatement[] pss = new PreparedStatement[]{
-                connection.prepareStatement(offAutoCommit),
                 connection.prepareStatement(sqlDropTable),
-                connection.prepareStatement(sqlCreateTable),
-                connection.prepareStatement(sqlInsertIntoTable)
+                connection.prepareStatement(sqlCreateTable)
             };
-            pss[3].setInt(1, 0);
-            pss[3].setString(2, "ABC");
             for (PreparedStatement ps:pss){
                 ps.executeUpdate();
                 ps.close();
