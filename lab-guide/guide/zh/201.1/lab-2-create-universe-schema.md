@@ -15,6 +15,7 @@
 ## **适用场景**
 + `TiDB` 集群已启动
 + 操作系统上已经安装了 [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85) (推荐) 或 [MySQL Workbench (注意选择版本: 6.3.10，页面默认为最新高版本)](https://downloads.mysql.com/archives/workbench/) (备用)
++ 操作系统上已经安装了 [git client](https://cn.bing.com/search?q=MacOS++Windows+Linux+git+%E5%AE%89%E8%A3%85&qs=n&form=QBRE&sp=-1&pq=macos+windows+linux+git+%E5%AE%89%E8%A3%85&sc=0-26&sk=&cvid=E653925A950F4E0DA9290FB191F883D1)
 
 ## **步骤**
 
