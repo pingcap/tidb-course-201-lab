@@ -27,7 +27,7 @@ public class DemoJdbcExecuteUpdate{
             // Finish
         }
         catch(SQLException e){
-            System.out.println("Error: "+e);
+            System.out.println("Error: " + e);
         }
         finally{
             if(connection != null){

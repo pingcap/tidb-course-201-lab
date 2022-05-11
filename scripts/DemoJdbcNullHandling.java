@@ -15,8 +15,8 @@ public class DemoJdbcNullHandling{
             System.out.println("\tRow#, "+resultSet.getMetaData().getColumnName(1)+", "+resultSet.getMetaData().getColumnName(2));
             while (resultSet.next()) {
                 System.out.println("\t"+(++count) + ") " + 
-                    resultSet.getString(1)+ ": "+ resultSet.wasNull() + ", "+
-                    resultSet.getString(2)+ ": "+ resultSet.wasNull());
+                    "'"+resultSet.getInt(1)+ "': "+ resultSet.wasNull() + ", "+
+                    "'"+resultSet.getString(2)+ "': "+ resultSet.wasNull());
             }
             resultSet.close();
             statement.close();
@@ -44,7 +44,8 @@ public class DemoJdbcNullHandling{
             System.out.println("Table test.`t1` created.");
             // DML: inserting
             int rowCount = 0;
-            rowCount = statement.executeUpdate("INSERT INTO `t1` VALUES(NULL, ' ')");
+            rowCount = statement.executeUpdate("INSERT INTO `t1` VALUES(NULL, '       ')");
+            rowCount = statement.executeUpdate("INSERT INTO `t1` VALUES(0, NULL)");
             connection.commit();
             System.out.println(rowCount+" row inserted into table test.`t1` (commit).");
             // Finish
