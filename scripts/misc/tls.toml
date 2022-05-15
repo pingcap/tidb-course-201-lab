@@ -1,0 +1,4 @@
+[security]
+require-secure-transport = true
+auto-tls = true
+rsa-key-size = 2048

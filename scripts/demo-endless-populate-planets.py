@@ -15,11 +15,12 @@ def _get_random_string(len: int) -> str:
         random_string += (chr(random_integer))
     return random_string
 
-def _insert_new_planet(cursor, ps_stmt, name, mass):
+def _insert_new_planet(cursor, ps_stmt, name, mass, cat_id) -> int:
   cursor.execute( 
           ps_stmt, 
-          (name, mass, 1, 1, datetime.datetime.now())
+          (name, mass, 1, cat_id, datetime.datetime.now())
         )
+  return cursor.lastrowid
 
 def _print_error(err):
   print('\terrno:',err.errno)
@@ -75,8 +76,9 @@ while True:
         if new_planet_name == None and new_planet_mass == None:
           new_planet_name = _get_random_string(18)
           new_planet_mass = random.randint(1,99999)
-        print('Inserting new planet: Name('+new_planet_name+'), Mass('+str(new_planet_mass)+')')
-        _insert_new_planet(cursor,ps_insert,new_planet_name,new_planet_mass)
+        new_planet_category_id = random.randint(1,3)
+        last_gen_id = _insert_new_planet(cursor,ps_insert,new_planet_name,new_planet_mass, new_planet_category_id)
+        print('Inserting new planet: Id('+str(last_gen_id)+'), Name('+new_planet_name+'), Mass('+str(new_planet_mass)+'), Category_Id('+str(new_planet_category_id)+')')
       except Error as dml_err:
         print('DML Error:',dml_err)
         _print_error(dml_err)

@@ -17,9 +17,8 @@ DROP TABLE IF EXISTS test.t4_clustered;
 /* Table 5 Nonclustered */
 DROP TABLE IF EXISTS test.t5_nonclustered;
 
-/* Table 6 */
+/* Table 6 Nonclustered */
 DROP TABLE IF EXISTS test.t6_nonclustered;
 
-/* Table 7 */
+/* Table 7 Clustered */
 DROP TABLE IF EXISTS test.t7_clustered;
-

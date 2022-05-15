@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class DemoJdbcPreparedStatement{
+public class DemoJdbcPreparedStatementWithReturning{
 
     public static void printResultSetStringString(String stmtText, Connection connection) {
         int count = 0;
@@ -33,46 +33,31 @@ public class DemoJdbcPreparedStatement{
             // Do something in the connection
             String offAutoCommit = "SET @@autocommit = 0";
             String sqlDropTable = "DROP TABLE IF EXISTS test.t1";
-            String sqlCreateTable = "CREATE TABLE test.t1 (id int primary key, name char(30))";
-            String sqlInsertIntoTable = "INSERT INTO test.t1 (id, name) VALUES (?, ?)";
+            String sqlCreateTable = "CREATE TABLE test.t1 (id bigint primary key AUTO_RANDOM, name char(30))";
             PreparedStatement[] pss = new PreparedStatement[]{
                 connection.prepareStatement(offAutoCommit),
                 connection.prepareStatement(sqlDropTable),
-                connection.prepareStatement(sqlCreateTable),
-                connection.prepareStatement(sqlInsertIntoTable)
+                connection.prepareStatement(sqlCreateTable)
             };
-            pss[3].setInt(1, 10);
-            pss[3].setString(2, "ABC");
             for (PreparedStatement ps:pss){
                 ps.executeUpdate();
                 ps.close();
             }
             // Reuse PS
             connection.setAutoCommit(true);
-            PreparedStatement update1_ps = connection.prepareStatement("UPDATE test.t1 SET name = ? WHERE id = 1");
-            System.out.println(">>> Reuse PS Begin repeating update.");
+            PreparedStatement inserting_ps = connection.prepareStatement("INSERT INTO test.t1 (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            System.out.println(">>> Reuse PS Begin populating.");
             long s1 = System.currentTimeMillis();
+            ResultSet generatedKeys = null;
             for (int i=0;i<20000;i++){
-                update1_ps.setString(1, Integer.toString(i));
-                update1_ps.executeUpdate();
+                inserting_ps.setString(1, Integer.toString(i));
+                inserting_ps.executeUpdate();
+                generatedKeys = inserting_ps.getGeneratedKeys();
+                while (generatedKeys.next()){
+                    System.out.println("Generated AUTO_RANDOM Key: "+generatedKeys.getLong(1));
+                }
             }
-            System.out.println(">>> End repeating update, elapsed: "+Long.toString(System.currentTimeMillis()-s1)+"(ms).");
-            // Non-Reuse PS
-            connection.setAutoCommit(true);
-            /**
-             * Client side caching prepared statment, cache hit for prepareStatement and close.
-             * Try set cachePrepStmts=false|true to see the difference on elapsed time.
-             */
-            PreparedStatement update2_ps = null;
-            System.out.println(">>> Non-Reuse PS Begin repeating update.");
-            long s2 = System.currentTimeMillis();
-            for (int i=0;i<20000;i++){
-                update2_ps = connection.prepareStatement("UPDATE test.t1 SET name = ? WHERE id = 1");
-                update2_ps.setString(1, Integer.toString(i));
-                update2_ps.executeUpdate();
-                update2_ps.close();
-            }
-            System.out.println(">>> End repeating update, elapsed: "+Long.toString(System.currentTimeMillis()-s2)+"(ms).");
+            System.out.println(">>> End populating, elapsed: "+Long.toString(System.currentTimeMillis()-s1)+"(ms).");
         }
         catch(SQLException e){
             System.out.println("Error: "+e);

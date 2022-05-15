@@ -39,7 +39,7 @@ CREATE TABLE `planet_categories` (
 
 DROP TABLE IF EXISTS `planets`;
 CREATE TABLE `planets` (
-  `id` bigint AUTO_RANDOM,
+  `id` bigint AUTO_INCREMENT,
   `name` char(20) NOT NULL DEFAULT '',
   `mass` float NOT NULL DEFAULT 0.0 COMMENT '10**24 kg',
 	`diameter` decimal(12,2) NOT NULL DEFAULT 0 COMMENT 'km',
