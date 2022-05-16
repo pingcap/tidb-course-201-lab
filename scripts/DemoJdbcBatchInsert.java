@@ -31,7 +31,7 @@ public class DemoJdbcBatchInsert{
         Connection connection = null;
         try{
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=false", "root", ""
+                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
             );
             System.out.println("Connection established.");
             // Prepare the table in the connection

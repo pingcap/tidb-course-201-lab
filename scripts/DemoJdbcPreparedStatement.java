@@ -27,7 +27,7 @@ public class DemoJdbcPreparedStatement{
         Connection connection = null;
         try{
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
+                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=false&rewriteBatchedStatements=true", "root", ""
             );
             System.out.println("Connection established.");
             // Do something in the connection

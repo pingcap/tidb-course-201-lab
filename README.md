@@ -9,7 +9,7 @@
 + Lab guides are placed in `lab-guide/guide/en/` folder
 + All scripts used in this course are placed in `scripts/` folder.
 
-<img src="./lab-guide/diagram/201-course-learning-path.png" width="100%" align="top"/>
+<img src="./lab-guide/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515" width="100%" align="top"/>
 
 ----------------------------------------------------------------------------------------------
 
