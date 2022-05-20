@@ -1,9 +1,2 @@
-
-[rocksdb]
-max-open-files = 256
-
-[raftdb]
-max-open-files = 256
-
-[storage]
-reserve-space = 0
+[raftstore]
+raft-entry-max-size = "200M"
