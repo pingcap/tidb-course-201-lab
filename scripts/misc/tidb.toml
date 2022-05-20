@@ -1,0 +1,2 @@
+[performance]
+txn-entry-size-limit = 125829120

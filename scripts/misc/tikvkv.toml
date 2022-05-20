@@ -1,0 +1,2 @@
+[raftstore]
+raft-entry-max-size = "200M"
