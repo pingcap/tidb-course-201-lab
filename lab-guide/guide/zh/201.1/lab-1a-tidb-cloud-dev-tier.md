@@ -1,4 +1,4 @@
-# **练习 201.1.1d: 注册并使用 `TiDB Cloud Developer Tier` 作为练习环境**
+# **练习 201.1.1a: 注册并使用 `TiDB Cloud Developer Tier` 作为练习环境**
 
 ## 目的
 部署测试目的 TiDB 集群，作为本课程的练习基础。

@@ -1,4 +1,4 @@
-# Lab 201.1.1b: Launch TiDB Database in a Container as a Lab Environment on MacOS/Windows/Linux
+# Lab 201.1.1c: Launch TiDB Database in a Container as a Lab Environment on MacOS/Windows/Linux
 
 ## Objective
 In an environment that supports Docker Desktop, run TiDB container image and expose the SQL interface of TiDB.

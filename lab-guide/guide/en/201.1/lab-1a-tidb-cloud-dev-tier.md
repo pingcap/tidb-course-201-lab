@@ -1,4 +1,4 @@
-# Lab 201.1.1d: Subscribe to "TiDB Cloud Developer Tier" as the Lab Environment
+# Lab 201.1.1a: Subscribe to "TiDB Cloud Developer Tier" as the Lab Environment
 
 ## Objective
 Deploy a free tier cluster in TiDB Cloud for the labs in this course.

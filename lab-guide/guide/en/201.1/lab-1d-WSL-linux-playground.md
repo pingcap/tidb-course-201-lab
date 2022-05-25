@@ -1,4 +1,4 @@
-# Lab 201.1.1e: Install WSL (Ubuntu) on Windows and Launch TiDB Sandbox Playground from It
+# Lab 201.1.1d: Install WSL (Ubuntu) on Windows and Launch TiDB Sandbox Playground from It
 
 ## Objective
 Deploy a sandbox TiDB cluster for the labs in this course.
