@@ -6,11 +6,10 @@
 
 ## 前提条件
 + 已完成一下练习的其中一个:
-  + [练习 201.1.1a](lab-1a-native-playground.md)
-  + [练习 201.1.1b](lab-1b-container-tidb.md)
-  + [练习 201.1.1c](lab-1c-vm-linux-playground.md)
-  + [练习 201.1.1d](lab-1d-tidb-cloud-dev-tier.md)
-  + [练习 201.1.1e](lab-1e-WSL-linux-playground.md)
+  + [Lab 201.1.1a](lab-1a-tidb-cloud-dev-tier.md) 
+  + [Lab 201.1.1b](lab-1b-native-playground.md)
+  + [Lab 201.1.1c](lab-1c-container-tidb.md)
+  + [Lab 201.1.1d](lab-1d-WSL-linux-playground.md)
 
 ## **适用场景**
 + `TiDB` 集群已启动

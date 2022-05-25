@@ -5,10 +5,10 @@
 
 ## Prerequisites
 + Completed one of the following labs and keeps the TiDB database cluster running: 
-  + [Lab 201.1.1a](lab-1a-native-playground.md)  
-  + [Lab 201.1.1b](lab-1b-container-tidb.md)
-  + [Lab 201.1.1d](lab-1d-tidb-cloud-dev-tier.md)
-  + [Lab 201.1.1e](lab-1e-WSL-linux-playground.md)
+  + [Lab 201.1.1a](lab-1a-tidb-cloud-dev-tier.md) 
+  + [Lab 201.1.1b](lab-1b-native-playground.md)
+  + [Lab 201.1.1c](lab-1c-container-tidb.md)
+  + [Lab 201.1.1d](lab-1d-WSL-linux-playground.md)
 + Database client installed:
   + Recommand: [MySQL client](https://google.com/search?q=MacOS+mysql+client+install)
   + Alternative: [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/)
