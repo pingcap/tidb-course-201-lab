@@ -5,11 +5,11 @@
 + **Note**: `universe` 样例数据库来自 `universe.sql`
 
 ## 前提条件
-+ 已完成一下练习的其中一个:
-  + [Lab 201.1.1a](lab-1a-tidb-cloud-dev-tier.md) 
-  + [Lab 201.1.1b](lab-1b-native-playground.md)
-  + [Lab 201.1.1c](lab-1c-container-tidb.md)
-  + [Lab 201.1.1d](lab-1d-WSL-linux-playground.md)
++ 已完成以下练习的其中一个:
+  + 实验 1a
+  + 实验 1b
+  + 实验 1c
+  + 实验 1d
 
 ## **适用场景**
 + `TiDB` 集群已启动
@@ -88,7 +88,7 @@ show databases;
 6 rows in set (0.00 sec)
 ```
 
------------------------------------------------***
+-----------------------------------------------
 #### 步骤6输出参考
 ```sql
 show tables from universe;
@@ -105,7 +105,7 @@ show tables from universe;
 4 rows in set (0.00 sec)
 ```
 
------------------------------------------------***
+-----------------------------------------------
 #### 步骤7输出参考
 ```sql
 source scripts/show-universe-comments.sql

@@ -55,7 +55,7 @@ $ mysql -h 127.0.0.1 -P 4000 -uroot
 ------------------------------------------------------
 #### 8. Check the database version:
 ```sql
-select version(), rand(), now();
+select connection_id(), version(), rand(), now();
 ```
 
 ------------------------------------------------------

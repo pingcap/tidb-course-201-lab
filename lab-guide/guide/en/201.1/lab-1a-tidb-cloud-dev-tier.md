@@ -43,7 +43,7 @@ Deploy a free tier cluster in TiDB Cloud for the labs in this course.
 ------------------------------------------------------
 #### 7. Check database version:
 ```sql
-select version(), rand(), now();
+select connection_id(), version(), rand(), now();
 ```
 
 ------------------------------------------------------
