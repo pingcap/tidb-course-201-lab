@@ -111,6 +111,7 @@ INSERT INTO `planet_categories` (
 ('Dwarf');
 SET @CAT_DWA_ID=LAST_INSERT_ID();
 
+/* Batch Add */
 INSERT INTO `planets` (
 	name, 
 	mass, 
