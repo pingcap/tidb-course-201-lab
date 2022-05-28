@@ -2,6 +2,7 @@
 
 CREATE DATABASE IF NOT EXISTS test;
 
+DROP TABLE IF EXISTS test.simple_table;
 CREATE TABLE test.simple_table (
     id bigint PRIMARY KEY AUTO_INCREMENT,
     id2 bigint, 
