@@ -25,5 +25,8 @@
 + 课程中所有的脚本与示例代码被放置在 `scripts/` 目录下
 
 ### 201 系列课程
-+ [201.1: TiDB 集群的架构与特点](https://learn.pingcap.com/learner/course/600003)
++ [TiDB 集群的架构与特点 (201.1)](https://learn.pingcap.com/learner/course/600003)
++ [TiDB 特有功能与事务控制 (201.3)](https://learn.pingcap.com/learner/course/750002)
++ [使用 Connector/J (201.4-Java)](https://learn.pingcap.com/learner/course/840002)
++ [TiDB 应用开发最佳实践 (201.5)](https://learn.pingcap.com/learner/course/780002)
 + [TiDB 全部中文课程](https://learn.pingcap.com/learner/course)
