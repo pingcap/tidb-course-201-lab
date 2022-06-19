@@ -1,12 +1,14 @@
-# **练习 201.1.1a: 注册并使用 `TiDB Cloud Developer Tier` 作为练习环境**
+# 练习 201.1.1a: 注册并使用 TiDB Cloud Developer Tier 作为练习环境
 
-## 目的
-部署测试目的 TiDB 集群，作为本课程的练习基础。
+## 练习目的
+在 TiDB Cloud 中部署一个免费的测试集群，作为本课程的练习基础。
 
-## 适用场景
-+ 在 TiDB Cloud 中部署一个免费的测试集群。
-+ 操作系统上已经安装了 [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85) (推荐) 或 [MySQL Workbench (注意选择版本: 6.3.10，页面默认为最新高版本)](https://downloads.mysql.com/archives/workbench/) (备用)
-+ 具备互联网连接。
+## 前提条件
++ 互联网连接。
++ 已预先安装数据库客户端 `mycli`、 `mysql` 或 `MySQL Workbench`:
+  + [mycli](https://www.mycli.net/) (推荐)
+  + [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85)
+  + [MySQL Workbench - 注意选择版本: 6.3.10，页面默认为最新高版本](https://downloads.mysql.com/archives/workbench/)
 
 ## 步骤
 

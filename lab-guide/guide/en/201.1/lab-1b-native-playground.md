@@ -1,135 +1,58 @@
-# Lab 201.1.1b: Deploying a Sandbox Cluster as a Lab Environment on MacOS/Linux
+# Exercise 201.1.1b: Deploying a Test Cluster in a Single-instance (macOS/Linux) Environment as a Practice Environment
 
-## Objectives
-Deploy a sandbox TiDB cluster for the labs in this course.
+## Purpose of the Exercise
+Deploy the TiDB cluster for testing purposes as the basis for the exercises in this course.
 
 ## Prerequisites
 + Internet connection.
-+ Database client installed:
-  + Recommand: [MySQL client](https://google.com/search?q=MacOS+mysql+client+install)
-  + Alternative: [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/)
-
++ Preinstalled database client `mycli`, `mysql`, or `MySQL Workbench`:
+  + [mycli](https://www.mycli.net/) (recommended)
+  + [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85)
+  + [MySQL Workbench - Note Select version: 6.3.10, the page defaults to the latest version](https://downloads.mysql.com/archives/workbench/)
 
 ## Steps
 
-------------------------------------------------------
-#### 1. Download and install `TiUP`:
-+ **Open the Terminal**
-  + `Linux`: Open `Terminal`
-  + `MacOS`: Run `Terminal.app`
-+ **Execute the following command to download and install `TiUP` utility. Note that `$` is a terminal prompt, another common one may also be `%`**:
+-----------------------------------------------
+#### 1. To download and install the TiUP tool:
++ Open the terminal
+  + Linux: Go to Terminal
+  + macOS: Open Terminal.app
++ Download and install the `tiup` tool by executing the following command. Note that `$` is the terminal prompt, and the common one may be `%`:
   ```
   $ curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
   $ export PATH=~/.tiup/bin:$PATH
   ```
 
-------------------------------------------------------
-#### 2. Launch a sandbox database cluster (specify the number of instances of each component), keep the session window open:
+-----------------------------------------------
+#### 2. Start the cluster (specify the number of instances for each component) and keep the session window open:
 ```
 $ tiup playground v6.0.0 --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
 ```
 
-------------------------------------------------------
-#### 3. Open another terminal, execute the following command to access the TiDB database using the MySQL database client, and the `"mysql> "` prompt appears:
+-----------------------------------------------
+#### 3. Open another terminal and execute the following command to access the TiDB database using the database client. The `"mysql> "` prompt appears:
 ```
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
 
-------------------------------------------------------
-#### 4. Check the database version:
+-----------------------------------------------
+#### 4. View database version, random number, and current time:
 ```sql
-select version();
+select connection_id(), version(), rand(), now();
 ```
 
-------------------------------------------------------
-#### 5. Exit ther datbase session (if needed)
+-----------------------------------------------
+#### 5. Log out of the database session (if necessary)
 ```sql
 exit
 ```
 
-------------------------------------------------------
-#### 6. Stop the sandbox database cluster:
-+ **Go back to the first terminal and press `ctrl+c` to stop the sandbox cluster (do not press `ctrl+c` continuously, just once is enough, please wait patiently for the terminal prompt, such as `$` or `%`)**
-  ```
-  ctrl + c
-  ```
+-----------------------------------------------
+#### 6. To stop a test cluster:
++ Go back to the first terminal and press the `ctrl-c` key to stop the test cluster (do not press `ctrl-c` continuously, once is enough, wait patiently for the terminal prompt to appear, such as `$` or `%`)
 
-------------------------------------------------------
-#### 7. Start the sandbox cluster again:
+-----------------------------------------------
+#### 7. Start the cluster again
 ```
 $ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
-```
-
-------------------------------------------------------
-## Output Samples
-
-------------------------------------------------------
-#### Reference output for Step 2:
-```
-$ tiup playground --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
-Starting component `playground`: ~/.tiup/components/playground/v1.8.2/tiup-playground v5.3.0 --tag classroom --db 2 --pd 3 --kv 3 --tiflash 1
-Playground Bootstrapping...
-Start pd instance
-Start pd instance
-Start pd instance
-Start tikv instance
-Start tikv instance
-Start tikv instance
-Start tidb instance
-Start tidb instance
-Waiting for tidb instances ready
-127.0.0.1:4000 ... Done
-127.0.0.1:4001 ... Done
-Start tiflash instance
-Waiting for tiflash instances ready
-127.0.0.1:3930 ... Done
-CLUSTER START SUCCESSFULLY, Enjoy it ^-^
-To connect TiDB: mysql --comments --host 127.0.0.1 --port 4001 -u root -p (no password)
-To connect TiDB: mysql --comments --host 127.0.0.1 --port 4000 -u root -p (no password)
-To view the dashboard: http://127.0.0.1:2379/dashboard
-PD client endpoints: [127.0.0.1:2379 127.0.0.1:2382 127.0.0.1:2384]
-To view the Prometheus: http://127.0.0.1:9090
-To view the Grafana: http://127.0.0.1:3000
-```
-
-------------------------------------------------------
-#### Reference output for Step 4:
-```sql
-select connection_id(), version(), rand(), now();
-```
-```
-+-----------------+--------------------+---------------------+---------------------+
-| connection_id() | version()          | rand()              | now()               |
-+-----------------+--------------------+---------------------+---------------------+
-|             411 | 5.7.25-TiDB-v6.0.0 | 0.17360387479290726 | 2022-05-26 10:23:07 |
-+-----------------+--------------------+---------------------+---------------------+
-1 row in set (0.00 sec)
-```
-
-#### Reference output for Step 6:
-```
-^CPlayground receive signal:  interrupt
-Got signal interrupt (Component: playground ; PID: 7497)
-Wait tiflash(7514) to quit...
-Grafana quit
-prometheus quit
-pd quit
-pd quit
-ng-monitoring quit
-tiflash quit
-Wait tidb(7505) to quit...
-pd quit
-tidb quit
-Wait tidb(7504) to quit...
-tidb quit
-Wait tikv(7503) to quit...
-tikv quit
-Wait tikv(7502) to quit...
-tikv quit
-Wait tikv(7501) to quit...
-tikv quit
-Wait pd(7500) to quit...
-Wait pd(7499) to quit...
-Wait pd(7498) to quit...
-$
 ```
