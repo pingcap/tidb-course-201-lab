@@ -35,6 +35,11 @@ $ tiup playground v6.0.0 --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
 
++ 或者，您也可以使用 `mycli`:
+  ```
+  mycli mysql://root@<tidb_cloud_server_dns_name>:4000
+  ```
+
 -----------------------------------------------
 #### 4. 查看数据库版本，随机数和当前时间:
 ```sql

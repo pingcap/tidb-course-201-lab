@@ -1,70 +1,56 @@
-# Lab 201.1.1c: Launch TiDB Database in a Container as a Lab Environment on MacOS/Windows/Linux
+# Exercise 201.1.1c: Starting TiDB in a Container as a Practice Environment in a Single-instance (macOS/Windows/Linux) Environment
 
-## Objective
-In an environment that supports Docker Desktop, run TiDB container image and expose the SQL interface of TiDB.
+## Purpose of the Exercise
+Deploy a TiDB cluster for testing purposes as a basis for practices in this course.
 
 ## Prerequisites
 + Internet connection.
-+ Operating System already supports container, for example: Docker Desktop is installed for [MacOS or Windows](https://www.docker.com/products/docker-desktop), or [Linux Docker Engine](https://hub.docker.com/search?offering=community&operating_system=linux&q=&type=edition)
-+ Database client installed:
-  + Recommand: [MySQL client](https://google.com/search?q=MacOS+mysql+client+install)
-  + Alternative: [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/)
++ Preinstalled database client `mycli`, `mysql`, or `MySQL Workbench`:
+  + [mycli](https://www.mycli.net/) (recommended)
+  + [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85)
+  + [MySQL Workbench - Note Select version: 6.3.10, the page defaults to the latest version](https://downloads.mysql.com/archives/workbench/)
 
 ## Steps
 
-------------------------------------------------------
-#### 1. Launch a sandbox database
-+ Open the Terminal (Windows is `CMD` ), the prompt apears, for example: `$ ` or `% ` (Windows is `C:\> `)
-+ Start container with `pingcap/tidb` image:
+-----------------------------------------------
+#### 1. Start the TiDB test cluster
++ Open a terminal (Windows is `CMD`) and a prompt appears. The common ones are `$ `, `% ` (on Windows it is like `C:\> `)
++ Start the container using the `pingcap/tidb` image:
   ```
   $ docker run --name classroom -p 127.0.0.1:4000:4000 pingcap/tidb:latest
   ```
 
-------------------------------------------------------
-#### 2. Open another terminal, execute the following command to access the TiDB database using the database client, and the `"mysql> "`prompt appears:
+-----------------------------------------------
+#### 2. Open another terminal and execute the following command to access the TiDB database using the database client. The `"mysql> "` prompt appears:
 ```
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
 
-------------------------------------------------------
-#### 3. Check database version:
++ Alternatively, you can use `mycli`:
+  ```
+  mycli mysql://root@<tidb_cloud_server_dns_name>:4000
+  ```
+
+-----------------------------------------------
+#### 3. Get the database version, random number, and current time:
 ```sql
 select connection_id(), version(), rand(), now();
 ```
 
-------------------------------------------------------
-#### 4. Exit the database session (if needed)
+-----------------------------------------------
+#### 4. Log out of the database session (if necessary)
 ```sql
 exit
 ```
 
-------------------------------------------------------
-#### 5. Stop the test database:
+-----------------------------------------------
+#### 5. To stop a test cluster:
 ```
 $ docker stop classroom
 ```
 
-------------------------------------------------------
-#### 6. Start the database again:
+-----------------------------------------------
+#### 6. To start the cluster again:
 ```
 $ docker start classroom
-```
-
-------------------------------------------------------
-### Output Samples
-
-------------------------------------------------------
-#### Reference output for Step 1:
-```
-$ docker run -p 127.0.0.1:4000:4000 pingcap/tidb:latest
-[2022/01/25 09:38:19.811 +00:00] [INFO] [printer.go:34] ["Welcome to TiDB."] ["Release Version"=v6.0.0] [Edition=Community]
-[2022/01/25 09:38:19.812 +00:00] [INFO] [trackerRecorder.go:29] ["Mem Profile Tracker started"]
-.
-.
-.
-[2022/01/25 09:38:20.004 +00:00] [INFO] [server.go:247] ["server is running MySQL protocol"] [addr=0.0.0.0:4000]
-[2022/01/25 09:38:20.004 +00:00] [INFO] [server.go:263] ["server is running MySQL protocol"] [socket=/tmp/tidb-4000.sock]
-[2022/01/25 09:38:20.004 +00:00] [INFO] [http_status.go:87] ["for status and metrics report"] ["listening on addr"=0.0.0.0:10080]
-[2022/01/25 09:38:20.005 +00:00] [INFO] [domain.go:1301] ["init stats info time"] ["take time"=2.078047ms]
-[2022/01/25 09:38:20.005 +00:00] [INFO] [profile.go:92] ["cpu profiler started"]
 ```

@@ -40,6 +40,10 @@
   ```
   mysql --connect-timeout 15 -uroot -h <tidb_cloud_server_dns_name> -P 4000 -p
   ```
++ 或者，您也可以使用 `mycli`:
+  ```
+  mycli mysql://root@<tidb_cloud_server_dns_name>:4000
+  ```
 
 -----------------------------------------------
 #### 7. 查看数据库版本，随机数和当前时间:

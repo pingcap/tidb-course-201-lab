@@ -35,8 +35,13 @@ $ tiup playground v6.0.0 --tag classroom --db 3 --pd 3 --kv 3 --tiflash 1
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
 
++ Alternatively, you can use `mycli`:
+  ```
+  mycli mysql://root@<tidb_cloud_server_dns_name>:4000
+  ```
+
 -----------------------------------------------
-#### 4. View database version, random number, and current time:
+#### 4. Get the database version, random number, and current time:
 ```sql
 select connection_id(), version(), rand(), now();
 ```

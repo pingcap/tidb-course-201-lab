@@ -40,9 +40,13 @@ Deploy a free test cluster in TiDB Cloud as the basis for the exercises in this 
   ```
   mysql --connect-timeout 15 -uroot -h <tidb_cloud_server_dns_name> -P 4000 -p
   ```
++ Alternatively, you can use `mycli`:
+  ```
+  mycli mysql://root@<tidb_cloud_server_dns_name>:4000
+  ```
 
 -----------------------------------------------
-#### 7. View database version, random number, and current time:
+#### 7. Get the database version, random number, and current time:
 ```sql
 select connection_id(), version(), rand(), now();
 ```

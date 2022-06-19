@@ -26,8 +26,13 @@
 $ mysql -h 127.0.0.1 -P 4000 -uroot
 ```
 
++ 或者，您也可以使用 `mycli`:
+  ```
+  mycli mysql://root@<tidb_cloud_server_dns_name>:4000
+  ```
+
 -----------------------------------------------
-#### 3. 查看数据库版本，随机数和当前时间:
+#### 3. 获得数据库版本，随机数和当前时间:
 ```sql
 select connection_id(), version(), rand(), now();
 ```
