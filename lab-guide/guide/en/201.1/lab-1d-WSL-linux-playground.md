@@ -19,8 +19,11 @@ Deploy a sandbox TiDB cluster for the labs in this course.
 ```
 
 ------------------------------------------------------
-#### 2. Follow the instructions to restart after the installation is complete, and you will automatically enter the Ubuntu command line after booting, set up for your Ubuntu user:
-<img src="../../../diagram/WSL-settings.png" width="70%" align="top"/>
+#### 2. Follow the instructions to restart after the installation is complete, and you will automatically enter the Ubuntu command line after booting, set up for your Ubuntu user as root and enter `cd` to switch to the root path:
+```
+> wsl --user root
+
+```
 
 ------------------------------------------------------
 #### 3. Download and install `mysql-client` in Ubuntu, if needed:
