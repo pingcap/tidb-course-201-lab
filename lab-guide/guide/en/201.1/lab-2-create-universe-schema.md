@@ -1,73 +1,85 @@
-# Lab 201.1.2: Creating the "Universe" Database in a TiDB Cluster
+# Exercise 201.1.2: Creating the universe Database in the TiDB Cluster
 
-## Objectives
-+ Create a `universe` database as the dataset for the labs in this course.
+## Purpose of the Exercise
++ Create the `universe` database as data for the exercises in this course.
++ Note: The `universe` sample data comes from the script `universe.sql`.
 
 ## Prerequisites
-+ Completed one of the following labs and keeps the TiDB database cluster running: 
-  + [Lab 201.1.1a](lab-1a-tidb-cloud-dev-tier.md) 
-  + [Lab 201.1.1b](lab-1b-native-playground.md)
-  + [Lab 201.1.1c](lab-1c-container-tidb.md)
-  + [Lab 201.1.1d](lab-1d-WSL-linux-playground.md)
-+ Database client installed:
-  + Recommand: [MySQL client](https://google.com/search?q=MacOS+mysql+client+install)
-  + Alternative: [MySQL Workbench (be noted, the version should be: 6.3.10, landing page might show the latest version instead)](https://downloads.mysql.com/archives/workbench/)
++ Completed one of the following activities:
+  + Experiment `201.1.1a`
+  + Experiment `201.1.1b`
+  + Experiment `201.1.1c`
+  + Experiment `201.1.1d`
++ Follow the steps in the above experiment to ensure that the TiDB cluster for testing has been started.
++ [git](https://git-scm.com/) is already installed on the operating system.
++ Preinstalled database client `mycli`, `mysql`, or `MySQL Workbench`:
+  + [mycli](https://www.mycli.net/) (recommended)
+  + [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85)
+  + [MySQL Workbench - Note Select version: 6.3.10, the page defaults to the latest version](https://downloads.mysql.com/archives/workbench/)
 
 ## Steps
 
-------------------------------------------------------
-#### 1. Clone the lab repository to local:
+-----------------------------------------------
+#### 1. Clone script example Repo to local:
 ```
 $ git clone https://github.com/pingcap/tidb-course-201-lab
 ```
 
-------------------------------------------------------
+-----------------------------------------------
 #### 2. Switch the working directory to `tidb-course-201-lab`:
 ```
 $ cd tidb-course-201-lab/
 ```
 
-------------------------------------------------------
-#### 3. Open a new session from the terminal to access the TiDB sandbox database (local or in TiDB Cloud, choose a or b not both):
-+ a. **Steps for local TiDB (created by lab 1a, 1b, 1c, or 1e) - Login without password:**
+-----------------------------------------------
+#### 3. Open a new session from the terminal to access the TiDB test database (local or TiDB Cloud):
++ a. Local TiDB (created by exercises 1b, 1c, 1d, or 1e): Log in directly
++ Using mycli:
+  ```
+  $ mycli http://root@localhost:4000
+  ``` 
++ Or use mysql-client:
   ```
   $ mysql -h 127.0.0.1 -P 4000 -uroot
-  ``` 
-+ b. **Steps for TiDB Cloud (created by lab 1d) - Login with password:**
+  ```  
++ b. TiDB Cloud (created by Exercise 1a): Log in with password
   + Click `Connect` on the TiDB Cloud Cluster page
-  + On the `Connect to TiDB` page, in the `Standard Connection`, click `Add Your Current IP Address`
-  + Copy the command listed under `Step 2: Connect with a SQL client` and execute it locally
+  + On the `Connect to TiDB` page, in `Standard Connection`, click `Add Your Current IP Address`
+  + Copy the command listed under `Step 2: Connect with a SQL client` and execute
+    ```
+    mycli mysql://root@<tidb_cloud_server_dns_name>:4000
+    ```
     ```
     mysql --connect-timeout 15 -uroot -h <tidb_cloud_server_dns_name> -P 4000 -p
     ```
 
-------------------------------------------------------
-#### 4. Import universe schema/databse:
+-----------------------------------------------
+#### 4. Import the example universe schema:
 ```sql
 source scripts/universe.sql
 ```
 
-------------------------------------------------------
-#### 5. Check the result - database:
+-----------------------------------------------
+#### 5. Check result `show databases`
 ```sql
 show databases;
 ```
 
-#### 6. Check the result - tables:
+#### 6. Checks all tables in the universe schema
 ```sql
 show tables from universe;
 ```
 
-#### 7. Checking for columns with comment:
+#### 7. Check for column with `comment`
 ```sql
 source scripts/show-universe-comments.sql;
 ```
 
-------------------------------------------------------
-## Output Samples
+-----------------------------------------------
+## Sample Output
 
-------------------------------------------------------
-#### Reference output for Step 5:
+-----------------------------------------------
+#### Step 5 Output Reference
 ```sql
 show databases;
 ```
@@ -85,8 +97,8 @@ show databases;
 6 rows in set (0.00 sec)
 ```
 
-------------------------------------------------------***
-#### Reference output for Step 6:
+-----------------------------------------------
+#### Step 6 Output Reference
 ```sql
 show tables from universe;
 ```
@@ -102,8 +114,8 @@ show tables from universe;
 4 rows in set (0.00 sec)
 ```
 
-------------------------------------------------------***
-#### Reference output for Step 7:
+-----------------------------------------------
+#### Step 7 Output References
 ```sql
 source scripts/show-universe-comments.sql
 ```

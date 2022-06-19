@@ -1,25 +1,26 @@
-# **练习 201.1.2: 在 TiDB 集群中创建 `universe` 数据库**
+# 练习 201.1.2: 在 TiDB 集群中创建 `universe` 数据库
 
-## **目的**
-+ 创建 `universe` 数据库，作为本课程的练习的数据基础
-+ **Note**: `universe` 样例数据库来自 `universe.sql`
+## 练习目的
++ 创建 `universe` 数据库，作为本课程的练习的数据。
++ Note: `universe` 样例数据来自脚本 `universe.sql`。
 
 ## 前提条件
-+ 已完成以下练习的其中一个:
-  + 实验 1a
-  + 实验 1b
-  + 实验 1c
-  + 实验 1d
++ 已完成以下练习的其中任意一个:
+  + 实验 `201.1.1a`
+  + 实验 `201.1.1b`
+  + 实验 `201.1.1c`
+  + 实验 `201.1.1d`
++ 根据上述实验的步骤，确保测试用的 TiDB 集群已经启动。
++ 操作系统上已经安装 [git](https://git-scm.com/)。
++ 已预先安装数据库客户端 `mycli`、 `mysql` 或 `MySQL Workbench`:
+  + [mycli](https://www.mycli.net/) (推荐)
+  + [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85)
+  + [MySQL Workbench - 注意选择版本: 6.3.10，页面默认为最新高版本](https://downloads.mysql.com/archives/workbench/)
 
-## **适用场景**
-+ `TiDB` 集群已启动
-+ 操作系统上已经安装了 [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85) (推荐) 或 [MySQL Workbench (注意选择版本: 6.3.10，页面默认为最新高版本)](https://downloads.mysql.com/archives/workbench/) (备用)
-+ 操作系统上已经安装了 [git client](https://cn.bing.com/search?q=MacOS++Windows+Linux+git+%E5%AE%89%E8%A3%85&qs=n&form=QBRE&sp=-1&pq=macos+windows+linux+git+%E5%AE%89%E8%A3%85&sc=0-26&sk=&cvid=E653925A950F4E0DA9290FB191F883D1)
-
-## **步骤**
+## 步骤
 
 -----------------------------------------------
-#### 1. Clone 示例库到本地:
+#### 1. Clone 脚本示例 Repo 到本地:
 ```
 $ git clone https://github.com/pingcap/tidb-course-201-lab
 ```
@@ -32,31 +33,39 @@ $ cd tidb-course-201-lab/
 
 -----------------------------------------------
 #### 3. 从终端新开启一个 session 以访问 TiDB 测试数据库(本机或 TiDB Cloud):
-+ a. 本地 TiDB(由练习 1a、1b、1c 或 1e 创建): 直接登录
++ a. 本地 TiDB(由练习 1b、1c、1d 或 1e 创建): 直接登录
++ 使用 mycli:
+  ```
+  $ mycli http://root@localhost:4000
+  ``` 
++ 或使用 mysql-client:
   ```
   $ mysql -h 127.0.0.1 -P 4000 -uroot
-  ``` 
-+ b. TiDB Cloud(由练习 1d 创建): 通过密码登录
+  ```  
++ b. TiDB Cloud(由练习 1a 创建): 通过密码登录
   + 点击 TiDB Cloud 集群页面上的 `Connect` 
   + 在 `Connect to TiDB` 页面里的 `Standard Connection` 中，点击 `Add Your Current IP Address`
   + 复制列在 `Step 2: Connect with a SQL client` 下的命令，并执行
+    ```
+    mycli mysql://root@<tidb_cloud_server_dns_name>:4000
+    ```
     ```
     mysql --connect-timeout 15 -uroot -h <tidb_cloud_server_dns_name> -P 4000 -p
     ```
 
 -----------------------------------------------
-#### 4. 导入示例 schema - universe:
+#### 4. 导入示例 universe schema:
 ```sql
 source scripts/universe.sql
 ```
 
 -----------------------------------------------
-#### 5. 检查结果 - databases
+#### 5. 检查结果 `show databases`
 ```sql
 show databases;
 ```
 
-#### 6. 检查结果 - tables
+#### 6. 检查 universe schema 里的所有的表
 ```sql
 show tables from universe;
 ```
