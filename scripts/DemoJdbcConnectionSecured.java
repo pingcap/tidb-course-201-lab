@@ -28,7 +28,7 @@ public class DemoJdbcConnectionSecured {
         Connection connection = null;
         String[] mode = { "DISABLED", "REQUIRED", "PREFERRED", "VERIFY_CA", "VERIFY_IDENTITY" };
         for (String m : mode) {
-            System.out.println("Trying with sslMode=" + m);
+            System.out.println("\n\n### Trying with sslMode=" + m+" ###");
             try {
                 // Connect to TiDB server instance directly
                 connection = DriverManager.getConnection(
