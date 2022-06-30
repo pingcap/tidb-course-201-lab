@@ -38,7 +38,8 @@ def _setup():
 def _check():
   cursor.execute(
     """SELECT
-        name, 
+        name,
+        'Length in Byte vs. Length in Char', 
         length(max_tinytext), char_length(max_tinytext),
         length(max_text), char_length(max_text),
         length(max_tinyblob), char_length(max_tinyblob),
@@ -48,13 +49,13 @@ def _check():
       FROM dyc"""
   )
   for row in cursor.fetchall():
-    print(row)
+    print(row[0].decode('utf8'),"("+row[1].decode('utf8')+"):", str(row[2:]).replace('None,','').replace('None','').replace('(','').replace(')','').replace(',','').strip())
 
 def _tinytext(name: str):
   max_length = 255
   cursor.execute( 
             "INSERT INTO dyc (name, max_tinytext) VALUES (%s, %s)",
-            (name, "我"*max_length)
+            (name, "A"*max_length)
           )
   conn.commit()
 
@@ -62,7 +63,7 @@ def _text(name: str):
   max_length = 65535
   cursor.execute( 
             "INSERT INTO dyc (name, max_text) VALUES (%s, %s)",
-            (name, "我"*max_length)
+            (name, "A"*max_length)
           )
   conn.commit()
 
@@ -103,8 +104,8 @@ _tinytext("TINYTEXT")
 _text("TEXT")
 _tinyblob("TINYBLOB")
 _blob("BLOB")
-_char("CHAR")
-_varchar("VARCHAR")
+_char("CHAR(255)")
+_varchar("VARCHAR(16383)")
 _check()
 
 cursor.close()
