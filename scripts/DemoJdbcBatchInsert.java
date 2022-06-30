@@ -51,7 +51,7 @@ public class DemoJdbcBatchInsert {
                 // Batch PS
                 connection.setAutoCommit(true);
                 PreparedStatement insert1_ps = connection.prepareStatement("INSERT INTO t1_batchtest VALUES (?, ?)");
-                System.out.println(">>> Begin batch insert.");
+                System.out.println(">>> Begin insert 20000 rows.");
                 long s1 = System.currentTimeMillis();
                 for (int i = 1; i < 20001; i++) {
                     insert1_ps.setInt(1, i);
