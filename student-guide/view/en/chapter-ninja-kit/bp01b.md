@@ -1,4 +1,4 @@
-# Best Practice: JDBC Batch Insert (Example Output)
+# Best Practice: JDBC Batch Insert (Output)
 ```10
 (flash) [scripts]: [master]$ ./10-demo-jdbc-batch-insert-01-show.sh
 Connection established.
