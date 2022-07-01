@@ -2,42 +2,42 @@
 
 /* English Characters */
 SELECT
-    length('Enable Encryption for Disk Spill') as Byte_Length,
-    char_length('Enable Encryption for Disk Spill') as Char_Length,
-    'Enable Encryption for Disk Spill' as English,
-    cast('Enable Encryption for Disk Spill' as CHAR character set gbk) as GBK_ENCODED,
-    cast('Enable Encryption for Disk Spill' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
+    length('Hello') as Byte_Length,
+    char_length('Hello') as Char_Length,
+    'Hello' as English,
+    cast('Hello' as CHAR character set gbk) as GBK_ENCODED,
+    cast('Hello' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
     cast(
-        cast('Enable Encryption for Disk Spill' as CHAR character set gbk) 
+        cast('Hello' as CHAR character set gbk) 
     as binary) as GBK_BINARY,
     cast(
-        cast('Enable Encryption for Disk Spill' as CHAR character set utf8mb4)
+        cast('Hello' as CHAR character set utf8mb4)
     as binary) as UTF8MB4_BINARY\G
 
 /* Japanese Characters */
 SELECT
-    length('ディスク流出時の暗号化機能を有効にする') as Byte_Length,
-    char_length('ディスク流出時の暗号化機能を有効にする') as Char_Length,
-    'ディスク流出時の暗号化機能を有効にする' as Japanese,
-    cast('ディスク流出時の暗号化機能を有効にする' as CHAR character set gbk) as GBK_ENCODED,
-    cast('ディスク流出時の暗号化機能を有効にする' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
+    length('こんにちは') as Byte_Length,
+    char_length('こんにちは') as Char_Length,
+    'こんにちは' as Japanese,
+    cast('こんにちは' as CHAR character set gbk) as GBK_ENCODED,
+    cast('こんにちは' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
     cast(
-        cast('ディスク流出時の暗号化機能を有効にする' as CHAR character set gbk) 
+        cast('こんにちは' as CHAR character set gbk) 
     as binary) as GBK_BINARY,
     cast(
-        cast('ディスク流出時の暗号化機能を有効にする' as CHAR character set utf8mb4)
+        cast('こんにちは' as CHAR character set utf8mb4)
     as binary) as UTF8MB4_BINARY\G
 
 /* Chinese Characters */
 SELECT
-    length('为磁盘溢出启用加密') as Byte_Length,
-    char_length('为磁盘溢出启用加密') as Char_Length,
-    '为磁盘溢出启用加密' as Chinese,
-    cast('为磁盘溢出启用加密' as CHAR character set gbk) as GBK_ENCODED,
-    cast('为磁盘溢出启用加密' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
+    length('你好') as Byte_Length,
+    char_length('你好') as Char_Length,
+    '你好' as Chinese,
+    cast('你好' as CHAR character set gbk) as GBK_ENCODED,
+    cast('你好' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
     cast(
-        cast('为磁盘溢出启用加密' as CHAR character set gbk) 
+        cast('你好' as CHAR character set gbk) 
     as binary) as GBK_BINARY,
     cast(
-        cast('为磁盘溢出启用加密' as CHAR character set utf8mb4)
+        cast('你好' as CHAR character set utf8mb4)
     as binary) as UTF8MB4_BINARY\G
