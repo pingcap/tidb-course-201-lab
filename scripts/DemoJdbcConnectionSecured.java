@@ -26,13 +26,18 @@ public class DemoJdbcConnectionSecured {
 
     public static void main(String[] args) {
         Connection connection = null;
+        String tidbHost = System.getenv().get("TIDB_HOST")==null?"127.0.0.1":System.getenv().get("TIDB_HOST");
+        String dbUsername = System.getenv().get("TIDB_USERNAME")==null?"root":System.getenv().get("TIDB_USERNAME");
+        String dbPassword = System.getenv().get("TIDB_PASSWORD")==null?"":System.getenv().get("TIDB_PASSWORD");
+        System.out.println("TiDB Endpoint:"+tidbHost);
+        System.out.println("TiDB Username:"+dbUsername);
         String[] mode = { "DISABLED", "REQUIRED", "PREFERRED", "VERIFY_CA", "VERIFY_IDENTITY" };
         for (String m : mode) {
             System.out.println("\n\n### Trying with sslMode=" + m+" ###");
             try {
                 // Connect to TiDB server instance directly
                 connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:4000/test?enabledTLSProtocols=TLSv1.3&sslMode="+m, "root", "");
+                        "jdbc:mysql://"+tidbHost+":4000/test?enabledTLSProtocols=TLSv1.3&sslMode="+m, dbUsername, dbPassword);
                 System.out.println("Connection established.");
                 printResultSetStringString("SHOW STATUS LIKE '%Ssl%'", connection);
             } catch (Exception e) {

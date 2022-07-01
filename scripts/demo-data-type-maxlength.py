@@ -1,5 +1,6 @@
 from mysql.connector import connect
 from mysql.connector.errors import DataError, ProgrammingError, InterfaceError
+import os
 
 def _setup(try_char_def, try_varchar_def):
     ps_drop_table = """
@@ -165,10 +166,13 @@ def _varchar(max_varchar_def):
 
 if __name__ == "__main__":
     port = 4000
+    tidb_host = os.getenv('TIDB_HOST','127.0.0.1')
+    tidb_username = os.getenv('TIDB_USERNAME','root')
+    tidb_password = os.getenv('TIDB_PASSWORD','')
     conn = connect(
-        database="test", host="127.0.0.1", port=port, user="root", password=""
+        database="test", host=tidb_host, port=port, user=tidb_username, password=tidb_password
     )
-    print("Connected to TiDB port:", port)
+    print("Connected to TiDB:", tidb_username+'@'+tidb_host+':'+str(port))
     cursor = conn.cursor(prepared=True)
     max_def = _setup(try_char_def=253, try_varchar_def=16382)
     _char(max_def[0])
