@@ -2,7 +2,7 @@
 
 /* Display all system variables related to auto_random */
 
-show variables like 'allow_auto_random_explicit_insert';
+/* show variables like 'allow_auto_random_explicit_insert'; */
 
 /* Setup the schema for attribute AUTO_RANDOM(PK_AUTO_RANDOM_BITS) */
 
@@ -125,9 +125,9 @@ SELECT LAST_INSERT_ID();
 /* Greetings to CBO */
 ANALYZE TABLE test.auto_random_t1;
 
-select 'test.auto_random_t1' as Title;
+/* select 'test.auto_random_t1' as Title; */
 
-desc test.auto_random_t1;
+/* desc test.auto_random_t1; */
 select TIDB_ROW_ID_SHARDING_INFO, TIDB_PK_TYPE 
 from information_schema.tables 
 where table_schema='test' 
@@ -140,4 +140,4 @@ GROUP BY id_prefix
 HAVING approx_rows_in_shard > 1
 ORDER BY id_prefix;
 
-SHOW TABLE test.auto_random_t1 REGIONS\G
+/*SHOW TABLE test.auto_random_t1 REGIONS\G*/

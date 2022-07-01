@@ -6,7 +6,7 @@
   + Drop the playground
 ```10
 ~!@// Setup: Terminal 1@!~
-tiup playground --tag jdbc-batch-demo
+$ tiup playground --tag jdbc-batch-demo
 
 ~!@// Demo Run: Terminal 2@!~
 $ git clone https://github.com/pingcap/tidb-course-201-lab.git
@@ -14,5 +14,5 @@ $ cd tidb-course-201-lab/scripts
 $ ./10-demo-jdbc-batch-insert-01-show.sh
 
 ~!@// Tear Down: Terminal 2@!~
-tiup clean jdbc-batch-demo
+$ tiup clean jdbc-batch-demo
 ```
