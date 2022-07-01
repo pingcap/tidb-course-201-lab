@@ -42,7 +42,7 @@ def _setup(try_char_def, try_varchar_def):
       cursor.execute(ps_create_table)
       max_char_def = try_char_def
       try_char_def += 1
-    except perr:
+    except perr: # Max CHAR length found
       break
   # Test VARCHAR
   while True:
@@ -52,7 +52,7 @@ def _setup(try_char_def, try_varchar_def):
       cursor.execute(ps_create_table)
       max_varchar_def = try_varchar_def
       try_varchar_def += 1
-    except perr:
+    except perr: # Max VARCHAR length found
       break
   # Final
   ps_create_table = dyc_creation_ddl_stmt.format(max_char_def, max_varchar_def)
