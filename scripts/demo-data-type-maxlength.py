@@ -1,6 +1,5 @@
 from mysql.connector import connect
-from mysql.connector.errors import DataError, ProgrammingError
-
+from mysql.connector.errors import DataError, ProgrammingError, InterfaceError
 
 def _setup(try_char_def, try_varchar_def):
     ps_drop_table = """
@@ -31,7 +30,7 @@ def _setup(try_char_def, try_varchar_def):
             cursor.execute(ps_create_table)
             max_char_def = try_char_def
             try_char_def += 1
-        except ProgrammingError:  # Max CHAR length found
+        except ProgrammingError or InterfaceError:  # Max CHAR length found
             break
     # Test VARCHAR
     while True:
@@ -43,7 +42,7 @@ def _setup(try_char_def, try_varchar_def):
             cursor.execute(ps_create_table)
             max_varchar_def = try_varchar_def
             try_varchar_def += 1
-        except ProgrammingError:  # Max VARCHAR length found
+        except ProgrammingError or InterfaceError:  # Max VARCHAR length found
             break
     # Final
     ps_create_table = dyc_creation_ddl_stmt.format(max_char_def, max_varchar_def)
