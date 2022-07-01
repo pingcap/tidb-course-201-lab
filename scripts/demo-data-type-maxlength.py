@@ -92,7 +92,7 @@ def _execute_char(insert_statement: str, update_statement: str, meta_char: str, 
       )#
       conn.commit()
       max_length += 1
-    except ex:
+    except ex: # Max length found
       break
 
 def _tinytext():
