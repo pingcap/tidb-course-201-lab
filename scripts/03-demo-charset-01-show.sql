@@ -2,42 +2,42 @@
 
 /* Chinese Characters */
 SELECT
-    length('曹操') as Byte_Length,
-    char_length('曹操') as Char_Length,
-    '曹操' as Chinese,
-    cast('曹操' as CHAR character set gbk) as GBK_ENCODED,
-    cast('曹操' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
+    length('为磁盘溢出启用加密') as Byte_Length,
+    char_length('为磁盘溢出启用加密') as Char_Length,
+    '为磁盘溢出启用加密' as Chinese,
+    cast('为磁盘溢出启用加密' as CHAR character set gbk) as GBK_ENCODED,
+    cast('为磁盘溢出启用加密' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
     cast(
-        cast('曹操' as CHAR character set gbk) 
+        cast('为磁盘溢出启用加密' as CHAR character set gbk) 
     as binary) as GBK_BINARY,
     cast(
-        cast('曹操' as CHAR character set utf8mb4)
+        cast('为磁盘溢出启用加密' as CHAR character set utf8mb4)
     as binary) as UTF8MB4_BINARY\G
 
 /* Japanese Characters */
 SELECT
-    length('うぬぼれ刑事') as Byte_Length,
-    char_length('うぬぼれ刑事') as Char_Length,
-    'うぬぼれ刑事' as Japanese,
-    cast('うぬぼれ刑事' as CHAR character set gbk) as GBK_ENCODED,
-    cast('うぬぼれ刑事' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
+    length('ディスク流出時の暗号化機能を有効にする') as Byte_Length,
+    char_length('ディスク流出時の暗号化機能を有効にする') as Char_Length,
+    'ディスク流出時の暗号化機能を有効にする' as Japanese,
+    cast('ディスク流出時の暗号化機能を有効にする' as CHAR character set gbk) as GBK_ENCODED,
+    cast('ディスク流出時の暗号化機能を有効にする' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
     cast(
-        cast('うぬぼれ刑事' as CHAR character set gbk) 
+        cast('ディスク流出時の暗号化機能を有効にする' as CHAR character set gbk) 
     as binary) as GBK_BINARY,
     cast(
-        cast('うぬぼれ刑事' as CHAR character set utf8mb4)
+        cast('ディスク流出時の暗号化機能を有効にする' as CHAR character set utf8mb4)
     as binary) as UTF8MB4_BINARY\G
 
 /* English Characters */
 SELECT
-    length('Supreme Commander') as Byte_Length,
-    char_length('Supreme Commander') as Char_Length,
-    'Supreme Commander' as English,
-    cast('Supreme Commander' as CHAR character set gbk) as GBK_ENCODED,
-    cast('Supreme Commander' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
+    length('Enable Encryption for Disk Spill') as Byte_Length,
+    char_length('Enable Encryption for Disk Spill') as Char_Length,
+    'Enable Encryption for Disk Spill' as English,
+    cast('Enable Encryption for Disk Spill' as CHAR character set gbk) as GBK_ENCODED,
+    cast('Enable Encryption for Disk Spill' as CHAR character set utf8mb4) as UTF8MB4_ENCODED,
     cast(
-        cast('Supreme Commander' as CHAR character set gbk) 
+        cast('Enable Encryption for Disk Spill' as CHAR character set gbk) 
     as binary) as GBK_BINARY,
     cast(
-        cast('Supreme Commander' as CHAR character set utf8mb4)
+        cast('Enable Encryption for Disk Spill' as CHAR character set utf8mb4)
     as binary) as UTF8MB4_BINARY\G
