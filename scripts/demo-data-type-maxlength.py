@@ -128,18 +128,24 @@ def _blob():
           )
 
 def _char(max_char_def):
+  """
+  Assume the default charset is utf8mb4 and client supports utf8.
+  """
   _execute_char(
             "INSERT INTO dyc (name, max_char) VALUES ('CHAR("+str(max_char_def)+")', %s)",
             "UPDATE dyc SET max_char = %s WHERE name = 'CHAR("+str(max_char_def)+")'",
-            meta_char="我",
+            meta_char="𓀀",
             start_len=250
           )
 
 def _varchar(max_varchar_def):
+  """
+  Assume the default charset is utf8mb4 and client supports utf8.
+  """
   _execute_char(
             "INSERT INTO dyc (name, max_varchar) VALUES ('VARCHAR("+str(max_varchar_def)+")', %s)",
             "UPDATE dyc SET max_varchar = %s WHERE name = 'VARCHAR("+str(max_varchar_def)+")'",
-            meta_char="我",
+            meta_char="𓀀",
             start_len=16380
           )
 
