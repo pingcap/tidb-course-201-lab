@@ -65,10 +65,13 @@ def _check():
       FROM dyc"""
     )
     for row in cursor.fetchall():
+        col1 = row[0] if type(row[0]) is str else row[0].decode("utf8")
+        col2 = "("+row[1]+"):" if type(row[1]) is str else "("+row[1].decode("utf8") + "):"
+        colx = str(row[2:])
         print(
-            row[0].decode("utf8"),
-            "(" + row[1].decode("utf8") + "):",
-            str(row[2:])
+            col1,
+            col2,
+            colx
             .replace("None,", "")
             .replace("None", "")
             .replace("(", "")
