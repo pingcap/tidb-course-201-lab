@@ -8,7 +8,7 @@
   + Drop the playground
 ```
 ~!@// Setup: Terminal 1@!~
-$ tiup playground --tag jdbc-batch-demo
+$ tiup playground v6.1.0 --tag jdbc-batch-demo --db 2 --pd 3 --kv 3 --tiflash 1
 
 ~!@// Demo Run: Terminal 2@!~
 $ git clone https://github.com/pingcap/tidb-course-201-lab.git
