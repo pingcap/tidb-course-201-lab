@@ -67,13 +67,21 @@ def _execute_char(insert_statement: str, update_statement: str, meta_char: str, 
     )
     conn.commit()
 
-def _tinytext():
+def _tinytextv2():
   _execute_char(
             insert_statement="INSERT INTO dyc (name, max_tinytext) VALUES ('TINYTEXT', %s)",
             update_statement="UPDATE dyc SET max_tinytext = %s WHERE name = 'TINYTEXT'",
             meta_char="A",
             start_len=254
           )
+
+def _tinytext(name: str):
+  max_length = 255
+  cursor.execute( 
+            "INSERT INTO dyc (name, max_tinytext) VALUES (%s, %s)",
+            (name, "A"*max_length)
+          )
+  conn.commit()
 
 def _text(name: str):
   max_length = 65535
@@ -116,7 +124,7 @@ def _varchar(name: str):
   conn.commit()
 
 _setup()
-_tinytext()
+_tinytext("TINYTEXT")
 _text("TEXT")
 _tinyblob("TINYBLOB")
 _blob("BLOB")
