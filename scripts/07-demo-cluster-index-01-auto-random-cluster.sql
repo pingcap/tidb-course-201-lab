@@ -43,6 +43,8 @@ FROM information_schema.tables
 WHERE table_name='auto_random_t1_clustered';
 
 /* Show indexes */
-SHOW INDEXES FROM test.auto_random_t1_clustered\G
+/*SHOW INDEXES FROM test.auto_random_t1_clustered\G*/
 /* Show regions */
 SHOW TABLE test.auto_random_t1_clustered regions\G
+
+EXPLAIN SELECT varname FROM test.auto_random_t1_clustered WHERE id between 10 and 100;
