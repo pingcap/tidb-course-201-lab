@@ -16,6 +16,6 @@ $ cd tidb-course-201-lab/scripts
 $ ./10-demo-jdbc-batch-insert-01-show.sh
 
 ~!@// Tear Down: Terminal 1 - Skip this step if you are testing on TiDB Cloud@!~
-$ ctrl-c
+$ <ctrl-c>
 $ tiup clean batch-example
 ```
