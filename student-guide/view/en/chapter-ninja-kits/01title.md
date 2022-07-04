@@ -1,4 +1,4 @@
 # TiDB Ninja Kits
-## by PingCAP Training and Certification (2022-07-05)
+## PingCAP Training and Certification (20220705) - Mini demos on TiDB Cloud and TiUP Sandbox
 -----------------------
 TiDB Ninja Kits: A collection of mini demos to explain TiDB features, common knowledge and best practices.

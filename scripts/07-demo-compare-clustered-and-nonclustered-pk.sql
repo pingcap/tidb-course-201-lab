@@ -78,9 +78,9 @@ SHOW TABLE test.bigint_t3_nonclustered regions\G
 
 /* Compare TiKV Regions Count */
 select * from 
-(select count(region_id) as "Clustered" from information_schema.tikv_region_status where table_name='auto_increment_t2_clustered') v1
+(select count(region_id) as "Clustered # of Regions" from information_schema.tikv_region_status where table_name='auto_increment_t2_clustered') v1
 join
-(select count(region_id) as "Non-Clustered" from information_schema.tikv_region_status where table_name='bigint_t3_nonclustered') v2;
+(select count(region_id) as "Non-Clustered # of Regions" from information_schema.tikv_region_status where table_name='bigint_t3_nonclustered') v2;
 
 /* Compare the Physical Plans */
 select 'SELECT varname FROM test.auto_increment_t2_clustered WHERE id between 10 and 100;' as "Clustered";
