@@ -2,5 +2,5 @@
 mysql-connector
 mysql-connector-python
 # Additional
-tikv_client
+#tikv_client
 #chardet

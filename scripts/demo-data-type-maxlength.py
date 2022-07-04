@@ -260,7 +260,7 @@ def _find_extreme_time_point(data_type: str, start_value, direction: str, dml: s
                 if direction == "+":
                     try_value = ":".join([str(int(seg[0]) + 1), seg[1], seg[2]])+"."+"9"*max_f_def
                 elif direction == "-":
-                    try_value = ":".join([str(int(seg[0]) - 1), seg[1], seg[2]])+"."+"0"*max_f_def
+                    try_value = ":".join([str(int(seg[0]) - 1), seg[1], seg[2]])+"."+"9"*max_f_def
             except DataError:  # Extreme TIME found
                 break
     else:
@@ -284,12 +284,16 @@ def _find_extreme_time_point(data_type: str, start_value, direction: str, dml: s
                     cursor.execute(*new_dml)
                     conn.commit()
                     db_value = try_value
+                    f = ''
+                    if data_type.lower() in ["timestamp","datetime"]:
+                        if direction == '+':
+                            f = '.'+'9'*max_f_def
                     if data_type.lower() in ["timestamp"]:
                         cursor.execute(
                             "SELECT "
                             + data_type
                             + "('"
-                            + str(try_value)
+                            + str(try_value)+f
                             + "') "
                             + direction
                             + " "
@@ -297,12 +301,9 @@ def _find_extreme_time_point(data_type: str, start_value, direction: str, dml: s
                         )
                     else:
                         cursor.execute(
-                            "SELECT CAST('"
-                            + str(try_value)
-                            + "' as "
-                            + data_type
-                            + ") "
-                            + direction
+                            "SELECT '"
+                            + str(try_value)+f
+                            + "' "+direction
                             + " "
                             + d
                         )
