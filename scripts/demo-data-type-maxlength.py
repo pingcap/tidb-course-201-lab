@@ -335,6 +335,9 @@ def _find_extreme_time_point(
                 except ValueError:  # Extreme temporal found
                     try_value = db_value
                     break
+                except InterfaceError: # Extreme temporal found
+                    try_value = db_value
+                    break
                 except InternalError:  # Extreme temporal found
                     cursor.fetchall()
                     try_value = db_value
