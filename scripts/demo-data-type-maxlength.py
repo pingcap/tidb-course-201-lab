@@ -1,3 +1,6 @@
+"""
+Version: 0.1.0
+"""
 from mysql.connector import connect
 from mysql.connector.errors import (
     DataError,
@@ -225,9 +228,13 @@ def _execute_char(
             max_length += 1
         except DataError:  # Max length found
             break
+        except InterfaceError:
+            break
 
 
-def _find_extreme_time_point(data_type: str, start_value, direction: str, dml: str, max_f_def: int):
+def _find_extreme_time_point(
+    data_type: str, start_value, direction: str, dml: str, max_f_def: int
+):
     deltas = [
         "INTERVAL '1' YEAR",
         "INTERVAL '1' MONTH",
@@ -249,6 +256,8 @@ def _find_extreme_time_point(data_type: str, start_value, direction: str, dml: s
                     try_value -= 1
             except DataError:  # Extreme YEAR found
                 break
+            except InterfaceError: # Extreme YEAR found
+                break
     elif data_type.lower() == "time":
         try_value = start_value
         while True:
@@ -258,10 +267,20 @@ def _find_extreme_time_point(data_type: str, start_value, direction: str, dml: s
                 conn.commit()
                 seg = try_value.split(":")
                 if direction == "+":
-                    try_value = ":".join([str(int(seg[0]) + 1), seg[1], seg[2]])+"."+"9"*max_f_def
+                    try_value = (
+                        ":".join([str(int(seg[0]) + 1), seg[1], seg[2]])
+                        + "."
+                        + "9" * max_f_def
+                    )
                 elif direction == "-":
-                    try_value = ":".join([str(int(seg[0]) - 1), seg[1], seg[2]])+"."+"9"*max_f_def
+                    try_value = (
+                        ":".join([str(int(seg[0]) - 1), seg[1], seg[2]])
+                        + "."
+                        + "9" * max_f_def
+                    )
             except DataError:  # Extreme TIME found
+                break
+            except InterfaceError: # Extreme TIME found
                 break
     else:
         if data_type.lower() in ["timestamp"]:
@@ -284,16 +303,17 @@ def _find_extreme_time_point(data_type: str, start_value, direction: str, dml: s
                     cursor.execute(*new_dml)
                     conn.commit()
                     db_value = try_value
-                    f = ''
-                    if data_type.lower() in ["timestamp","datetime"]:
-                        if direction == '+':
-                            f = '.'+'9'*max_f_def
+                    f = ""
+                    if data_type.lower() in ["timestamp", "datetime"]:
+                        if direction == "+":
+                            f = "." + "9" * max_f_def
                     if data_type.lower() in ["timestamp"]:
                         cursor.execute(
                             "SELECT "
                             + data_type
                             + "('"
-                            + str(try_value)+f
+                            + str(try_value)
+                            + f
                             + "') "
                             + direction
                             + " "
@@ -301,11 +321,7 @@ def _find_extreme_time_point(data_type: str, start_value, direction: str, dml: s
                         )
                     else:
                         cursor.execute(
-                            "SELECT '"
-                            + str(try_value)+f
-                            + "' "+direction
-                            + " "
-                            + d
+                            "SELECT '" + str(try_value) + f + "' " + direction + " " + d
                         )
                     next_value = cursor.fetchone()[0]
                     if (
@@ -354,7 +370,7 @@ def _execute_temporal(data_type: str, start_min_value, start_max_value, max_f_de
         + " = %s WHERE name = '"
         + data_type.upper()
         + "_MIN'",
-        max_f_def
+        max_f_def,
     )
     _find_extreme_time_point(
         data_type,
@@ -365,7 +381,7 @@ def _execute_temporal(data_type: str, start_min_value, start_max_value, max_f_de
         + " = %s WHERE name = '"
         + data_type.upper()
         + "_MAX'",
-        max_f_def
+        max_f_def,
     )
 
 
@@ -375,7 +391,10 @@ def _year():
 
 def _time(max_f_def):
     _execute_temporal(
-        "time", start_min_value="-830:59:59", start_max_value="830:59:59", max_f_def=max_f_def
+        "time",
+        start_min_value="-830:59:59",
+        start_max_value="830:59:59",
+        max_f_def=max_f_def,
     )
 
 
@@ -389,7 +408,8 @@ def _datetime(max_f_def):
     _execute_temporal(
         "datetime",
         start_min_value="0005-03-02 00:00:01",
-        start_max_value="9980-12-12 00:00:01", max_f_def=max_f_def
+        start_max_value="9980-12-12 00:00:01",
+        max_f_def=max_f_def,
     )
 
 
@@ -397,7 +417,8 @@ def _timestamp(max_f_def):
     _execute_temporal(
         "timestamp",
         start_min_value="1980-03-02 00:00:01",
-        start_max_value="2030-01-02 00:00:01", max_f_def=max_f_def
+        start_max_value="2030-01-02 00:00:01",
+        max_f_def=max_f_def,
     )
 
 
@@ -468,6 +489,8 @@ def _varchar(max_varchar_def):
 
 
 if __name__ == "__main__":
+
+    # Get connected
     port = 4000
     tidb_host = os.getenv("TIDB_HOST", "127.0.0.1")
     tidb_username = os.getenv("TIDB_USERNAME", "root")
@@ -480,10 +503,16 @@ if __name__ == "__main__":
         password=tidb_password,
     )
     print("Connected to TiDB:", tidb_username + "@" + tidb_host + ":" + str(port))
+
+    # The cursor
     cursor = conn.cursor(prepared=True)
+
+    # Prepare the schema
     max_def = _setup(
         try_char_def=253, try_varchar_def=16382, try_time_f_def=6, try_timestamp_f_def=6
     )
+
+    # Probe the limits
     _year()
     _date()
     _time(max_def[2])
@@ -495,6 +524,8 @@ if __name__ == "__main__":
     _text()
     _tinyblob()
     _blob()
+
+    # Show results
     _check()
 
     # Mr. Proper
