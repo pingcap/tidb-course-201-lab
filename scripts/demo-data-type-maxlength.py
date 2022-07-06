@@ -7,8 +7,9 @@ from mysql.connector.errors import (
     ProgrammingError,
     InterfaceError,
     InternalError,
+    DatabaseError,
 )
-import os
+import os, sys, re
 
 
 def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
@@ -26,6 +27,8 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
           max_longtext LONGTEXT,
           max_tinyblob TINYBLOB,
           max_blob BLOB,
+          max_mediumblob MEDIUMBLOB,
+          max_longblob LONGBLOB,
           max_char CHAR({}),
           max_varchar VARCHAR({})
         )
@@ -51,6 +54,7 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
         )
         """
     # Test CHAR
+    print('Testing CHAR max length definition')
     while True:
         try:
             cursor.execute(dyc_drop_table_stmt)
@@ -65,6 +69,7 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
         except InterfaceError:  # Max CHAR length found
             break
     # Test VARCHAR
+    print('Testing VARCHAR max length definition')
     while True:
         try:
             cursor.execute(dyc_drop_table_stmt)
@@ -79,6 +84,7 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
         except InterfaceError:  # Max CHAR length found
             break
     # Test TIME
+    print('Testing TIME max fraction definition')
     while True:
         try:
             cursor.execute(dyt_drop_table_stmt)
@@ -98,6 +104,7 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
         except InterfaceError:  # Max Fraction length found
             break
     # Test TIMESTAMP
+    print('Testing TIMESTAMP max fraction definition')
     while True:
         try:
             cursor.execute(dyt_drop_table_stmt)
@@ -134,14 +141,19 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
 
 
 def _check():
+    print('')
     queries = [
         """SELECT
         name,
         'Max Byte vs. Max Char', 
         length(max_tinytext), char_length(max_tinytext),
         length(max_text), char_length(max_text),
+        length(max_mediumtext), char_length(max_mediumtext),
+        length(max_longtext), char_length(max_longtext),
         length(max_tinyblob), char_length(max_tinyblob),
         length(max_blob), char_length(max_blob),
+        length(max_mediumblob), char_length(max_mediumblob),
+        length(max_longblob), char_length(max_longblob),
         length(max_char), char_length(max_char),
         length(max_varchar), char_length(max_varchar) 
       FROM dyc""",
@@ -212,14 +224,22 @@ def _check():
             .replace("None", "")
             .strip(),
         )
-
+    print('')
 
 def _execute_char(
     insert_statement: str, update_statement: str, meta_char: str, start_len
 ):
-    cursor.execute(insert_statement, (meta_char * start_len,))
-    conn.commit()
-    max_length = start_len
+    try:
+        max_length = start_len
+        cursor.execute(insert_statement, (meta_char * start_len,))
+        conn.commit()
+    # Catch the chance to jump to the correct anwser
+    except DatabaseError as dbe:
+        # Entry means the KV entry in TiKV, the default max size is 6 MB (TiDB v6.1).
+        if dbe.errno == 8025 and 'the max entry size is ' in dbe.msg.lower():
+            max_length = int(re.findall('the max entry size is ([1-9]+),',dbe.msg)[0]) - 55
+            cursor.execute(insert_statement, (meta_char * max_length,))
+            conn.commit()
     while True:
         try:
             try_length = max_length + 1
@@ -228,7 +248,9 @@ def _execute_char(
             max_length += 1
         except DataError:  # Max length found
             break
-        except InterfaceError:
+        except InterfaceError: # Max length found
+            break
+        except DatabaseError: # Max length found
             break
 
 
@@ -345,6 +367,7 @@ def _find_extreme_time_point(
 
 
 def _execute_temporal(data_type: str, start_min_value, start_max_value, max_f_def):
+    print('Testing',data_type.upper()+'('+str(max_f_def)+')' if max_f_def != 0 else data_type.upper())
     insert_min_statement = (
         "INSERT INTO dyt (name, min_"
         + data_type
@@ -426,6 +449,7 @@ def _timestamp(max_f_def):
 
 
 def _tinytext():
+    print('Testing TINYTEXT')
     _execute_char(
         insert_statement="INSERT INTO dyc (name, max_tinytext) VALUES ('TINYTEXT', %s)",
         update_statement="UPDATE dyc SET max_tinytext = %s WHERE name = 'TINYTEXT'",
@@ -433,8 +457,8 @@ def _tinytext():
         start_len=250,
     )
 
-
 def _text():
+    print('Testing TEXT')
     _execute_char(
         "INSERT INTO dyc (name, max_text) VALUES ('TEXT', %s)",
         "UPDATE dyc SET max_text = %s WHERE name = 'TEXT'",
@@ -442,8 +466,44 @@ def _text():
         start_len=65530,
     )
 
+def _mediumtext():
+    print('Testing MEDIUMTEXT')
+    _execute_char(
+        "INSERT INTO dyc (name, max_mediumtext) VALUES ('MEDIUMTEXT', %s)",
+        "UPDATE dyc SET max_mediumtext = %s WHERE name = 'MEDIUMTEXT'",
+        meta_char="A",
+        start_len=16777214,
+    )
+
+def _longtext():
+    print('Testing LONGTEXT')
+    _execute_char(
+        "INSERT INTO dyc (name, max_longtext) VALUES ('LONGTEXT', %s)",
+        "UPDATE dyc SET max_longtext = %s WHERE name = 'LONGTEXT'",
+        meta_char="A",
+        start_len=16777214,
+    )
+
+def _mediumblob():
+    print('Testing MEDIUMBLOB')
+    _execute_char(
+        "INSERT INTO dyc (name, max_mediumblob) VALUES ('MEDIUMBLOB', binary(%s))",
+        "UPDATE dyc SET max_mediumblob = binary(%s) WHERE name = 'MEDIUMBLOB'",
+        meta_char="A",
+        start_len=16777214,
+    )
+
+def _longblob():
+    print('Testing LONGBLOB')
+    _execute_char(
+        "INSERT INTO dyc (name, max_longblob) VALUES ('LONGBLOB', binary(%s))",
+        "UPDATE dyc SET max_longblob = binary(%s) WHERE name = 'LONGBLOB'",
+        meta_char="A",
+        start_len=16777214,
+    )
 
 def _tinyblob():
+    print('Testing TINYBLOB')
     _execute_char(
         "INSERT INTO dyc (name, max_tinyblob) VALUES ('TINYBLOB', binary(%s))",
         "UPDATE dyc SET max_tinyblob = binary(%s) WHERE name = 'TINYBLOB'",
@@ -453,6 +513,7 @@ def _tinyblob():
 
 
 def _blob():
+    print('Testing BLOB')
     _execute_char(
         "INSERT INTO dyc (name, max_blob) VALUES ('BLOB', binary(%s))",
         "UPDATE dyc SET max_blob = binary(%s) WHERE name = 'BLOB'",
@@ -462,6 +523,7 @@ def _blob():
 
 
 def _char(max_char_def):
+    print('Testing CHAR('+str(max_char_def)+')')
     """
     Assume the default charset is utf8mb4 and client supports utf8.
     """
@@ -471,11 +533,12 @@ def _char(max_char_def):
         + ")', %s)",
         "UPDATE dyc SET max_char = %s WHERE name = 'CHAR(" + str(max_char_def) + ")'",
         meta_char="𓀀",
-        start_len=250,
+        start_len=254,
     )
 
 
 def _varchar(max_varchar_def):
+    print('Testing VARCHAR('+str(max_varchar_def)+')')
     """
     Assume the default charset is utf8mb4 and client supports utf8.
     """
@@ -487,7 +550,7 @@ def _varchar(max_varchar_def):
         + str(max_varchar_def)
         + ")'",
         meta_char="𓀀",
-        start_len=16380,
+        start_len=16382,
     )
 
 
@@ -510,6 +573,11 @@ if __name__ == "__main__":
     # The cursor
     cursor = conn.cursor(prepared=True)
 
+    # The SQL_MODE
+    if len(sys.argv) > 1 and sys.argv[1] != None:
+        print('Set SQL_MODE to:',sys.argv[1])
+        cursor.execute('SET @@SQL_MODE='+sys.argv[1])
+
     # Prepare the schema
     max_def = _setup(
         try_char_def=253, try_varchar_def=16382, try_time_f_def=6, try_timestamp_f_def=6
@@ -525,8 +593,12 @@ if __name__ == "__main__":
     _varchar(max_def[1])
     _tinytext()
     _text()
+    _mediumtext()
+    _longtext()
     _tinyblob()
     _blob()
+    _mediumblob()
+    _longblob()
 
     # Show results
     _check()

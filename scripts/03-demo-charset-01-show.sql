@@ -1,3 +1,4 @@
+/* Version: 0.1.0 */
 /* source 03-demo-charset-01-show.sql */
 
 /* English Characters */
