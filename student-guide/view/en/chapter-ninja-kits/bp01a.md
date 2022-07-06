@@ -1,4 +1,4 @@
-# Best Practice: JDBC Batch Insert
+# BP1: JDBC Batch Insert
 + Environment: `Java SDK`
 + Key points:
 [Line 42, 64, 66: DemoJdbcBatchInsert.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcBatchInsert.java)

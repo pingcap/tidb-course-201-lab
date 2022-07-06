@@ -1,4 +1,4 @@
-# Best Practice: JDBC Batch Insert (Output)
+# BP1: JDBC Batch Insert (Output)
 + Following output example is from TiUP playground
 + If the client and TiDB Cloud are not in the same region, the `elapsed time` gap between two executions will be exetremely outstanding  
   + In case you cannot wait for the `rewriteBatchedStatements=false` run to complete, feel free to hit `ctrl-c`
