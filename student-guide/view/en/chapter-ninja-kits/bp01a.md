@@ -2,7 +2,7 @@
 + Environment: `Java SDK`
 + Key points:
 [Line 42, 64, 66: DemoJdbcBatchInsert.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcBatchInsert.java)
-+ Mini Demo Story:
++ Mini demo story:
   + Run script to insert `10000` rows into one table with `rewriteBatchedStatements` set to `true`
   + Then, the script will do it again with `rewriteBatchedStatements` set to `false`
   + Obverse the differences on elapsed times 
