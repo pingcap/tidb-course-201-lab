@@ -1,5 +1,6 @@
 """
 Version: 0.1.0
+TiDB: v6.1.0
 """
 from mysql.connector import connect
 from mysql.connector.errors import (
@@ -12,15 +13,17 @@ from mysql.connector.errors import (
 import os, sys, re
 
 
-def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
+def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def, try_binary_def):
     max_char_def = try_char_def
     max_varchar_def = try_varchar_def
+    max_binary_def = try_binary_def
     dyc_drop_table_stmt = """
     DROP TABLE IF EXISTS dyc
     """
     dyc_creation_ddl_stmt = """
         CREATE TABLE IF NOT EXISTS dyc (
           name varchar(100),
+          max_binary BINARY({}),
           max_tinytext TINYTEXT,
           max_text TEXT,
           max_mediumtext MEDIUMTEXT,
@@ -30,7 +33,8 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
           max_mediumblob MEDIUMBLOB,
           max_longblob LONGBLOB,
           max_char CHAR({}),
-          max_varchar VARCHAR({})
+          max_varchar VARCHAR({}),
+          max_json JSON
         )
         """
     max_time_f_def = try_time_f_def
@@ -53,13 +57,28 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
           max_timestamp TIMESTAMP({})
         )
         """
+    # Test BINARY
+    print('Testing BINARY max length definition')
+    while True:
+        try:
+            cursor.execute(dyc_drop_table_stmt)
+            ps_create_table = dyc_creation_ddl_stmt.format(
+                try_binary_def, try_char_def, try_varchar_def
+            )
+            cursor.execute(ps_create_table)
+            max_binary_def = try_binary_def
+            try_binary_def += 1
+        except ProgrammingError:  # Max BINARY length found
+            break
+        except InterfaceError:  # Max BINARY length found
+            break
     # Test CHAR
     print('Testing CHAR max length definition')
     while True:
         try:
             cursor.execute(dyc_drop_table_stmt)
             ps_create_table = dyc_creation_ddl_stmt.format(
-                try_char_def, try_varchar_def
+                max_binary_def, try_char_def, try_varchar_def
             )
             cursor.execute(ps_create_table)
             max_char_def = try_char_def
@@ -74,7 +93,7 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
         try:
             cursor.execute(dyc_drop_table_stmt)
             ps_create_table = dyc_creation_ddl_stmt.format(
-                max_char_def, try_varchar_def
+                max_binary_def, max_char_def, try_varchar_def
             )
             cursor.execute(ps_create_table)
             max_varchar_def = try_varchar_def
@@ -125,7 +144,7 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
             break
     # Final
     for ps in [
-        dyc_creation_ddl_stmt.format(max_char_def, max_varchar_def),
+        dyc_creation_ddl_stmt.format(max_binary_def, max_char_def, max_varchar_def),
         dyt_creation_ddl_stmt.format(
             max_time_f_def,
             max_time_f_def,
@@ -137,25 +156,26 @@ def _setup(try_char_def, try_varchar_def, try_time_f_def, try_timestamp_f_def):
     ]:
         cursor.execute(ps)
     cursor.execute("SET @@tidb_mem_quota_query = 4 << 30")  # 4GB of TiDB query memory
-    return (max_char_def, max_varchar_def, max_time_f_def, max_timestamp_f_def)
+    return (max_char_def, max_varchar_def, max_time_f_def, max_timestamp_f_def, max_binary_def)
 
 
 def _check():
     print('')
     queries = [
         """SELECT
-        name,
-        'Max Byte vs. Max Char', 
-        length(max_tinytext), char_length(max_tinytext),
-        length(max_text), char_length(max_text),
-        length(max_mediumtext), char_length(max_mediumtext),
-        length(max_longtext), char_length(max_longtext),
-        length(max_tinyblob), char_length(max_tinyblob),
-        length(max_blob), char_length(max_blob),
-        length(max_mediumblob), char_length(max_mediumblob),
-        length(max_longblob), char_length(max_longblob),
-        length(max_char), char_length(max_char),
-        length(max_varchar), char_length(max_varchar) 
+        concat(name,':'),
+        concat(length(max_tinytext),' Bytes'),
+        concat(length(max_text),' Bytes'),
+        concat(length(max_mediumtext),' Bytes + a few Bytes'),
+        concat(length(max_longtext),' Bytes + a few Bytes'),
+        concat(length(max_tinyblob),' Bytes'),
+        concat(length(max_blob),' Bytes'),
+        concat(length(max_mediumblob),' Bytes + a few Bytes'),
+        concat(length(max_longblob),' Bytes + a few Bytes'),
+        concat(length(max_binary),' Bytes'),
+        concat(length(max_char),' Bytes'), concat('[',char_length(max_char),' Chars]'),
+        concat(length(max_varchar),' Bytes'), concat('[',char_length(max_varchar),' Chars]'),
+        concat(length(max_json), ' Bytes + a few Bytes')
       FROM dyc""",
     ]
     for q in queries:
@@ -166,20 +186,15 @@ def _check():
                 if type(row[0]) is str or row[0] == None
                 else row[0].decode("utf8")
             )
-            col2 = (
-                "(" + row[1] + "):"
-                if type(row[1]) is str
-                else "(" + row[1].decode("utf8") + "):"
-            )
-            colx = str(row[2:])
+            colx = str(row[1:])
             print(
                 col1,
-                col2,
                 colx.replace("None,", "")
                 .replace("None", "")
                 .replace("(", "")
                 .replace(")", "")
                 .replace(",", "")
+                .replace("'","")
                 .strip(),
             )
     query_temporal = """
@@ -231,19 +246,28 @@ def _execute_char(
 ):
     try:
         max_length = start_len
-        cursor.execute(insert_statement, (meta_char * start_len,))
+        if 'JSON' in insert_statement:
+            cursor.execute(insert_statement, ('{"name":"'+meta_char * start_len+'"}',))
+        else:
+            cursor.execute(insert_statement, (meta_char * start_len,))
         conn.commit()
     # Catch the chance to jump to the correct anwser
     except DatabaseError as dbe:
         # Entry means the KV entry in TiKV, the default max size is 6 MB (TiDB v6.1).
         if dbe.errno == 8025 and 'the max entry size is ' in dbe.msg.lower():
-            max_length = int(re.findall('the max entry size is ([1-9]+),',dbe.msg)[0]) - 55
-            cursor.execute(insert_statement, (meta_char * max_length,))
+            max_length = int(re.findall('the max entry size is ([1-9]+),',dbe.msg)[0]) - 55 # Remove overhead margin
+            if 'JSON' in insert_statement:
+                cursor.execute(insert_statement, ('{"name":"'+meta_char * (max_length - 22)+'"}',)) # Remove overhead margin
+            else:
+                cursor.execute(insert_statement, (meta_char * max_length,))
             conn.commit()
     while True:
         try:
             try_length = max_length + 1
-            cursor.execute(update_statement, (meta_char * try_length,))
+            if 'JSON' in update_statement:
+                cursor.execute(update_statement, ('{"name":"'+meta_char * try_length+'"}',))
+            else:
+                cursor.execute(update_statement, (meta_char * try_length,))
             conn.commit()
             max_length += 1
         except DataError:  # Max length found
@@ -521,6 +545,16 @@ def _blob():
         start_len=65530,
     )
 
+def _binary(max_binary_def):
+    print('Testing BINARY('+str(max_binary_def)+')')
+    _execute_char(
+        "INSERT INTO dyc (name, max_binary) VALUES ('BINARY("
+        + str(max_binary_def)
+        + ")', %s)",
+        "UPDATE dyc SET max_binary = %s WHERE name = 'BINARY(" + str(max_binary_def) + ")'",
+        meta_char="A",
+        start_len=254,
+    )
 
 def _char(max_char_def):
     print('Testing CHAR('+str(max_char_def)+')')
@@ -553,6 +587,14 @@ def _varchar(max_varchar_def):
         start_len=16382,
     )
 
+def _json():
+    print('Testing JSON')
+    _execute_char(
+        "INSERT INTO dyc (name, max_json) VALUES ('JSON', %s)",
+        "UPDATE dyc SET max_json = %s WHERE name = 'JSON'",
+        meta_char="A",
+        start_len=16777214,
+    )
 
 if __name__ == "__main__":
 
@@ -580,7 +622,7 @@ if __name__ == "__main__":
 
     # Prepare the schema
     max_def = _setup(
-        try_char_def=253, try_varchar_def=16382, try_time_f_def=6, try_timestamp_f_def=6
+        try_char_def=254, try_varchar_def=16383, try_time_f_def=6, try_timestamp_f_def=6, try_binary_def=254
     )
 
     # Probe the limits
@@ -589,6 +631,7 @@ if __name__ == "__main__":
     _time(max_def[2])
     _datetime(max_def[2])
     _timestamp(max_def[3])
+    _binary(max_def[4])
     _char(max_def[0])
     _varchar(max_def[1])
     _tinytext()
@@ -599,6 +642,7 @@ if __name__ == "__main__":
     _blob()
     _mediumblob()
     _longblob()
+    _json()
 
     # Show results
     _check()

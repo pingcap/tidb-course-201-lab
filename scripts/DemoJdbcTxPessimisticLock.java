@@ -7,6 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Version: 0.1.0
+ */
 public class DemoJdbcTxPessimisticLock {
 
     public static String[] connectionTags = new String[] { "Connection A", "Connection B" };
