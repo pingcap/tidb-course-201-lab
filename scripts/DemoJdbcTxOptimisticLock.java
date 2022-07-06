@@ -107,10 +107,10 @@ public class DemoJdbcTxOptimisticLock {
 
     public static void main(String[] args) {
         if (args.length < 1){
-            System.out.println("Please run this demo by providing with single argument: no-retry-commit|retry-commit");
+            System.out.println("Please run this demo by providing with single argument: no-retry|retry");
             return;
         }
-        boolean retryCommit = args[0].equalsIgnoreCase("retry-commit")?true:false;
+        boolean retryCommit = args[0].equalsIgnoreCase("retry")?true:false;
         String tidbHost = System.getenv().get("TIDB_HOST") == null ? "127.0.0.1" : System.getenv().get("TIDB_HOST");
         String dbUsername = System.getenv().get("TIDB_USERNAME") == null ? "root"
                 : System.getenv().get("TIDB_USERNAME");
