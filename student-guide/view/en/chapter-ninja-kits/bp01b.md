@@ -2,7 +2,7 @@
 + Following output example is from TiUP playground
 + If the client and TiDB Cloud are not in the same region, the `elapsed time` gap between two executions will be exetremely outstanding  
   + In case you cannot wait for the `rewriteBatchedStatements=false` run to complete, feel free to hit `ctrl-c`
-```
+```8
 $ ./10-demo-jdbc-batch-insert-01-show.sh
 TiDB Endpoint:127.0.0.1
 TiDB Username:root
