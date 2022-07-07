@@ -3,7 +3,6 @@
 ## Objectives
 + Practice the comprehensive operations of **SELECT** in **universe** database
 + If possible, try to give multiple query solutions to compare execution plans
-+ *Note: Write your own query solutions as possible as you can, don't look at the reference answers easily*
 
 ## Duration: 60-90 minutes
 
