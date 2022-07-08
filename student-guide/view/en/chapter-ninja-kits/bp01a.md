@@ -1,6 +1,6 @@
 # BP1: JDBC Batch Insert
 + Environment: `Java SDK`
-+ Key points:
++ Sample code:
 [Line 42, 64, 66: DemoJdbcBatchInsert.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcBatchInsert.java)
 + Mini demo story:
   + Run script to insert `10000` rows into one table with `rewriteBatchedStatements` set to `true`
