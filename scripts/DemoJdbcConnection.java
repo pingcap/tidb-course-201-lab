@@ -8,7 +8,7 @@ public class DemoJdbcConnection{
         try{
             // Connect to TiDB server instance directly
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
+                "jdbc:mysql://localhost:4000/test", "root", ""
             );
             System.out.println("Connection established.");
         }
