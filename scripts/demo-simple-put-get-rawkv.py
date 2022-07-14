@@ -11,5 +11,5 @@ if __name__ == "__main__":
     c = RawClient.connect(ports)
     print("put(b'Key1',b'Value1')")
     c.put(b'Key1',b'Value1')
-    print("get(b'Key1')", c.get(b'Key1'))
-    print("get(b'Key0')", c.get(b'Key0'))
+    print("get(b'Key1'):", c.get(b'Key1'))
+    print("get(b'Key0'):", c.get(b'Key0'))
