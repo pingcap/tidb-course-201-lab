@@ -1,5 +1,5 @@
 # TiDB SQL for Developers Course Lab v6.0 (English README)
-*"From entry level to best practice mastery."*
+*"From entry level to mastery."*
 
 + Caution:
   + All scripts in this repo provide no production warrenty, use them at your own risks.
@@ -10,6 +10,9 @@
 + All scripts used in this course are placed in `scripts/` folder.
 
 <img src="./lab-guide/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
+
+### Other TiDB Trainings
++ [PingCAP Education](https://en.pingcap.com/education/)
 
 ----------------------------------------------------------------------------------------------
 
@@ -30,4 +33,5 @@
 + [TiDB 特有功能与事务控制 (201.3)](https://learn.pingcap.com/learner/course/750002)
 + [使用 Connector/J (201.4-Java)](https://learn.pingcap.com/learner/course/840002)
 + [TiDB 应用开发最佳实践 (201.5)](https://learn.pingcap.com/learner/course/780002)
+### 其它 TiDB 课程
 + [TiDB 全部中文课程](https://learn.pingcap.com/learner/course)
