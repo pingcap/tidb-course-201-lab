@@ -1,3 +1,5 @@
+<img src="./lab-guide/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
+
 # TiDB SQL for Developers Course Lab v6.0 (English README)
 *"From entry level to mastery."*
 
@@ -8,8 +10,6 @@
 ## Folders Description
 + Lab guides are placed in `lab-guide/guide/en/` folder.
 + All scripts used in this course are placed in `scripts/` folder.
-
-<img src="./lab-guide/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
 
 ### Other TiDB Trainings
 + [PingCAP Education](https://en.pingcap.com/education/)
