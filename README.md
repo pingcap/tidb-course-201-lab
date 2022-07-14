@@ -26,6 +26,7 @@
 
 ### 201 系列课程
 + [TiDB 集群的架构与特点 (201.1)](https://learn.pingcap.com/learner/course/600003)
++ [在 TiDB 上使用 SQL](https://learn.pingcap.com/learner/course/1050001)
 + [TiDB 特有功能与事务控制 (201.3)](https://learn.pingcap.com/learner/course/750002)
 + [使用 Connector/J (201.4-Java)](https://learn.pingcap.com/learner/course/840002)
 + [TiDB 应用开发最佳实践 (201.5)](https://learn.pingcap.com/learner/course/780002)
