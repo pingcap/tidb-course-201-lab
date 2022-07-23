@@ -1,6 +1,6 @@
 <img src="./lab-guide/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
 
-# TiDB SQL for Developers Course Lab v6.0 (English README)
+# TiDB SQL for Developers Course Lab v6.x (English README)
 *"From entry level to mastery."*
 
 + Caution:
@@ -16,7 +16,7 @@
 
 ----------------------------------------------------------------------------------------------
 
-# TiDB SQL for Developers 课程实验 v6.0 (Chinese README)
+# TiDB SQL for Developers 课程实验 v6.x (Chinese README)
 *"从入门级到精通最佳实践。"*
 
 + 注意:
