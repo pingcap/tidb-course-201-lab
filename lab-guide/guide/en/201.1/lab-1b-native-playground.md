@@ -5,8 +5,8 @@ Deploy the TiDB cluster for testing purposes as the basis for the exercises in t
 
 ## Prerequisites
 + Internet connection.
-+ Preinstalled database client `mycli`, `mysql`, or `MySQL Workbench`:
-  + [mycli](https://www.mycli.net/) (recommended)
++ One of pre-installed database clients `mycli`, `mysql`, or `MySQL Workbench`:
+  + [mycli](https://www.mycli.net/)
   + [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85)
   + [MySQL Workbench - Note Select version: 6.3.10, the page defaults to the latest version](https://downloads.mysql.com/archives/workbench/)
 
@@ -41,9 +41,9 @@ $ mysql -h 127.0.0.1 -P 4000 -uroot
   ```
 
 -----------------------------------------------
-#### 4. Get the database version, random number, and current time:
+#### 4. Get the connection id, database version, and current time:
 ```sql
-select connection_id(), version(), rand(), now();
+select connection_id(), tidb_version(), now();
 ```
 
 -----------------------------------------------
