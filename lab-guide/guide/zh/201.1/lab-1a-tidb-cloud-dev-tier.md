@@ -17,11 +17,11 @@
 <img src="../../../diagram/tidb-cloud-sign-in.png" width="60%" align="top"/>
 
 -----------------------------------------------
-#### 2. 选择 Free Developer Tier: 点击 `Get Started for Free`
+#### 2. 选择 Free Developer Tier: 点击 `Create Cluster` 然后选择 `Developer Tier` 
 <img src="../../../diagram/tidb-cloud-tier-selection.png" width="60%" align="top"/>
 
 -----------------------------------------------
-#### 3. 创建测试集群: 为 Cluster 取名、设置密码、选择云供应商、选择区域，点击下方的 `Submit`，观察创建步骤，等待大约 5-15 分钟，直到 `Status` 从 `Creating` 变为 `Normal`
+#### 3. 创建测试集群: 为 Cluster 取名、设置密码、选择云供应商、选择区域，点击下方的 `Create`，观察创建步骤，等待大约 5-15 分钟，直到 `Status` 从 `Creating` 变为 `Normal`
 <img src="../../../diagram/tidb-cloud-cluster-active.png" width="60%" align="top"/>
 
 -----------------------------------------------
