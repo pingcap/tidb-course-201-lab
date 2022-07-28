@@ -1,0 +1,6 @@
+"id","name","mass","diameter","density","gravity","escape_velocity","rotation_period","length_of_day","distance_from_sun","perihelion","aphelion","orbital_period","orbital_velocity","orbital_inclination","orbital_eccentricity","obliquity_to_orbit","mean_temperature","surface_pressure","ring_systems","global_magnetic_field","sun_id","category_id","discover_date"
+6,"Saturn",568,120536.00,687,9.0,35.5,10.7,10.7,1432,1357.6,1506.5,10747.0,9.7,2.5,0,26.7000,-140,\N,1,1,1,2,\N
+7,"Uranus",86.8,51118.00,1270,8.7,21.3,-17.2,17.2,2867,2732.7,3001.4,30589.0,6.8,0.8,0,97.8000,-195,\N,1,1,1,2,\N
+8,"Neptune",102,49528.00,1638,11.0,23.5,16.1,16.1,4515,4471.1,4558.9,59800.0,5.4,1.8,0,28.3000,-200,\N,1,1,1,2,\N
+9,"Pluto",0.013,2376.00,1850,0.7,1.3,-153.3,153.3,5906.4,4436.8,7375.9,90560.0,4.7,17.2,0,122.5000,-225,0.00001,0,\N,1,3,\N
+10,"Proxima Centauri b",7.5819,16582.80,5970,11.3,9.3,267.7,267.7,2992,\N,\N,11.2,\N,\N,0,\N,-57,\N,0,\N,3170534137668829186,1,"2016-08-24 00:00:00"
