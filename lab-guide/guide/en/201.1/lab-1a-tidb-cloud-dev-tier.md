@@ -17,11 +17,11 @@ Deploy a free test cluster in TiDB Cloud
 <img src="./diagram/tidb-cloud-sign-in.png" width="60%" align="top"/>
 
 -----------------------------------------------
-### 2. Select Free Developer Tier: Click ***`Get Started for Free`***
+### 2. Select Free Developer Tier: Click ***`Create Cluster`*** and then select ***`Developer Tier`***.
 <img src="./diagram/tidb-cloud-tier-selection.png" width="60%" align="top"/>
 
 -----------------------------------------------
-### 3. To create a test cluster: Name the Cluster, set a password, select a cloud provider, select a region, click ***`Submit`*** below, observe the creation steps, and wait about 5-15 minutes until ***`Status`*** Changed from ***`Creating`*** to ***`Normal`***
+### 3. To create a test cluster: Name the Cluster, set a password, select a cloud provider, select a region, click ***`Create`*** below, observe the creation steps, and wait about 5-15 minutes until ***`Status`*** Changed from ***`Creating`*** to ***`Normal`***
 <img src="./diagram/tidb-cloud-cluster-active.png" width="60%" align="top"/>
 
 -----------------------------------------------
