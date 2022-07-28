@@ -11,8 +11,12 @@
 + Lab guides are placed in `lab-guide/guide/en/` folder.
 + All scripts used in this course are placed in `scripts/` folder.
 
-### TiDB Trainings
+## TiDB Trainings
 + [PingCAP Education](https://en.pingcap.com/education/)
+
+## Additional Readings
++ [TiDB Document](https://docs.pingcap.com/)
++ [TiDB Developer Guide](https://docs.pingcap.com/tidb/stable/dev-guide-overview)
 
 ----------------------------------------------------------------------------------------------
 
@@ -27,8 +31,12 @@
 + 实验指南在 `lab-guide/guide/zh/` 目录下
 + 课程中所有的脚本与示例代码被放置在 `scripts/` 目录下
 
-### 面向应用开发者系列课程
+## 面向应用开发者系列课程
 + [PingCAP Education 中文](https://pingcap.com/zh/courses-catalog/back-end-developer)
 
-### 全部 TiDB 课程
+## 全部 TiDB 课程
 + [TiDB 全部中文课程](https://pingcap.com/zh/courses-catalog)
+
+## 扩展阅读
++ [TiDB 文档](https://docs.pingcap.com/zh)
++ [TiDB 应用开发者手册](https://docs.pingcap.com/zh/tidb/stable/dev-guide-overview)
