@@ -12,7 +12,7 @@ $ ./10-demo-jdbc-batch-insert-01-show.sh local
 $ ./10-demo-jdbc-batch-insert-01-show.sh local
 ```
 
-3. You should see something similar to below. Verify that when JDBC parameter `rewriteBatchedStatements` is set to `true`, the performance is much better. 
+3. You should see something similar to below. Verify that the performance is much better when the JDBC parameter `rewriteBatchedStatements` set to `true`. 
 ```
 TiDB endpoint: 127.0.0.1
 TiDB username: root

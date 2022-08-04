@@ -1,7 +1,6 @@
 # Workshop Guide
 
-1. Developer Bootcamp Workshop contains multiple labs, complete Lab 1 is a prerequisite for other labs.
-<img src="./diagram/ch0-0-1.png" width="50%" align="top"/>
+1. Developer Bootcamp Workshop contains multiple labs, complete **Lab 1: Deploy the Prerequisite Environment** is a prerequisite for other labs.
 
 2. You can click the task name on the upper-right menu bar to open the Lab and Task navigator.
 <img src="./diagram/ch0-0-2.png" width="50%" align="top"/>
