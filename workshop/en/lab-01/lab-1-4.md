@@ -3,7 +3,7 @@
 ## Note:
 + TiUP supports Linux and macOS only.
 
-1. Download the install `tiup` command line tool.
+1. Download and install `tiup` command line tool.
 ```
 $ curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
 ```
