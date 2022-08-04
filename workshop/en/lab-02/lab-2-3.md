@@ -7,14 +7,7 @@ $ ./10-demo-jdbc-batch-insert-01-show.sh local
 
 ```
 
-2. Compile and run the Java class against the TiDB Cloud. If the client and TiDB Cloud are not in the same region, the `elapsed time` gap between two executions will be quite large. In case you cannot wait for the `rewriteBatchedStatements=false` run to complete, feel free to hit `ctrl-c`
-```
-$ cd tidb-course-201-lab/
-$ ./10-demo-jdbc-batch-insert-01-show.sh cloud
-
-```
-
-3. Check the output, compare the different elapsed time between two runs. You should see something similar to below. Verify that when JDBC parameter `rewriteBatchedStatements` is set to `true`, the performance is much better. 
+2. Check the output, compare the different elapsed time between two runs. You should see something similar to below. Verify that when JDBC parameter `rewriteBatchedStatements` is set to `true`, the performance is much better. 
 ```
 $ ./10-demo-jdbc-batch-insert-01-show.sh local
 TiDB endpoint: 127.0.0.1
@@ -33,3 +26,10 @@ Connection established.
 Turn on autocommit.
 Connection closed.
 ``` 
+
+3. Compile and run the Java class against the TiDB Cloud. If the client and TiDB Cloud are not in the same region, the `elapsed time` gap between two executions will be quite large. In case you cannot wait for the `rewriteBatchedStatements=false` run to complete, feel free to hit `ctrl-c`
+```
+$ cd tidb-course-201-lab/
+$ ./10-demo-jdbc-batch-insert-01-show.sh cloud
+
+```

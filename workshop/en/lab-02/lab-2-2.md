@@ -10,6 +10,7 @@
 84:                         dbUsername, dbPassword);
     ...
 ```
+
 2. Review the line #102 through line 107 in [Java class source for DemoJdbcBatchInsert.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcBatchInsert.java). Prepared statement `insert1_ps` will be added to batch for 10000 times, and be executed for once.
 ```java
     ...
