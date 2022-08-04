@@ -30,16 +30,57 @@ public class DemoJdbcBatchInsert {
     }
 
     public static void main(String[] args) {
+
+        if (args == null || args.length == 0
+                || (!args[0].equalsIgnoreCase("cloud") && !args[0].equalsIgnoreCase("local"))) {
+            System.out.println("Please specify either CLOUD or LOCAL as the demo target.");
+            System.exit(-1);
+        }
+
+        String target = args[0];
+
+        String tidbCloudHost = System.getenv().get("TIDB_CLOUD_HOST");
+        String tidbOpHost = System.getenv().get("TIDB_HOST") == null ? "127.0.0.1" : System.getenv().get("TIDB_HOST");
+        String dbCloudUsername = System.getenv().get("TIDB_CLOUD_USERNAME") == null ? "root"
+                : System.getenv().get("TIDB_CLOUD_USERNAME");
+        String dbOpUsername = System.getenv().get("TIDB_USERNAME") == null ? "root"
+                : System.getenv().get("TIDB_USERNAME");
+        String dbCloudPassword = System.getenv().get("TIDB_CLOUD_PASSWORD") == null ? ""
+                : System.getenv().get("TIDB_CLOUD_USERNAME");
+        String dbOpPassword = System.getenv().get("TIDB_PASSWORD") == null ? ""
+                : System.getenv().get("TIDB_PASSWORD");
+        String dbCloudPort = System.getenv().get("TIDB_CLOUD_PORT") == null ? "4000"
+                : System.getenv().get("TIDB_CLOUD_PORT");
+        String dbOpPort = System.getenv().get("TIDB_PORT") == null ? "4000"
+                : System.getenv().get("TIDB_PORT");
+
+        String tidbHost = null;
+        String dbUsername = null;
+        String dbPassword = null;
+        String port = null;
+        if (target.equalsIgnoreCase("cloud")) {
+            tidbHost = tidbCloudHost;
+            dbUsername = dbCloudUsername;
+            dbPassword = dbCloudPassword;
+            port = dbCloudPort;
+        }
+        else{
+            tidbHost = tidbOpHost;
+            dbUsername = dbOpUsername;
+            dbPassword = dbOpPassword;
+            port = dbOpPort;
+        }
+        System.out.println("TiDB endpoint: " + tidbHost);
+        System.out.println("TiDB username: " + dbUsername);
+        System.out.println("Default TiDB server port: "+port);
+
         Connection connection = null;
-        String tidbHost = System.getenv().get("TIDB_HOST")==null?"127.0.0.1":System.getenv().get("TIDB_HOST");
-        String dbUsername = System.getenv().get("TIDB_USERNAME")==null?"root":System.getenv().get("TIDB_USERNAME");
-        String dbPassword = System.getenv().get("TIDB_PASSWORD")==null?"":System.getenv().get("TIDB_PASSWORD");
-        System.out.println("TiDB Endpoint:"+tidbHost);
-        System.out.println("TiDB Username:"+dbUsername);
+
         try {
             for (String flag : new String[] { "true", "false" }) {
                 connection = DriverManager.getConnection(
-                        "jdbc:mysql://"+tidbHost+":4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements="+flag,
+                        "jdbc:mysql://" + tidbHost
+                                + ":"+port+"/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements="+flag,
                         dbUsername, dbPassword);
                 System.out.println("Connection established.");
                 // Prepare the table in the connection
@@ -65,7 +106,8 @@ public class DemoJdbcBatchInsert {
                 }
                 insert1_ps.executeBatch();
                 System.out.println(
-                        ">>> End batch insert,rewriteBatchedStatements="+flag+",elapsed: " + Long.toString(System.currentTimeMillis() - s1) + " (ms).");
+                        ">>> End batch insert,rewriteBatchedStatements=" + flag + ",elapsed: "
+                                + Long.toString(System.currentTimeMillis() - s1) + " (ms).");
             }
         } catch (SQLException e) {
             System.out.println("Error: " + e);
