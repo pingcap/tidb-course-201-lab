@@ -1,0 +1,1 @@
+SELECT tidb_version(),version()\G
