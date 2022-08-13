@@ -12,7 +12,7 @@
 + All scripts used in this course are placed in `scripts/` folder.
 
 ## TiDB Trainings
-+ [PingCAP Education](https://en.pingcap.com/education/)
++ [PingCAP Training & Certification](https://en.pingcap.com/education/)
 
 ## Additional Readings
 + [TiDB Document](https://docs.pingcap.com/)
@@ -32,7 +32,7 @@
 + 课程中所有的脚本与示例代码被放置在 `scripts/` 目录下
 
 ## 面向应用开发者系列课程
-+ [PingCAP Education 中文](https://pingcap.com/zh/courses-catalog/back-end-developer)
++ [PingCAP 培训与认证](https://pingcap.com/zh/courses-catalog/back-end-developer)
 
 ## 全部 TiDB 课程
 + [TiDB 全部中文课程](https://pingcap.com/zh/courses-catalog)
