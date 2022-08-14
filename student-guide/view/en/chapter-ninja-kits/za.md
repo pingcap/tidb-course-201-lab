@@ -1,6 +1,6 @@
 # PingCAP Training & Certification: Learn TiDB from PingCAP
 ![left](./student-guide/diagram/education-768x497.jpeg)
-[TiDB Document: https://docs.pingcap.com/tidb/](https://docs.pingcap.com/tidb/stable)
-[TiDB Cloud Document: https://https://docs.pingcap.com/tidbcloud/](https://docs.pingcap.com/tidbcloud/)
-[PingCAP Training & Certification Portal: https://en.pingcap.com/education/](https://en.pingcap.com/education/)
-[PingCAP Training & Certification Portal in Chinese: https://pingcap.com/zh/education/](https://pingcap.com/zh/education/)
+[TiDB Document](https://docs.pingcap.com/tidb/stable)
+[TiDB Cloud Document](https://docs.pingcap.com/tidbcloud/)
+[PingCAP Training & Certification Portal](https://en.pingcap.com/education/)
+[PingCAP Training & Certification Portal in Chinese](https://pingcap.com/zh/education/)
