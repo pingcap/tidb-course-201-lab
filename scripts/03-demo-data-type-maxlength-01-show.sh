@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ./03-demo-data-type-maxlength-01-show.sh [local|cloud] [SQL_MODE]
+# ./03-demo-data-type-maxlength-01-show.sh local|cloud [SQL_MODE]
 # Example: ./03-demo-data-type-maxlength-01-show.sh local
 
 export MYSQL_PS1="tidb> "

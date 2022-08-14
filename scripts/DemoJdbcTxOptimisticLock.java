@@ -41,7 +41,8 @@ public class DemoJdbcTxOptimisticLock {
         private int waitBefore1stCommit;
         private int waitBefore2ndCommit;
 
-        public RowUpdater(int connectionNo, BigDecimal rowid, boolean retryCommit, int wait, int waitBefore1stCommit, int waitBefore2ndCommit) {
+        public RowUpdater(int connectionNo, BigDecimal rowid, boolean retryCommit, int wait, int waitBefore1stCommit,
+                int waitBefore2ndCommit) {
             this.connectionNo = connectionNo;
             this.rowid = rowid;
             this.retryCommit = retryCommit;
@@ -52,7 +53,7 @@ public class DemoJdbcTxOptimisticLock {
 
         @Override
         public void run() {
-            System.out.println(connectionTags[this.connectionNo]+" session started");
+            System.out.println(connectionTags[this.connectionNo] + " session started");
             Connection c = connections.get(this.connectionNo);
             try {
                 Statement s = c.createStatement();
@@ -61,66 +62,97 @@ public class DemoJdbcTxOptimisticLock {
                 } catch (InterruptedException e2) {
                     e2.printStackTrace();
                 }
-                System.out.println(connectionTags[this.connectionNo]+" session: "+"BEGIN OPTIMISTIC");
+                System.out.println(connectionTags[this.connectionNo] + " session: " + "BEGIN OPTIMISTIC");
                 s.executeUpdate("BEGIN OPTIMISTIC");
-                System.out.println(connectionTags[this.connectionNo]+" session: "+"UPDATE test_tx_optimistic SET name = '" + connectionTags[this.connectionNo]
-                + "' WHERE id = " + rowid);
+                System.out.println(connectionTags[this.connectionNo] + " session: "
+                        + "UPDATE test_tx_optimistic SET name = '" + connectionTags[this.connectionNo]
+                        + "' WHERE id = " + rowid);
                 s.executeUpdate("UPDATE test_tx_optimistic SET name = '" + connectionTags[this.connectionNo]
                         + "' WHERE id = " + rowid);
-                    try {
-                        Thread.sleep(this.waitBefore1stCommit);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(connectionTags[this.connectionNo]+" session: "+"Commit");
-                    c.commit();
-                
+                try {
+                    Thread.sleep(this.waitBefore1stCommit);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(connectionTags[this.connectionNo] + " session: " + "Commit");
+                c.commit();
+
             } catch (SQLException e) {
-                System.out.println(connectionTags[this.connectionNo]+" ErrorCode: " + e.getErrorCode());
-                System.out.println(connectionTags[this.connectionNo]+" SQLState: " + e.getSQLState());
-                System.out.println(connectionTags[this.connectionNo]+" Error: " + e);
-                if (e.getErrorCode() == 9007){
-                    System.out.println("< Session in "+connectionTags[this.connectionNo]+" raised the exception !!!".toUpperCase()+" >");
-                    if (this.retryCommit){
+                System.out.println(connectionTags[this.connectionNo] + " ErrorCode: " + e.getErrorCode());
+                System.out.println(connectionTags[this.connectionNo] + " SQLState: " + e.getSQLState());
+                System.out.println(connectionTags[this.connectionNo] + " Error: " + e);
+                if (e.getErrorCode() == 9007) {
+                    System.out.println("< Session in " + connectionTags[this.connectionNo]
+                            + " raised the exception !!!".toUpperCase() + " >");
+                    if (this.retryCommit) {
                         try {
                             Thread.sleep(this.waitBefore2ndCommit);
                         } catch (InterruptedException ie) {
                             ie.printStackTrace();
                         }
                         try {
-                            System.out.println(connectionTags[this.connectionNo]+" session: "+"Commit");
+                            System.out.println(connectionTags[this.connectionNo] + " session: " + "Commit");
                             Statement s = c.createStatement();
                             s.executeUpdate("UPDATE test_tx_optimistic SET name = '" + connectionTags[this.connectionNo]
-                        + "' WHERE id = " + rowid);
+                                    + "' WHERE id = " + rowid);
                             c.commit();
                         } catch (SQLException e1) {
                             e1.printStackTrace();
                         }
                     }
                 }
-            } finally{
-                System.out.println(connectionTags[this.connectionNo]+" session: "+"Checking result");
+            } finally {
+                System.out.println(connectionTags[this.connectionNo] + " session: " + "Checking result");
                 printResultSetStringString("select id, name from test_tx_optimistic", c);
             }
         }
     }
 
     public static void main(String[] args) {
-        if (args.length < 1){
-            System.out.println("Please run this demo by providing with single argument: no-retry|retry");
+        if (args.length < 2) {
+            System.out.println("Please run this demo by providing two arguments: cloud|local no-retry|retry");
             return;
         }
-        boolean retryCommit = args[0].equalsIgnoreCase("retry")?true:false;
-        String tidbHost = System.getenv().get("TIDB_HOST") == null ? "127.0.0.1" : System.getenv().get("TIDB_HOST");
-        String dbUsername = System.getenv().get("TIDB_USERNAME") == null ? "root"
+
+        String target = args[0];
+        String tidbCloudHost = System.getenv().get("TIDB_CLOUD_HOST");
+        String tidbOpHost = System.getenv().get("TIDB_HOST") == null ? "127.0.0.1" : System.getenv().get("TIDB_HOST");
+        String dbCloudUsername = System.getenv().get("TIDB_CLOUD_USERNAME") == null ? "root"
+                : System.getenv().get("TIDB_CLOUD_USERNAME");
+        String dbOpUsername = System.getenv().get("TIDB_USERNAME") == null ? "root"
                 : System.getenv().get("TIDB_USERNAME");
-        String dbPassword = System.getenv().get("TIDB_PASSWORD") == null ? "" : System.getenv().get("TIDB_PASSWORD");
-        System.out.println("TiDB Endpoint:" + tidbHost);
-        System.out.println("TiDB Username:" + dbUsername);
+        String dbCloudPassword = System.getenv().get("TIDB_CLOUD_PASSWORD") == null ? ""
+                : System.getenv().get("TIDB_CLOUD_PASSWORD");
+        String dbOpPassword = System.getenv().get("TIDB_PASSWORD") == null ? ""
+                : System.getenv().get("TIDB_PASSWORD");
+        String dbCloudPort = System.getenv().get("TIDB_CLOUD_PORT") == null ? "4000"
+                : System.getenv().get("TIDB_CLOUD_PORT");
+        String dbOpPort = System.getenv().get("TIDB_PORT") == null ? "4000"
+                : System.getenv().get("TIDB_PORT");
+        String tidbHost = null;
+        String dbUsername = null;
+        String dbPassword = null;
+        String port = null;
+        if (target.equalsIgnoreCase("cloud")) {
+            tidbHost = tidbCloudHost;
+            dbUsername = dbCloudUsername;
+            dbPassword = dbCloudPassword;
+            port = dbCloudPort;
+        } else {
+            tidbHost = tidbOpHost;
+            dbUsername = dbOpUsername;
+            dbPassword = dbOpPassword;
+            port = dbOpPort;
+        }
+        System.out.println("TiDB endpoint: " + tidbHost);
+        System.out.println("TiDB username: " + dbUsername);
+        System.out.println("Default TiDB server port: " + port);
+
+        boolean retryCommit = args[1].equalsIgnoreCase("retry") ? true : false;
         try {
             for (int i = 0; i < 2; i++) {
                 connections.add(DriverManager.getConnection(
-                        "jdbc:mysql://" + tidbHost + ":4000/test?useServerPrepStmts=true&cachePrepStmts=true",
+                        "jdbc:mysql://" + tidbHost + ":" + port + "/test?useServerPrepStmts=true&cachePrepStmts=true",
                         dbUsername, dbPassword));
             }
             System.out.println("Connection established.");
@@ -140,8 +172,9 @@ public class DemoJdbcTxOptimisticLock {
 
             new Thread(new DemoJdbcTxOptimisticLock.RowUpdater(0, id, retryCommit, 1, 6000, 1000)).start();
             new Thread(new DemoJdbcTxOptimisticLock.RowUpdater(1, id, retryCommit, 1000, 2000, 9000)).start();
-            
+
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("Main Block ErrorCode: " + e.getErrorCode());
             System.out.println("Main Block SQLState: " + e.getSQLState());
             System.out.println("Main Block Error: " + e);
