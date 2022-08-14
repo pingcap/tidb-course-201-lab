@@ -25,23 +25,56 @@ public class DemoJdbcConnectionSecured {
     }
 
     public static void main(String[] args) {
+
+        String target = args[0];
+        String tidbCloudHost = System.getenv().get("TIDB_CLOUD_HOST");
+        String tidbOpHost = System.getenv().get("TIDB_HOST") == null ? "127.0.0.1" : System.getenv().get("TIDB_HOST");
+        String dbCloudUsername = System.getenv().get("TIDB_CLOUD_USERNAME") == null ? "root"
+                : System.getenv().get("TIDB_CLOUD_USERNAME");
+        String dbOpUsername = System.getenv().get("TIDB_USERNAME") == null ? "root"
+                : System.getenv().get("TIDB_USERNAME");
+        String dbCloudPassword = System.getenv().get("TIDB_CLOUD_PASSWORD") == null ? ""
+                : System.getenv().get("TIDB_CLOUD_PASSWORD");
+        String dbOpPassword = System.getenv().get("TIDB_PASSWORD") == null ? ""
+                : System.getenv().get("TIDB_PASSWORD");
+        String dbCloudPort = System.getenv().get("TIDB_CLOUD_PORT") == null ? "4000"
+                : System.getenv().get("TIDB_CLOUD_PORT");
+        String dbOpPort = System.getenv().get("TIDB_PORT") == null ? "4000"
+                : System.getenv().get("TIDB_PORT");
+        String tidbHost = null;
+        String dbUsername = null;
+        String dbPassword = null;
+        String port = null;
+        if (target.equalsIgnoreCase("cloud")) {
+            tidbHost = tidbCloudHost;
+            dbUsername = dbCloudUsername;
+            dbPassword = dbCloudPassword;
+            port = dbCloudPort;
+        } else {
+            tidbHost = tidbOpHost;
+            dbUsername = dbOpUsername;
+            dbPassword = dbOpPassword;
+            port = dbOpPort;
+        }
+        System.out.println("TiDB endpoint: " + tidbHost);
+        System.out.println("TiDB username: " + dbUsername);
+        System.out.println("Default TiDB server port: " + port);
+
         Connection connection = null;
-        String tidbHost = System.getenv().get("TIDB_HOST")==null?"127.0.0.1":System.getenv().get("TIDB_HOST");
-        String dbUsername = System.getenv().get("TIDB_USERNAME")==null?"root":System.getenv().get("TIDB_USERNAME");
-        String dbPassword = System.getenv().get("TIDB_PASSWORD")==null?"":System.getenv().get("TIDB_PASSWORD");
-        System.out.println("TiDB Endpoint:"+tidbHost);
-        System.out.println("TiDB Username:"+dbUsername);
         String[] mode = { "DISABLED", "REQUIRED", "PREFERRED", "VERIFY_CA", "VERIFY_IDENTITY" };
         for (String m : mode) {
-            System.out.println("\n\n### Trying with sslMode=" + m+" ###");
+            System.out.println("\n\n### Trying with sslMode=" + m + " ###");
             try {
                 // Connect to TiDB server instance directly
                 connection = DriverManager.getConnection(
-                        "jdbc:mysql://"+tidbHost+":4000/test?enabledTLSProtocols=TLSv1.3&sslMode="+m, dbUsername, dbPassword);
+                        "jdbc:mysql://" + tidbHost + ":" + port + "/test?enabledTLSProtocols=TLSv1.3&sslMode=" + m,
+                        dbUsername,
+                        dbPassword);
                 System.out.println("Connection established.");
                 printResultSetStringString("SHOW STATUS LIKE '%Ssl%'", connection);
             } catch (Exception e) {
                 System.out.println("Error: " + e);
+                // e.printStackTrace();
             } finally {
                 if (connection != null) {
                     try {

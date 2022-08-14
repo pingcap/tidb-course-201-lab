@@ -634,14 +634,14 @@ def _json():
 if __name__ == "__main__":
 
     # Get connected
-    port = 4000
+    port = os.getenv("TIDB_PORT", "4000")
     tidb_host = os.getenv("TIDB_HOST", "127.0.0.1")
     tidb_username = os.getenv("TIDB_USERNAME", "root")
     tidb_password = os.getenv("TIDB_PASSWORD", "")
     conn = connect(
         database="test",
         host=tidb_host,
-        port=port,
+        port=int(port),
         user=tidb_username,
         password=tidb_password,
     )
@@ -651,9 +651,9 @@ if __name__ == "__main__":
     cursor = conn.cursor(prepared=True)
 
     # The SQL_MODE
-    if len(sys.argv) > 1 and sys.argv[1] != None:
-        print("Set SQL_MODE to:", sys.argv[1])
-        cursor.execute("SET @@SQL_MODE=" + sys.argv[1])
+    if len(sys.argv) > 2 and sys.argv[2] != None:
+        print("Set SQL_MODE to:", sys.argv[2])
+        cursor.execute("SET @@SQL_MODE=" + sys.argv[2])
 
     # Prepare the schema
     max_def = _setup(

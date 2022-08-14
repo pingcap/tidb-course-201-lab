@@ -6,7 +6,7 @@ rm -f DemoJdbcConnectionSecured.class
 
 javac -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcConnectionSecured.java
 sleep 1
-java -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcConnectionSecured
+java -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcConnectionSecured $*
 
 #javac -cp .:misc/mysql-connector-java-5.1.36-bin.jar DemoJdbcConnectionSecured.java
 #sleep 1

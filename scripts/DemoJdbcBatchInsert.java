@@ -46,7 +46,7 @@ public class DemoJdbcBatchInsert {
         String dbOpUsername = System.getenv().get("TIDB_USERNAME") == null ? "root"
                 : System.getenv().get("TIDB_USERNAME");
         String dbCloudPassword = System.getenv().get("TIDB_CLOUD_PASSWORD") == null ? ""
-                : System.getenv().get("TIDB_CLOUD_USERNAME");
+                : System.getenv().get("TIDB_CLOUD_PASSWORD");
         String dbOpPassword = System.getenv().get("TIDB_PASSWORD") == null ? ""
                 : System.getenv().get("TIDB_PASSWORD");
         String dbCloudPort = System.getenv().get("TIDB_CLOUD_PORT") == null ? "4000"
@@ -63,8 +63,7 @@ public class DemoJdbcBatchInsert {
             dbUsername = dbCloudUsername;
             dbPassword = dbCloudPassword;
             port = dbCloudPort;
-        }
-        else{
+        } else {
             tidbHost = tidbOpHost;
             dbUsername = dbOpUsername;
             dbPassword = dbOpPassword;
@@ -72,7 +71,7 @@ public class DemoJdbcBatchInsert {
         }
         System.out.println("TiDB endpoint: " + tidbHost);
         System.out.println("TiDB username: " + dbUsername);
-        System.out.println("Default TiDB server port: "+port);
+        System.out.println("Default TiDB server port: " + port);
 
         Connection connection = null;
 
@@ -80,7 +79,8 @@ public class DemoJdbcBatchInsert {
             for (String flag : new String[] { "true", "false" }) {
                 connection = DriverManager.getConnection(
                         "jdbc:mysql://" + tidbHost
-                                + ":"+port+"/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements="+flag,
+                                + ":" + port
+                                + "/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=" + flag,
                         dbUsername, dbPassword);
                 System.out.println("Connection established.");
                 // Prepare the table in the connection
