@@ -3,4 +3,3 @@
 [TiDB Document](https://docs.pingcap.com/tidb/stable)
 [TiDB Cloud Document](https://docs.pingcap.com/tidbcloud/)
 [PingCAP Training & Certification Portal](https://en.pingcap.com/education/)
-[PingCAP Training & Certification Portal in Chinese](https://pingcap.com/zh/education/)
