@@ -55,7 +55,7 @@ $ ./09-demo-jdbc-execute-query-01-show.sh
 ## Transaction control
 1. Go through the sample code - [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java)
 
-2. In the `DemoJdbcExecuteUpdateTransactionControl.java`, set line 52 to a wrong SQL statement.
+2. In the `DemoJdbcExecuteUpdateTransactionControl.java`, set line `52` to a wrong SQL statement.
 ```
 rowCount = statement.executeUpdate("INSERT INT t1 (name) VALUES('MNOP')");
 ```
@@ -65,7 +65,7 @@ rowCount = statement.executeUpdate("INSERT INT t1 (name) VALUES('MNOP')");
 $ ./09-demo-jdbc-execute-update-tx-01-show.sh 
 ```
 
-4. Fix SQL statement at line 52 in `DemoJdbcExecuteUpdateTransactionControl.java`.
+4. Fix SQL statement at line `52` in `DemoJdbcExecuteUpdateTransactionControl.java`.
 ```
 rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('MNOP')");
 ```
@@ -76,7 +76,7 @@ $ ./09-demo-jdbc-execute-update-tx-01-show.sh
 ```
 
 ## Null handling
-1. Go through the sample code and note the line 18, 19, 43, 47, 48 - [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java)
+1. Go through the sample code and note the line `18`, `19`, `43`, `47`, `48` - [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java)
 
 2. Run demo script and check the result.
 ```
