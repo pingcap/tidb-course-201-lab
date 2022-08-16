@@ -1,7 +1,7 @@
 # Exercise 201.4.1: Database Connectors
 
 ## Purpose of the Exercise
-+ The TiDB cluster has been started Completed [Lab 201.1.2](../201.1/lab-2-create-universe-schema.md)
++ Completed [Lab 1b: Deploying a Test Cluster](https://eng.edu.pingcap.com/unit/view/id:2467) and the TiDB cluster has been started
 + The Java SDK environment is already configured on the operating system.
 + [git](https://git-scm.com/) is already installed on the operating system.
 
