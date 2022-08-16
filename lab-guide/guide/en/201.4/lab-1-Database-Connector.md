@@ -1,13 +1,10 @@
 # Exercise 201.4.1: Database Connectors
 
 ## Purpose of the Exercise
-+ The TiDB cluster has been started and the **Exercise 201.1.1b: Deploying a Test Cluster in a Single-instance (macOS/Linux) Environment as a Practice Environment** has been completed.
++ The TiDB cluster has been started Completed [Lab 201.1.2](../201.1/lab-2-create-universe-schema.md)
 + The Java SDK environment is already configured on the operating system.
 + [git](https://git-scm.com/) is already installed on the operating system.
-+ One of pre-installed database clients `mycli`, `mysql`, or `MySQL Workbench`:
-  + [mycli](https://www.mycli.net/)
-  + [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85)
-  + [MySQL Workbench - Note Select version: 6.3.10, the page defaults to the latest version](https://downloads.mysql.com/archives/workbench/)
+
 
 ## Steps
 
