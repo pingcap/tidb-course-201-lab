@@ -30,7 +30,7 @@ $ cd tidb-course-201-lab/scripts
 $ ./09-demo-jdbc-connection-01-show.sh
 ```
 
-+ Set the `port` as 400 on line 11 in the `emoJdbcConnection.java`:
++ Set the `port` as 400 on line 11 in the `DemoJdbcConnection.java`:
 ```
 "jdbc:mysql://localhost:400/test", "root", ""
 ```
