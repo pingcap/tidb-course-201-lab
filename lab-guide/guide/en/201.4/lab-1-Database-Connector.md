@@ -1,115 +1,95 @@
 # Exercise 201.4.1: Database Connectors
 
-## Purpose of the Exercise
-+ Completed [Lab 1b: Deploying a Test Cluster](https://eng.edu.pingcap.com/unit/view/id:2467) and the TiDB cluster has been started
+## Prerequisites
++ You had completed one of the following execercies:
+  + [Exercise 201.1 1a](https://eng.edu.pingcap.com/unit/view/id:2466)
+  + [Exercise 201.1 1b](https://eng.edu.pingcap.com/unit/view/id:2467)
 + The Java SDK environment is already configured on the operating system.
 + [git](https://git-scm.com/) is already installed on the operating system.
 
-
-## Steps
-
------------------------------------------------
-#### 1. Clone example scripts repo to local:
+## Prepare
+1. Clone example scripts repository to local.
 ```
 $ git clone https://github.com/pingcap/tidb-course-201-lab
 ```
 
------------------------------------------------
-#### 2. Go to working directory: `tidb-course-201-lab/scripts`:
+2. Go to working directory: `tidb-course-201-lab/scripts`.
 ```
 $ cd tidb-course-201-lab/scripts
 ```
 
------------------------------------------------
-#### 3. Connecting and disconnecting:
-+ Sample code:
-[DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java)
+## Make connection
+1. Go through the sample code - [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java)
 
-+ Run demo script:
+2. Run demo script.
 ```
 $ ./09-demo-jdbc-connection-01-show.sh
 ```
 
-+ Set the `port` as 400 on line 11 in the `DemoJdbcConnection.java`:
+3. Set the `port` as `400` on line `11` in the `DemoJdbcConnection.java`.
 ```
 "jdbc:mysql://localhost:400/test", "root", ""
 ```
 
-+ Run demo script again:
+4. Run demo script again and verfity the error:
 ```
 $ ./09-demo-jdbc-connection-01-show.sh
 ```
 
------------------------------------------------
-#### 4. Execute update: 
-+ Sample code:
-[DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java)
+## Execute SQL update 
+1. Go through the sample code - [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java)
 
-+ Run demo script:
+2. Run demo script.
 ```
 $ ./09-demo-jdbc-execute-update-01-show.sh
 ```
 
------------------------------------------------
-#### 5. Execute query:
-+ Sample code:
-[DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java)
-  + Note line 14 and line 45
+## Execute query
+1. Go through the sample code and note line `14` and line `45` - [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java)
 
-+ Run demo script:
+2. Run demo script.
 ```
 $ ./09-demo-jdbc-execute-query-01-show.sh
 ```
 
------------------------------------------------
-#### 6. Execute update-tx:
-+ Sample code:
-[DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java)
+## Transaction control
+1. Go through the sample code - [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java)
 
-+  In the `DemoJdbcExecuteUpdateTransactionControl.java`, set line 52 to wrong SQL statement:
+2. In the `DemoJdbcExecuteUpdateTransactionControl.java`, set line 52 to a wrong SQL statement.
 ```
 rowCount = statement.executeUpdate("INSERT INT t1 (name) VALUES('MNOP')");
 ```
 
-+ Run demo script:
+3. Run demo script and check the result.
 ```
 $ ./09-demo-jdbc-execute-update-tx-01-show.sh 
 ```
 
-+ Fix SQL statement at line 52 in `DemoJdbcExecuteUpdateTransactionControl.java`:
+4. Fix SQL statement at line 52 in `DemoJdbcExecuteUpdateTransactionControl.java`.
 ```
 rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('MNOP')");
 ```
 
-+ Run demo script again:
+5. Run demo script again, and check the result.
 ```
 $ ./09-demo-jdbc-execute-update-tx-01-show.sh 
 ```
 
------------------------------------------------
-#### 7. Null handling:
-+ Sample code:
-[DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java)
-+ Note line 18, 19, 43, 47, 48
+## Null handling
+1. Go through the sample code and note the line 18, 19, 43, 47, 48 - [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java)
 
-
-+ Run demo script:
+2. Run demo script and check the result.
 ```
 $ ./09-demo-jdbc-null-handling-01-show.sh
 ```
 
-## Sample Output
-
------------------------------------------------
-#### Step 3 Output Reference
-+ successfully connect and disconnect output reference
+## Make connection sample output 
 ```
 $ ./09-demo-jdbc-connection-01-show.sh
 Connection established.
 Connection closed.
 ```
 
-+ connection failed output reference
 ```
 $ ./09-demo-jdbc-connection-01-show.sh
 Error: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
@@ -118,8 +98,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 Already disconnected.
 ```
 
------------------------------------------------
-#### Step 4 Output Reference
+## Execute SQL update sample output
 ```
 $ ./09-demo-jdbc-execute-update-01-show.sh
 Connection established.
@@ -130,8 +109,7 @@ Table test.t1 created.
 Connection closed.
 ```
 
------------------------------------------------
-#### Step 5 Output Reference
+## Execute query sample output
 ```
 $ ./09-demo-jdbc-execute-query-01-show.sh
 Connection established.
@@ -161,9 +139,7 @@ Error: java.sql.SQLException: Can not issue data manipulation statements with ex
 Connection closed.
 ```
 
------------------------------------------------
-#### Step 6 Output Reference
-+ In the `DemoJdbcExecuteUpdateTransactionControl.java`, at line 52 there is wrong SQL statement
+## Transaction control sample output
 ```
 $ ./09-demo-jdbc-execute-update-tx-01-show.sh 
 Connection established.
@@ -183,7 +159,6 @@ Turn on autocommit.
 Connection closed.
 ```
 
-+ Fix wrong SQL statement at line 52 in `DemoJdbcExecuteUpdateTransactionControl.java`
 ```
 $ ./09-demo-jdbc-execute-update-tx-01-show.sh 
 Connection established.
@@ -200,8 +175,7 @@ Turn on autocommit.
 Connection closed.
 ```
 
------------------------------------------------
-#### Step 7 Output Reference
+## Null handling sample output
 ```
 $ ./09-demo-jdbc-null-handling-01-show.sh
 Connection established.
