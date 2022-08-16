@@ -21,7 +21,7 @@ $ cd tidb-course-201-lab/scripts
 ```
 
 -----------------------------------------------
-#### 3. Connecting and Disconnecting:
+#### 3. Connecting and disconnecting:
 + Sample code:
 [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java)
 
@@ -41,7 +41,7 @@ $ ./09-demo-jdbc-connection-01-show.sh
 ```
 
 -----------------------------------------------
-#### 4. Execute Update: 
+#### 4. Execute update: 
 + Sample code:
 [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java)
 
@@ -51,7 +51,7 @@ $ ./09-demo-jdbc-execute-update-01-show.sh
 ```
 
 -----------------------------------------------
-#### 5. Execute Query:
+#### 5. Execute query:
 + Sample code:
 [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java)
   + Note line 14 and line 45
@@ -62,7 +62,7 @@ $ ./09-demo-jdbc-execute-query-01-show.sh
 ```
 
 -----------------------------------------------
-#### 6. Execute Update-tx:
+#### 6. Execute update-tx:
 + Sample code:
 [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java)
 
@@ -87,7 +87,7 @@ $ ./09-demo-jdbc-execute-update-tx-01-show.sh
 ```
 
 -----------------------------------------------
-#### 7. Null Handling:
+#### 7. Null handling:
 + Sample code:
 [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java)
 + Note line 18, 19, 43, 47, 48
