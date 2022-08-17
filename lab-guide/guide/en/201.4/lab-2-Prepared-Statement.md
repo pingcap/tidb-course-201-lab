@@ -1,7 +1,7 @@
 # Exercise 201.4.2: Prepared Statement
 
 ## Prerequisites
-+ + You had completed one of the following execercies:
++ You had completed one of the following execercies:
   + [Exercise 201.1 1a](https://eng.edu.pingcap.com/unit/view/id:2466)
   + [Exercise 201.1 1b](https://eng.edu.pingcap.com/unit/view/id:2467)
 + The Java SDK environment is already configured on the operating system.
