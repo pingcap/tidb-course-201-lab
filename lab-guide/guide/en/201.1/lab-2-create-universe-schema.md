@@ -1,8 +1,5 @@
 # Exercise 201.1.2: Creating the universe Database in the TiDB Cluster
 
-## Purpose of the Exercise
-+ Create the `universe` database as data for the exercises in this course.
-
 ## Prerequisites
 + [git](https://git-scm.com/) is already installed on the operating system.
 + One of pre-installed database clients `mycli`, `mysql`, or `MySQL Workbench`:
@@ -10,71 +7,62 @@
   + [mysql client](https://cn.bing.com/search?q=MacOS+mysql+client+%E5%AE%89%E8%A3%85)
   + [MySQL Workbench - Note Select version: 6.3.10, the page defaults to the latest version](https://downloads.mysql.com/archives/workbench/)
 
-## Steps
-
------------------------------------------------
-#### 1. Clone example scripts repo to local:
+1. Clone example scripts repo to local.
 ```
 $ git clone https://github.com/pingcap/tidb-course-201-lab
 ```
 
------------------------------------------------
-#### 2. Change the working directory to `tidb-course-201-lab`:
+2. Change the working directory to `tidb-course-201-lab`.
 ```
 $ cd tidb-course-201-lab/
 ```
 
------------------------------------------------
-#### 3. Open a new session from the terminal to access the TiDB test database (local or TiDB Cloud):
-+ a. Local TiDB (created by exercises 1b, 1c, 1d, or 1e): Log in directly
-  + Using mycli:
-    ```
-    $ mycli http://root@localhost:4000
-    ``` 
-  + Or using mysql-client:
-    ```
-    $ mysql -h 127.0.0.1 -P 4000 -uroot
-    ```  
-+ b. TiDB Cloud (created by Exercise 1a): Log in with password
-  + Click `Connect` on the TiDB Cloud Cluster page
-  + On the `Connect to TiDB` page, in `Standard Connection`, click `Add Your Current IP Address`
-  + Copy the command listed under `Step 2: Connect with a SQL client` and execute
-    + Using mycli:
-      ```
-      mycli mysql://root@<tidb_cloud_server_dns_name>:4000
-      ```
-    + Or using mysql-client:
-      ```
-      mysql --connect-timeout 15 -uroot -h <tidb_cloud_server_dns_name> -P 4000 -p
-      ```
+3. Open a new session from the terminal to access the TiDB test database (local or TiDB Cloud).
 
------------------------------------------------
-#### 4. Import the example universe schema:
-```sql
+Local TiDB (created by exercises 1b, 1c, 1d, or 1e): Log in directly.
+Using mycli:
+```
+$ mycli http://root@localhost:4000
+``` 
+Or using mysql-client:
+```
+$ mysql -h 127.0.0.1 -P 4000 -uroot
+```  
+
+TiDB Cloud (created by Exercise 1a): Log in with password.
+Click `Connect` on the TiDB Cloud Cluster page. In the Connect setting window, click one of the buttons to add some rules, then set the `IP Address` and `Description(Optional)`, and then click `Update Filter` to confirm the changes.
+Copy the command listed under `Step 2: Connect with a SQL client` and execute.
+Using mycli:
+```
+mycli mysql://root@<tidb_cloud_server_dns_name>:4000
+```
+Or using mysql-client:
+```
+mysql --connect-timeout 15 -uroot -h <tidb_cloud_server_dns_name> -P 4000 -p
+```
+
+4. Import the example universe schema.
+```
 source scripts/universe.sql
 ```
 
------------------------------------------------
-#### 5. Check result `show databases`
-```sql
+5. Check result `show databases`.
+```
 show databases;
 ```
 
-#### 6. Checks all tables in the universe schema
-```sql
+6. Checks all tables in the universe schema.
+```
 show tables from universe;
 ```
 
-#### 7. Check for column with `comment`
-```sql
+7. Check for column with `comment`.
+```
 source scripts/show-universe-comments.sql;
 ```
 
------------------------------------------------
-## Sample Output
 
------------------------------------------------
-#### Step 5 Output Reference
+## Step 5 Sample Output
 ```sql
 show databases;
 ```
@@ -92,8 +80,7 @@ show databases;
 6 rows in set (0.00 sec)
 ```
 
------------------------------------------------
-#### Step 6 Output Reference
+## Step 6 Sample Output
 ```sql
 show tables from universe;
 ```
@@ -109,8 +96,7 @@ show tables from universe;
 4 rows in set (0.00 sec)
 ```
 
------------------------------------------------
-#### Step 7 Output References
+## Step 7 Sample Output
 ```sql
 source scripts/show-universe-comments.sql
 ```
