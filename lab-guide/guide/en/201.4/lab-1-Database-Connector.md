@@ -31,7 +31,7 @@ $ ./09-demo-jdbc-connection-01-show.sh
 $ ./09-demo-jdbc-connection-01-incorrect.sh 
 ```
 
-4. Check the output, compare the different sample code between two runs. Do your best to fix the error code in [DemoJdbcConnectionIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnectionIncorrect.java), then run `./09-demo-jdbc-connection-01-incorrect.sh` again and check the result.
+4. Check the output, compare the different sample code between two runs. Do your best to fix the error code in [DemoJdbcConnectionIncorrect.java](), then run `./09-demo-jdbc-connection-01-incorrect.sh` again and check the result.
 
 ## Execute SQL update 
 1. Go through the sample code - [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java)
@@ -62,7 +62,7 @@ $ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh
 $ ./09-demo-jdbc-execute-update-tx-01-show.sh 
 ```
 
-4. compare the different sample code between two runs. Do your best to fix SQL statement in [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnectionIncorrect.java), then run `./09-demo-jdbc-execute-update-tx-01-incorrect.sh` again and check the result.
+4. Compare the different sample code between two runs. Do your best to fix SQL statement in [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](), then run `./09-demo-jdbc-execute-update-tx-01-incorrect.sh` again and check the result.
 
 
 ## Null handling
