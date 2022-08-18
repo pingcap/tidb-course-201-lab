@@ -9,7 +9,7 @@ import java.sql.ResultSet;
  * JDBC parameter: rewriteBatchedStatements=true|false.
  */
 
-public class DemoJdbcBatchInsert {
+public class DemoJdbcBatchInsertTest {
 
     public static void printResultSetStringString(String stmtText, Connection connection) {
         int count = 0;
@@ -103,10 +103,10 @@ public class DemoJdbcBatchInsert {
                     insert1_ps.setInt(1, i);
                     insert1_ps.setString(2, Integer.toString(i));
                     // Adding batch to prepared statement:
-                    insert1_ps.addBatch();
+                    // TODO
                 }
                 // Adding executing the batch:
-                insert1_ps.executeBatch();
+                // TODO
                 System.out.println(
                         ">>> End batch insert,rewriteBatchedStatements=" + flag + ",elapsed: "
                                 + Long.toString(System.currentTimeMillis() - s1) + " (ms).");

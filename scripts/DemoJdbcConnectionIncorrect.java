@@ -2,13 +2,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DemoJdbcConnection {
+public class DemoJdbcConnectionIncorrect {
     public static void main(String[] args) {
         Connection connection = null;
         try {
             // Connect to TiDB server instance directly
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:4000/test", "root", "");
+                    "jdbc:mysq://localhost:40/test", "root", "");
             System.out.println("Connection established.");
         } catch (Exception e) {
             System.out.println("Error: " + e);
