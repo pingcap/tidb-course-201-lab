@@ -26,15 +26,12 @@ $ cd tidb-course-201-lab/scripts
 $ ./09-demo-jdbc-connection-01-show.sh
 ```
 
-3. Set the `port` as `400` on line `11` in the `DemoJdbcConnection.java`.
+3. Run the other demo script，find output error message.
 ```
-"jdbc:mysql://localhost:400/test", "root", ""
+$ ./09-demo-jdbc-connection-01-incorrect.sh 
 ```
 
-4. Run demo script again and verfity the error:
-```
-$ ./09-demo-jdbc-connection-01-show.sh
-```
+4. Check the output, compare the different sample code between two runs. Do your best to fix the error code in [DemoJdbcConnectionIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnectionIncorrect.java), then run `./09-demo-jdbc-connection-01-incorrect.sh` again and check the result.
 
 ## Execute SQL update 
 1. Go through the sample code - [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java)
@@ -55,25 +52,18 @@ $ ./09-demo-jdbc-execute-query-01-show.sh
 ## Transaction control
 1. Go through the sample code - [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java)
 
-2. In the `DemoJdbcExecuteUpdateTransactionControl.java`, set line `52` to a wrong SQL statement.
+2. Run demo script.
 ```
-rowCount = statement.executeUpdate("INSERT INT t1 (name) VALUES('MNOP')");
+$ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh
 ```
 
-3. Run demo script and check the result.
+3. Run the other demo script and check the result.
 ```
 $ ./09-demo-jdbc-execute-update-tx-01-show.sh 
 ```
 
-4. Fix SQL statement at line `52` in `DemoJdbcExecuteUpdateTransactionControl.java`.
-```
-rowCount = statement.executeUpdate("INSERT INTO t1 (name) VALUES('MNOP')");
-```
+4. compare the different sample code between two runs. Do your best to fix SQL statement in [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnectionIncorrect.java), then run `./09-demo-jdbc-execute-update-tx-01-incorrect.sh` again and check the result.
 
-5. Run demo script again, and check the result.
-```
-$ ./09-demo-jdbc-execute-update-tx-01-show.sh 
-```
 
 ## Null handling
 1. Go through the sample code and note the line `18`, `19`, `43`, `47`, `48` - [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java)
@@ -91,12 +81,11 @@ Connection closed.
 ```
 
 ```
-$ ./09-demo-jdbc-connection-01-show.sh
-Error: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+$ ./09-demo-jdbc-connection-01-incorrect.sh
+Error: java.sql.SQLException: No suitable driver found for jdbc:mysq://localhost:40/test
 Already disconnected.
 ```
+
 
 ## Execute SQL update sample output
 ```
@@ -141,7 +130,7 @@ Connection closed.
 
 ## Transaction control sample output
 ```
-$ ./09-demo-jdbc-execute-update-tx-01-show.sh 
+$ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh
 Connection established.
 Turn off autocommit.
 Table test.t1 created.

@@ -29,15 +29,12 @@ $ cd tidb-course-201-lab/scripts
 $ ./10-demo-jdbc-prepared-statement-01-show.sh
 ```
 
-3. Set the `cachePrepStmts` as `false` at line `30` in the `DemoJdbcPreparedStatement.java`.
+3. Run the other demo script and check the result.
 ```
- "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=false&rewriteBatchedStatements=true", "root", ""
+$ ./10-demo-jdbc-prepared-statement-01-test.sh
 ```
 
-4. Run demo script again.
-```
-$ ./10-demo-jdbc-prepared-statement-01-show.sh
-```
+4. Check the output, compare the different elapsed time between two runs. Try to find the reason for the different elapsed times in [DemoJdbcPreparedStatementTest.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcPreparedStatement.java)
 
 
 ## Prepared statement with returning
@@ -50,7 +47,7 @@ $ ./10-demo-jdbc-prepared-statement-returning-01-show.sh
 
 
 ## Batch insert
-1. Go through the sample code and note the line `83`, `105`, `107` - [DemoJdbcBatchInsert.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcBatchInsert.java)
+1. Go through the sample code and note the line `83`, `106`, `109` - [DemoJdbcBatchInsert.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcBatchInsert.java)
 
 2. Run demo script. You can use parameter [cloud|local] to run the demo against TiDB Cloud or local Playground respectively. If you choose `cloud`, make sure the TiDB Cloud cluster has been started and then set environment variables for TiDB Cloud.
 ```
@@ -62,7 +59,10 @@ $ export TIDB_CLOUD_PORT=<port>
 ```
 $ ./10-demo-jdbc-batch-insert-01-show.sh cloud|local
 ```
-
+3. Run the other demo script and check the result. Try to find the reason for the error in [DemoJdbcBatchInsertTest.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcPreparedStatement.java)
+```
+$ ./10-demo-jdbc-batch-insert-01-test.sh cloud|local
+```
 
 
 ## Prepared Statement sample output
@@ -83,7 +83,7 @@ Connection closed.
 
 
 ```
-$ ./10-demo-jdbc-prepared-statement-01-show.sh
+$ ./10-demo-jdbc-prepared-statement-01-test.sh
 Connection established.
 >>> Reuse PS Begin repeating update.
 >>> End repeating update, elapsed: 3892(ms).
@@ -114,6 +114,25 @@ Connection established.
 /* Executing query: select count(*), max(name) from test.t1_batchtest; */
 	Row#, count(*), max(name)
 	1) 10000, 9999
+Turn on autocommit.
+Connection closed.
+```
+
+```
+./10-demo-jdbc-batch-insert-01-test.sh local
+TiDB endpoint: 127.0.0.1
+TiDB username: root
+Default TiDB server port: 4000
+Connection established.
+>>> Begin insert 10000 rows.
+>>> End batch insert,rewriteBatchedStatements=true,elapsed: 3 (ms).
+Connection established.
+>>> Begin insert 10000 rows.
+>>> End batch insert,rewriteBatchedStatements=false,elapsed: 4 (ms).
+
+/* Executing query: select count(*), max(name) from test.t1_batchtest; */
+	Row#, count(*), max(name)
+	1) 0, null
 Turn on autocommit.
 Connection closed.
 ```
