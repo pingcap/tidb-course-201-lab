@@ -29,12 +29,12 @@ $ cd tidb-course-201-lab/scripts
 $ ./10-demo-jdbc-prepared-statement-01-show.sh
 ```
 
-3. Run the other demo script and check the result.
+3. Run the other demo script and check the result. Note that the result is different from step 2.
 ```
 $ ./10-demo-jdbc-prepared-statement-01-test.sh
 ```
 
-4. Check the output, compare the different elapsed time between two runs. Try to find the reason for the different elapsed times in [DemoJdbcPreparedStatementTest.java]().
+4. Check the output, compare the different elapsed time between two runs. Try to find the reason for the different elapsed times in [DemoJdbcPreparedStatementTest.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcPreparedStatementTest.java).
 
 
 ## Prepared statement with returning
@@ -60,7 +60,7 @@ $ export TIDB_CLOUD_PORT=<port>
 $ ./10-demo-jdbc-batch-insert-01-show.sh cloud|local
 ```
 
-3. Run the other demo script and check the result. Try to find the reason for the error in [DemoJdbcBatchInsertTest.java]().
+3. Run the other demo script and check the result. Try to find the reason for the error in [DemoJdbcBatchInsertTest.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcBatchInsertTest.java).
 ```
 $ ./10-demo-jdbc-batch-insert-01-test.sh cloud|local
 ```
