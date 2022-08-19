@@ -130,36 +130,33 @@ Connection closed.
 
 ## Transaction control sample output
 ```
+$ ./09-demo-jdbc-execute-update-tx-01-show.sh
+Connection established.
+Turn off autocommit.
+Table test.t1 created.
+1 row inserted into table test.t1 (commit).
+1 row inserted into table test.t1 (commit).
+1 row inserted into table test.t1 (commit).
+
+/* Executing query: select count(*), max(id) from test.t1; */
+	Row#, count(*), max(id)
+	1) 4, 6629298651489370114
+Turn on autocommit.
+Connection closed.
+```
+
+```
 $ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh
 Connection established.
 Turn off autocommit.
 Table test.t1 created.
 1 row inserted into table test.t1 (commit).
 1 row inserted into table test.t1 (commit).
-Error: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your TiDB version for the right syntax to use line 1 column 10 near "INT t1 (name) VALUES('MNOP')" 
-SQLState: 42000
-ErrorCode: 1064
-Transaction rolled back.
-
-/* Executing query: select count(*), max(id) from test.t1; */
-	Row#, count(*), max(id)
-	1) 2, 5188146770730811393
-Turn on autocommit.
-Connection closed.
-```
-
-```
-$ ./09-demo-jdbc-execute-update-tx-01-show.sh 
-Connection established.
-Turn off autocommit.
-Table test.t1 created.
-1 row inserted into table test.t1 (commit).
-1 row inserted into table test.t1 (commit).
 1 row inserted into table test.t1 (commit).
 
 /* Executing query: select count(*), max(id) from test.t1; */
 	Row#, count(*), max(id)
-	1) 4, 5188146770730811393
+	1) 2, 8935141660703064065
 Turn on autocommit.
 Connection closed.
 ```
