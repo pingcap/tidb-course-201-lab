@@ -39,7 +39,7 @@ $ ./11-demo-jdbc-prepared-statement-online-ddl-01-show.sh
 $ ./07-demo-online-ddl-add-column-02-workload-after.sh
 ```
 
-5. Check the result of the two demo script.
+5. Compare the difference between two runs of `./11-demo-jdbc-prepared-statement-online-ddl-01-show.sh`. Try to find out why the second time you run the demo script, there is an error, but the final output is the same as the first time.
 
 
 ## Exception handling sample output
