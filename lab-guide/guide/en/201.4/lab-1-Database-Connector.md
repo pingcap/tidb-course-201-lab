@@ -62,7 +62,7 @@ $ ./09-demo-jdbc-execute-update-tx-01-show.sh
 $ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh 
 ```
 
-4. Do your best to modify [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControlIncorrect.java), so that `./09-demo-jdbc-execute-update-tx-01-incorrect.sh` and `./09-demo-jdbc-execute-update-tx-01-show.sh` can return the same the result.
+4. Do your best to modify [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControlIncorrect.java), so that `./09-demo-jdbc-execute-update-tx-01-incorrect.sh` and `./09-demo-jdbc-execute-update-tx-01-show.sh` can return the same result.
 
 
 ## Null handling
