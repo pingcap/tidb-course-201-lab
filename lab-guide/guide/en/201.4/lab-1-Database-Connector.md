@@ -19,7 +19,7 @@ $ cd tidb-course-201-lab/scripts
 ```
 
 ## Making connection to TiDB
-1. Go through the sample code - [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java)
+1. Go through the sample code - [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java).
 
 2. Run demo script, and note the output.
 ```
@@ -34,7 +34,7 @@ $ ./09-demo-jdbc-connection-01-incorrect.sh
 4. Try to fix the error in [DemoJdbcConnectionIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnectionIncorrect.java) in your local `scripts` folder, then run `./09-demo-jdbc-connection-01-incorrect.sh` again to verify that the result should be the same as the step 2. Tips: You can consult [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java) as a solution reference.
 
 ## Executing SQL update
-1. Go through the sample code - [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java)
+1. Go through the sample code - [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java).
 
 2. Run demo script.
 ```
@@ -42,7 +42,7 @@ $ ./09-demo-jdbc-execute-update-01-show.sh
 ```
 
 ## Executing SQL query
-1. Go through the sample code and note line `ResultSet resultSet = statement.executeQuery(stmtText)` in the method `printResultSetStringString` - [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java)
+1. Go through the sample code and note line `ResultSet resultSet = statement.executeQuery(stmtText)` in the method `printResultSetStringString` - [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java).
 
 2. Run demo script.
 ```
