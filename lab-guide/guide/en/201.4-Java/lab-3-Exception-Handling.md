@@ -1,15 +1,14 @@
 # Exercise 3: Exception Handling
 
 ## Prerequisites
-+ You had completed one of the following exercises:
-  + [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466)
-  + [TiDB Architecture Basics Exercise 1b](https://eng.edu.pingcap.com/unit/view/id:2467)
++ You had completed exercise [TiDB Architecture Basics Exercise 1b](https://eng.edu.pingcap.com/unit/view/id:2467)
++ Your TiDB service listens at port 4000.
 + The Java SDK environment is already configured on the operating system.
 + [git](https://git-scm.com/) is already installed on the operating system.
 
 
-## Prepare
-1. Clone example scripts repo to local.
+## Section 1: Preparation
+1. Clone example scripts repository to the practice node (e.g: Your local macOS, Linux or Cloud VM provided by Amazon or GCP).
 ```
 $ git clone https://github.com/pingcap/tidb-course-201-lab
 ```
@@ -19,8 +18,10 @@ $ git clone https://github.com/pingcap/tidb-course-201-lab
 $ cd tidb-course-201-lab/scripts
 ```
 
+3. If you have TiDB Cloud Developer Tier and you prefer to do the exercise on a Cloud node like Amazon EC2, please jump to *Section 3: Try it out on TiDB Cloud*
 
-## Exception handling
+
+## Section 2: Exception handling
 1. Go through the sample code -[DemoJdbcPreparedStatementOnlineDDL.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcPreparedStatementOnlineDDL.java)
 
 
@@ -41,6 +42,14 @@ $ ./07-demo-online-ddl-add-column-02-workload-after.sh
 
 5. Compare the difference between two runs of `./11-demo-jdbc-prepared-statement-online-ddl-01-show.sh`. Try to find out why the second time you run the demo script, there is an error, but the final output is the same as the first time.
 
+## Section 3: Try it out on TiDB Cloud
+1. Until now, our exercises are targeting local TiDB Playground cluster. If you completed the [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466), you can change the target database to TiDB Cloud Developer Tier. 
+	+ Note: Each subsequent step requires you to do it on a practice node in the same Cloud Provider Region (e.g: Amazon EC2 instance) as your TiDB Cloud Developer Tier. Otherwise, the response latency may suffer. 
+
+2. For exception handling, locate JDBC URL "jdbc:mysql://localhost:4000/test", "root", "") in [DemoJdbcPreparedStatementOnlineDDL.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcPreparedStatementOnlineDDL.java) under the `scripts` folder on your practice node, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the script.
+```
+$ ./11-demo-jdbc-prepared-statement-online-ddl-01-show.sh
+```
 
 ## Exception handling sample output
 ```

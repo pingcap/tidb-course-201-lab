@@ -51,7 +51,7 @@ $ ./09-demo-jdbc-execute-query-01-show.sh
 ```
 
 ## Section 5: Controlling transactions
-1. Go through the sample code - [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java). Pleate note the `connection.setAutoCommit(false)` in the code, because of it the autocommit feature is disabled.
+1. Go through the sample code - [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java). Please note the `connection.setAutoCommit(false)` in the code, because of it the autocommit feature is disabled.
 
 2. Run demo script.
 ```
