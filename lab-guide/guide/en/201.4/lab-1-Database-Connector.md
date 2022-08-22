@@ -75,9 +75,8 @@ $ ./09-demo-jdbc-null-handling-01-show.sh
 ```
 
 ## Try it out on TiDB Cloud
-1. Util now, our excercises are all targeting local TiDB Playground cluster. If you completed the [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466), you can change the target database to TiDB Cloud Developer Tier. 
-
-Note: Each subsequent step requires you to do it on a node in the same Cloud Provider Region as your TiDB Cloud Developer Tier. Otherwise, the response latency may suffers. 
+1. Util now, our exercises are all targeting local TiDB Playground cluster. If you completed the [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466), you can change the target database to TiDB Cloud Developer Tier. 
+	+ Note: Each subsequent step requires you to do it on a node in the same Cloud Provider Region as your TiDB Cloud Developer Tier. Otherwise, the response latency may suffers. 
 
 2. For making connection to TiDB, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the connection test script.
 ```
@@ -208,5 +207,3 @@ Table test.`t1` created.
 Turn on autocommit.
 Connection closed.
 ```
-
-## End of Exercise 1: Database Connectors
