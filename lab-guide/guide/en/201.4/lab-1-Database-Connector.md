@@ -1,7 +1,7 @@
 # Exercise 1: Database Connectors
 
 ## Prerequisites
-+ You had completed one of the following execercies:
++ You had completed one of the following exercises:
   + [TiDB Architecture Basics Exercise 1b](https://eng.edu.pingcap.com/unit/view/id:2467)
 + Your TiDB service listens at port 4000.
 + The Java SDK environment is already configured on the operating system.
