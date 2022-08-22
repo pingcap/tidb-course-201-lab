@@ -42,7 +42,7 @@ $ ./09-demo-jdbc-execute-update-01-show.sh
 ```
 
 ## Executing SQL query
-1. Go through the sample code and note line `14` and line `45` - [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java)
+1. Go through the sample code and note line `ResultSet resultSet = statement.executeQuery(stmtText)` in the method `printResultSetStringString` - [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java)
 
 2. Run demo script.
 ```
@@ -50,7 +50,7 @@ $ ./09-demo-jdbc-execute-query-01-show.sh
 ```
 
 ## Controlling transactions
-1. Go through the sample code - [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java)
+1. Go through the sample code - [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java). Pleate note the `connection.setAutoCommit(false)` in the code, because of it the autocommit feature is disabled.
 
 2. Run demo script.
 ```
@@ -62,13 +62,12 @@ $ ./09-demo-jdbc-execute-update-tx-01-show.sh
 $ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh 
 ```
 
-4. Do your best to modify [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControlIncorrect.java), so that following scripts can return the same result: 
+4. [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControlIncorrect.java) rolls back the transaction at certain point but it should be a `commit()`. Try to fix it under your local `script` folder, so that following scripts can return the same result:
+	+ `./09-demo-jdbc-execute-update-tx-01-show.sh` 
 	+ `./09-demo-jdbc-execute-update-tx-01-incorrect.sh`
-	+ `./09-demo-jdbc-execute-update-tx-01-show.sh`
-
 
 ## Null handling
-1. Go through the sample code and note the line `18`, `19`, `43`, `47`, `48` - [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java)
+1. Go through the sample code - [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java), and note that we use `resultSet.getInt(1)` and `resultSet.getString(2)` to show the values of the 1st and 2nd columns in the result set. And we use `resultSet.wasNull()` to test a certain column is null or not. 
 
 2. Run demo script and check the result.
 ```
