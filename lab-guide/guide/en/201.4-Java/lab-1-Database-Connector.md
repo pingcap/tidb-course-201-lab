@@ -6,7 +6,7 @@
 + The Java SDK environment is already configured on the operating system.
 + [git](https://git-scm.com/) is already installed on the operating system.
 
-## Section 1: Prepare
+## Section 1: Preparation
 1. Clone example scripts repository to the practice node (e.g: Your local macOS, Linux or Cloud VM provided by Amazon or GCP).
 ```
 $ git clone https://github.com/pingcap/tidb-course-201-lab
@@ -76,7 +76,7 @@ $ ./09-demo-jdbc-null-handling-01-show.sh
 ```
 
 ## Section 7: Try it out on TiDB Cloud
-1. Util now, our exercises are all targeting local TiDB Playground cluster. If you completed the [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466), you can change the target database to TiDB Cloud Developer Tier. 
+1. Util now, our exercises are targeting local TiDB Playground cluster. If you completed the [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466), you can change the target database to TiDB Cloud Developer Tier. 
 	+ Note: Each subsequent step requires you to do it on a practice node in the same Cloud Provider Region (e.g: Amazon EC2 instance) as your TiDB Cloud Developer Tier. Otherwise, the response latency may suffer. 
 
 2. For making connection to TiDB, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java) under the `scripts` folder on your practice node, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the connection test script.
