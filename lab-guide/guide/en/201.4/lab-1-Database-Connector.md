@@ -62,7 +62,7 @@ $ ./09-demo-jdbc-execute-update-tx-01-show.sh
 $ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh 
 ```
 
-4. [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControlIncorrect.java) rolls back the transaction at certain point but it should be a `commit()`. Try to fix it under your local `script` folder, so that following scripts can return the same result:
+4. [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControlIncorrect.java) rolls back (`rollback()`) the transaction at certain point but it should be a `commit()`. Try to fix it under your local `script` folder, so that following scripts can return the same result:
 	+ `./09-demo-jdbc-execute-update-tx-01-show.sh` 
 	+ `./09-demo-jdbc-execute-update-tx-01-incorrect.sh`
 
