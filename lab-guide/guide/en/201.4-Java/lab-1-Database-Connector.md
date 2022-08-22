@@ -1,14 +1,13 @@
 # Exercise 1: Database Connectors
 
 ## Prerequisites
-+ You had completed one of the following exercises:
-  + [TiDB Architecture Basics Exercise 1b](https://eng.edu.pingcap.com/unit/view/id:2467)
++ You had completed exercise [TiDB Architecture Basics Exercise 1b](https://eng.edu.pingcap.com/unit/view/id:2467)
 + Your TiDB service listens at port 4000.
 + The Java SDK environment is already configured on the operating system.
 + [git](https://git-scm.com/) is already installed on the operating system.
 
 ## Prepare
-1. Clone example scripts repository to local.
+1. Clone example scripts repository to the practice node (e.g: Your local macOS, Linux or Cloud VM provided by Amazon or GCP).
 ```
 $ git clone https://github.com/pingcap/tidb-course-201-lab
 ```
@@ -17,6 +16,8 @@ $ git clone https://github.com/pingcap/tidb-course-201-lab
 ```
 $ cd tidb-course-201-lab/scripts
 ```
+
+3. If you have TiDB Cloud Developer Tier and you prefer to do the exercise on a Cloud node like Amazon EC2, please jump to section - [Try it out on TiDB Cloud](#try-it-out-on-tidb-cloud)
 
 ## Making connection to TiDB
 1. Go through the sample code - [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java).
@@ -76,29 +77,29 @@ $ ./09-demo-jdbc-null-handling-01-show.sh
 
 ## Try it out on TiDB Cloud
 1. Util now, our exercises are all targeting local TiDB Playground cluster. If you completed the [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466), you can change the target database to TiDB Cloud Developer Tier. 
-	+ Note: Each subsequent step requires you to do it on a node in the same Cloud Provider Region as your TiDB Cloud Developer Tier. Otherwise, the response latency may suffers. 
+	+ Note: Each subsequent step requires you to do it on a practice node in the same Cloud Provider Region (e.g: Amazon EC2 instance) as your TiDB Cloud Developer Tier. Otherwise, the response latency may suffers. 
 
-2. For making connection to TiDB, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the connection test script.
+2. For making connection to TiDB, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java) under the `scripts` folder on your practice node, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the connection test script.
 ```
 $ ./09-demo-jdbc-connection-01-show.sh
 ```
 
-3. For executing SQL update, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the JDBC update script.
+3. For executing SQL update, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java) under the `scripts` folder on your practice node, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the JDBC update script.
 ```
 $ ./09-demo-jdbc-execute-update-01-show.sh
 ```
 
-4. For executing SQL query, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the JDBC query script.
+4. For executing SQL query, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java) under the `scripts` folder on your practice node, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the JDBC query script.
 ```
 $ ./09-demo-jdbc-execute-query-01-show.sh
 ```
 
-5. For controlling transactions, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the script.
+5. For controlling transactions, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java) under the `scripts` folder on your practice node, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the script.
 ```
 $ ./09-demo-jdbc-execute-update-tx-01-show.sh
 ```
 
-6. For null handling, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the script.
+6. For null handling, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java) under the `scripts` folder on your practice node, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the script.
 ```
 $ ./09-demo-jdbc-null-handling-01-show.sh
 ```
