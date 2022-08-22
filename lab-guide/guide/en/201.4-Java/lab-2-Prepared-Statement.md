@@ -21,8 +21,7 @@ $ cd tidb-course-201-lab/scripts
 
 
 ## Section 2: Prepared Statement
-1. Go through the sample code and note line `cachePrepStmts=true` in the method `main` -[DemoJdbcPreparedStatement.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcPreparedStatement.java)
-
+1. Go through the sample code and note the JDBC parameters `useServerPrepStmts=true` and `cachePrepStmts=true` in the `main` method, which means we are using servide-side prepared statement and client-side caching - [DemoJdbcPreparedStatement.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcPreparedStatement.java)
 
 2. Run demo script.
 ```
