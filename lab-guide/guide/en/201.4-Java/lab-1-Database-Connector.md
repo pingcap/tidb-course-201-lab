@@ -6,7 +6,7 @@
 + The Java SDK environment is already configured on the operating system.
 + [git](https://git-scm.com/) is already installed on the operating system.
 
-## Prepare
+## Section 1: Prepare
 1. Clone example scripts repository to the practice node (e.g: Your local macOS, Linux or Cloud VM provided by Amazon or GCP).
 ```
 $ git clone https://github.com/pingcap/tidb-course-201-lab
@@ -17,9 +17,9 @@ $ git clone https://github.com/pingcap/tidb-course-201-lab
 $ cd tidb-course-201-lab/scripts
 ```
 
-3. If you have TiDB Cloud Developer Tier and you prefer to do the exercise on a Cloud node like Amazon EC2, please jump to section - [Try it out on TiDB Cloud](#try-it-out-on-tidb-cloud)
+3. If you have TiDB Cloud Developer Tier and you prefer to do the exercise on a Cloud node like Amazon EC2, please jump to *Section 7: Try it out on TiDB Cloud*
 
-## Making connection to TiDB
+## Section 2: Making connection to TiDB
 1. Go through the sample code - [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java).
 
 2. Run demo script, and note the output.
@@ -34,7 +34,7 @@ $ ./09-demo-jdbc-connection-01-incorrect.sh
 
 4. Try to fix the error in [DemoJdbcConnectionIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnectionIncorrect.java) in your local `scripts` folder, then run `./09-demo-jdbc-connection-01-incorrect.sh` again to verify that the result should be the same as the step 2. Tips: You can consult [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java) as a solution reference.
 
-## Executing SQL update
+## Section 3: Executing SQL update
 1. Go through the sample code - [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java).
 
 2. Run demo script.
@@ -42,7 +42,7 @@ $ ./09-demo-jdbc-connection-01-incorrect.sh
 $ ./09-demo-jdbc-execute-update-01-show.sh
 ```
 
-## Executing SQL query
+## Section 4: Executing SQL query
 1. Go through the sample code and note line `ResultSet resultSet = statement.executeQuery(stmtText)` in the method `printResultSetStringString` - [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java).
 
 2. Run demo script.
@@ -50,7 +50,7 @@ $ ./09-demo-jdbc-execute-update-01-show.sh
 $ ./09-demo-jdbc-execute-query-01-show.sh
 ```
 
-## Controlling transactions
+## Section 5: Controlling transactions
 1. Go through the sample code - [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java). Pleate note the `connection.setAutoCommit(false)` in the code, because of it the autocommit feature is disabled.
 
 2. Run demo script.
@@ -67,7 +67,7 @@ $ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh
 	+ `./09-demo-jdbc-execute-update-tx-01-show.sh` 
 	+ `./09-demo-jdbc-execute-update-tx-01-incorrect.sh`
 
-## Null handling
+## Section 6: Null handling
 1. Go through the sample code - [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java), and note that we use `resultSet.getInt(1)` and `resultSet.getString(2)` to show the values of the 1st and 2nd columns in the result set. And we use `resultSet.wasNull()` to test a certain column is null or not. 
 
 2. Run demo script and check the result.
@@ -75,7 +75,7 @@ $ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh
 $ ./09-demo-jdbc-null-handling-01-show.sh
 ```
 
-## Try it out on TiDB Cloud
+## Section 7: Try it out on TiDB Cloud
 1. Util now, our exercises are all targeting local TiDB Playground cluster. If you completed the [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466), you can change the target database to TiDB Cloud Developer Tier. 
 	+ Note: Each subsequent step requires you to do it on a practice node in the same Cloud Provider Region (e.g: Amazon EC2 instance) as your TiDB Cloud Developer Tier. Otherwise, the response latency may suffers. 
 
