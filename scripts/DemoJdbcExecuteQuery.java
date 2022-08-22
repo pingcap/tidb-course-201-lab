@@ -8,18 +8,19 @@ public class DemoJdbcExecuteQuery {
 
     public static void printResultSetStringString(String stmtText, Connection connection) {
         int count = 0;
-        System.out.println("\n/* Executing query: "+stmtText+"; */");
+        System.out.println("\n/* Executing query: " + stmtText + "; */");
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(stmtText);
-            System.out.println("\tRow#, "+resultSet.getMetaData().getColumnName(1)+", "+resultSet.getMetaData().getColumnName(2));
+            System.out.println("\tRow#, " + resultSet.getMetaData().getColumnName(1) + ", "
+                    + resultSet.getMetaData().getColumnName(2));
             while (resultSet.next()) {
-                System.out.println("\t"+(++count) + ") " + resultSet.getString(1)+", "+resultSet.getString(2));
+                System.out.println("\t" + (++count) + ") " + resultSet.getString(1) + ", " + resultSet.getString(2));
             }
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
-            System.out.println("Error: "+e);
+            System.out.println("Error: " + e);
         }
     }
 
@@ -27,7 +28,7 @@ public class DemoJdbcExecuteQuery {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", "");
+                    "jdbc:mysql://localhost:4000/test", "root", "");
             System.out.println("Connection established.");
             // Do something in the connection.
             // Show autocommit
@@ -56,8 +57,7 @@ public class DemoJdbcExecuteQuery {
                 } catch (Exception e) {
                     System.out.println("Error disconnecting: " + e.toString());
                 }
-            }
-            else{
+            } else {
                 System.out.println("Already disconnected.");
             }
         }

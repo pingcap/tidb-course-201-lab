@@ -2,8 +2,8 @@
 
 ## Prerequisites
 + You had completed one of the following execercies:
-  + [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466)
   + [TiDB Architecture Basics Exercise 1b](https://eng.edu.pingcap.com/unit/view/id:2467)
++ Your TiDB service listens at port 4000.
 + The Java SDK environment is already configured on the operating system.
 + [git](https://git-scm.com/) is already installed on the operating system.
 
@@ -18,22 +18,22 @@ $ git clone https://github.com/pingcap/tidb-course-201-lab
 $ cd tidb-course-201-lab/scripts
 ```
 
-## Make connection
+## Making connection to TiDB
 1. Go through the sample code - [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java)
 
-2. Run demo script.
+2. Run demo script, and note the output.
 ```
 $ ./09-demo-jdbc-connection-01-show.sh
 ```
 
-3. Run the other demo script，find output error message.
+3. Run the other demo script, note the output error message. Compare the output with step 2.
 ```
 $ ./09-demo-jdbc-connection-01-incorrect.sh 
 ```
 
-4. Check the output, compare the difference between two runs. Do your best to fix the error in [DemoJdbcConnectionIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnectionIncorrect.java), then run `./09-demo-jdbc-connection-01-incorrect.sh` again to verify the result.
+4. Try to fix the error in [DemoJdbcConnectionIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnectionIncorrect.java) in your local `scripts` folder, then run `./09-demo-jdbc-connection-01-incorrect.sh` again to verify that the result should be the same as the step 2. Tips: You can consult [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java) as a solution reference.
 
-## Execute SQL update 
+## Executing SQL update
 1. Go through the sample code - [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java)
 
 2. Run demo script.
@@ -41,7 +41,7 @@ $ ./09-demo-jdbc-connection-01-incorrect.sh
 $ ./09-demo-jdbc-execute-update-01-show.sh
 ```
 
-## Execute query
+## Executing SQL query
 1. Go through the sample code and note line `14` and line `45` - [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java)
 
 2. Run demo script.
@@ -49,7 +49,7 @@ $ ./09-demo-jdbc-execute-update-01-show.sh
 $ ./09-demo-jdbc-execute-query-01-show.sh
 ```
 
-## Transaction control
+## Controlling transactions
 1. Go through the sample code - [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java)
 
 2. Run demo script.
@@ -62,7 +62,9 @@ $ ./09-demo-jdbc-execute-update-tx-01-show.sh
 $ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh 
 ```
 
-4. Do your best to modify [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControlIncorrect.java), so that `./09-demo-jdbc-execute-update-tx-01-incorrect.sh` and `./09-demo-jdbc-execute-update-tx-01-show.sh` can return the same result.
+4. Do your best to modify [DemoJdbcExecuteUpdateTransactionControlIncorrect.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControlIncorrect.java), so that following scripts can return the same result: 
+	+ `./09-demo-jdbc-execute-update-tx-01-incorrect.sh`
+	+ `./09-demo-jdbc-execute-update-tx-01-show.sh`
 
 
 ## Null handling
@@ -73,7 +75,38 @@ $ ./09-demo-jdbc-execute-update-tx-01-incorrect.sh
 $ ./09-demo-jdbc-null-handling-01-show.sh
 ```
 
-## Make connection sample output 
+## Try it out on TiDB Cloud
+1. Util now, our excercises are all targeting local TiDB Playground cluster. If you completed the [TiDB Architecture Basics Exercise 1a](https://eng.edu.pingcap.com/unit/view/id:2466), you can change the target database to TiDB Cloud Developer Tier. 
+
+Note: Each subsequent step requires you to do it on a node in the same Cloud Provider Region as your TiDB Cloud Developer Tier. Otherwise, the response latency may suffers. 
+
+2. For making connection to TiDB, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcConnection.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcConnection.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the connection test script.
+```
+$ ./09-demo-jdbc-connection-01-show.sh
+```
+
+3. For executing SQL update, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcExecuteUpdate.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdate.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the JDBC update script.
+```
+$ ./09-demo-jdbc-execute-update-01-show.sh
+```
+
+4. For executing SQL query, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcExecuteQuery.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteQuery.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the JDBC query script.
+```
+$ ./09-demo-jdbc-execute-query-01-show.sh
+```
+
+5. For controlling transactions, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcExecuteUpdateTransactionControl.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcExecuteUpdateTransactionControl.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the script.
+```
+$ ./09-demo-jdbc-execute-update-tx-01-show.sh
+```
+
+6. For null handling, locate JDBC URL `"jdbc:mysql://localhost:4000/test", "root", "")` in [DemoJdbcNullHandling.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcNullHandling.java) under your local `scripts` folder, change the `hostname`, `port`, `username` and `password` to corresponding values provided by your TiDB Cloud Developer Tier. And then, run the script.
+```
+$ ./09-demo-jdbc-null-handling-01-show.sh
+```
+
+
+## Making connection sample output 
 ```
 $ ./09-demo-jdbc-connection-01-show.sh
 Connection established.
@@ -87,7 +120,7 @@ Already disconnected.
 ```
 
 
-## Execute SQL update sample output
+## Executing SQL update sample output
 ```
 $ ./09-demo-jdbc-execute-update-01-show.sh
 Connection established.
@@ -98,7 +131,7 @@ Table test.t1 created.
 Connection closed.
 ```
 
-## Execute query sample output
+## Executing SQL query sample output
 ```
 $ ./09-demo-jdbc-execute-query-01-show.sh
 Connection established.
@@ -128,7 +161,7 @@ Error: java.sql.SQLException: Can not issue data manipulation statements with ex
 Connection closed.
 ```
 
-## Transaction control sample output
+## Controlling transaction sample output
 ```
 $ ./09-demo-jdbc-execute-update-tx-01-show.sh
 Connection established.
@@ -176,3 +209,5 @@ Table test.`t1` created.
 Turn on autocommit.
 Connection closed.
 ```
+
+## End of Exercise 1: Database Connectors

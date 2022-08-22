@@ -29,7 +29,7 @@ public class DemoJdbcExecuteUpdateTransactionControl {
         Statement statement = null;
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true",
+                    "jdbc:mysql://localhost:4000/test",
                     "root", "");
             System.out.println("Connection established.");
 

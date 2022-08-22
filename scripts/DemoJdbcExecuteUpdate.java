@@ -3,13 +3,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DemoJdbcExecuteUpdate{
-    public static void main(String[] args){
+public class DemoJdbcExecuteUpdate {
+    public static void main(String[] args) {
         Connection connection = null;
-        try{
+        try {
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", "root", ""
-            );
+                    "jdbc:mysql://localhost:4000/test", "root", "");
             System.out.println("Connection established.");
             // Do something in the connection
             Statement statement = connection.createStatement();
@@ -18,28 +17,24 @@ public class DemoJdbcExecuteUpdate{
             System.out.println("Table test.t1 created.");
             int rowCount = 0;
             rowCount = statement.executeUpdate("INSERT INTO t1 VALUES(1, 'ABCD')");
-            System.out.println(rowCount+" row inserted into table test.t1");
+            System.out.println(rowCount + " row inserted into table test.t1");
             rowCount = statement.executeUpdate("INSERT INTO t1 VALUES(2, 'EFGH')");
-            System.out.println(rowCount+" row inserted into table test.t1");
+            System.out.println(rowCount + " row inserted into table test.t1");
             rowCount = statement.executeUpdate("INSERT INTO t1 VALUES(3, 'IJKL'), (4, 'MNOP')");
-            System.out.println(rowCount+" row inserted into table test.t1");
+            System.out.println(rowCount + " row inserted into table test.t1");
             statement.close();
             // Finish
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error: " + e);
-        }
-        finally{
-            if(connection != null){
-                try{
+        } finally {
+            if (connection != null) {
+                try {
                     connection.close();
                     System.out.println("Connection closed.");
+                } catch (Exception e) {
+                    System.out.println("Error disconnecting: " + e.toString());
                 }
-                catch(Exception e){
-                    System.out.println("Error disconnecting: "+e.toString());
-                }
-            }
-            else{
+            } else {
                 System.out.println("Already disconnected.");
             }
         }
