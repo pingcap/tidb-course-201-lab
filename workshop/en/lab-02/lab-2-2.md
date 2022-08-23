@@ -1,4 +1,4 @@
-# Go through the relevant code lines
+# Go Through the Relevant Code Lines
 1. Review line #80 and line #83 in [Java class source for DemoJdbcBatchInsert.java](https://github.com/pingcap/tidb-course-201-lab/blob/master/scripts/DemoJdbcBatchInsert.java). The program will run twice with JDBC parameter `rewriteBatchedStatements` set to `true` and then `false`. 
 
 ```java
