@@ -16,4 +16,4 @@
 ## Additional Readings
 + [TiDB Document](https://docs.pingcap.com/)
 + [TiDB Developer Guide](https://docs.pingcap.com/tidb/stable/dev-guide-overview)
-+ [TiDB Ninja Kits](https://github.com/pingcap/tidb-course-201-lab/blob/master/ninja-kits/tidb-ninja-kits-en-2022081401.pdf)
++ [TiDB Kits for Developers](https://github.com/pingcap/tidb-course-201-lab/blob/master/ninja-kits/)
