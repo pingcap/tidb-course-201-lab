@@ -22,6 +22,6 @@ insert into test.target_table (name1, name2) values ('AFTER-DDL','AFTER-DDL');
 insert into test.target_table (name1, name2) values ('AFTER-DDL','AFTER-DDL');
 COMMIT;
 
-SELECT name1 as "|NAME1|", name2 as "|NAME2|", count(*) as "|AFTER-DDL: 1600|" 
+SELECT name1 as "|NAME1|", name2 as "|NAME2|", count(*) as "|AFTER-DDL-GOAL: 1600|" 
 FROM test.target_table 
 GROUP BY name1, name2;

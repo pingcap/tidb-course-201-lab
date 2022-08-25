@@ -10,6 +10,6 @@ INSERT INTO test.target_table (id, name1) SELECT NULL, name FROM test.seed;
 INSERT INTO test.target_table (id, name1) SELECT NULL, name FROM test.seed;
 INSERT INTO test.target_table (id, name1) SELECT NULL, name FROM test.seed;
 COMMIT;
-SELECT name1 as "|NAME1|", count(*) as "|BEFORE-DDL: 192000|" 
+SELECT name1 as "|NAME1|", count(*) as "|BEFORE-DDL-GOAL: 192000|" 
 FROM test.target_table 
 GROUP BY name1;
