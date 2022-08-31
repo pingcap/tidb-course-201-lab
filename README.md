@@ -7,8 +7,7 @@
   + Please ask your instructor for the guidance about how to use the artifacts in this repository.
 
 ## Folders Description
-+ Lab guides are placed in `lab-guide/guide/en/` folder.
-+ All scripts used in this course are placed in `scripts/` folder.
++ All scripts used in *TiDB SQL for Developers* course are placed in `scripts/` folder.
 
 ## TiDB Trainings
 + [PingCAP Training & Certification](https://en.pingcap.com/education/)
