@@ -1,1 +1,1 @@
-# TiDB Ninja Kits
+# TiDB Kits for Developers

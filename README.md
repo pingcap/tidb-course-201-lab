@@ -13,6 +13,6 @@
 + [PingCAP Training & Certification](https://en.pingcap.com/education/)
 
 ## Additional Readings
-+ [TiDB Document](https://docs.pingcap.com/)
++ [TiDB Documentation](https://docs.pingcap.com/)
 + [TiDB Developer Guide](https://docs.pingcap.com/tidb/stable/dev-guide-overview)
 + [TiDB Kits for Developers](https://github.com/pingcap/tidb-course-201-lab/blob/master/ninja-kits/)
