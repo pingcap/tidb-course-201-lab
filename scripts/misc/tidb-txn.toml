@@ -1,2 +1,3 @@
 [performance]
 txn-entry-size-limit = 125829120
+txn-total-size-limit = 1099511627776
