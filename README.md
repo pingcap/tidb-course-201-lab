@@ -1,6 +1,6 @@
 # TiDB SQL for Developers Course Lab v6.x
 
-<img src="./lab-guide/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
+<img src="./student-guide/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
 
 + Caution:
   + All scripts in this repo provide no production warrenty, use them at your own risks.
@@ -10,7 +10,7 @@
 + All scripts used in *TiDB SQL for Developers* course are placed in `scripts/` folder.
 
 ## TiDB Trainings
-+ [PingCAP Training & Certification](https://en.pingcap.com/education/)
++ [PingCAP Training & Certification](https://pingcap.com/education/)
 
 ## Additional Readings
 + [TiDB Documentation](https://docs.pingcap.com/)
