@@ -1,6 +1,6 @@
 # TiDB SQL for Developers Course Lab v6.x
 
-<img src="./student-guide/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
+<img src="./ninja-kits/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
 
 + Caution:
   + All scripts in this repo provide no production warrenty, use them at your own risks.
