@@ -10,6 +10,12 @@ public class DemoJdbcPreparedStatement8028 {
     static int I;
     static String MAIN_STREAM_TASK = "INSERT INTO test.target_table (id, name1) SELECT NULL, name FROM test.seed";
 
+    /**
+     * Print result set for single Long column.
+     * 
+     * @param stmtText
+     * @param connection
+     */
     public static void printResultSetLong(String stmtText, Connection connection) {
         int count = 0;
         System.out.println("\n/* Executing query: " + stmtText + "; */");
@@ -27,6 +33,12 @@ public class DemoJdbcPreparedStatement8028 {
         }
     }
 
+    /**
+     * Print result set for two String columns.
+     * 
+     * @param stmtText
+     * @param connection
+     */
     public static void printResultSetStringString(String stmtText, Connection connection) {
         int count = 0;
         System.out.println("\n/* Executing query: " + stmtText + "; */");
@@ -46,18 +58,56 @@ public class DemoJdbcPreparedStatement8028 {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        String target = args[0];
+        String tidbCloudHost = System.getenv().get("TIDB_CLOUD_HOST");
+        String tidbOpHost = System.getenv().get("TIDB_HOST") == null ? "127.0.0.1" : System.getenv().get("TIDB_HOST");
+        String dbCloudUsername = System.getenv().get("TIDB_CLOUD_USERNAME") == null ? "root"
+                : System.getenv().get("TIDB_CLOUD_USERNAME");
+        String dbOpUsername = System.getenv().get("TIDB_USERNAME") == null ? "root"
+                : System.getenv().get("TIDB_USERNAME");
+        String dbCloudPassword = System.getenv().get("TIDB_CLOUD_PASSWORD") == null ? ""
+                : System.getenv().get("TIDB_CLOUD_PASSWORD");
+        String dbOpPassword = System.getenv().get("TIDB_PASSWORD") == null ? ""
+                : System.getenv().get("TIDB_PASSWORD");
+        String dbCloudPort = System.getenv().get("TIDB_CLOUD_PORT") == null ? "4000"
+                : System.getenv().get("TIDB_CLOUD_PORT");
+        String dbOpPort = System.getenv().get("TIDB_PORT") == null ? "4000"
+                : System.getenv().get("TIDB_PORT");
+        String tidbHost = null;
+        String dbUsername = null;
+        String dbPassword = null;
+        String port = null;
+        if (target.equalsIgnoreCase("cloud")) {
+            tidbHost = tidbCloudHost;
+            dbUsername = dbCloudUsername;
+            dbPassword = dbCloudPassword;
+            port = dbCloudPort;
+        } else {
+            tidbHost = tidbOpHost;
+            dbUsername = dbOpUsername;
+            dbPassword = dbOpPassword;
+            port = dbOpPort;
+        }
+        System.out.println("TiDB endpoint: " + tidbHost);
+        System.out.println("TiDB username: " + dbUsername);
+        System.out.println("Default TiDB server port: " + port);
+        int errorCodeToHandleOnce = 0;
+        if (args != null && args.length > 1) {
+            errorCodeToHandleOnce = Integer.parseInt(args[1]);
+        }
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:4000/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true",
-                    "root", "");
+                    "jdbc:mysql://" + tidbHost + ":" + port + "/test?useServerPrepStmts=true&cachePrepStmts=true",
+                    dbUsername,
+                    dbPassword);
             System.out.println("Connection established.");
-            // Do something in the connection
+            // Setup
             String sqlDropTable = "DROP TABLE IF EXISTS test.target_table";
-            String sqlCreateTable = "CREATE TABLE test.target_table(id bigint PRIMARY KEY AUTO_RANDOM, name1 char(20))";
+            String sqlCreateTable = "CREATE TABLE test.target_table(id BIGINT PRIMARY KEY AUTO_RANDOM, name1 CHAR(20))";
             String sqlDropSeedTable = "DROP TABLE IF EXISTS test.seed";
-            String sqlCreateSeedTable = "CREATE TABLE test.seed(name char(20))";
-            String sqlInsertIntoSeed = "insert into test.seed (name) values ('BEFORE-DDL'),('BEFORE-DDL'),('BEFORE-DDL'),('BEFORE-DDL'),('BEFORE-DDL')";
+            String sqlCreateSeedTable = "CREATE TABLE test.seed(name CHAR(20))";
+            String sqlInsertIntoSeed = "INSERT INTO test.seed (name) VALUES ('BEFORE-DDL'),('BEFORE-DDL'),('BEFORE-DDL'),('BEFORE-DDL'),('BEFORE-DDL')";
             PreparedStatement[] pss = new PreparedStatement[] {
                     connection.prepareStatement(sqlDropTable),
                     connection.prepareStatement(sqlCreateTable),
@@ -82,7 +132,7 @@ public class DemoJdbcPreparedStatement8028 {
             printResultSetLong("select count(*) as \"|320|\" from test.seed", connection);
             printResultSetStringString("DESC test.target_table", connection);
             Thread.sleep(5000);
-            // Workload
+            // Start workload
             connection.commit();
             PreparedStatement psMainInsert = connection.prepareStatement(MAIN_STREAM_TASK);
             for (int i = 0; i < 200; i++) {
@@ -103,11 +153,14 @@ public class DemoJdbcPreparedStatement8028 {
             System.out.println("SQLState: " + e.getSQLState());
             System.out.println("ErrorCode: " + e.getErrorCode());
             e.printStackTrace();
-            // Try something
             if (connection != null) {
                 try {
-                    if (e.getErrorCode() == 8028) {
-                        System.out.println("8028 encountered, backoff...");
+                    if (e.getErrorCode() == errorCodeToHandleOnce) {
+                        if (e.getErrorCode() == 8028) {
+                            System.out.println("8028 (schema mutation) encountered, backoff...");
+                        }
+                        System.out.println(
+                                "DO anything in reaction to error, in this example we continue our workload.");
                         Thread.sleep(5000);
                         connection.rollback();
                         PreparedStatement psMainInsert = connection.prepareStatement(MAIN_STREAM_TASK);
@@ -124,9 +177,6 @@ public class DemoJdbcPreparedStatement8028 {
                                     connection);
                         }
                     }
-                    // connection.rollback();
-                    // System.out.println("Transaction rolled back.");
-                    // System.out.println("I: "+I);
                 } catch (SQLException e2) {
                     System.out.println("TX Rollback error.");
                     System.out.println("Error: " + e);
@@ -138,9 +188,6 @@ public class DemoJdbcPreparedStatement8028 {
         } finally {
             if (connection != null) {
                 try {
-                    // Check the battle field
-                    // printResultSetStringString("select * from test.t1", connection);
-                    // Turn on autocommit
                     System.out.println("I: " + I);
                     connection.setAutoCommit(true);
                     System.out.println("Turn on autocommit.");
