@@ -1,4 +1,4 @@
-# PingCAP 培训和认证:向 PingCAP 学习 TiDB
+# PingCAP Training and Certification: Learn TiDB from PingCAP
 ![`left`](./student-guide/diagram/education-768x497.jpeg)
 [TiDB 文档](https://docs.pingcap.com/tidb/stable)
 [TiDB Cloud 文档](https://docs.pingcap.com/tidbcloud/)
