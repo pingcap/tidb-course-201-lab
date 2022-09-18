@@ -37,6 +37,7 @@ INSERT INTO test.ro_example SELECT null, content FROM test.ro_example;
 /* SHOW TABLE test.ro_example REGIONS\G */
 
 /* Are following results the same? Why? Observe the execution plan. */
+/* Try 1 */
 EXPLAIN
 SELECT pk, row_number() over() FROM test.ro_example ORDER BY pk LIMIT 2;
 
@@ -52,10 +53,40 @@ SELECT pk, row_number() over() FROM test.ro_example ORDER BY pk LIMIT 2;
 
 /* Are following results the same? Why? Observe the execution plan. */
 EXPLAIN
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example LIMIT 2;
+
+/* Try 2 */
+/* Observe the result 1 */
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example LIMIT 2;
+/* Observe the result 2 */
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example LIMIT 2;
+/* Observe the result 3 */
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example LIMIT 2;
+/* Observe the result 4 */
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example LIMIT 2;
+
+
+/* Are following results the same? Why? Observe the execution plan. */
+EXPLAIN
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example ORDER BY pk LIMIT 2;
+
+/* Try 3 */
+/* Observe the result 1 */
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example ORDER BY pk LIMIT 2;
+/* Observe the result 2 */
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example ORDER BY pk LIMIT 2;
+/* Observe the result 3 */
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example ORDER BY pk LIMIT 2;
+/* Observe the result 4 */
+SELECT pk, row_number() over(ORDER BY pk) FROM test.ro_example ORDER BY pk LIMIT 2;
+
+
+/* Are following results the same? Why? Observe the execution plan. */
+EXPLAIN
 SELECT pk, row_number() over() FROM
 (SELECT pk FROM test.ro_example ORDER BY pk LIMIT 2) v;
 
-/* Try again. */
+/* Try 4 */
 /* Observe the result 1 */
 SELECT pk, row_number() over() FROM
 (SELECT pk FROM test.ro_example ORDER BY pk LIMIT 2) v;
@@ -68,6 +99,4 @@ SELECT pk, row_number() over() FROM
 /* Observe the result 4 */
 SELECT pk, row_number() over() FROM
 (SELECT pk FROM test.ro_example ORDER BY pk LIMIT 2) v;
-
-
 
