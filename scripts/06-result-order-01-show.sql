@@ -63,3 +63,4 @@ SELECT pk, row_number() over() FROM
 EXPLAIN
 SELECT pk, row_number() over() FROM
 (SELECT pk FROM test.ro_example ORDER BY pk LIMIT 2) v;
+
