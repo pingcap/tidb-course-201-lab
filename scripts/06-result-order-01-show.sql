@@ -1,6 +1,6 @@
 /* source 06-result-order-01-show.sql */
 
-/* Normally, ORDER BY is the last operation, if you need to execute other operations, enclose ORDER BY into inner query. */
+/* Normally, ORDER BY is the last operation, if you need to execute other operations before ORDER BY, enclose ORDER BY into inner query. */
 
 /* Setup */
 DROP TABLE IF EXISTS test.ro_example;
