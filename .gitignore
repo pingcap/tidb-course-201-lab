@@ -10,7 +10,6 @@ target/
 build/
 dist/
 *.egg-info/
-/tests/
 /docs/build/
 __pycache__/
 *.swp
