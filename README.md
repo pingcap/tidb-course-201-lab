@@ -1,4 +1,4 @@
-# TiDB SQL for Developers Course Lab v6.x
+# Lab Assets for *TiDB SQL for Developers v6.x* Courses
 
 <img src="./ninja-kits/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
 
