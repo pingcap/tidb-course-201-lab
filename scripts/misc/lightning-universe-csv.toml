@@ -1,0 +1,37 @@
+[lightning]
+level = "info"
+file = "../stage/tidb-lightning-universe.log"
+table-concurrency = 1
+index-concurrency = 1
+region-concurrency = 1
+io-concurrency = 1
+max-error = 0
+task-info-schema-name = "lightning_task_info"
+
+[checkpoint]
+enable = true
+
+[tikv-importer]
+backend = "local"
+sorted-kv-dir = "../stage/sorted-kv-dir"
+
+[mydumper]
+data-source-dir = "./misc/universe-csv"
+
+[mydumper.csv]
+separator = ','
+delimiter = '"'
+terminator = ''
+header = true
+not-null = false
+null = '\N'
+backslash-escape = true
+trim-last-separator = false
+
+[tidb]
+host = "127.0.0.1"
+port = 4000
+user = "root"
+password = ""
+status-port = 10080
+pd-addr = "127.0.0.1:2379"
