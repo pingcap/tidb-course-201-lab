@@ -12,11 +12,12 @@ task-info-schema-name = "lightning_task_info"
 enable = true
 
 [tikv-importer]
-backend = "local"
+backend = "tikv"
 sorted-kv-dir = "../stage/sorted-kv-dir"
 
 [mydumper]
 data-source-dir = "./misc/universe-dumpling"
+filter = ['*.*', '!mysql.*', '!sys.*', '!INFORMATION_SCHEMA.*', '!PERFORMANCE_SCHEMA.*', '!METRICS_SCHEMA.*', '!INSPECTION_SCHEMA.*']
 
 [tidb]
 host = "127.0.0.1"

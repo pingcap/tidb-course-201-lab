@@ -17,6 +17,8 @@ sorted-kv-dir = "../stage/sorted-kv-dir"
 
 [mydumper]
 data-source-dir = "./misc/universe-csv"
+filter = ['*.*', '!mysql.*', '!sys.*', '!INFORMATION_SCHEMA.*', '!PERFORMANCE_SCHEMA.*', '!METRICS_SCHEMA.*', '!INSPECTION_SCHEMA.*']
+strict-format = true
 
 [mydumper.csv]
 separator = ','

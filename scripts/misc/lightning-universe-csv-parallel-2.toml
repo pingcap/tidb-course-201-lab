@@ -21,6 +21,8 @@ sorted-kv-dir = "../stage/sorted-kv-dir-p2"
 
 [mydumper]
 data-source-dir = "./misc/planets-csv-large-2"
+filter = ['*.*', '!mysql.*', '!sys.*', '!INFORMATION_SCHEMA.*', '!PERFORMANCE_SCHEMA.*', '!METRICS_SCHEMA.*', '!INSPECTION_SCHEMA.*']
+strict-format = true
 
 [mydumper.csv]
 separator = ','

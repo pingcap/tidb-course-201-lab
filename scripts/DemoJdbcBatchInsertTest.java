@@ -105,7 +105,7 @@ public class DemoJdbcBatchInsertTest {
                     // Adding batch to prepared statement:
                     // TODO
                 }
-                // Adding executing the batch:
+                // Executing the batch:
                 // TODO
                 System.out.println(
                         ">>> End batch insert,rewriteBatchedStatements=" + flag + ",elapsed: "
