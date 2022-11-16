@@ -58,21 +58,24 @@ public class DemoJdbcBatchInsert {
         String dbUsername = null;
         String dbPassword = null;
         String port = null;
+        String securityOption = null;
         if (target.equalsIgnoreCase("cloud")) {
             tidbHost = tidbCloudHost;
             dbUsername = dbCloudUsername;
             dbPassword = dbCloudPassword;
             port = dbCloudPort;
+            securityOption = "&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.3";
         } else {
             tidbHost = tidbOpHost;
             dbUsername = dbOpUsername;
             dbPassword = dbOpPassword;
             port = dbOpPort;
+            securityOption = "";
         }
         System.out.println("TiDB endpoint: " + tidbHost);
         System.out.println("TiDB username: " + dbUsername);
         System.out.println("Default TiDB server port: " + port);
-
+        System.out.println("Security options: " + securityOption);
         Connection connection = null;
 
         try {
@@ -80,7 +83,9 @@ public class DemoJdbcBatchInsert {
                 connection = DriverManager.getConnection(
                         "jdbc:mysql://" + tidbHost
                                 + ":" + port
-                                + "/test?useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=" + flag,
+                                + "/test?"
+                                + "useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=" + flag
+                                + securityOption,
                         dbUsername, dbPassword);
                 System.out.println("Connection established.");
                 // Prepare the table in the connection
@@ -105,7 +110,7 @@ public class DemoJdbcBatchInsert {
                     // Adding batch to prepared statement:
                     insert1_ps.addBatch();
                 }
-                // Adding executing the batch:
+                // Executing the batch:
                 insert1_ps.executeBatch();
                 System.out.println(
                         ">>> End batch insert,rewriteBatchedStatements=" + flag + ",elapsed: "

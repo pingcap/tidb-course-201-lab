@@ -11,11 +11,13 @@ if [ $1 == "cloud" ]; then
   export TIDB_USERNAME=$TIDB_CLOUD_USERNAME
   export TIDB_PASSWORD=$TIDB_CLOUD_PASSWORD
   export TIDB_PORT=$TIDB_CLOUD_PORT
+  export MODE="cloud"
 else
   export TIDB_HOST=127.0.0.1
   export TIDB_USERNAME=root
   export TIDB_PASSWORD=""
   export TIDB_PORT=4000
+  export MODE="local"
 fi;
 
 python demo-batch-insert.py $*

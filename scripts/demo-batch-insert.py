@@ -10,7 +10,7 @@ from mysql.connector.errors import (
     InternalError,
     DatabaseError,
 )
-import os, sys, re, time
+import os, sys, re, time, platform
 
 
 def _setup(cursor):
@@ -57,13 +57,43 @@ if __name__ == "__main__":
     tidb_host = os.getenv("TIDB_HOST", "127.0.0.1")
     tidb_username = os.getenv("TIDB_USERNAME", "root")
     tidb_password = os.getenv("TIDB_PASSWORD", "")
-    conn = connect(
-        database="test",
-        host=tidb_host,
-        port=int(port),
-        user=tidb_username,
-        password=tidb_password,
-    )
+    mode = os.getenv("MODE")
+    ca_root_path = ""
+    if platform.system() == "Darwin":
+        ca_root_path = "/etc/ssl/cert.pem"
+    elif platform.system() == "Linux":
+        if platform.linux_distribution()[0].lower() in ["debian", "ubuntu", "arch"]:
+            ca_root_path = "/etc/ssl/certs/ca-certificates.crt"
+        elif platform.linux_distribution()[0].lower() in [
+            "redhat",
+            "fedora",
+            "centos",
+            "mageia",
+        ]:
+            ca_root_path = "/etc/pki/tls/certs/ca-bundle.crt"
+        elif platform.linux_distribution()[0].lower() in ["alpine"]:
+            ca_root_path = "/etc/ssl/cert.pem"
+        elif platform.linux_distribution()[0].lower() in ["opensuse"]:
+            ca_root_path = "/etc/ssl/ca-bundle.pem"
+    if mode == "local":
+        conn = connect(
+            database="test",
+            host=tidb_host,
+            port=int(port),
+            user=tidb_username,
+            password=tidb_password,
+        )
+    else:
+        conn = connect(
+            database="test",
+            host=tidb_host,
+            port=int(port),
+            user=tidb_username,
+            password=tidb_password,
+            tls_versions=["TLSv1.2", "TLSv1.3"],
+            ssl_verify_identity=True,
+            ssl_ca=ca_root_path,
+        )
     print("Connected to TiDB:", tidb_username + "@" + tidb_host + ":" + str(port))
 
     # The cursor
