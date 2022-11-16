@@ -102,11 +102,17 @@ public class DemoJdbcBatchInsertTest {
                 for (int i = 1; i < 10001; i++) {
                     insert1_ps.setInt(1, i);
                     insert1_ps.setString(2, Integer.toString(i));
-                    // Adding batch to prepared statement:
                     // TODO
+                    // Adding batch to prepared statement:
+                    // Your solution - BEGIN
+                    System.out.println("Replace with your solution here.");
+                    // Your solution - END
                 }
-                // Executing the batch:
                 // TODO
+                // Executing the batch:
+                // Your solution - BEGIN
+                System.out.println("Replace with your solution here.");
+                // Your solution - END
                 System.out.println(
                         ">>> End batch insert,rewriteBatchedStatements=" + flag + ",elapsed: "
                                 + Long.toString(System.currentTimeMillis() - s1) + " (ms).");
