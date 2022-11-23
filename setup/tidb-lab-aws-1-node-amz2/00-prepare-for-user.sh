@@ -7,6 +7,7 @@ source ~/cloud-env.sh
 export USER=${1}
 
 # Setup PD1 as all node roles
+# Node 1
 HOST_PD1_PRIVATE_IP=`aws ec2 describe-instances \
 --filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=pd1" \
 --query "Reservations[0].Instances[0].PrivateIpAddress" \
