@@ -13,6 +13,6 @@ query_insert = "INSERT INTO t1 (pk, name) VALUES (%s, %s)"
 cursor.execute(query_setup)
 cursor.execute(query_insert, (1, "ABC"))
 conn.commit()
-print ("1 row inserted into table test.t1")
+print("1 row inserted into table test.t1")
 cursor.close()
 conn.close()

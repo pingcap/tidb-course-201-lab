@@ -1,0 +1,7 @@
+Started dump at: 2022-11-06 14:14:38
+SHOW MASTER STATUS:
+	Log: tidb-binlog
+	Pos: 437181553988861958
+	GTID:
+
+Finished dump at: 2022-11-06 14:14:40

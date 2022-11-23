@@ -37,7 +37,7 @@ def _batch_style_insert(cursor, row_count):
     b_time = time.time() * 1000
     batch_values = []
     for r in range(1, row_count + 1):
-        batch_values += ["('" + str(r) + "')"]
+        batch_values += ["(" " + str(r) + " ")"]
     cursor.execute("INSERT INTO t1_batchtest (name) VALUES " + ",".join(batch_values))
     elapsed_time = time.time() * 1000 - b_time
     print("Batch Inserting", row_count, "rows in", str(elapsed_time), "(ms).")

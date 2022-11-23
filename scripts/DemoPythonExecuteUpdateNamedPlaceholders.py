@@ -14,6 +14,6 @@ query_insert = "INSERT INTO t1 (pk, name) VALUES (%(pk)s, %(name)s)"
 cursor.execute(query_setup)
 cursor.execute(query_insert, {"pk": 2, "name": "DEF"})
 conn.commit()
-print ("1 row inserted into table test.t1")
+print("1 row inserted into table test.t1")
 cursor.close()
 conn.close()

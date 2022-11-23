@@ -14,7 +14,6 @@ dist/
 __pycache__/
 *.swp
 .DS_Store
-.idea
 ~*
 *~
 ~$*
@@ -23,4 +22,3 @@ __pycache__/
 /student-guide/diagram/*
 /scripts/raw-*
 /scripts/*.class
-/scripts/misc/planets-csv-large*
