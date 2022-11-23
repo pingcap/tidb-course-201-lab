@@ -6,7 +6,7 @@ source ~/cloud-env.sh
 # Enter the classroom username such as "user01" assigned by the instructor. 
 export USER=${1}
 
-# Setup PD1,2,3 as all node roles
+# Setup PD1,2,3 as all node roles (2 ASGs: 1 ASG for PD, 1 ASG for TiFlash)
 # Node 1
 HOST_PD1_PRIVATE_IP=`aws ec2 describe-instances \
 --filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=pd1" \

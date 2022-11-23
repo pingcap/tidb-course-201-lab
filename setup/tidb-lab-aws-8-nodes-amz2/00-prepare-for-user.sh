@@ -6,7 +6,7 @@ source ~/cloud-env.sh
 # Enter the classroom username such as "user01" assigned by the instructor. 
 export USER=${1}
 
-# Setup PD1,2,3 as all node roles
+# Setup PD1,2,3 as all node roles (4 ASGs: 1 ASG for PD, 1 ASG for TiFlash, 1 ASG for KV, 1 ASG for DB)
 # Node 1
 HOST_PD1_PRIVATE_IP=`aws ec2 describe-instances \
 --filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=pd1" \
@@ -67,7 +67,7 @@ HOST_KV1_PRIVATE_IP=`aws ec2 describe-instances \
 --region ${REGION_CODE}`
 
 HOST_KV1_PUBLIC_IP=`aws ec2 describe-instances \
---filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=kv2" \
+--filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=kv1" \
 --query "Reservations[0].Instances[0].PublicIpAddress" \
 --output text \
 --region ${REGION_CODE}`
