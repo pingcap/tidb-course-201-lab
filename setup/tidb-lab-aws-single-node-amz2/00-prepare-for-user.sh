@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Setup ENV
+source ~/cloud-env.sh
+
 # Enter the classroom username such as "user01" assigned by the instructor. 
 export USER=${1}
 
@@ -9,6 +12,7 @@ HOST_PD1_PRIVATE_IP=`aws ec2 describe-instances \
 --query "Reservations[0].Instances[0].PrivateIpAddress" \
 --output text \
 --region ${REGION_CODE}`
+
 HOST_PD1_PUBLIC_IP=`aws ec2 describe-instances \
 --filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=pd1" \
 --query "Reservations[0].Instances[0].PublicIpAddress" \

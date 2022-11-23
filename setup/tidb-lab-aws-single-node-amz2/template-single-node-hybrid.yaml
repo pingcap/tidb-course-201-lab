@@ -35,8 +35,13 @@ tikv_servers:
       server.labels:
         region: oregon
         zone: az1
-#tiflash_servers:
-#  - host: 127.0.0.1
+tiflash_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+    tcp_port: 9000
+    flash_service_port: 3930
+    deploy_dir: /tidb-deploy/tiflash-9000
+    data_dir: /tidb-data/tiflash-9000
+    log_dir: /tidb-deploy/tiflash-9000/log
 monitoring_servers:
   - host: <HOST_PD1_PRIVATE_IP>
 grafana_servers:
