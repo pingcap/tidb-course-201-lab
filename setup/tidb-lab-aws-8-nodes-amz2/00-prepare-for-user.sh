@@ -141,6 +141,7 @@ echo ssh -A ${HOST_KV1_PRIVATE_IP} > ./ssh-to-kv1.sh
 echo ssh -A ${HOST_KV2_PRIVATE_IP} > ./ssh-to-kv2.sh
 echo ssh -A ${HOST_KV3_PRIVATE_IP} > ./ssh-to-kv3.sh
 echo ssh -A ${HOST_TIFLASH1_PRIVATE_IP} > ./ssh-to-tiflash1.sh
+chmod +x ./*.sh
 
 # Setup Four Nodes TiDB Topology
 cp ./template-eight-nodes-hybrid.yaml ./eight-nodes-hybrid.yaml
