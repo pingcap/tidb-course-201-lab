@@ -1,0 +1,46 @@
+global:
+  user: "tidb"
+  ssh_port: 22
+  deploy_dir: "/tidb-deploy"
+  data_dir: "/tidb-data"
+  arch: "amd64"
+server_configs:
+  pd:
+    replication.location-labels: ["region","zone"]
+    replication.max-replicas: 3
+pd_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+    client_port: 2379
+    peer_port: 2380
+    config:
+      server.labels:
+        region: oregon
+        zone: az1
+tidb_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+    port: 4000
+    status_port: 10080
+    deploy_dir: /tidb-deploy/tidb-4000
+    log_dir: /tidb-deploy/tidb-4000/log
+tikv_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+    port: 20160
+    status_port: 20180
+    config:
+      server.labels:
+        region: oregon
+        zone: az1
+#tiflash_servers:
+#  - host: 127.0.0.1
+monitoring_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+grafana_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+alertmanager_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+#pump_servers:
+#  - host: 127.0.0.1
+#drainer_servers:
+#  - host: 127.0.0.1
+#cdc_servers:
+#  - host: 127.0.0.1
