@@ -22,11 +22,11 @@ tidb_servers:
     status_port: 10080
     deploy_dir: /tidb-deploy/tidb-4000
     log_dir: /tidb-deploy/tidb-4000/log
-  - host: <HOST_PD1_PRIVATE_IP>
-    port: 4001
-    status_port: 10081
-    deploy_dir: /tidb-deploy/tidb-4001
-    log_dir: /tidb-deploy/tidb-4001/log
+  # - host: <HOST_PD1_PRIVATE_IP>
+  #   port: 4001
+  #   status_port: 10081
+  #   deploy_dir: /tidb-deploy/tidb-4001
+  #   log_dir: /tidb-deploy/tidb-4001/log
 tikv_servers:
   - host: <HOST_PD1_PRIVATE_IP>
     port: 20160
