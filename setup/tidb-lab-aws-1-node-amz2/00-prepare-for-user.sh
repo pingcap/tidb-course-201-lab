@@ -5,17 +5,19 @@ source ~/cloud-env.sh
 
 # Enter the classroom username such as "user01" assigned by the instructor. 
 export USER=${1}
+# The instructor's name tag shared by your instructor.
+export TRAINER=${2}
 
 # Setup PD1 as all node roles (1 ASG for PD)
 # Node 1
 HOST_PD1_PRIVATE_IP=`aws ec2 describe-instances \
---filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=pd1" \
+--filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=pd1" "Name=tag:trainer,Values=${TRAINER}" \
 --query "Reservations[0].Instances[0].PrivateIpAddress" \
 --output text \
 --region ${REGION_CODE}`
 
 HOST_PD1_PUBLIC_IP=`aws ec2 describe-instances \
---filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=pd1" \
+--filter "Name=instance-state-name,Values=running" "Name=tag:class-${USER},Values=pd1" "Name=tag:trainer,Values=${TRAINER}" \
 --query "Reservations[0].Instances[0].PublicIpAddress" \
 --output text \
 --region ${REGION_CODE}`
