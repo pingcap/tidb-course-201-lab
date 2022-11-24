@@ -33,6 +33,8 @@ echo export HOST_TIFLASH1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_MONITOR_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_MONITOR_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
 
+source ./hosts-env.sh
+
 echo ssh -A ${HOST_PD1_PRIVATE_IP} > ./ssh-to-pd1.sh
 echo ssh -A ${HOST_DB1_PRIVATE_IP} > ./ssh-to-db1.sh
 echo ssh -A ${HOST_DB2_PRIVATE_IP} > ./ssh-to-db2.sh

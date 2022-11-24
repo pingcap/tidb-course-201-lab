@@ -79,6 +79,9 @@ echo export HOST_TIFLASH1_PRIVATE_IP=${HOST_TIFLASH1_PRIVATE_IP} >> ./hosts-env.
 echo export HOST_TIFLASH1_PUBLIC_IP=${HOST_TIFLASH1_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_MONITOR_PRIVATE_IP=${HOST_PD3_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_MONITOR_PUBLIC_IP=${HOST_PD3_PUBLIC_IP} >> ./hosts-env.sh
+
+source ./hosts-env.sh
+
 echo ssh -A ${HOST_PD1_PRIVATE_IP} > ./ssh-to-pd1.sh
 echo ssh -A ${HOST_PD2_PRIVATE_IP} > ./ssh-to-pd2.sh
 echo ssh -A ${HOST_PD3_PRIVATE_IP} > ./ssh-to-pd3.sh
