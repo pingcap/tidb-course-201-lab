@@ -67,7 +67,8 @@ public class DemoJdbcConnectionSecured {
             try {
                 // Connect to TiDB server instance directly
                 connection = DriverManager.getConnection(
-                        "jdbc:mysql://" + tidbHost + ":" + port + "/test?enabledTLSProtocols=TLSv1.3&sslMode=" + m,
+                        "jdbc:mysql://" + tidbHost + ":" + port + "/test?enabledTLSProtocols=TLSv1.2,TLSv1.3&sslMode="
+                                + m,
                         dbUsername,
                         dbPassword);
                 System.out.println("Connection established.");

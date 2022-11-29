@@ -31,32 +31,32 @@ pd_servers:
         region: virginia
         zone: az1
 tidb_servers:
-  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_DB1_PRIVATE_IP>
     port: 4000
     status_port: 10080
     deploy_dir: /tidb-deploy/tidb-4000
     log_dir: /tidb-deploy/tidb-4000/log
-  - host: <HOST_PD2_PRIVATE_IP>
+  - host: <HOST_DB2_PRIVATE_IP>
     port: 4001
     status_port: 10081
     deploy_dir: /tidb-deploy/tidb-4001
     log_dir: /tidb-deploy/tidb-4001/log
 tikv_servers:
-  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_KV1_PRIVATE_IP>
     port: 20160
     status_port: 20180
     config:
       server.labels:
         region: oregon
         zone: az1
-  - host: <HOST_PD2_PRIVATE_IP>
+  - host: <HOST_KV2_PRIVATE_IP>
     port: 20160
     status_port: 20180
     config:
       server.labels:
         region: oregon
         zone: az2
-  - host: <HOST_PD3_PRIVATE_IP>
+  - host: <HOST_KV3_PRIVATE_IP>
     port: 20160
     status_port: 20180
     config:
