@@ -133,26 +133,33 @@ public class DemoJdbcTxOptimisticLock {
         String dbUsername = null;
         String dbPassword = null;
         String port = null;
+        String securityOption = null;
         if (target.equalsIgnoreCase("cloud")) {
             tidbHost = tidbCloudHost;
             dbUsername = dbCloudUsername;
             dbPassword = dbCloudPassword;
             port = dbCloudPort;
+            securityOption = "&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.3";
         } else {
             tidbHost = tidbOpHost;
             dbUsername = dbOpUsername;
             dbPassword = dbOpPassword;
             port = dbOpPort;
+            securityOption = "";
         }
         System.out.println("TiDB endpoint: " + tidbHost);
         System.out.println("TiDB username: " + dbUsername);
         System.out.println("Default TiDB server port: " + port);
+        System.out.println("Security options: " + securityOption);
 
         boolean retryCommit = args[1].equalsIgnoreCase("retry") ? true : false;
         try {
             for (int i = 0; i < 2; i++) {
                 connections.add(DriverManager.getConnection(
-                        "jdbc:mysql://" + tidbHost + ":" + port + "/test?useServerPrepStmts=true&cachePrepStmts=true",
+                        "jdbc:mysql://" + tidbHost
+                                + ":" + port
+                                + "/test?"
+                                + securityOption,
                         dbUsername, dbPassword));
             }
             System.out.println("Connection established.");

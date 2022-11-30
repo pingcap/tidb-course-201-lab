@@ -5,3 +5,4 @@
 [PingCAP Training & Certification Portal](https://pingcap.com/education/)
 [TiDB Cloud Kickstart Workshop](https://eng.edu.pingcap.com/catalog/info/id:204)
 --------------------------------------------------------------------------------
+[no notes]

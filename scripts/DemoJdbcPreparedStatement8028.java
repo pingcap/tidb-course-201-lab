@@ -77,20 +77,24 @@ public class DemoJdbcPreparedStatement8028 {
         String dbUsername = null;
         String dbPassword = null;
         String port = null;
+        String securityOption = null;
         if (target.equalsIgnoreCase("cloud")) {
             tidbHost = tidbCloudHost;
             dbUsername = dbCloudUsername;
             dbPassword = dbCloudPassword;
             port = dbCloudPort;
+            securityOption = "&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.3";
         } else {
             tidbHost = tidbOpHost;
             dbUsername = dbOpUsername;
             dbPassword = dbOpPassword;
             port = dbOpPort;
+            securityOption = "";
         }
         System.out.println("TiDB endpoint: " + tidbHost);
         System.out.println("TiDB username: " + dbUsername);
         System.out.println("Default TiDB server port: " + port);
+        System.out.println("Security options: " + securityOption);
         int errorCodeToHandleOnce = 0;
         if (args != null && args.length > 1) {
             errorCodeToHandleOnce = Integer.parseInt(args[1]);
@@ -98,7 +102,8 @@ public class DemoJdbcPreparedStatement8028 {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://" + tidbHost + ":" + port + "/test?useServerPrepStmts=true&cachePrepStmts=true",
+                    "jdbc:mysql://" + tidbHost + ":" + port + "/test?useServerPrepStmts=true&cachePrepStmts=true"
+                            + securityOption,
                     dbUsername,
                     dbPassword);
             System.out.println("Connection established.");
