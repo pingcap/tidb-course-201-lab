@@ -1,5 +1,5 @@
 # `TiDB` Kits for Developers
-## Mini demos on TiDB Cloud and TiUP Sandbox by PingCAP Training and Certification (2022112501)
+## Mini demos on TiDB Cloud and TiUP Sandbox by PingCAP Training and Certification (2022113001)
 -----------------------------------------------------------------------------------------------
 `TiDB Kits for Developers` is a collection of mini demos about common knowledge and best practices for application developers who use `TiDB`.
 
