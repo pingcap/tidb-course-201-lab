@@ -162,4 +162,4 @@ sed -i '' \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
   ./eight-nodes-hybrid.yaml 2>/dev/null
 
-echo Topology config file for four nodes cluster prepared.
+echo Topology config file for eight nodes cluster prepared.
