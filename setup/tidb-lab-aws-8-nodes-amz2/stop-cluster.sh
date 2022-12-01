@@ -1,2 +1,2 @@
 #!/bin/bash
-~/.tiup/bin/tiup cluster stop test-asi --yes
+~/.tiup/bin/tiup cluster stop tidb-test --yes

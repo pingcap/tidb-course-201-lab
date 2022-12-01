@@ -1,2 +1,2 @@
 #!/bin/bash
-~/.tiup/bin/tiup cluster display test-asi
+~/.tiup/bin/tiup cluster display tidb-test
