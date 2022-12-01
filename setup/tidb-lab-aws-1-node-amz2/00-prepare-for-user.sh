@@ -22,7 +22,9 @@ HOST_PD1_PUBLIC_IP=`aws ec2 describe-instances \
 --output text \
 --region ${REGION_CODE}`
 
-echo export HOST_PD1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} > ./hosts-env.sh
+echo export HOST_CM_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} > ./hosts-env.sh
+echo export HOST_CM_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_PD1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_PD1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_DB1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_DB1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
@@ -39,6 +41,7 @@ echo export GRAFANA_URL=http://${HOST_PD1_PUBLIC_IP}:3000/ >> ./hosts-env.sh
 
 source ./hosts-env.sh
 
+echo ssh -A ${HOST_CM_PRIVATE_IP} > ./ssh-to-cm.sh
 echo ssh -A ${HOST_PD1_PRIVATE_IP} > ./ssh-to-pd1.sh
 echo ssh -A ${HOST_DB1_PRIVATE_IP} > ./ssh-to-db1.sh
 echo ssh -A ${HOST_DB2_PRIVATE_IP} > ./ssh-to-db2.sh
