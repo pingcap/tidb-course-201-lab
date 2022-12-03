@@ -108,4 +108,4 @@ sed -i '' \
   -e "s/<HOST_TIFLASH1_PRIVATE_IP>/${HOST_TIFLASH1_PRIVATE_IP}/g" \
   ./four-nodes-hybrid.yaml 2>/dev/null
 
-echo Topology config file for four nodes cluster prepared.
+echo Nodes are prepared.
