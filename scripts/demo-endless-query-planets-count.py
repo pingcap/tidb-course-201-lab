@@ -1,5 +1,6 @@
 from mysql.connector import connect
 from mysql.connector import Error
+from mysql.connector.errors import InterfaceError
 import time
 
 db_ports = [4000, 4001, 4002]
@@ -26,12 +27,7 @@ def _can_tolerate_tx_error(err) -> bool:
 
 
 def _can_telerate_conn_error(err) -> bool:
-    if err.errno in [2013] and err.msg.startswith(
-        "Can't connect to"
-    ):  # Can NOT make connection
-        return True  # Change to next connection
-    else:
-        return True  # Change to next connection
+    return True  # Change to next connection
 
 
 def _clean(cursor, conn):
@@ -83,7 +79,7 @@ while True:
                     break
                 else:
                     None  # Try again
-    except Error as connect_err:
+    except (Error, InterfaceError) as connect_err:
         print("CONNECT Error:", connect_err)
         _print_error(connect_err)
         if not _can_telerate_conn_error(connect_err):  # The client program will exit.
