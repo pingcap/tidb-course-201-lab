@@ -82,7 +82,7 @@ while True:
                     break
                 else:
                     None  # Try again
-    except (Error, InterfaceError) as connect_err:
+    except (Error, MySQLInterfaceError) as connect_err:
         print("CONNECT Error:", connect_err)
         # _print_error(connect_err)
         if not _can_telerate_conn_error(connect_err):  # The client program will exit.
