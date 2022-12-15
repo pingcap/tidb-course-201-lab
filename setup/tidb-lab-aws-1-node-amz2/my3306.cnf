@@ -1,0 +1,6 @@
+[mysqld]
+basedir = /usr/local/mysql/
+datadir = /data/my3306
+server_id = 1
+port = 3306
+socket = /data/my3306/mysql.sock
