@@ -23,7 +23,7 @@ ALTER TABLE test.t2_nonclustered SET TIFLASH REPLICA 1;
 ALTER TABLE test.t5_nonclustered SET TIFLASH REPLICA 1;
 
 /* Wait for the data to be popluated to TiFlash` */
-DO SLEEP(20);
+SELECT SLEEP(20);
 
 /* Check TiFlash Status */
 SELECT * FROM information_schema.TIFLASH_REPLICA;
