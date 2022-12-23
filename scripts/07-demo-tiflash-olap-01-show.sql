@@ -22,6 +22,12 @@ ORDER BY id2;
 ALTER TABLE test.t2_nonclustered SET TIFLASH REPLICA 1;
 ALTER TABLE test.t5_nonclustered SET TIFLASH REPLICA 1;
 
+/* Wait for the data to be popluated to TiFlash` */
+SELECT SLEEP(20);
+
+/* Check TiFlash Status */
+SELECT * FROM information_schema.TIFLASH_REPLICA;
+
 /* OLAP Style Query on t2 and t5 */
 SELECT avg(t5.id), t5.id2, count(*) 
 FROM test.t5_nonclustered t5 JOIN test.t2_nonclustered t2

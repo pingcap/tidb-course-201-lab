@@ -4,7 +4,7 @@ SET @@autocommit = 0;
 
 DROP TABLE IF EXISTS test.t1;
 CREATE TABLE test.t1 (
-  id int primary key auto_random,
+  id bigint primary key auto_random,
   name char(10) 
 );
 
