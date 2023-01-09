@@ -1,4 +1,4 @@
-# Lab Assets for *TiDB SQL for Developers v6.x* Courses
+# Lab Assets for TiDB Training Courses
 
 <img src="./ninja-kits/diagram/TiDBSQLForDevelopersLearningPath_en_002_20220515.png" width="100%" align="top"/>
 
@@ -7,7 +7,8 @@
   + Please ask your instructor for the guidance about how to use the artifacts in this repository.
 
 ## Folders Description
-+ All scripts used in *TiDB SQL for Developers* course are placed in `scripts/` folder.
++ All scripts are placed in `scripts/` folder.
++ All dependent assets support the scripts are placed in `scripts/misc/` folder.
 
 ## TiDB Trainings
 + [PingCAP Training & Certification](https://pingcap.com/education/)
