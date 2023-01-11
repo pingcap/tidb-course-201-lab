@@ -1,2 +1,2 @@
 #!/bin/bash
-tiup clean classroom
+~/.tiup/bin/tiup clean classroom

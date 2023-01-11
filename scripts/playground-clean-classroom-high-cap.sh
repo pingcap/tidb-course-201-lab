@@ -1,2 +1,2 @@
 #!/bin/bash
-tiup clean classroom-high-cap
+~/.tiup/bin/tiup clean classroom-high-cap

@@ -1,2 +1,2 @@
 #!/bin/bash
-tiup clean classroom-geo
+~/.tiup/bin/tiup clean classroom-geo

@@ -1,2 +1,2 @@
 #!/bin/bash
-tiup clean classroom-542-cc
+~/.tiup/bin/tiup clean classroom-542-cc

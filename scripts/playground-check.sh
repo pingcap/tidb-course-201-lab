@@ -1,2 +1,2 @@
 #!/bin/bash
-tiup playground display
+~/.tiup/bin/tiup playground display

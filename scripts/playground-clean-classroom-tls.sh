@@ -1,2 +1,2 @@
 #!/bin/bash
-tiup clean classroom-tls 
+~/.tiup/bin/tiup clean classroom-tls 
