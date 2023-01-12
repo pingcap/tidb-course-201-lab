@@ -1,4 +1,4 @@
-/* source 07-demo-auto-increment-01-show.sql */
+/* source 07-demo-auto-increment-01-setup.sql */
 
 /* show variables like 'auto_increment_%'; */
 /* show variables like 'tidb_allow_remove_auto_inc'; */
