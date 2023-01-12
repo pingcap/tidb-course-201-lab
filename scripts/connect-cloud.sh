@@ -2,8 +2,6 @@
 
 export MYSQL_PS1="tidb-cloud> "
 
-mysql -h $TIDB_CLOUD_HOST -P 4000 -u $TIDB_CLOUD_USERNAME -p$TIDB_CLOUD_PASSWORD
-
 # Default `--ssl-ca` option is for macOS/Alpine. For other system, please modify the `--ssl-ca` option respectively.
 # Debian/Unbuntu/Arch: --ssl-ca=/etc/ssl/certs/ca-certificates.crt
 # CentOS/RedHat/Fedora: --ssl-ca=/etc/pki/tls/certs/ca-bundle.crt

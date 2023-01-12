@@ -1,89 +1,70 @@
 /* source 07-demo-compare-clustered-and-nonclustered-pk.sql */
 
-/* Table 1: Clustered */
-DROP TABLE IF EXISTS test.auto_increment_t2_clustered;
-CREATE TABLE test.auto_increment_t2_clustered (
-    id bigint PRIMARY KEY AUTO_INCREMENT,
-    id2 bigint, 
-    name char(255),
-    varname varchar(200));
+/* Setup 1: Create a table with clustered PK */
+DROP TABLE IF EXISTS test.auto_increment_t1_clustered;
+CREATE TABLE test.auto_increment_t1_clustered (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name CHAR(255),
+    varname VARCHAR(200));
 
-/* Populate Seed */
-INSERT INTO test.auto_increment_t2_clustered (name, varname) VALUES ('A','V1'), ('B','V1'), ('C','V2'), ('D','V2');
-UPDATE test.auto_increment_t2_clustered SET id2=id;
+/* Setup 2: Create a table with non-clustered PK */
+DROP TABLE IF EXISTS test.t2_nonclustered;
+CREATE TABLE test.t2_nonclustered (
+    id BIGINT PRIMARY KEY NONCLUSTERED,
+    name CHAR(255),
+    varname VARCHAR(200));
 
-/* Flooding with data 2M rows to t1 */
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
-INSERT INTO test.auto_increment_t2_clustered select null, id2, name, varname from test.auto_increment_t2_clustered;
+/* Populate seed */
+INSERT INTO test.auto_increment_t1_clustered (name, varname) VALUES ('A','V1'), ('B','V1'), ('C','V2'), ('D','V2');
 
-ANALYZE table test.auto_increment_t2_clustered;
+/* Populate dummy data: Flooding with data 2M rows to t1 */
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+INSERT INTO test.auto_increment_t1_clustered SELECT null, name, varname FROM test.auto_increment_t1_clustered;
+ANALYZE TABLE test.auto_increment_t1_clustered;
 
-/* Data */
-select count(distinct id), count(distinct name), count(*), min(id), max(id) from test.auto_increment_t2_clustered;
-/* Show information_schema for table */
+/* Query 1: Data in table 1 */
+SELECT COUNT(DISTINCT id), COUNT(*), MIN(id), MAX(id) FROM test.auto_increment_t1_clustered;
+
+/* Query 2: Show information_schema for table 1 */
 SELECT tidb_row_id_sharding_info, tidb_pk_type 
 FROM information_schema.tables 
-WHERE table_name='auto_increment_t2_clustered';
+WHERE table_name='auto_increment_t1_clustered';
 
-/* Show indexes */
-/*SHOW INDEXES FROM test.auto_increment_t2_clustered\G*/
-/* Show regions */
-SHOW TABLE test.auto_increment_t2_clustered regions\G
+/* Create a single row for table 2 */
+INSERT INTO test.t2_nonclustered (id, name, varname) VALUES (50, 'A','V1');
+ANALYZE TABLE test.auto_increment_t1_clustered;
 
-/* Table 2: Non-Clustered */
-DROP TABLE IF EXISTS test.bigint_t3_nonclustered;
-CREATE TABLE test.bigint_t3_nonclustered (
-    id bigint PRIMARY KEY NONCLUSTERED,
-    id2 bigint, 
-    name char(255),
-    varname varchar(200));
+/* Query 3: Data in table 2 */
+SELECT COUNT(DISTINCT id), COUNT(*), MIN(id), MAX(id) FROM test.t2_nonclustered;
 
-/* Copy from other */
-INSERT INTO test.bigint_t3_nonclustered 
-    SELECT * FROM test.auto_increment_t2_clustered
-    WHERE id <= (SELECT max(id)/2 FROM test.auto_increment_t2_clustered);
-INSERT INTO test.bigint_t3_nonclustered 
-    SELECT * FROM test.auto_increment_t2_clustered
-    WHERE id > (SELECT max(id)/2 FROM test.auto_increment_t2_clustered);
-ANALYZE table test.bigint_t3_nonclustered;
-
-/* Data */
-select count(distinct id), count(distinct name), count(*), min(id), max(id) from test.bigint_t3_nonclustered;
-/* Show information_schema for table */
+/* Query 4: Show information_schema for table 2 */
 SELECT tidb_row_id_sharding_info, tidb_pk_type 
 FROM information_schema.tables 
-WHERE table_name='bigint_t3_nonclustered';
+WHERE table_name='t2_nonclustered';
 
-/* Show indexes */
-/*SHOW INDEXES FROM test.bigint_t3_nonclustered\G*/
-/* Show regions */
-SHOW TABLE test.bigint_t3_nonclustered regions\G
-
-/* Compare TiKV Regions Count */
-select * from 
-(select count(region_id) as "Clustered # of TiKV Regions" from information_schema.tikv_region_status where table_name='auto_increment_t2_clustered') v1
+/* Query 5: Compare TiKV Regions Count */
+SELECT * FROM 
+(SELECT COUNT(region_id) AS "Clustered # of TiKV Regions" FROM information_schema.tikv_region_status WHERE table_name='auto_increment_t1_clustered') v1
 join
-(select count(region_id) as "Non-Clustered # of TiKV Regions" from information_schema.tikv_region_status where table_name='bigint_t3_nonclustered') v2;
+(SELECT COUNT(region_id) AS "Non-Clustered # of TiKV Regions" FROM information_schema.tikv_region_status WHERE table_name='t2_nonclustered') v2;
 
-/* Compare the Physical Plans */
-select 'SELECT varname FROM test.auto_increment_t2_clustered WHERE id between 10 and 100;' as "Clustered";
-EXPLAIN SELECT varname FROM test.auto_increment_t2_clustered WHERE id between 10 and 100;
-select 'SELECT varname FROM test.bigint_t3_nonclustered WHERE id between 10 and 100;' as "Non-Clustered";
-EXPLAIN SELECT varname FROM test.bigint_t3_nonclustered WHERE id between 10 and 100;
+/* Query 6: Compare the Physical Plans */
+SELECT 'SELECT varname FROM test.auto_increment_t1_clustered WHERE id BETWEEN 10 AND 100;' AS "Clustered";
+EXPLAIN SELECT varname FROM test.auto_increment_t1_clustered WHERE id BETWEEN 10 AND 100;
+SELECT 'SELECT varname FROM test.t2_nonclustered WHERE id BETWEEN 10 AND 100;' AS "Non-Clustered";
+EXPLAIN SELECT varname FROM test.t2_nonclustered WHERE id BETWEEN 10 AND 100;
