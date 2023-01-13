@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 public class DemoJdbcPreparedStatement8028 {
 
     static int I;
-    static String MAIN_STREAM_TASK = "INSERT INTO test.target_table (id, name1) SELECT NULL, name FROM test.seed";
+    static String MAIN_TASK = "INSERT INTO test.target_table (id, name1) SELECT NULL, name FROM test.seed";
 
     /**
      * Print result set for single Long column.
@@ -121,39 +121,38 @@ public class DemoJdbcPreparedStatement8028 {
                     connection.prepareStatement(sqlInsertIntoSeed)
             };
             for (PreparedStatement ps : pss) {
-                System.out.println("preparing");
                 ps.executeUpdate();
                 ps.close();
             }
             // Populate Seed
             connection.setAutoCommit(false);
-            String sqlDoubleSeed = "insert into test.seed select * from test.seed";
+            String sqlDoubleSeed = "INSERT INTO test.seed SELECT * FROM test.seed";
             PreparedStatement psDoubleSeed = connection.prepareStatement(sqlDoubleSeed);
             for (int i = 0; i < 6; i++) {
                 System.out.println("populating");
                 psDoubleSeed.executeUpdate();
                 connection.commit();
             }
-            printResultSetLong("select count(*) as \"|320|\" from test.seed", connection);
+            printResultSetLong("SELECT count(*) AS \"|320|\" FROM test.seed", connection);
             printResultSetStringString("DESC test.target_table", connection);
             Thread.sleep(5000);
             // Start workload
             connection.commit();
-            PreparedStatement psMainInsert = connection.prepareStatement(MAIN_STREAM_TASK);
+            PreparedStatement psMainInsert = connection.prepareStatement(MAIN_TASK);
             for (int i = 0; i < 200; i++) {
                 I = i;
-                System.out.println("Main stream workload ..." + i);
-                psMainInsert.executeUpdate();
-                psMainInsert.executeUpdate();
-                psMainInsert.executeUpdate();
+                System.out.println("Main task workload ..." + i);
+                for (int k = 0; k < 3; k++) {
+                    psMainInsert.executeUpdate();
+                }
                 connection.commit();
-                System.out.println("Main stream workload commit ...");
+                System.out.println("Main task workload commit ...");
                 printResultSetStringString(
-                        "SELECT name1 as \"|NAME1|\", count(*) as \"|BEFORE-DDL-GOAL: 192000|\" FROM test.target_table GROUP BY name1 ORDER BY 1",
+                        "SELECT name1 AS \"|NAME1|\", COUNT(*) AS \"|BEFORE-DDL-GOAL: 192000|\" FROM test.target_table GROUP BY name1 ORDER BY 1",
                         connection);
             }
         } catch (SQLException e) {
-            System.out.println("Main stream error.");
+            System.out.println("Main task error.");
             System.out.println("Error: " + e);
             System.out.println("SQLState: " + e.getSQLState());
             System.out.println("ErrorCode: " + e.getErrorCode());
@@ -168,17 +167,17 @@ public class DemoJdbcPreparedStatement8028 {
                                 "DO anything in reaction to error, in this example we continue our workload.");
                         Thread.sleep(5000);
                         connection.rollback();
-                        PreparedStatement psMainInsert = connection.prepareStatement(MAIN_STREAM_TASK);
+                        PreparedStatement psMainInsert = connection.prepareStatement(MAIN_TASK);
                         for (int i = I; i < 200; i++) {
                             I = i;
-                            System.out.println("Main stream workload ..." + i);
-                            psMainInsert.executeUpdate();
-                            psMainInsert.executeUpdate();
-                            psMainInsert.executeUpdate();
+                            System.out.println("Main task workload ..." + i);
+                            for (int k = 0; k < 3; k++) {
+                                psMainInsert.executeUpdate();
+                            }
                             connection.commit();
-                            System.out.println("Main stream workload commit ...");
+                            System.out.println("Main task workload commit ...");
                             printResultSetStringString(
-                                    "SELECT name1 as \"|NAME1|\", count(*) as \"|BEFORE-DDL-GOAL: 192000|\" FROM test.target_table GROUP BY name1 ORDER BY 1",
+                                    "SELECT name1 AS \"|NAME1|\", COUNT(*) AS \"|BEFORE-DDL-GOAL: 192000|\" FROM test.target_table GROUP BY name1 ORDER BY 1",
                                     connection);
                         }
                     }
@@ -193,7 +192,6 @@ public class DemoJdbcPreparedStatement8028 {
         } finally {
             if (connection != null) {
                 try {
-                    System.out.println("I: " + I);
                     connection.setAutoCommit(true);
                     System.out.println("Turn on autocommit.");
                     connection.close();
