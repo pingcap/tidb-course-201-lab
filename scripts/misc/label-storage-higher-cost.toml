@@ -1,0 +1,2 @@
+[server]
+labels = {"region"="tokyo", "storage-performance"="high"}
