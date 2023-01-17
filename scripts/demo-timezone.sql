@@ -1,6 +1,6 @@
 /* source demo-timezone.sql */
 
-DROP TABLE IF EXISTS T;
+DROP TABLE IF EXISTS test.T;
 
 -- Query the global and session timezone 
 SELECT @@GLOBAL.TIME_ZONE, @@SESSION.TIME_ZONE;
@@ -25,5 +25,3 @@ SELECT * FROM T;
 /* Query two timezone related functions */
 SELECT NOW();
 SELECT CURTIME();
-
-SELECT 'Query two timezone related functions ' as ' ';
