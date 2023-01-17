@@ -262,7 +262,7 @@ def _execute_char(
         else:
             cursor.execute(insert_statement, (meta_char * start_len,))
         conn.commit()
-    # Catch the chance to jump to the correct anwser
+    # Catch the chance to jump to the correct answer
     except DatabaseError as dbe:
         # Entry means the KV entry in TiKV, the default max size is 6 MB (TiDB v6.1).
         if dbe.errno == 8025 and "the max entry size is " in dbe.msg.lower():

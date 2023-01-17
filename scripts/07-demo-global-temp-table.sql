@@ -3,10 +3,10 @@
 /* Setup: Create a global temporary table */
 DROP TABLE IF EXISTS test.temp2, test.perm3;
 
-/* Create global temporary table attemp 1, fail with error code 1064 */
+/* Create global temporary table attempt 1, fail with error code 1064 */
 CREATE GLOBAL TEMPORARY TABLE test.temp2 (id BIGINT);
 
-/* Create global temporary table attemp 2 */
+/* Create global temporary table attempt 2 */
 CREATE GLOBAL TEMPORARY TABLE test.temp2 (id BIGINT) ON COMMIT DELETE ROWS;
 
 /* Turn off autocommit for current session */
@@ -27,6 +27,6 @@ SELECT * FROM test.temp2;
 /* Create a permanent table */
 CREATE TABLE test.perm3 (id BIGINT);
 
-/* Create global temporary table attemp 3, error code 1050 is expected */
+/* Create global temporary table attempt 3, error code 1050 is expected */
 CREATE GLOBAL TEMPORARY TABLE test.perm3 (id BIGINT) ON COMMIT DELETE ROWS;
 

@@ -1,62 +1,62 @@
 /* source 07-demo-cluster-index-01-setup.sql */
 /* Setup the schema for CLUSTERED vs. NONCLUSTERED primary keys */
 
-/* Table t1 Clustered */
+/* Table t1: Clustered */
 DROP TABLE IF EXISTS test.auto_random_t1_clustered;
 CREATE TABLE test.auto_random_t1_clustered (
-    id bigint PRIMARY KEY AUTO_RANDOM,
-    id2 bigint, 
-    name char(255),
-    varname varchar(200));
+    id BIGINT PRIMARY KEY AUTO_RANDOM,
+    id2 BIGINT, 
+    name CHAR(255),
+    varname VARCHAR(200));
 
-/* Table t2 Non-Clustered */
+/* Table t2: Non-Clustered */
 DROP TABLE IF EXISTS test.t2_nonclustered;
 CREATE TABLE test.t2_nonclustered (
-    id bigint PRIMARY KEY NONCLUSTERED, 
-    id2 bigint,
-    name char(255),
-    varname char(200));
+    id BIGINT PRIMARY KEY NONCLUSTERED, 
+    id2 BIGINT,
+    name CHAR(255),
+    varname CHAR(200));
 
-/* Table t3 Non-Clustered */
+/* Table t3: Non-Clustered */
 DROP TABLE IF EXISTS test.t3_nonclustered;
 CREATE TABLE test.t3_nonclustered (
-    id varchar(32) PRIMARY KEY, 
-    id2 bigint,
-    name char(255),
-    varname char(200));
+    id VARCHAR(32) PRIMARY KEY, 
+    id2 BIGINT,
+    name CHAR(255),
+    varname CHAR(200));
 
-/* Table t4 Clustered */
+/* Table t4: Clustered */
 DROP TABLE IF EXISTS test.t4_clustered;
 CREATE TABLE test.t4_clustered (
-    id varchar(32) PRIMARY KEY CLUSTERED, 
-    id2 bigint,
-    name char(255),
-    varname char(200));
+    id VARCHAR(32) PRIMARY KEY CLUSTERED, 
+    id2 BIGINT,
+    name CHAR(255),
+    varname CHAR(200));
 
-/* Table t5 Clustered with no primary key */
+/* Table t5: Clustered with no primary key */
 DROP TABLE IF EXISTS test.t5_nonclustered;
 CREATE TABLE test.t5_nonclustered (
-    id bigint, 
-    id2 bigint,
-    name char(255),
-    varname char(200));
+    id BIGINT, 
+    id2 BIGINT,
+    name CHAR(255),
+    varname CHAR(200));
 
-/* Table t6 Non-Clustered Composite PK */
+/* Table t6: Non-Clustered Composite PK */
 DROP TABLE IF EXISTS test.t6_nonclustered;
 CREATE TABLE test.t6_nonclustered (
-    id bigint, 
-    id2 bigint,
-    name char(255),
-    varname char(200),
+    id BIGINT, 
+    id2 BIGINT,
+    name CHAR(255),
+    varname CHAR(200),
     PRIMARY KEY (id, id2));
 
-/* Table t7 Clustered Composite PK */
+/* Table t7: Clustered Composite PK */
 DROP TABLE IF EXISTS test.t7_clustered;
 CREATE TABLE test.t7_clustered (
-    id bigint, 
-    id2 bigint,
-    name char(255),
-    varname char(200),
+    id BIGINT, 
+    id2 BIGINT,
+    name CHAR(255),
+    varname CHAR(200),
     PRIMARY KEY (id, id2) CLUSTERED);
 
 /* Populate Seed */

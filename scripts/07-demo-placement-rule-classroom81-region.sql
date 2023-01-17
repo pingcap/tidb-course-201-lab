@@ -15,7 +15,6 @@ DROP PLACEMENT POLICY IF EXISTS seattle;
 CREATE PLACEMENT POLICY seattle
   PRIMARY_REGION="seattle" REGIONS="seattle,tokyo" FOLLOWERS=2;
 
-
 /* Create the geo-location placement policy favor for tokyo */
 DROP PLACEMENT POLICY IF EXISTS tokyo;
 CREATE PLACEMENT POLICY tokyo
@@ -30,13 +29,11 @@ ORDER BY primary_region;
 DROP TABLE IF EXISTS test.orders_seattle;
 CREATE TABLE test.orders_seattle (order_id INT PRIMARY KEY AUTO_INCREMENT, item VARCHAR(50), order_date DATE)
   PLACEMENT POLICY = seattle;
-ANALYZE TABLE test.orders_seattle;
 
 /* Create a table using `tokyo` placement policy */
 DROP TABLE IF EXISTS test.orders_tokyo;
 CREATE TABLE test.orders_tokyo (order_id INT PRIMARY KEY AUTO_INCREMENT, item VARCHAR(50), order_date DATE)
   PLACEMENT POLICY = tokyo;
-ANALYZE TABLE test.orders_tokyo;
 
 /* Query 4: Show relevant information about table test.orders_seattle */
 SHOW TABLE test.orders_seattle REGIONS\G
@@ -49,13 +46,13 @@ SELECT kvrs.region_id, kvss.store_id, kvrp.is_leader, kvss.label, kvss.start_ts
   ON kvrp.store_id = kvss.store_id
   JOIN information_schema.tables t
   ON t.table_name = kvrs.table_name
-  WHERE t.table_schema='test' 
+  WHERE t.table_schema='test'
   AND t.table_name='orders_seattle'
   AND kvrs.is_index = 0
   AND kvrp.is_leader = 1;
 
 /* Query 5: Show relevant information about table test.order2 */
-SHOW TABLE test.orders_log REGIONS\G
+SHOW TABLE test.orders_tokyo REGIONS\G
 
 SELECT kvrs.region_id, kvss.store_id, kvrp.is_leader, kvss.label, kvss.start_ts
   FROM information_schema.tikv_region_status kvrs

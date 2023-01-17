@@ -1,10 +1,10 @@
 /* source 07-demo-placement-policy-01-show.sql */
 
 /* PREPARE 1: Stop (ctrl-c) playground-start.sh */
-/* PREAPRE 2: In terminal #1: Run ./playground-init-geo-01.sh and wait for "CLUSTER START SUCCESSFULLY" */ 
+/* PREPARE 2: In terminal #1: Run ./playground-init-geo-01.sh and wait for "CLUSTER START SUCCESSFULLY" */ 
 /* PREPARE 3: In terminal #2: Run ./playground-init-geo-02.sh */
 
-/* Check existing lables on TiKV stores */
+/* Check existing labels on TiKV stores */
 SELECT store_id, address, store_state_name, label
 FROM information_schema.tikv_store_status;
 
@@ -142,7 +142,7 @@ analyze table test.rpt1;
     where t.table_schema='test' 
     and t.table_name='rpt1';
 
-/* Check existing lables on TiKV stores */
+/* Check existing labels on TiKV stores */
 /* Use following query to explain above result */
 SELECT store_id, address, store_state_name, label
 FROM information_schema.tikv_store_status;

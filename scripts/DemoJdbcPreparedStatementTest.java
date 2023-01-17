@@ -62,7 +62,7 @@ public class DemoJdbcPreparedStatementTest {
             // Non-Reuse PS
             connection.setAutoCommit(true);
             /**
-             * Client side caching prepared statment, cache hit for prepareStatement and
+             * Client side caching prepared statement, cache hit for prepareStatement and
              * close.
              * Try set cachePrepStmts=false|true to see the difference on elapsed time.
              */

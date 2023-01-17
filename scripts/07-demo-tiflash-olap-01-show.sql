@@ -44,7 +44,7 @@ WHERE t5.id < t2.id2
 GROUP BY id2
 ORDER BY id2;
 
-/* Turn off TiFlash for sesion */
+/* Turn off TiFlash for session */
 select @@tidb_isolation_read_engines;
 set @@tidb_isolation_read_engines='tikv,tidb';
 
