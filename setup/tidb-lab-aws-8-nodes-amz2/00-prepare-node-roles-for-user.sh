@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Example: ./00-prepare-node-roles-for-user.sh <user_name_tag_assigned_by_instructor> <instructor_name_tag>
+
 # Setup ENV
 source ~/cloud-env.sh
 
