@@ -5,7 +5,7 @@
 # Setup ENV
 source ~/cloud-env.sh
 
-# Enter the classroom username such as "user01" assigned by the instructor. 
+# Enter the classroom username such as "user2" assigned by the instructor. 
 export USER=${1}
 # The instructor's name tag shared by your instructor.
 export TRAINER=${2}
@@ -170,4 +170,4 @@ sed -i '' \
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh
 
-echo "8 nodes are prepared for user ${USER}"
+echo "8 nodes are prepared for user ${USER} and trainer ${TRAINER}."
