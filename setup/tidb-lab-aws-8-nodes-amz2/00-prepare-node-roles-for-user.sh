@@ -168,6 +168,7 @@ sed -i '' \
   ./eight-nodes-hybrid.yaml 2>/dev/null
 
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
-cp ./hosts-env.sh ~/hosts-env.sh
+cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
 
+echo
 echo "8 nodes are prepared for user ${USER} and trainer ${TRAINER}."
