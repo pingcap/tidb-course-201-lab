@@ -63,9 +63,9 @@ public class DemoJdbcTxPessimisticLock {
                 System.out.println(connectionTags[this.connectionNo] + " session: " + "BEGIN PESSIMISTIC");
                 s.executeUpdate("BEGIN PESSIMISTIC");
                 System.out.println(connectionTags[this.connectionNo] + " session: "
-                        + "UPDATE test_tx_optimistic SET name = '" + connectionTags[this.connectionNo]
+                        + "UPDATE test_tx_pessimistic SET name = '" + connectionTags[this.connectionNo]
                         + "' WHERE id = " + rowid);
-                s.executeUpdate("UPDATE test_tx_optimistic SET name = '" + connectionTags[this.connectionNo]
+                s.executeUpdate("UPDATE test_tx_pessimistic SET name = '" + connectionTags[this.connectionNo]
                         + "' WHERE id = " + rowid);
                 try {
                     Thread.sleep(this.waitBefore1stCommit);
@@ -81,7 +81,7 @@ public class DemoJdbcTxPessimisticLock {
                 System.out.println(connectionTags[this.connectionNo] + " Error: " + e);
             } finally {
                 System.out.println(connectionTags[this.connectionNo] + " session: " + "Checking result");
-                printResultSetStringString("select id, name from test_tx_optimistic", c);
+                printResultSetStringString("select id, name from test_tx_pessimistic", c);
             }
         }
     }
@@ -136,9 +136,9 @@ public class DemoJdbcTxPessimisticLock {
             }
             System.out.println("Connection established.");
             Statement s = connections.get(0).createStatement();
-            s.executeUpdate("DROP TABLE IF EXISTS test_tx_optimistic");
-            s.executeUpdate("CREATE TABLE test_tx_optimistic (id BIGINT PRIMARY KEY AUTO_RANDOM, name char(20))");
-            s.executeUpdate("INSERT INTO test_tx_optimistic (name) VALUES ('INIT') ", Statement.RETURN_GENERATED_KEYS);
+            s.executeUpdate("DROP TABLE IF EXISTS test_tx_pessimistic");
+            s.executeUpdate("CREATE TABLE test_tx_pessimistic (id BIGINT PRIMARY KEY AUTO_RANDOM, name char(20))");
+            s.executeUpdate("INSERT INTO test_tx_pessimistic (name) VALUES ('INIT') ", Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = s.getGeneratedKeys();
             rs.first();
             id = rs.getBigDecimal(1);
