@@ -17,18 +17,18 @@ pd_servers:
         region: oregon
         zone: az1
 tidb_servers:
-  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_DB1_PRIVATE_IP>
     port: 4000
     status_port: 10080
     deploy_dir: /tidb-deploy/tidb-4000
     log_dir: /tidb-deploy/tidb-4000/log
-  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_DB2_PRIVATE_IP>
     port: 4001
     status_port: 10081
     deploy_dir: /tidb-deploy/tidb-4001
     log_dir: /tidb-deploy/tidb-4001/log
 tikv_servers:
-  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_KV1_PRIVATE_IP>
     port: 20160
     status_port: 20180
     deploy_dir: /tidb-deploy/tikv-20160
@@ -39,7 +39,7 @@ tikv_servers:
         region: oregon
         zone: az1
 tiflash_servers:
-  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_TIFLASH1_PRIVATE_IP>
     tcp_port: 9000
     flash_service_port: 3930
     deploy_dir: /tidb-deploy/tiflash-9000
