@@ -2,4 +2,5 @@
 ./01-install-tiup.sh
 ./02-precheck-and-fix-nodes.sh
 ./03-create-cluster.sh
+./start-cluster.sh
 ./check-cluster.sh
