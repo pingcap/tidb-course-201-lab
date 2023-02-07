@@ -10,7 +10,7 @@ export USER=${1}
 # The instructor's name tag shared by your instructor.
 export TRAINER=${2}
 
-# Setup PD1, KV1, DB1 and TiFlash1
+# Setup PD1, KV1, DB1 and TiFlash1 on single node.
 # Node 1
 HOST_PD1_PRIVATE_IP=`aws ec2 describe-instances \
 --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=${USER}" "Name=tag:role,Values=pd1" "Name=tag:trainer,Values=${TRAINER}" \
@@ -50,7 +50,7 @@ echo ssh -A ${HOST_KV1_PRIVATE_IP} > ./ssh-to-kv1.sh
 echo ssh -A ${HOST_TIFLASH1_PRIVATE_IP} > ./ssh-to-tiflash1.sh
 chmod +x ./*.sh
 
-# Setup Eight Nodes TiDB Cluster Topology
+# Setup Single Node TiDB Cluster Topology
 cp ./template-single-node-hybrid.yaml ./single-node-hybrid.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
