@@ -64,4 +64,4 @@ sed -i '' \
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
 
 echo
-echo "8 nodes are prepared for user ${USER} and trainer ${TRAINER}."
+echo "Current node is prepared for user ${USER} and trainer ${TRAINER}."
