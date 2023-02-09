@@ -117,4 +117,5 @@ You will receive a table from your instructor that describes the exercise enviro
     ```
     $ ./ff1.sh
     $ source ./hosts-env.sh
+    $ source .bash_profile
     ```
