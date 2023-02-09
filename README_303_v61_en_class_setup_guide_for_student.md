@@ -31,7 +31,7 @@ You will receive a table from your instructor that describes the exercise enviro
 1. You will receive a private key file, `*.pem`, from your insutrctor.
 2. You need to use [PuTTY](https://www.putty.org/) to connect to EC2 instance from Windows. You also need to convert your private key from `*.pem` format to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). AWS provides a detailed documentation on [connecting to your Linux instance from Windows using PuTTY](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html). Make sure that you also allow the agent SSH forwarding in PuTTY (See the image below).
 
-    <img src="./ninja-kits/diagram/PuttyAllowAgentForwarding_en_001_20230109.png" width="100%" align="top"/>
+    <img src="./ninja-kits/diagram/PuttyAllowAgentForwarding_aa_001_20230109.png" width="100%" align="top"/>
 
 ## Scripts Introduction
 1. After successfully logging in EC2 instance (you use `pd1` node as the Control Machine throughout the course), you will see the following prompt. The VM node you currenly logging in is the de facto `Control Machine`:
