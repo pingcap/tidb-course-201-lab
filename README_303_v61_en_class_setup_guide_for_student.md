@@ -28,7 +28,7 @@ You will receive a table from your instructor that describes the exercise enviro
     ```
 
 ## Laptop Setup and SSH Login (Windows)
-1. You will receive a private key file, `*.pem`, from your insutrctor.
+1. You will receive a private key file, `*.pem`, from your instructor.
 2. You need to use [PuTTY](https://www.putty.org/) to connect to EC2 instance from Windows. You also need to convert your private key from `*.pem` format to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). AWS provides a detailed documentation on [connecting to your Linux instance from Windows using PuTTY](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html). Make sure that you also allow the agent SSH forwarding in PuTTY (See the image below).
 
     <img src="./ninja-kits/diagram/PuttyAllowAgentForwarding_aa_001_20230109.png" width="50%" align="top"/>
@@ -117,4 +117,5 @@ You will receive a table from your instructor that describes the exercise enviro
     ```
     $ ./ff1.sh
     $ source ./hosts-env.sh
+    $ source .bash_profile
     ```
