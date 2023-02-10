@@ -2,5 +2,6 @@
 basedir = /usr/local/mysql/
 datadir = /data/my3306
 server_id = 1
+log-bin=mysql-bin1
 port = 3306
 socket = /data/my3306/mysql.sock
