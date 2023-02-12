@@ -19,6 +19,9 @@
 # read_rnd_buffer_size = 2M
 datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock
+symbolic-links=0
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
 server_id = 2
 log_bin=mysql-bin2
 binlog_format=ROW
