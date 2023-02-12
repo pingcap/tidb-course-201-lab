@@ -167,6 +167,17 @@ sed -i '' \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
   ./eight-nodes-hybrid.yaml 2>/dev/null
 
+# Setup Six Nodes DM Cluster Topology
+cp ./template-six-nodes-dm-hybrid.yaml ./six-nodes-dm-hybrid.yaml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV1_PRIVATE_IP>/${HOST_KV1_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV2_PRIVATE_IP>/${HOST_KV2_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV3_PRIVATE_IP>/${HOST_KV3_PRIVATE_IP}/g" \
+  ./six-nodes-dm-hybrid.yaml 2>/dev/null
+
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
 
