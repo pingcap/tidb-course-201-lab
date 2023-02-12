@@ -1,4 +1,5 @@
 #!/bin/bash
+# author:guanglei.bao@pingcap.com
 
 # Fast forward E12-2-01
 ./ff12-2-01-mysql-setup.sh
