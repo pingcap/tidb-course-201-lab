@@ -3,4 +3,5 @@
 ./02-precheck-and-fix-nodes.sh
 ./03-create-cluster.sh
 ./start-cluster.sh
+sleep 10
 ./check-cluster.sh
