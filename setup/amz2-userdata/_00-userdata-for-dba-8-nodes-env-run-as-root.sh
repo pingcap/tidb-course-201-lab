@@ -12,11 +12,14 @@ mkdir ~ec2-user/stage/
 cd ~ec2-user/stage/
 rm -rf tidb-course-201-lab/
 yum -y update
-yum -y install git numactl awscli
-rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
-wget https://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm
-yum -y install mysql57-community-release-el7-10.noarch.rpm
-yum -y install mysql-community-client
+yum -y install git numactl awscli postfix
+#rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+wget https://pingcap-edu.s3.us-west-2.amazonaws.com/mysql-5.7.41-1.el7.x86_64.rpm-bundle.tar
+tar xvf mysql-5.7.41-1.el7.x86_64.rpm-bundle.tar
+rpm -ivh mysql-community-server-5.7.41-1.el7.x86_64.rpm mysql-community-client-5.7.41-1.el7.x86_64.rpm
+#wget https://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm
+#yum -y install mysql57-community-release-el7-10.noarch.rpm
+#yum -y install mysql-community-client
 wget https://pingcap-edu.s3.us-west-2.amazonaws.com/tidb-admin-dataset.zip
 git clone https://github.com/pingcap/tidb-course-201-lab.git
 
