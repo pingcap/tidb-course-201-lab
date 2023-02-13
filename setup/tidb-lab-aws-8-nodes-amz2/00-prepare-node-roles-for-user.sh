@@ -189,8 +189,8 @@ sed -i '' \
 cp ./template-three-nodes-scale-out-ticdc.yaml ./three-nodes-scale-out-ticdc.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
-  -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
-  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
   ./three-nodes-scale-out-ticdc.yaml 2>/dev/null
 
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 

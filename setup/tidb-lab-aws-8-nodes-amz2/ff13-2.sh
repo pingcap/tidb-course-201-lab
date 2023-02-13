@@ -18,18 +18,20 @@ CREATE TABLE test.T1(id INT PRIMARY KEY, name VARCHAR(20));
 SELECT * FROM test.T1;
 EOF
 
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql -pq1w2e3R4_
+
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << EOF
 CREATE TABLE test.T1(id INT PRIMARY KEY, name VARCHAR(20));
 SELECT * FROM test.T1;
 EOF
 
-tiup cdc cli changefeed create --pd=http://${HOST_PD1_PRIVATE_IP}:2379 \
+tiup cdc:v6.1.0 cli changefeed create --pd=http://${HOST_PD1_PRIVATE_IP}:2379 \
 --sink-uri="mysql://cdc_user:q1w2e3R4_@${HOST_PD1_PRIVATE_IP}:3306/" \
 --changefeed-id="replication-task-1" --sort-engine="unified"
 
-tiup cdc cli changefeed list --pd=http://${HOST_PD1_PRIVATE_IP}:2379
+tiup cdc:v6.1.0 cli changefeed list --pd=http://${HOST_PD1_PRIVATE_IP}:2379
 
-tiup cdc cli changefeed query --pd=http://${HOST_PD3_PRIVATE_IP}:2379 --changefeed-id=replication-task-1 
+tiup cdc:v6.1.0 cli changefeed query --pd=http://${HOST_PD3_PRIVATE_IP}:2379 --changefeed-id=replication-task-1 
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot -p << EOF
 SELECT * FROM test.T1;
@@ -40,4 +42,3 @@ EOF
 mysql -u cdc_user -h ${HOST_PD1_PRIVATE_IP} -P 3306 -pq1w2e3R4_ << EOF
 SELECT * FROM test.T1;
 EOF
-
