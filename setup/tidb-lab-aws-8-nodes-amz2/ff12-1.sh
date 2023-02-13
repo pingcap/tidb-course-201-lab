@@ -1,5 +1,4 @@
 #!/bin/bash
-# author:guanglei.bao@pingcap.com
 
 # Fast forward E1
 ./ff1.sh

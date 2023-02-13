@@ -1,5 +1,4 @@
 #!/bin/bash
-# author:guanglei.bao@pingcap.com
 
 # Fast forward E1
 ./01-install-tiup.sh

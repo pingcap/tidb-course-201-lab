@@ -1,5 +1,4 @@
 #!/bin/bash
-# author:guanglei.bao@pingcap.com
 
 # Fast forward E12-1
 ./ff12-1.sh
@@ -14,6 +13,7 @@ mysql -h localhost -P 3306 -uroot -p$X --connect-expired-password << EOF
 ALTER USER root@'localhost' identified by 'q1w2e3R4_';
 CREATE USER dm_user@'%' identified by 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO dm_user@'%';
+SET @@global.show_compatibility_56=ON;
 EOF
 
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_PD2_PRIVATE_IP} << 'EOFX'
@@ -24,6 +24,7 @@ mysql -h localhost -P 3306 -uroot -p$X --connect-expired-password << 'EOF'
 ALTER USER root@'localhost' identified by 'q1w2e3R4_';
 CREATE USER dm_user@'%' identified by 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO dm_user@'%';
+SET @@global.show_compatibility_56=ON;
 EOF
 exit
 EOFX

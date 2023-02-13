@@ -1,5 +1,4 @@
 #!/bin/bash
-# author:guanglei.bao@pingcap.com
 
 # Fast forward E12-2-02
 ./ff12-2-02-tidb-setup.sh
@@ -103,3 +102,5 @@ mydumpers:
     threads: 4
     chunk-filesize: 64
 EOF
+
+tiup dmctl --master-addr=${HOST_PD1_PRIVATE_IP}:8261 check-task ./dm-task.yaml
