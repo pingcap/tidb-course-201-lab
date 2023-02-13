@@ -181,7 +181,7 @@ sed -i '' \
 # Setup sync-diff task configuration
 cp ./template-sync-diff-config.toml ./sync-diff-config.toml
 sed -i '' \
-  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
   ./sync-diff-config.toml 2>/dev/null
 
