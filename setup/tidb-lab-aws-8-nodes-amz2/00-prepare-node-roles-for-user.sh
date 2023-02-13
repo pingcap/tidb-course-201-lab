@@ -186,10 +186,12 @@ sed -i '' \
   ./sync-diff-config.toml 2>/dev/null
 
 # Setup template-single-node-scale-out-ticdc.yaml
-cp ./template-single-node-scale-out-ticdc.yaml ./single-node-scale-out-ticdc.yaml
+cp ./template-three-nodes-scale-out-ticdc.yaml ./three-nodes-scale-out-ticdc.yaml
 sed -i '' \
-  -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
-  ./single-node-scale-out-ticdc.yaml 2>/dev/null
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  ./three-nodes-scale-out-ticdc.yaml 2>/dev/null
 
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null

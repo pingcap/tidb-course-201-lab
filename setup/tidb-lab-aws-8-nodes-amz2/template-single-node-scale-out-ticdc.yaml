@@ -1,4 +1,0 @@
-cdc_servers:
-- host: <HOST_DB1_PRIVATE_IP>
-  gc-ttl: 86400
-  data_dir: /ticdc-deploy-8300
