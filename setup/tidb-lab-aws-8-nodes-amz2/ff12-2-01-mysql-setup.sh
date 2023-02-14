@@ -9,7 +9,7 @@ source ./hosts-env.sh
 echo "Operating on `hostname`"
 sudo service mysqld start
 X=`sudo grep 'temporary password' /var/log/mysqld.log | sed 's/.*: //'`
-mysql -h localhost -P 3306 -uroot -p$X --connect-expired-password << EOF
+mysql -h localhost -P 3306 -uroot -p$X --connect-expired-password << 'EOF'
 ALTER USER root@'localhost' identified by 'q1w2e3R4_';
 CREATE USER dm_user@'%' identified by 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO dm_user@'%';

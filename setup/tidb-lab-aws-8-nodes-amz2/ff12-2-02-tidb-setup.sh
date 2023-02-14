@@ -5,7 +5,7 @@
 source .bash_profile
 source ./hosts-env.sh
 
-mysql -h ${HOST_DB1_PRIVATE_IP} -P 4000 -uroot << EOF
+mysql -h ${HOST_DB1_PRIVATE_IP} -P 4000 -uroot << 'EOF'
 CREATE USER dm_user@'%' identified by 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO dm_user@'%';
 CREATE DATABASE user_north;
