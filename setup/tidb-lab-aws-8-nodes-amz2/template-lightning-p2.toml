@@ -1,0 +1,27 @@
+[lightning]
+level = "info"
+file = "tidb-lightning-p2.log"
+meta-schema-name = "lightning_metadata"
+
+[tikv-importer]
+incremental-import = true
+backend = "local"
+sorted-kv-dir = "/tmp/sorted-kv-dir"
+
+[mydumper]
+data-source-dir = "/home/ec2-user/stage/TiDB-Administration-exercise-data/exercise-08/Importing-Data-into-TiDB-in-Parallel/my_table_2"
+filter = ['*.*', '!mysql.*', '!sys.*', '!INFORMATION_SCHEMA.*', '!PERFORMANCE_SCHEMA.*', '!METRICS_SCHEMA.*', '!INSPECTION_SCHEMA.*']
+
+[[routes]]
+schema-pattern = "my_db"
+table-pattern = "my_table_*"
+target-schema = "my_db"
+target-table = "my_table"
+
+[tidb]
+host = "<HOST_DB1_PRIVATE_IP>"
+port = 4000
+user = "ltask"
+password = "q1w2e3R4_"
+status-port = 10080
+pd-addr = "<HOST_PD1_PRIVATE_IP>:2379"

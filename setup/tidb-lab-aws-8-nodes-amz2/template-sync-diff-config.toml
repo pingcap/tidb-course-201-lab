@@ -33,9 +33,9 @@ check-struct-only = false
 # If You Need to Compare the Data of a Large Number of Tables with Different Library Names or Table Names, or to Verify the Data of Multiple Upstream Sharded Sharded Table and Downstream Combined Table, You Can Use Table-rule to Set the Mapping Relationship
 # You Can Configure Only Schema or Table Mapping Relationships, or Both
 [routes]
-[routes.rule1] # rule1 is a custom id that uniquely identifies this configuration and is used in data-sources.route-rules above
-schema-pattern = "test1"      # Match the library name of the data source. Wildcards "*" and "?" are supported
-target-schema = "test1"         # Target library name
+      [routes.rule1] # rule1 is a custom id that uniquely identifies this configuration and is used in data-sources.route-rules above
+            schema-pattern = "test1"      # Match the library name of the data source. Wildcards "*" and "?" are supported
+            target-schema = "test1"       # Target library name
 
 #####################Task config #########################
 # Configuration Table in *Target Database* That Needs to Be Compared
