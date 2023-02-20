@@ -8,7 +8,7 @@
 + [PingCAP Training & Certification (Global)](https://pingcap.com/education/)
 
 ## Trainings and Workshops
-<div style="display:table;">
+<div style="display:flex;">
 <div style="float: left;">
 <img src="./ninja-kits/diagram/PE_EN.png" width="50%"/>
 </div>
