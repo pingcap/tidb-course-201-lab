@@ -1,6 +1,6 @@
 # Lab Assets for TiDB Training Courses
 ## Trainings and Workshops
-<img src="./ninja-kits/diagram/PE_EN.png" width="60%" align="top"/>
+<img src="./ninja-kits/diagram/PE_EN.png" width="100%" align="top"/>
 
 + Caution:
   + All scripts in this repo provide no production warrenty, use them at your own risks.
