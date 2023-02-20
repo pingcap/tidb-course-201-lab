@@ -12,7 +12,7 @@
 <div style="float: left;">
 <img src="./ninja-kits/diagram/PE_EN.png" width="50%"/>
 </div>
-<div style="float: left;">
+<div style="float: right;">
 <img src="./ninja-kits/diagram/PE_EN.png" width="50%"/>
 </div>
 </div>
