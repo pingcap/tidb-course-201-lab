@@ -10,8 +10,6 @@
 ## Trainings and Workshops
 <p>
 <img src="./ninja-kits/diagram/PE_EN.png" width="45%"/>
-
-<img src="./ninja-kits/diagram/PE_EN.png" width="45%"/>
 </p>
 
 ## Folders Description
