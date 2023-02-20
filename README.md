@@ -7,11 +7,6 @@
 + [PingCAP Training & Certification (Japan)](https://pingcap.co.jp/education/)
 + [PingCAP Training & Certification (Global)](https://pingcap.com/education/)
 
-## Trainings and Workshops
-<p>
-<img src="./ninja-kits/diagram/PE_EN.png" width="45%"/>
-</p>
-
 ## Folders Description
 + All scripts are placed in `scripts/` folder.
 + All dependent assets support the scripts are placed in `scripts/misc/` folder.
@@ -19,4 +14,3 @@
 ## Additional Readings
 + [TiDB Documentation](https://docs.pingcap.com/)
 + [TiDB Developer Guide](https://docs.pingcap.com/tidb/stable/dev-guide-overview)
-+ [TiDB Kits for Developers](https://github.com/pingcap/tidb-course-201-lab/blob/master/ninja-kits/)
