@@ -8,14 +8,11 @@
 + [PingCAP Training & Certification (Global)](https://pingcap.com/education/)
 
 ## Trainings and Workshops
-<div style="display:flex;">
-<div style="float: left;">
+<p>
 <img src="./ninja-kits/diagram/PE_EN.png" width="50%"/>
-</div>
-<div style="float: right;">
+
 <img src="./ninja-kits/diagram/PE_EN.png" width="50%"/>
-</div>
-</div>
+</p>
 
 ## Folders Description
 + All scripts are placed in `scripts/` folder.
