@@ -3,15 +3,19 @@
 + All scripts in this repository provide **no production warranty**; they are for **learning purposes only**. Use them at your own risk.
 + Please ask your instructor for guidance on how to use the scripts in this repository.
 
+## TiDB Trainings Provided by PingCAP
++ [PingCAP Training & Certification (Japan)](https://pingcap.co.jp/education/)
++ [PingCAP Training & Certification (Global)](https://pingcap.com/education/)
+
 ## Trainings and Workshops
-<img src="./ninja-kits/diagram/PE_EN.png" width="100%" align="top"/>
+<div>
+<img src="./ninja-kits/diagram/PE_EN.png" width="50%" align="start"/>
+<img src="./ninja-kits/diagram/PE_EN.png" width="50%" align="end"/>
+</div>
 
 ## Folders Description
 + All scripts are placed in `scripts/` folder.
 + All dependent assets support the scripts are placed in `scripts/misc/` folder.
-
-## TiDB Trainings
-+ [PingCAP Training & Certification](https://pingcap.com/education/)
 
 ## Additional Readings
 + [TiDB Documentation](https://docs.pingcap.com/)
