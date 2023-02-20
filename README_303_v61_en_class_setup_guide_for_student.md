@@ -28,10 +28,23 @@ You will receive a table from your instructor that describes the exercise enviro
     ```
 
 ## Laptop Setup and SSH Login (Windows)
-1. You will receive a private key file, `*.pem`, from your instructor.
-2. You need to use [PuTTY](https://www.putty.org/) to connect to EC2 instance from Windows. You also need to convert your private key from `*.pem` format to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). AWS provides a detailed documentation on [connecting to your Linux instance from Windows using PuTTY](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html). Make sure that you also allow the agent SSH forwarding in PuTTY (See the image below).
+1. Install [PuTTY](https://www.putty.org/) on your computer.
+   
+   Download and install PuTTY from the [PuTTY](https://www.putty.org/) official page. If you already have an older version of PuTTY installed, we recommend that you download the latest version. Be sure to install the entire suite.
 
-    <img src="./ninja-kits/diagram/PuttyAllowAgentForwarding_aa_001_20230109.png" width="50%" align="top"/>
+2. Convert the private key file (`*.pem`), from your instructor, to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). 
+
+   You may follow the [guide]((https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html)) by AWS in the section `Convert your private key using PuTTYgen`.
+
+3. Configure the key-quartermaster.
+   + Open `Pageant` from the start menu. (Note: it may run off to the system tray)
+   + Click `Add Key` to include the key in `*.ppk` format.
+
+4. Connect to EC2 Instance from Windows using PuTTy.
+
+   Make sure that you also allow the agent SSH forwarding in PuTTY (See the image below. It might be slightly different from yours due to software versions).
+
+   <img src="./ninja-kits/diagram/PuttyAllowAgentForwarding_aa_001_20230109.png" width="50%" align="top"/>
 
 ## Scripts Introduction
 1. After successfully logging in EC2 instance (you use `pd1` node as the Control Machine throughout the course), you will see the following prompt. The VM node you currenly logging in is the de facto `Control Machine`:
