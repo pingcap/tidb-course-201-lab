@@ -25,13 +25,13 @@ CREATE TABLE test.T1(id INT PRIMARY KEY, name VARCHAR(20));
 SELECT * FROM test.T1;
 EOF
 
-tiup cdc:v6.1.0 cli changefeed create --pd=http://${HOST_PD1_PRIVATE_IP}:2379 \
+tiup cdc:v6.1.1 cli changefeed create --pd=http://${HOST_PD1_PRIVATE_IP}:2379 \
 --sink-uri="mysql://cdc_user:q1w2e3R4_@${HOST_PD1_PRIVATE_IP}:3306/" \
 --changefeed-id="replication-task-1" --sort-engine="unified"
 
-tiup cdc:v6.1.0 cli changefeed list --pd=http://${HOST_PD1_PRIVATE_IP}:2379
+tiup cdc:v6.1.1 cli changefeed list --pd=http://${HOST_PD1_PRIVATE_IP}:2379
 
-tiup cdc:v6.1.0 cli changefeed query --pd=http://${HOST_PD3_PRIVATE_IP}:2379 --changefeed-id=replication-task-1 
+tiup cdc:v6.1.1 cli changefeed query --pd=http://${HOST_PD3_PRIVATE_IP}:2379 --changefeed-id=replication-task-1 
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot -p << EOF
 SELECT * FROM test.T1;

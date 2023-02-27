@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Fast forward E1
-./ff1.sh
+# Fast forward E7
+./ff7.sh
 source .bash_profile
 source ./hosts-env.sh
 

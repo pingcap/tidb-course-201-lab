@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Fast forward E1
-./ff1.sh
+# Fast forward E7
+./ff7.sh
 source .bash_profile
 source ./hosts-env.sh
 
@@ -11,7 +11,7 @@ CREATE USER ltask@'%' IDENTIFIED BY 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO ltask@'%';
 EOF
 
-tiup install tidb-lightning
+tiup install tidb-lightning:v6.1.1
 
 unzip -u stage/tidb-admin-dataset.zip -d stage/
 
@@ -22,7 +22,7 @@ CREATE TABLE emp.`sal` (`emp_no` INT(11) NOT NULL, `salary` INT(11) NOT NULL, `f
 SELECT COUNT(*) FROM emp.sal;
 EOF
 
-tiup tidb-lightning -config lightning-csv.toml
+tiup tidb-lightning:v6.1.1 -config lightning-csv.toml
 
 mysql -h ${HOST_DB1_PRIVATE_IP} -uroot -P4000 << 'EOF'
 SELECT COUNT(*) FROM emp.sal;
