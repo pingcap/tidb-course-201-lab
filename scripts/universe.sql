@@ -1,5 +1,5 @@
 /* 
-*	Sample schema for planets and stars in the universe. No warranty of data correctness. 
+*	The following schema provides a sample structure for organizing data related to planets and stars in the universe. However, it is important to note that the accuracy and correctness of the data cannot be guaranteed. 
 *	It should not be used in any circumstances outside PingCAP training courses. 
 *	Data source: Space research open data set all over the world.
 *	Contributors: 
@@ -87,6 +87,7 @@ INSERT INTO `stars` (
 ) VALUES
 ('Sun', 1988500, 1408, 274.0, 617.6, 4260, 'G2 V', 0.0000158, NULL);
 SET @SUN_ID=LAST_INSERT_ID();
+
 INSERT INTO `stars` (
 	name, mass, density, gravity, escape_velocity, mass_conversion_rate, spectral_type, distance_from_earth, discover_date	
 ) VALUES
