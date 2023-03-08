@@ -5,5 +5,5 @@
 ./02-precheck-and-fix-nodes.sh
 ./create-cluster-v611.sh
 ./start-cluster.sh
-sleep 10
+sleep 20
 ./check-cluster.sh
