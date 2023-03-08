@@ -93,7 +93,7 @@ You will receive a table from your instructor that describes the exercise enviro
 
 3. Follow the instructions on the lab guide to complete the execises. 
 
-## (Optional) Step-by-Step Fast Forward Scripts
+## (Optional) Step-by-Step Fast Forward Scripts [Do NOT use these steps unless you are told to do so.]
 1.  Gather nodes information and setup the sample topology file.
     ```
     $ ./00-prepare-node-roles-for-user.sh <user_code> <trainer_name>
@@ -125,7 +125,7 @@ You will receive a table from your instructor that describes the exercise enviro
     ```
     $ ./check-cluster.sh 
     ```
-## (Optional) Exercise Fast Forward Scripts
+## (Optional) Exercise Fast Forward Scripts [Do NOT use these steps unless you are told to do so.]
 1. Fast forward to complete the exercises 1:
     ```
     $ ./ff1.sh
