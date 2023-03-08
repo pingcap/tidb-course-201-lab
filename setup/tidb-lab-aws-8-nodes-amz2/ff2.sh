@@ -19,5 +19,5 @@ PRIMARY KEY (`id`),
 KEY `idx_age` (`age`));
 INSERT INTO `tab_tidb` VALUES (1,'TiDB',6,'TiDB-v6.1.0');
 SELECT * FROM tab_tidb;
-SHOW processlist;
+SHOW PROCESSLIST;
 EOF

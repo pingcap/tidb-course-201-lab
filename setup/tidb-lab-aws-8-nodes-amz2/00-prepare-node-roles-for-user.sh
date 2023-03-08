@@ -214,6 +214,21 @@ sed -i '' \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
   ./lightning-p2.toml 2>/dev/null
 
+# Setup TiUP meta.yaml
+cp ./template-tiup-meta.yaml ./tiup-meta.yaml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
+  -e "s/<HOST_TIFLASH1_PRIVATE_IP>/${HOST_TIFLASH1_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV1_PRIVATE_IP>/${HOST_KV1_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV2_PRIVATE_IP>/${HOST_KV2_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV3_PRIVATE_IP>/${HOST_KV3_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
+  -e "s/<HOST_MONITOR_PRIVATE_IP>/${HOST_MONITOR_PRIVATE_IP}/g" \
+  ./tiup-meta.yaml 2>/dev/null
+
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
 
