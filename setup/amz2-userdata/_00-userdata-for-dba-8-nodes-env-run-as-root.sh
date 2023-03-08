@@ -22,3 +22,6 @@ cp -R tidb-course-201-lab/setup/tidb-lab-mysql-init-amz2/show-mysql-password.sh 
 cd ~
 chown -R ec2-user:ec2-user ~ec2-user/*
 chmod +x ~ec2-user/*.sh
+echo "if [ -f /home/ec2-user/hosts-env.sh ]; then" >> ~ec2-user/.bashrc
+echo "    source /home/ec2-user/hosts-env.sh" >> ~ec2-user/.bashrc
+echo "fi;" >> ~ec2-user/.bashrc
