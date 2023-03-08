@@ -215,7 +215,7 @@ sed -i '' \
   ./lightning-p2.toml 2>/dev/null
 
 # Setup TiUP meta.yaml
-cp ./template-tiup-meta.yaml ./tiup-meta.yaml
+cp ./template-tiup-meta.yaml ./solution-tiup-meta.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
@@ -227,7 +227,13 @@ sed -i '' \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
   -e "s/<HOST_MONITOR_PRIVATE_IP>/${HOST_MONITOR_PRIVATE_IP}/g" \
-  ./tiup-meta.yaml 2>/dev/null
+  ./solution-tiup-meta.yaml 2>/dev/null
+
+# Setup scale-out-tikv.yaml
+cp ./template-scale-out-tikv.yaml ./solution-scale-out-tikv.yaml
+sed -i '' \
+  -e "s/<HOST_MONITOR_PRIVATE_IP>/${HOST_MONITOR_PRIVATE_IP}/g" \
+  ./solution-scale-out-tikv.yaml 2>/dev/null
 
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null

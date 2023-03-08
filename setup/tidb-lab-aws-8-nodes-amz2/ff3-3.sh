@@ -6,7 +6,7 @@ source .bash_profile
 source ./hosts-env.sh
 
 cp .tiup/storage/cluster/clusters/tidb-test/meta.yaml .tiup/storage/cluster/clusters/tidb-test/meta.yaml.bak
-cp ./tiup-meta.yaml .tiup/storage/cluster/clusters/tidb-test/meta.yaml
+cp ./solution-tiup-meta.yaml .tiup/storage/cluster/clusters/tidb-test/meta.yaml
 
 tiup cluster reload tidb-test --yes
 
