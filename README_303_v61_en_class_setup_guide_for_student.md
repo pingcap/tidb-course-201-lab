@@ -14,6 +14,9 @@ You will receive a table from your instructor that describes the exercise enviro
     | i-070e8ceabd90b4edf | 35.92.217.xxx  | 10.0.1.74  | pd      | tony       | user2   | pd3      | 40             |
     | i-0b24f21bffea8476f | 35.87.9.x      | 10.0.1.252 | tiflash | tony       | user2   | tiflash1 | 40             |
 
+## Assumptions
+1. Please ensure that your laptop and internet connection have access to port 22 on the internet host.
+
 ## Laptop Setup and SSH Login (Linux or macOS)
 1. You will receive a private key file, `*.pem`, from your instructor, make sure the permission is set to `400`.
       ```
