@@ -8,8 +8,8 @@ source ./hosts-env.sh
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << EOF
 CREATE USER'jack'@'${HOST_CM_PRIVATE_IP}' IDENTIFIED BY 'pingcap';
 CREATE ROLE r_manager, r_staff;
-SELECT user, host, authentication_string FROM mysql.user\G;
-SELECT * FROM mysql.user WHERE user='r_staff'\G;
+SELECT user, host, authentication_string FROM mysql.user\G
+SELECT * FROM mysql.user WHERE user='r_staff'\G
 ALTER USER 'jack'@'${HOST_CM_PRIVATE_IP}' IDENTIFIED BY 'tidb';
 EOF
 
