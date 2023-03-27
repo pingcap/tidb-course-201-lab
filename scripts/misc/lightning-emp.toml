@@ -1,0 +1,21 @@
+[lightning]
+level = "info"
+file = "tidb-lightning-mydb.log"
+meta-schema-name = "lightning_metadata"
+
+[tikv-importer]
+incremental-import = true
+backend = "tidb"
+sorted-kv-dir = "/tmp/sorted-kv-dir"
+
+[mydumper]
+data-source-dir = "./emp-sql-dump/"
+filter = ['*.*', '!mysql.*', '!sys.*', '!INFORMATION_SCHEMA.*', '!PERFORMANCE_SCHEMA.*', '!METRICS_SCHEMA.*', '!INSPECTION_SCHEMA.*']
+
+[tidb]
+host = "127.0.0.1"
+port = 4000
+user = "imp"
+password = "q1w2e3R4_"
+status-port = 10080
+pd-addr = "127.0.0.1:2379"
