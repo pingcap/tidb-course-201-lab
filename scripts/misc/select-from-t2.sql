@@ -1,1 +1,1 @@
-select * from test.t2;
+SELECT * FROM test.t2;
