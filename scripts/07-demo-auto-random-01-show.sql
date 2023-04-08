@@ -218,5 +218,7 @@ FROM information_schema.tables
 WHERE table_schema = 'test'
     AND table_name = 'auto_random_t1';
 /* Query 3: Count the rows group by the shard bits */
-SELECT DISTINCT id << 1 >> (64 -1 -3)
-FROM test.auto_random_t1;
+SELECT SUBSTRING(CONV(id, 10, 2), 2, 3) as shard,
+    COUNT(1) as rows_by_shard
+FROM test.auto_random_t1
+GROUP BY shard;
