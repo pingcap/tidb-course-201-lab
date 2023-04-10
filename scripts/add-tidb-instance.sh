@@ -1,2 +1,2 @@
 #!/bin/bash
-tiup playground scale-out --db 1
+~/.tiup/bin/tiup playground scale-out --db 1
