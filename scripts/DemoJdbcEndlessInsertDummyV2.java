@@ -3,12 +3,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Random;
 
 public class DemoJdbcEndlessInsertDummyV2 {
 
     public static void main(String[] args) {
         Runnable[] workers = new Runnable[] { new InsertWorker1(), new InsertWorker2(), new InsertWorker3() };
-        for (Runnable worker:workers){
+        for (Runnable worker : workers) {
             new Thread(worker).start();
         }
     }
@@ -20,6 +21,8 @@ class InsertWorker1 implements Runnable {
     public void run() {
         String[] portNumbers = new String[] { "4000", "4001", "4002" };
         Connection connection = null;
+        Random rand = new Random();
+        int interval = 0;
         while (true) {
             for (String portNumber : portNumbers) {
                 String connectionString = "jdbc:mysql://127.0.0.1:" + portNumber
@@ -31,17 +34,22 @@ class InsertWorker1 implements Runnable {
                             "root", "");
                     System.out.println("Connection established.");
                     // Do something in the connection
-                    String sqlInsertIntoTable = "INSERT INTO test.dummy (name) VALUES (?)";
+                    String sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                     PreparedStatement ps = connection.prepareStatement(sqlInsertIntoTable);
                     String d = null;
                     while (true) {
+                        interval = rand.nextInt(1000);
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(rand.nextInt(1000));
                         } catch (Exception e) {
                             // Do nonthing
                         }
                         d = new Date().toString();
-                        ps.setString(1, new Date().toString());
+                        ps.setString(1, "worker1");
+                        ps.setString(2, "time");
+                        ps.setString(3, new Date().toString());
+                        ps.setString(4, "interval");
+                        ps.setInt(5, interval);
                         ps.executeUpdate();
                         System.out.println("INSERT INTO test.dummy (name) VALUES ('" + d + "')");
                     }
@@ -59,6 +67,8 @@ class InsertWorker2 implements Runnable {
     public void run() {
         String[] portNumbers = new String[] { "4001", "4002", "4000" };
         Connection connection = null;
+        Random rand = new Random();
+        int interval = 0;
         while (true) {
             for (String portNumber : portNumbers) {
                 String connectionString = "jdbc:mysql://127.0.0.1:" + portNumber
@@ -70,17 +80,22 @@ class InsertWorker2 implements Runnable {
                             "root", "");
                     System.out.println("Connection established.");
                     // Do something in the connection
-                    String sqlInsertIntoTable = "INSERT INTO test.dummy (name) VALUES (?)";
+                    String sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                     PreparedStatement ps = connection.prepareStatement(sqlInsertIntoTable);
                     String d = null;
                     while (true) {
+                        interval = rand.nextInt(1000);
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(rand.nextInt(1000));
                         } catch (Exception e) {
                             // Do nonthing
                         }
                         d = new Date().toString();
-                        ps.setString(1, new Date().toString());
+                        ps.setString(1, "worker2");
+                        ps.setString(2, "time");
+                        ps.setString(3, new Date().toString());
+                        ps.setString(4, "interval");
+                        ps.setInt(5, interval);
                         ps.executeUpdate();
                         System.out.println("INSERT INTO test.dummy (name) VALUES ('" + d + "')");
                     }
@@ -90,7 +105,6 @@ class InsertWorker2 implements Runnable {
             }
         }
     }
-
 }
 
 class InsertWorker3 implements Runnable {
@@ -99,6 +113,8 @@ class InsertWorker3 implements Runnable {
     public void run() {
         String[] portNumbers = new String[] { "4002", "4000", "4001" };
         Connection connection = null;
+        Random rand = new Random();
+        int interval = 0;
         while (true) {
             for (String portNumber : portNumbers) {
                 String connectionString = "jdbc:mysql://127.0.0.1:" + portNumber
@@ -110,17 +126,22 @@ class InsertWorker3 implements Runnable {
                             "root", "");
                     System.out.println("Connection established.");
                     // Do something in the connection
-                    String sqlInsertIntoTable = "INSERT INTO test.dummy (name) VALUES (?)";
+                    String sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                     PreparedStatement ps = connection.prepareStatement(sqlInsertIntoTable);
                     String d = null;
                     while (true) {
+                        interval = rand.nextInt(1000);
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(rand.nextInt(1000));
                         } catch (Exception e) {
                             // Do nonthing
                         }
                         d = new Date().toString();
-                        ps.setString(1, new Date().toString());
+                        ps.setString(1, "worker3");
+                        ps.setString(2, "time");
+                        ps.setString(3, new Date().toString());
+                        ps.setString(4, "interval");
+                        ps.setInt(5, interval);
                         ps.executeUpdate();
                         System.out.println("INSERT INTO test.dummy (name) VALUES ('" + d + "')");
                     }
@@ -130,5 +151,4 @@ class InsertWorker3 implements Runnable {
             }
         }
     }
-
 }
