@@ -116,6 +116,19 @@ HOST_DB1_PUBLIC_IP=`aws ec2 describe-instances \
 --region ${REGION_CODE}`
 
 # Node 9
+HOST_DB2_PRIVATE_IP=`aws ec2 describe-instances \
+--filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=${USER}" "Name=tag:role,Values=db2" "Name=tag:trainer,Values=${TRAINER}" \
+--query "Reservations[0].Instances[0].PrivateIpAddress" \
+--output text \
+--region ${REGION_CODE}`
+
+HOST_DB2_PUBLIC_IP=`aws ec2 describe-instances \
+--filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=${USER}" "Name=tag:role,Values=db2" "Name=tag:trainer,Values=${TRAINER}" \
+--query "Reservations[0].Instances[0].PublicIpAddress" \
+--output text \
+--region ${REGION_CODE}`
+
+# Node 10
 HOST_MONITOR_PRIVATE_IP=`aws ec2 describe-instances \
 --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=${USER}" "Name=tag:role,Values=monitor" "Name=tag:trainer,Values=${TRAINER}" \
 --query "Reservations[0].Instances[0].PrivateIpAddress" \
@@ -138,8 +151,8 @@ echo export HOST_PD3_PRIVATE_IP=${HOST_PD3_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_PD3_PUBLIC_IP=${HOST_PD3_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_DB1_PRIVATE_IP=${HOST_DB1_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_DB1_PUBLIC_IP=${HOST_DB1_PUBLIC_IP} >> ./hosts-env.sh
-echo export HOST_DB2_PRIVATE_IP=${HOST_DB1_PRIVATE_IP} >> ./hosts-env.sh
-echo export HOST_DB2_PUBLIC_IP=${HOST_DB1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_DB2_PRIVATE_IP=${HOST_DB2_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_DB2_PUBLIC_IP=${HOST_DB2_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_KV1_PRIVATE_IP=${HOST_KV1_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_KV1_PUBLIC_IP=${HOST_KV1_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_KV2_PRIVATE_IP=${HOST_KV2_PRIVATE_IP} >> ./hosts-env.sh

@@ -37,10 +37,10 @@ tidb_servers:
     deploy_dir: /tidb-deploy/tidb-4000
     log_dir: /tidb-deploy/tidb-4000/log
   - host: <HOST_DB2_PRIVATE_IP>
-    port: 4001
-    status_port: 10081
-    deploy_dir: /tidb-deploy/tidb-4001
-    log_dir: /tidb-deploy/tidb-4001/log
+    port: 4000
+    status_port: 10080
+    deploy_dir: /tidb-deploy/tidb-4000
+    log_dir: /tidb-deploy/tidb-4000/log
 tikv_servers:
   - host: <HOST_KV1_PRIVATE_IP>
     port: 20160
