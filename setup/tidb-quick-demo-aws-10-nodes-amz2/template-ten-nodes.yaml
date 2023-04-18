@@ -1,0 +1,84 @@
+global:
+  user: "tidb"
+  ssh_port: 22
+  deploy_dir: "/tidb-deploy"
+  data_dir: "/tidb-data"
+  arch: "amd64"
+server_configs:
+  pd:
+    replication.location-labels: ["region","zone"]
+    replication.max-replicas: 3
+pd_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+    client_port: 2379
+    peer_port: 2380
+    config:
+      server.labels:
+        region: oregon
+        zone: az1
+  - host: <HOST_PD2_PRIVATE_IP>
+    client_port: 2379
+    peer_port: 2380
+    config:
+      server.labels:
+        region: oregon
+        zone: az2
+  - host: <HOST_PD3_PRIVATE_IP>
+    client_port: 2379
+    peer_port: 2380
+    config:
+      server.labels:
+        region: virginia
+        zone: az1
+tidb_servers:
+  - host: <HOST_DB1_PRIVATE_IP>
+    port: 4000
+    status_port: 10080
+    deploy_dir: /tidb-deploy/tidb-4000
+    log_dir: /tidb-deploy/tidb-4000/log
+  - host: <HOST_DB2_PRIVATE_IP>
+    port: 4001
+    status_port: 10081
+    deploy_dir: /tidb-deploy/tidb-4001
+    log_dir: /tidb-deploy/tidb-4001/log
+tikv_servers:
+  - host: <HOST_KV1_PRIVATE_IP>
+    port: 20160
+    status_port: 20180
+    config:
+      server.labels:
+        region: oregon
+        zone: az1
+  - host: <HOST_KV2_PRIVATE_IP>
+    port: 20160
+    status_port: 20180
+    config:
+      server.labels:
+        region: oregon
+        zone: az2
+  - host: <HOST_KV3_PRIVATE_IP>
+    port: 20160
+    status_port: 20180
+    config:
+      server.labels:
+        region: virginia
+        zone: az1
+tiflash_servers:
+  - host: <HOST_TIFLASH1_PRIVATE_IP>
+    tcp_port: 9000
+    flash_service_port: 3930
+    deploy_dir: /tidb-deploy/tiflash-9000
+    data_dir: /tidb-data/tiflash-9000
+    log_dir: /tidb-deploy/tiflash-9000/log
+monitoring_servers:
+  - host: <HOST_MONITOR_PRIVATE_IP>
+grafana_servers:
+  - host: <HOST_MONITOR_PRIVATE_IP>
+alertmanager_servers:
+  - host: <HOST_MONITOR_PRIVATE_IP>
+#pump_servers:
+#  - host: 127.0.0.1
+#drainer_servers:
+#  - host: 127.0.0.1
+#cdc_servers:
+#  - host: 127.0.0.1
