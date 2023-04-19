@@ -28,7 +28,7 @@ pd_servers:
     peer_port: 2380
     config:
       server.labels:
-        region: virginia
+        region: oregon
         zone: az3
 tidb_servers:
   - host: <HOST_DB1_PRIVATE_IP>
@@ -61,7 +61,7 @@ tikv_servers:
     status_port: 20180
     config:
       server.labels:
-        region: virginia
+        region: oregon
         zone: az3
 tiflash_servers:
   - host: <HOST_TIFLASH1_PRIVATE_IP>
