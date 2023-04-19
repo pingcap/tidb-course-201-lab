@@ -29,7 +29,7 @@ pd_servers:
     config:
       server.labels:
         region: virginia
-        zone: az1
+        zone: az3
 tidb_servers:
   - host: <HOST_DB1_PRIVATE_IP>
     port: 4000
@@ -62,7 +62,7 @@ tikv_servers:
     config:
       server.labels:
         region: virginia
-        zone: az1
+        zone: az3
 tiflash_servers:
   - host: <HOST_TIFLASH1_PRIVATE_IP>
     tcp_port: 9000
@@ -71,11 +71,11 @@ tiflash_servers:
     data_dir: /tidb-data/tiflash-9000
     log_dir: /tidb-deploy/tiflash-9000/log
 monitoring_servers:
-  - host: <HOST_MONITOR_PRIVATE_IP>
+  - host: <HOST_MONITOR1_PRIVATE_IP>
 grafana_servers:
-  - host: <HOST_MONITOR_PRIVATE_IP>
+  - host: <HOST_MONITOR1_PRIVATE_IP>
 alertmanager_servers:
-  - host: <HOST_MONITOR_PRIVATE_IP>
+  - host: <HOST_MONITOR1_PRIVATE_IP>
 #pump_servers:
 #  - host: 127.0.0.1
 #drainer_servers:
