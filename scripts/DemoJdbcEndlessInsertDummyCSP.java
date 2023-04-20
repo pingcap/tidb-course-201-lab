@@ -42,8 +42,10 @@ class InsertWorker1 implements Runnable {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
+                ps.setQueryTimeout(1);
                 while (true) {
                     try {
+                        System.out.println("worker 1: " + c);
                         Thread.sleep(rand.nextInt(1000));
                         dateTime = new Date().toString();
                         ps.setString(1, "worker1");
@@ -51,7 +53,6 @@ class InsertWorker1 implements Runnable {
                         ps.setString(3, new Date().toString());
                         ps.setString(4, "interval");
                         ps.setInt(5, interval);
-                        ps.setQueryTimeout(1);
                         ps.executeUpdate();
                         System.out.println(
                                 "Worker 1 - TiDB host:" + hosts[c % 2]
@@ -107,8 +108,10 @@ class InsertWorker2 implements Runnable {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
+                ps.setQueryTimeout(1);
                 while (true) {
                     try {
+                        System.out.println("worker 2: " + c);
                         Thread.sleep(rand.nextInt(1000));
                         dateTime = new Date().toString();
                         ps.setString(1, "worker2");
@@ -116,7 +119,6 @@ class InsertWorker2 implements Runnable {
                         ps.setString(3, new Date().toString());
                         ps.setString(4, "interval");
                         ps.setInt(5, interval);
-                        ps.setQueryTimeout(1);
                         ps.executeUpdate();
                         System.out.println(
                                 "Worker 2 - TiDB host:" + hosts[c % 2]
