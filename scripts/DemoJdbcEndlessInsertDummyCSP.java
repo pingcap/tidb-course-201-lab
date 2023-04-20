@@ -51,12 +51,15 @@ class InsertWorker1 implements Runnable {
                         ps.setInt(5, interval);
                         ps.executeUpdate();
                         System.out.println(
-                                "Worker 1 - TiDB Server (host:" + hosts[c % 2]
-                                        + ") - INSERTING INTO test.dummy at "
+                                "Worker 1 - TiDB host:" + hosts[c % 2]
+                                        + " - INSERTING at "
                                         + dateTime);
+                        if (c % 100 == 0) {
+                            break;
+                        }
                     } catch (Exception e) {
                         System.out.println(
-                                "Error - Worker 1 - TiDB Server (host:" + hosts[c % 2] + ") "
+                                "Error - Worker 1 - TiDB host:" + hosts[c % 2] + ") "
                                         + e.getMessage() + " at "
                                         + dateTime);
                         break;
@@ -106,12 +109,15 @@ class InsertWorker2 implements Runnable {
                         ps.setInt(5, interval);
                         ps.executeUpdate();
                         System.out.println(
-                                "Worker 2 - TiDB Server (host:" + hosts[c % 2]
-                                        + ") - INSERTING INTO test.dummy at "
+                                "Worker 2 - TiDB host:" + hosts[c % 2]
+                                        + " - INSERTING at "
                                         + dateTime);
+                        if (c % 100 == 0) {
+                            break;
+                        }
                     } catch (Exception e) {
                         System.out.println(
-                                "Error - Worker 2 - TiDB Server (host:" + hosts[c % 2] + ") "
+                                "Error - Worker 2 - TiDB host:" + hosts[c % 2] + ") "
                                         + e.getMessage() + " at "
                                         + dateTime);
                         break;
