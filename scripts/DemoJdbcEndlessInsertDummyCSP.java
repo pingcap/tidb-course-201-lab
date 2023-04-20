@@ -23,13 +23,11 @@ class InsertWorker1 implements Runnable {
                 System.getenv("HOST_DB2_PRIVATE_IP") };
         String connectionString = null;
         Connection connection = null;
-        Random rand = new Random();
         int interval = 0;
         String sqlInsertIntoTable = null;
         PreparedStatement ps = null;
         String dateTime = null;
         int c = 0;
-        int j = 0;
         String hostName = null;
         while (true) {
             c++;
@@ -44,31 +42,20 @@ class InsertWorker1 implements Runnable {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-                while (true) {
-                    j++;
-                    try {
-                        System.out.println("Worker 1 - BEGIN");
-                        Thread.sleep(rand.nextInt(1000));
-                        dateTime = new Date().toString();
-                        ps.setString(1, "worker1");
-                        ps.setString(2, "time");
-                        ps.setString(3, new Date().toString());
-                        ps.setString(4, "interval");
-                        ps.setInt(5, interval);
-                        ps.setQueryTimeout(1);
-                        ps.executeUpdate();
-                        System.out.println(
-                                "Worker 1 - TiDB host:" + hostName
-                                        + " - INSERTING at "
-                                        + dateTime);
-                        if (j % 20 == 0) {
-                            break;
-                        }
-                    } catch (Exception e) {
-                        connection.close();
-                        break;
-                    }
-                }
+
+                dateTime = new Date().toString();
+                ps.setString(1, "worker1");
+                ps.setString(2, "time");
+                ps.setString(3, new Date().toString());
+                ps.setString(4, "interval");
+                ps.setInt(5, interval);
+                ps.setQueryTimeout(1);
+                ps.executeUpdate();
+                System.out.println(
+                        "Worker 1 - TiDB host:" + hostName
+                                + " - INSERTING at "
+                                + dateTime);
+
             } catch (SQLException e) {
                 continue;
             }
@@ -84,13 +71,11 @@ class InsertWorker2 implements Runnable {
                 System.getenv("HOST_DB1_PRIVATE_IP") };
         String connectionString = null;
         Connection connection = null;
-        Random rand = new Random();
         int interval = 0;
         String sqlInsertIntoTable = null;
         PreparedStatement ps = null;
         String dateTime = null;
         int c = 0;
-        int j = 0;
         String hostName = null;
         while (true) {
             c++;
@@ -105,31 +90,19 @@ class InsertWorker2 implements Runnable {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-                while (true) {
-                    j++;
-                    try {
-                        System.out.println("Worker 2 - BEGIN");
-                        Thread.sleep(rand.nextInt(1000));
-                        dateTime = new Date().toString();
-                        ps.setString(1, "worker2");
-                        ps.setString(2, "time");
-                        ps.setString(3, new Date().toString());
-                        ps.setString(4, "interval");
-                        ps.setInt(5, interval);
-                        ps.setQueryTimeout(1);
-                        ps.executeUpdate();
-                        System.out.println(
-                                "Worker 2 - TiDB host:" + hostName
-                                        + " - INSERTING at "
-                                        + dateTime);
-                        if (j % 20 == 0) {
-                            break;
-                        }
-                    } catch (Exception e) {
-                        connection.close();
-                        break;
-                    }
-                }
+                dateTime = new Date().toString();
+                ps.setString(1, "worker1");
+                ps.setString(2, "time");
+                ps.setString(3, new Date().toString());
+                ps.setString(4, "interval");
+                ps.setInt(5, interval);
+                ps.setQueryTimeout(1);
+                ps.executeUpdate();
+                System.out.println(
+                        "Worker 2 - TiDB host:" + hostName
+                                + " - INSERTING at "
+                                + dateTime);
+
             } catch (SQLException e) {
                 continue;
             }
