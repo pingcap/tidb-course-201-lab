@@ -29,6 +29,7 @@ class InsertWorker1 implements Runnable {
         String dateTime = null;
         int c = 0;
         String hostName = null;
+        boolean exceptionBackoff = false;
         while (true) {
             c++;
             try {
@@ -55,7 +56,16 @@ class InsertWorker1 implements Runnable {
                         "Worker 1 - TiDB host:" + hostName
                                 + " - INSERTING at "
                                 + dateTime);
+                if (!exceptionBackoff) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        continue;
+                    }
+                }
+                exceptionBackoff = false;
             } catch (SQLException e) {
+                exceptionBackoff = true;
                 System.out.println(
                         "Error - Worker 1 - TiDB host:" + hostName
                                 + " - at "
@@ -80,6 +90,7 @@ class InsertWorker2 implements Runnable {
         String dateTime = null;
         int c = 0;
         String hostName = null;
+        boolean exceptionBackoff = false;
         while (true) {
             c++;
             try {
@@ -105,8 +116,16 @@ class InsertWorker2 implements Runnable {
                         "Worker 2 - TiDB host:" + hostName
                                 + " - INSERTING at "
                                 + dateTime);
-
+                if (!exceptionBackoff) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        continue;
+                    }
+                }
+                exceptionBackoff = false;
             } catch (SQLException e) {
+                exceptionBackoff = true;
                 System.out.println(
                         "Error - Worker 2 - TiDB host:" + hostName
                                 + " - at "
