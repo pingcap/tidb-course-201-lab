@@ -30,7 +30,7 @@ class InsertWorker1 implements Runnable {
         String dateTime = null;
         int c = 0;
         while (true) {
-            c += 1;
+            c++;
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
@@ -96,7 +96,7 @@ class InsertWorker2 implements Runnable {
         String dateTime = null;
         int c = 0;
         while (true) {
-            c += 1;
+            c++;
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
