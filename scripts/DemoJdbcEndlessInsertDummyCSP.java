@@ -47,6 +47,7 @@ class InsertWorker1 implements Runnable {
                 while (true) {
                     j++;
                     try {
+                        System.out.println("Worker 1 - BEGIN");
                         Thread.sleep(rand.nextInt(1000));
                         dateTime = new Date().toString();
                         ps.setString(1, "worker1");
@@ -107,6 +108,7 @@ class InsertWorker2 implements Runnable {
                 while (true) {
                     j++;
                     try {
+                        System.out.println("Worker 2 - BEGIN");
                         Thread.sleep(rand.nextInt(1000));
                         dateTime = new Date().toString();
                         ps.setString(1, "worker2");
