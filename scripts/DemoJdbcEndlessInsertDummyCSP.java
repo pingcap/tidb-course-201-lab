@@ -34,7 +34,7 @@ class InsertWorker1 implements Runnable {
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
-                System.out.print("Work 1 connection string: " + connectionString);
+                System.out.println("Work 1 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -51,6 +51,7 @@ class InsertWorker1 implements Runnable {
                         ps.setString(3, new Date().toString());
                         ps.setString(4, "interval");
                         ps.setInt(5, interval);
+                        ps.setQueryTimeout(1);
                         ps.executeUpdate();
                         System.out.println(
                                 "Worker 1 - TiDB host:" + hosts[c % 2]
@@ -94,7 +95,7 @@ class InsertWorker2 implements Runnable {
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
-                System.out.print("Work 2 connection string: " + connectionString);
+                System.out.println("Work 2 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -111,6 +112,7 @@ class InsertWorker2 implements Runnable {
                         ps.setString(3, new Date().toString());
                         ps.setString(4, "interval");
                         ps.setInt(5, interval);
+                        ps.setQueryTimeout(1);
                         ps.executeUpdate();
                         System.out.println(
                                 "Worker 2 - TiDB host:" + hosts[c % 2]
