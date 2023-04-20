@@ -36,7 +36,7 @@ class InsertWorker1 implements Runnable {
             try {
                 hostName = hosts[c % 2];
                 connectionString = "jdbc:mysql://" + hostName + ":" + "4000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true";
                 System.out.println("Worker 1 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
                 connection = DriverManager.getConnection(
@@ -106,7 +106,7 @@ class InsertWorker2 implements Runnable {
             try {
                 hostName = hosts[c % 2];
                 connectionString = "jdbc:mysql://" + hostName + ":" + "4000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true";
                 System.out.println("Worker 2 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
                 connection = DriverManager.getConnection(
