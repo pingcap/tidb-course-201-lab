@@ -55,8 +55,11 @@ class InsertWorker1 implements Runnable {
                         "Worker 1 - TiDB host:" + hostName
                                 + " - INSERTING at "
                                 + dateTime);
-
             } catch (SQLException e) {
+                System.out.println(
+                        "Error - Worker 1 - TiDB host:" + hostName
+                                + " - at "
+                                + dateTime);
                 continue;
             }
         }
@@ -104,6 +107,10 @@ class InsertWorker2 implements Runnable {
                                 + dateTime);
 
             } catch (SQLException e) {
+                System.out.println(
+                        "Error - Worker 2 - TiDB host:" + hostName
+                                + " - at "
+                                + dateTime);
                 continue;
             }
         }
