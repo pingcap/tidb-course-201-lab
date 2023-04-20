@@ -34,7 +34,7 @@ class InsertWorker1 implements Runnable {
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
-                System.out.println("Work 1 connection string: " + connectionString);
+                System.out.println("Worker 1 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -62,7 +62,7 @@ class InsertWorker1 implements Runnable {
                         }
                     } catch (Exception e) {
                         System.out.println(
-                                "Error - Worker 1 - TiDB host:" + hosts[c % 2] + ") "
+                                "Error - Worker 1 - TiDB host:" + hosts[c % 2] + " - "
                                         + e.getMessage() + " at "
                                         + dateTime);
                         connection.close();
@@ -71,7 +71,7 @@ class InsertWorker1 implements Runnable {
                 }
             } catch (SQLException e) {
                 System.out.println(
-                        "Error - Worker 1 - TiDB host:" + hosts[c % 2] + ") "
+                        "Error - Worker 1 - TiDB host:" + hosts[c % 2] + " - "
                                 + e.getMessage() + " at "
                                 + dateTime);
                 continue;
@@ -99,7 +99,7 @@ class InsertWorker2 implements Runnable {
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
-                System.out.println("Work 2 connection string: " + connectionString);
+                System.out.println("Worker 2 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -127,7 +127,7 @@ class InsertWorker2 implements Runnable {
                         }
                     } catch (Exception e) {
                         System.out.println(
-                                "Error - Worker 2 - TiDB host:" + hosts[c % 2] + ") "
+                                "Error - Worker 2 - TiDB host:" + hosts[c % 2] + " - "
                                         + e.getMessage() + " at "
                                         + dateTime);
                         connection.close();
@@ -136,7 +136,7 @@ class InsertWorker2 implements Runnable {
                 }
             } catch (SQLException e) {
                 System.out.println(
-                        "Error - Worker 2 - TiDB host:" + hosts[c % 2] + ") "
+                        "Error - Worker 2 - TiDB host:" + hosts[c % 2] + " - "
                                 + e.getMessage() + " at "
                                 + dateTime);
                 continue;
