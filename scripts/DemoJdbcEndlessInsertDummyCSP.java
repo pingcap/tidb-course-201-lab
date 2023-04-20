@@ -83,7 +83,7 @@ class InsertWorker2 implements Runnable {
         while (true) {
             for (String host : hosts) {
                 try {
-                    connectionString = "jdbc:mysql://127.0.0.1:" + host
+                    connectionString = "jdbc:mysql://" + host + ":" + "4000"
                             + "/test?useServerPrepStmts=true&cachePrepStmts=true";
                     connection = DriverManager.getConnection(
                             connectionString,
