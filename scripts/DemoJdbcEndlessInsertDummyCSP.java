@@ -54,7 +54,7 @@ class InsertWorker1 implements Runnable {
                 ps.executeUpdate();
                 System.out.println(
                         "Worker 1 - TiDB host:" + hostName
-                                + " - INSERTING at "
+                                + " -\tINSERTING at "
                                 + dateTime);
                 if (!exceptionBackoff) {
                     try {
@@ -66,10 +66,6 @@ class InsertWorker1 implements Runnable {
                 exceptionBackoff = false;
             } catch (SQLException e) {
                 exceptionBackoff = true;
-                System.out.println(
-                        "Error - Worker 1 - TiDB host:" + hostName
-                                + " - at "
-                                + dateTime);
                 continue;
             }
         }
@@ -114,7 +110,7 @@ class InsertWorker2 implements Runnable {
                 ps.executeUpdate();
                 System.out.println(
                         "Worker 2 - TiDB host:" + hostName
-                                + " - INSERTING at "
+                                + " -\tINSERTING at "
                                 + dateTime);
                 if (!exceptionBackoff) {
                     try {
@@ -126,10 +122,6 @@ class InsertWorker2 implements Runnable {
                 exceptionBackoff = false;
             } catch (SQLException e) {
                 exceptionBackoff = true;
-                System.out.println(
-                        "Error - Worker 2 - TiDB host:" + hostName
-                                + " - at "
-                                + dateTime);
                 continue;
             }
         }
