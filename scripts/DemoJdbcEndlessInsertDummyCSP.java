@@ -30,7 +30,6 @@ class InsertWorker1 implements Runnable {
         String dateTime = null;
         int c = 0;
         while (true) {
-            c++;
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
@@ -44,6 +43,7 @@ class InsertWorker1 implements Runnable {
                 ps = connection.prepareStatement(sqlInsertIntoTable);
                 ps.setQueryTimeout(1);
                 while (true) {
+                    c++;
                     try {
                         System.out.println("worker 1: " + c);
                         Thread.sleep(rand.nextInt(1000));
@@ -96,7 +96,6 @@ class InsertWorker2 implements Runnable {
         String dateTime = null;
         int c = 0;
         while (true) {
-            c++;
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
@@ -110,6 +109,7 @@ class InsertWorker2 implements Runnable {
                 ps = connection.prepareStatement(sqlInsertIntoTable);
                 ps.setQueryTimeout(1);
                 while (true) {
+                    c++;
                     try {
                         System.out.println("worker 2: " + c);
                         Thread.sleep(rand.nextInt(1000));
