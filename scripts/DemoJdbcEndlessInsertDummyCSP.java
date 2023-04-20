@@ -58,7 +58,7 @@ class InsertWorker1 implements Runnable {
                                 "Worker 1 - TiDB host:" + hosts[c % 2]
                                         + " - INSERTING at "
                                         + dateTime);
-                        if (c % 100 == 0) {
+                        if (c % 10 == 0) {
                             break;
                         }
                     } catch (Exception e) {
@@ -124,7 +124,7 @@ class InsertWorker2 implements Runnable {
                                 "Worker 2 - TiDB host:" + hosts[c % 2]
                                         + " - INSERTING at "
                                         + dateTime);
-                        if (c % 100 == 0) {
+                        if (c % 10 == 0) {
                             break;
                         }
                     } catch (Exception e) {
