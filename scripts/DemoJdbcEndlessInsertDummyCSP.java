@@ -34,6 +34,7 @@ class InsertWorker1 implements Runnable {
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
+                System.out.print("Work 1 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -63,6 +64,7 @@ class InsertWorker1 implements Runnable {
                                 "Error - Worker 1 - TiDB host:" + hosts[c % 2] + ") "
                                         + e.getMessage() + " at "
                                         + dateTime);
+                        connection.close();
                         break;
                     }
                 }
@@ -92,6 +94,7 @@ class InsertWorker2 implements Runnable {
             try {
                 connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
+                System.out.print("Work 2 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -121,6 +124,7 @@ class InsertWorker2 implements Runnable {
                                 "Error - Worker 2 - TiDB host:" + hosts[c % 2] + ") "
                                         + e.getMessage() + " at "
                                         + dateTime);
+                        connection.close();
                         break;
                     }
                 }
