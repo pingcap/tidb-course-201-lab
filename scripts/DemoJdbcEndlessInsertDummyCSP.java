@@ -29,9 +29,13 @@ class InsertWorker1 implements Runnable {
         PreparedStatement ps = null;
         String dateTime = null;
         int c = 0;
+        int j = 0;
+        String hostName = null;
         while (true) {
+            c++;
             try {
-                connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
+                hostName = hosts[c % 2];
+                connectionString = "jdbc:mysql://" + hostName + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
                 System.out.println("Worker 1 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
@@ -43,7 +47,7 @@ class InsertWorker1 implements Runnable {
                 ps = connection.prepareStatement(sqlInsertIntoTable);
                 ps.setQueryTimeout(1);
                 while (true) {
-                    c++;
+                    j++;
                     try {
                         System.out.println("worker 1: " + c);
                         Thread.sleep(rand.nextInt(1000));
@@ -55,15 +59,15 @@ class InsertWorker1 implements Runnable {
                         ps.setInt(5, interval);
                         ps.executeUpdate();
                         System.out.println(
-                                "Worker 1 - TiDB host:" + hosts[c % 2]
+                                "Worker 1 - TiDB host:" + hostName
                                         + " - INSERTING at "
                                         + dateTime);
-                        if (c % 10 == 0) {
+                        if (j % 10 == 0) {
                             break;
                         }
                     } catch (Exception e) {
                         System.out.println(
-                                "Error - Worker 1 - TiDB host:" + hosts[c % 2] + " - "
+                                "Error - Worker 1 - TiDB host:" + hostName + " - "
                                         + e.getMessage() + " at "
                                         + dateTime);
                         connection.close();
@@ -72,7 +76,7 @@ class InsertWorker1 implements Runnable {
                 }
             } catch (SQLException e) {
                 System.out.println(
-                        "Error - Worker 1 - TiDB host:" + hosts[c % 2] + " - "
+                        "Error - Worker 1 - TiDB host:" + hostName + " - "
                                 + e.getMessage() + " at "
                                 + dateTime);
                 continue;
@@ -95,9 +99,13 @@ class InsertWorker2 implements Runnable {
         PreparedStatement ps = null;
         String dateTime = null;
         int c = 0;
+        int j = 0;
+        String hostName = null;
         while (true) {
+            c++;
             try {
-                connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
+                hostName = hosts[c % 2];
+                connectionString = "jdbc:mysql://" + hostName + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true";
                 System.out.println("Worker 2 connection string: " + connectionString);
                 DriverManager.setLoginTimeout(1);
@@ -109,7 +117,7 @@ class InsertWorker2 implements Runnable {
                 ps = connection.prepareStatement(sqlInsertIntoTable);
                 ps.setQueryTimeout(1);
                 while (true) {
-                    c++;
+                    j++;
                     try {
                         System.out.println("worker 2: " + c);
                         Thread.sleep(rand.nextInt(1000));
@@ -121,15 +129,15 @@ class InsertWorker2 implements Runnable {
                         ps.setInt(5, interval);
                         ps.executeUpdate();
                         System.out.println(
-                                "Worker 2 - TiDB host:" + hosts[c % 2]
+                                "Worker 2 - TiDB host:" + hostName
                                         + " - INSERTING at "
                                         + dateTime);
-                        if (c % 10 == 0) {
+                        if (j % 10 == 0) {
                             break;
                         }
                     } catch (Exception e) {
                         System.out.println(
-                                "Error - Worker 2 - TiDB host:" + hosts[c % 2] + " - "
+                                "Error - Worker 2 - TiDB host:" + hostName + " - "
                                         + e.getMessage() + " at "
                                         + dateTime);
                         connection.close();
@@ -138,7 +146,7 @@ class InsertWorker2 implements Runnable {
                 }
             } catch (SQLException e) {
                 System.out.println(
-                        "Error - Worker 2 - TiDB host:" + hosts[c % 2] + " - "
+                        "Error - Worker 2 - TiDB host:" + hostName + " - "
                                 + e.getMessage() + " at "
                                 + dateTime);
                 continue;
