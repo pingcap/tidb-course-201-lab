@@ -32,6 +32,7 @@ class InsertWorker1 implements Runnable {
                 try {
                     connectionString = "jdbc:mysql://127.0.0.1:" + portNumber
                             + "/test?useServerPrepStmts=true&cachePrepStmts=true";
+                    DriverManager.setLoginTimeout(1);
                     connection = DriverManager.getConnection(
                             connectionString,
                             "root", "");
@@ -83,6 +84,7 @@ class InsertWorker2 implements Runnable {
                 try {
                     connectionString = "jdbc:mysql://127.0.0.1:" + portNumber
                             + "/test?useServerPrepStmts=true&cachePrepStmts=true";
+                    DriverManager.setLoginTimeout(1);
                     connection = DriverManager.getConnection(
                             connectionString,
                             "root", "");
