@@ -28,19 +28,19 @@ class InsertWorker1 implements Runnable {
         String sqlInsertIntoTable = null;
         PreparedStatement ps = null;
         String dateTime = null;
+        int c = 0;
         while (true) {
-            for (String host : hosts) {
-                try {
-                    connectionString = "jdbc:mysql://" + host + ":" + "4000"
-                            + "/test?useServerPrepStmts=true&cachePrepStmts=true";
-                    DriverManager.setLoginTimeout(1);
-                    connection = DriverManager.getConnection(
-                            connectionString,
-                            "root", "");
-                    // Do something in the connection
-                    sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
-                    ps = connection.prepareStatement(sqlInsertIntoTable);
-                    interval = rand.nextInt(1000);
+            try {
+                connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true";
+                DriverManager.setLoginTimeout(1);
+                connection = DriverManager.getConnection(
+                        connectionString,
+                        "root", "");
+                // Do something in the connection
+                sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
+                ps = connection.prepareStatement(sqlInsertIntoTable);
+                while (true) {
                     try {
                         Thread.sleep(rand.nextInt(1000));
                         dateTime = new Date().toString();
@@ -51,19 +51,21 @@ class InsertWorker1 implements Runnable {
                         ps.setInt(5, interval);
                         ps.executeUpdate();
                         System.out.println(
-                                "Worker 1 - TiDB Server (host:" + host
+                                "Worker 1 - TiDB Server (host:" + hosts[c % 2]
                                         + ") - INSERTING INTO test.dummy at "
                                         + dateTime);
                     } catch (Exception e) {
                         System.out.println(
-                                "Error - Worker 1 - TiDB Server (host:" + host + ") "
+                                "Error - Worker 1 - TiDB Server (host:" + hosts[c % 2] + ") "
                                         + e.getMessage() + " at "
                                         + dateTime);
+                        break;
                     }
-                } catch (SQLException e) {
-                    continue;
                 }
+            } catch (SQLException e) {
+                continue;
             }
+            c += 1;
         }
     }
 }
@@ -81,19 +83,19 @@ class InsertWorker2 implements Runnable {
         String sqlInsertIntoTable = null;
         PreparedStatement ps = null;
         String dateTime = null;
+        int c = 0;
         while (true) {
-            for (String host : hosts) {
-                try {
-                    connectionString = "jdbc:mysql://" + host + ":" + "4000"
-                            + "/test?useServerPrepStmts=true&cachePrepStmts=true";
-                    DriverManager.setLoginTimeout(1);
-                    connection = DriverManager.getConnection(
-                            connectionString,
-                            "root", "");
-                    // Do something in the connection
-                    sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
-                    ps = connection.prepareStatement(sqlInsertIntoTable);
-                    interval = rand.nextInt(1000);
+            try {
+                connectionString = "jdbc:mysql://" + hosts[c % 2] + ":" + "4000"
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true";
+                DriverManager.setLoginTimeout(1);
+                connection = DriverManager.getConnection(
+                        connectionString,
+                        "root", "");
+                // Do something in the connection
+                sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
+                ps = connection.prepareStatement(sqlInsertIntoTable);
+                while (true) {
                     try {
                         Thread.sleep(rand.nextInt(1000));
                         dateTime = new Date().toString();
@@ -104,19 +106,21 @@ class InsertWorker2 implements Runnable {
                         ps.setInt(5, interval);
                         ps.executeUpdate();
                         System.out.println(
-                                "Worker 2 - TiDB Server (host:" + host
+                                "Worker 2 - TiDB Server (host:" + hosts[c % 2]
                                         + ") - INSERTING INTO test.dummy at "
                                         + dateTime);
                     } catch (Exception e) {
                         System.out.println(
-                                "Error - Worker 2 - TiDB Server (host:" + host + ") "
+                                "Error - Worker 2 - TiDB Server (host:" + hosts[c % 2] + ") "
                                         + e.getMessage() + " at "
                                         + dateTime);
+                        break;
                     }
-                } catch (SQLException e) {
-                    continue;
                 }
+            } catch (SQLException e) {
+                continue;
             }
+            c += 1;
         }
     }
 }
