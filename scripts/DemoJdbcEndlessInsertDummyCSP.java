@@ -45,7 +45,6 @@ class InsertWorker1 implements Runnable {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-                ps.setQueryTimeout(1);
                 while (true) {
                     j++;
                     try {
@@ -57,6 +56,7 @@ class InsertWorker1 implements Runnable {
                         ps.setString(3, new Date().toString());
                         ps.setString(4, "interval");
                         ps.setInt(5, interval);
+                        ps.setQueryTimeout(1);
                         ps.executeUpdate();
                         System.out.println(
                                 "Worker 1 - TiDB host:" + hostName
@@ -115,7 +115,6 @@ class InsertWorker2 implements Runnable {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-                ps.setQueryTimeout(1);
                 while (true) {
                     j++;
                     try {
@@ -127,6 +126,7 @@ class InsertWorker2 implements Runnable {
                         ps.setString(3, new Date().toString());
                         ps.setString(4, "interval");
                         ps.setInt(5, interval);
+                        ps.setQueryTimeout(1);
                         ps.executeUpdate();
                         System.out.println(
                                 "Worker 2 - TiDB host:" + hostName
