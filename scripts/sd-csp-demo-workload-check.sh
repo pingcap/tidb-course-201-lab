@@ -2,13 +2,13 @@
 
 qdb1(){
 mysql -h ${HOST_DB1_PRIVATE_IP} -P 4000 -uroot --connect-timeout 1 2>/dev/null << EOF
-  SELECT name, COUNT(event) FROM test.dummy GROUP BY name ORDER BY name;
+  SELECT COUNT(event) FROM test.dummy;
 EOF
 }
 
 qdb2(){
 mysql -h ${HOST_DB2_PRIVATE_IP} -P 4000 -uroot --connect-timeout 1 2>/dev/null << EOF
-  SELECT name, COUNT(event) FROM test.dummy GROUP BY name ORDER BY name;
+  SELECT COUNT(event) FROM test.dummy;
 EOF
 }
 
