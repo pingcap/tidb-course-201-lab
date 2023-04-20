@@ -3,7 +3,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.Random;
 
 public class DemoJdbcEndlessInsertDummyCSP {
 
@@ -53,8 +52,8 @@ class InsertWorker1 implements Runnable {
                 ps.setQueryTimeout(1);
                 ps.executeUpdate();
                 System.out.println(
-                        "Worker 1 - TiDB host:" + hostName
-                                + " -\tINSERTING at "
+                        "Worker 1 - TiDB Server:" + hostName
+                                + ":\tINSERTING at "
                                 + dateTime);
                 if (!exceptionBackoff) {
                     try {
@@ -109,8 +108,8 @@ class InsertWorker2 implements Runnable {
                 ps.setQueryTimeout(1);
                 ps.executeUpdate();
                 System.out.println(
-                        "Worker 2 - TiDB host:" + hostName
-                                + " -\tINSERTING at "
+                        "Worker 2 - TiDB Server:" + hostName
+                                + ":\tINSERTING at "
                                 + dateTime);
                 if (!exceptionBackoff) {
                     try {
