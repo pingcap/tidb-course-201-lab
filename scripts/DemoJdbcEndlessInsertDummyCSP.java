@@ -70,6 +70,10 @@ class InsertWorker1 implements Runnable {
                     }
                 }
             } catch (SQLException e) {
+                System.out.println(
+                        "Error - Worker 1 - TiDB host:" + hosts[c % 2] + ") "
+                                + e.getMessage() + " at "
+                                + dateTime);
                 continue;
             }
         }
@@ -131,6 +135,10 @@ class InsertWorker2 implements Runnable {
                     }
                 }
             } catch (SQLException e) {
+                System.out.println(
+                        "Error - Worker 2 - TiDB host:" + hosts[c % 2] + ") "
+                                + e.getMessage() + " at "
+                                + dateTime);
                 continue;
             }
         }
