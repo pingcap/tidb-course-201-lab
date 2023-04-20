@@ -22,7 +22,7 @@ query1(){
 query2(){
   echo;
   date;
-  qdb1 || qdb2
+  qdb2 || qdb1
   sleep 2;
 }
 
