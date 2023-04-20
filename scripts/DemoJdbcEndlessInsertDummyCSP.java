@@ -52,9 +52,7 @@ class InsertWorker1 implements Runnable {
                 ps.setQueryTimeout(1);
                 ps.executeUpdate();
                 System.out.println(
-                        "Worker 1 - TiDB Server:" + hostName
-                                + ":\tINSERTING at "
-                                + dateTime);
+                        "Worker 1 -> TiDB:" + dateTime + " at " + hostName);
                 if (!exceptionBackoff) {
                     try {
                         Thread.sleep(1000);
@@ -100,7 +98,7 @@ class InsertWorker2 implements Runnable {
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
                 dateTime = new Date().toString();
-                ps.setString(1, "worker1");
+                ps.setString(1, "worker2");
                 ps.setString(2, "time");
                 ps.setString(3, new Date().toString());
                 ps.setString(4, "interval");
@@ -108,9 +106,7 @@ class InsertWorker2 implements Runnable {
                 ps.setQueryTimeout(1);
                 ps.executeUpdate();
                 System.out.println(
-                        "Worker 2 - TiDB Server:" + hostName
-                                + ":\tINSERTING at "
-                                + dateTime);
+                        "Worker 2 -> TiDB:" + dateTime + " at " + hostName);
                 if (!exceptionBackoff) {
                     try {
                         Thread.sleep(1000);
