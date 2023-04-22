@@ -3,7 +3,7 @@
 ~/.tiup/bin/tiup clean classroom-pr
 sleep 1;
 # Higher cost storage TiKV node + 3
-~/.tiup/bin/tiup playground v6.1.1 --tag classroom-pr \
+~/.tiup/bin/tiup playground v6.5.1 --tag classroom-pr \
 --db 1 \
 --pd 1 \
 --kv 3 \
