@@ -1,1 +1,2 @@
-SELECT @@character_set_database, @@collation_database;
+SELECT @@character_set_database,
+  @@collation_database;
