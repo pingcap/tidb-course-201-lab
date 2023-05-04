@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./quick-demo-jdbc-endless-insert-dummy.sh
+./quick-demo-001-jdbc-endless-insert-dummy.sh
