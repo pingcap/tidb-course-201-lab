@@ -4,7 +4,7 @@ LB_DNS_NAME=`aws elbv2 describe-load-balancers --names demo-nlb --query "LoadBal
 
 qdb(){
 mysql -h ${LB_DNS_NAME} -P 4000 -uroot --connect-timeout 1 2>/dev/null << EOF
-  SELECT COUNT(event) FROM test.dummy;
+  SELECT tidb_instance, COUNT(event) FROM test.dummy GROUP BY tidb_instance;
 EOF
 }
 

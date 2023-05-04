@@ -34,7 +34,6 @@ class InsertWorker1 extends Thread {
         String hostName = this.lbName;
         boolean exceptionBackoff = false;
         while (true) {
-            c++;
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "4000"
                         + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=1000";
@@ -43,9 +42,8 @@ class InsertWorker1 extends Thread {
                         connectionString,
                         "root", "");
                 // Do something in the connection
-                sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
+                sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-
                 dateTime = new Date().toString();
                 ps.setString(1, "worker1");
                 ps.setString(2, "time");
@@ -55,7 +53,7 @@ class InsertWorker1 extends Thread {
                 ps.setQueryTimeout(1);
                 ps.executeUpdate();
                 System.out.println(
-                        "Worker 1 -> TiDB:" + dateTime);
+                        "Worker 1 -> TiDB:" + dateTime + " at " + hostName);
                 if (!exceptionBackoff) {
                     try {
                         Thread.sleep(1000);
@@ -100,9 +98,8 @@ class InsertWorker2 extends Thread {
                         connectionString,
                         "root", "");
                 // Do something in the connection
-                sqlInsertIntoTable = "INSERT INTO test.dummy (name, event) VALUES (?,JSON_OBJECT(?,?,?,?))";
+                sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-
                 dateTime = new Date().toString();
                 ps.setString(1, "worker2");
                 ps.setString(2, "time");
@@ -112,7 +109,7 @@ class InsertWorker2 extends Thread {
                 ps.setQueryTimeout(1);
                 ps.executeUpdate();
                 System.out.println(
-                        "Worker 2 -> TiDB:" + dateTime);
+                        "Worker 2 -> TiDB:" + dateTime + " at " + hostName);
                 if (!exceptionBackoff) {
                     try {
                         Thread.sleep(1000);

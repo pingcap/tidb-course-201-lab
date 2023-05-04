@@ -181,4 +181,4 @@ sed -i '' \
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
 
 echo
-echo "10 nodes are prepared for user ${USER} and trainer ${TRAINER}."
+echo "9 nodes are prepared for user ${USER} and trainer ${TRAINER}."
