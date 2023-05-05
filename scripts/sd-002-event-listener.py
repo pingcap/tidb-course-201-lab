@@ -56,6 +56,24 @@ def add_tidb_instance(scale_out_yaml_file: str):
         return 1
 
 
+def remove_tidb_instance(tidb_address: str):
+    try:
+        cluster_status = subprocess.check_output(
+            [
+                "/home/ec2-user/.tiup/bin/tiup",
+                "cluster",
+                "scale-in",
+                "tidb-demo",
+                tidb_address + ":4000",
+                "--yes",
+            ]
+        ).decode("utf-8")
+        print(cluster_status)
+    except subprocess.CalledProcessError as ex:
+        print("Scaling in TiDB instance skipped.")
+        return 1
+
+
 def register_tidb_instance_to_nlb(tidb_address: str):
     demo_target_group_name = "demo-target-group"
     response = elbv2.describe_target_groups(Names=[demo_target_group_name])
@@ -64,6 +82,18 @@ def register_tidb_instance_to_nlb(tidb_address: str):
         TargetGroupArn=target_group_arn,
         Targets=[
             {"Id": tidb_address, "Port": 4000},
+        ],
+    )
+
+
+def deregister_tidb_instance_from_nlb(tidb_address: str):
+    demo_target_group_name = "demo-target-group"
+    response = elbv2.describe_target_groups(Names=[demo_target_group_name])
+    target_group_arn = response["TargetGroups"][0]["TargetGroupArn"]
+    elbv2.deregister_targets(
+        TargetGroupArn=target_group_arn,
+        Targets=[
+            {"Id": tidb_address},
         ],
     )
 
@@ -89,9 +119,12 @@ def check_queue():
                         print(
                             node_type, "node", node_address, "already joined cluster."
                         )
-                        register_tidb_instance_to_nlb(node_address)
-                        sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=r_handle)
-                        return
+                        if node_type == "TiDB":
+                            register_tidb_instance_to_nlb(node_address)
+                            sqs.delete_message(
+                                QueueUrl=queue_url, ReceiptHandle=r_handle
+                            )
+                            return
                 print(node_type, "adding node", node_address, "to cluster.")
                 if node_type == "TiDB":
                     yaml = create_tidb_yaml(node_address)
@@ -101,8 +134,14 @@ def check_queue():
                 for line in cluster_status.split("\n"):
                     if re.match(node_address, line):
                         print(node_type, "removing node", node_address, "from cluster.")
-                        sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=r_handle)
-                        return
+                        if node_type == "TiDB":
+                            deregister_tidb_instance_from_nlb(node_address)
+                            remove_tidb_instance(node_address)
+                            sqs.delete_message(
+                                QueueUrl=queue_url, ReceiptHandle=r_handle
+                            )
+                            return
+                deregister_tidb_instance_from_nlb(node_address)
                 print(node_type, "node", node_address, "already left cluster.")
             sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=r_handle)
 
