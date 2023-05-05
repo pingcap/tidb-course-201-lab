@@ -11,6 +11,9 @@ def check_queue():
     print(cluster_status)
     for line in cluster_status.split("\n"):
         print("X", line)
+        if re.match("10.90.1.144", line):
+            print("YYYYYYYY")
+            return
 
 
 check_queue()
