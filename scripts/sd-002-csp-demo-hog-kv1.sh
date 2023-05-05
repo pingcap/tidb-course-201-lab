@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ssh ${HOST_KV1_PRIVATE_IP} white true; do continue; done
+ssh ${HOST_KV1_PRIVATE_IP} while true; do continue; done
