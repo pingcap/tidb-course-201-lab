@@ -26,18 +26,23 @@ def create_tidb_yaml(tidb_address: str):
 
 
 def add_tidb_instance(scale_out_yaml_file: str):
-    fix_status = subprocess.check_output(
-        [
-            "/home/ec2-user/.tiup/bin/tiup",
-            "cluster",
-            "check",
-            "tidb-demo",
-            scale_out_yaml_file,
-            "--cluster",
-            "--apply",
-        ]
-    ).decode("utf-8")
-    print(fix_status)
+    try:
+        fix_status = subprocess.check_output(
+            [
+                "/home/ec2-user/.tiup/bin/tiup",
+                "cluster",
+                "check",
+                "tidb-demo",
+                scale_out_yaml_file,
+                "--cluster",
+                "--apply",
+            ]
+        ).decode("utf-8")
+        print(fix_status)
+    except subprocess.CalledProcessError as ex:
+        if "Failed to execute command over SSH" in str(ex):
+            print("Scaling out TiDB instance skipped.")
+            return
 
     cluster_status = subprocess.check_output(
         [
