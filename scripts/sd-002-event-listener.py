@@ -77,7 +77,9 @@ def remove_tidb_instance(tidb_address: str):
                 "cluster",
                 "scale-in",
                 "tidb-demo",
-                "--node " + tidb_address + ":4000",
+                "--node",
+                tidb_address + ":4000",
+                "--force",
                 "--yes",
             ]
         ).decode("utf-8")
@@ -95,7 +97,8 @@ def remove_tikv_instance(tikv_address: str):
                 "cluster",
                 "scale-in",
                 "tidb-demo",
-                "--node " + tikv_address + ":20160",
+                "--node",
+                tikv_address + ":20160",
                 "--yes",
             ]
         ).decode("utf-8")
