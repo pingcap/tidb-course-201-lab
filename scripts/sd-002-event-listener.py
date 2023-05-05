@@ -5,6 +5,7 @@ region = "us-west-2"
 sqs = boto3.client("sqs", region_name=region)
 ec2 = boto3.client("ec2", region_name=region)
 sts = boto3.client("sts", region_name=region)
+elbv2 = boto3.client("elbv2", region_name=region)
 aws_account_id = sts.get_caller_identity()["Account"]
 queue_url = "https://sqs." + region + ".amazonaws.com/" + aws_account_id + "/demo-queue"
 
@@ -36,6 +37,7 @@ def check_queue():
                 if node_type == "TiDB":
                     yaml = create_tidb_yaml(node_address)
                     add_tidb_instance(yaml)
+                    register_tidb_instance_to_nlb(node_address)
             elif node_action == "scale-in":
                 for line in cluster_status.split("\n"):
                     if re.match(node_address, line):
@@ -73,6 +75,17 @@ def add_tidb_instance(scale_out_yaml_file: str):
         ]
     ).decode("utf-8")
     print(cluster_status)
+
+
+def register_tidb_instance_to_nlb(tidb_address: str):
+    response = elbv2.describe_target_groups(Names=["demo-traget-group"])
+    target_group_arn = response["TargetGrouups"][0]["TargetGroupArn"]
+    elbv2.register_targets(
+        TargetGroupArn=target_group_arn,
+        Targets=[
+            {"Id": tidb_address, "Port": 4000},
+        ],
+    )
 
 
 while True:
