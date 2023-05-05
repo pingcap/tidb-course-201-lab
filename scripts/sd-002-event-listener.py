@@ -40,9 +40,8 @@ def add_tidb_instance(scale_out_yaml_file: str):
         ).decode("utf-8")
         print(fix_status)
     except subprocess.CalledProcessError as ex:
-        if "Failed to execute command over SSH" in str(ex):
-            print("Scaling out TiDB instance skipped.")
-            return
+        print("Scaling out TiDB instance skipped.")
+        return
 
     cluster_status = subprocess.check_output(
         [
