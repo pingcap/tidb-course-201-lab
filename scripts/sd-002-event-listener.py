@@ -31,6 +31,7 @@ def add_tidb_instance(scale_out_yaml_file: str):
             "/home/ec2-user/.tiup/bin/tiup",
             "cluster",
             "check",
+            "tidb-demo",
             scale_out_yaml_file,
             "--apply",
         ]
