@@ -64,7 +64,7 @@ def remove_tidb_instance(tidb_address: str):
                 "cluster",
                 "scale-in",
                 "tidb-demo",
-                tidb_address + ":4000",
+                "--node " + tidb_address + ":4000",
                 "--yes",
             ]
         ).decode("utf-8")
@@ -104,14 +104,14 @@ def check_queue():
         for m in res["Messages"]:
             r_handle = m["ReceiptHandle"]
             m_body = m["Body"]
-            print("Got message:", m_body)
+            print("\nGot message:", m_body)
             node_type = m_body.split("::")[0]
             node_action = m_body.split("::")[1]
             node_address = m_body.split("::")[2]
             cluster_status = subprocess.check_output(
                 ["/home/ec2-user/.tiup/bin/tiup", "cluster", "display", "tidb-demo"]
             ).decode("utf-8")
-            print(cluster_status)
+            # print(cluster_status)
             print("Node action:", node_action)
             if node_action == "scale-out":
                 for line in cluster_status.split("\n"):
