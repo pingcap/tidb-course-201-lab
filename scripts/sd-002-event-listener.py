@@ -33,6 +33,7 @@ def add_tidb_instance(scale_out_yaml_file: str):
             "check",
             "tidb-demo",
             scale_out_yaml_file,
+            "--cluster",
             "--apply",
         ]
     ).decode("utf-8")
@@ -54,7 +55,7 @@ def add_tidb_instance(scale_out_yaml_file: str):
 def register_tidb_instance_to_nlb(tidb_address: str):
     demo_target_group_name = "demo-target-group"
     response = elbv2.describe_target_groups(Names=[demo_target_group_name])
-    target_group_arn = response["TargetGrouups"][0]["TargetGroupArn"]
+    target_group_arn = response["TargetGroups"][0]["TargetGroupArn"]
     elbv2.register_targets(
         TargetGroupArn=target_group_arn,
         Targets=[
