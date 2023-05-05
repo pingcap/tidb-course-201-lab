@@ -27,7 +27,13 @@ def create_tidb_yaml(tidb_address: str):
 
 def add_tidb_instance(scale_out_yaml_file: str):
     fix_status = subprocess.check_output(
-        ["/home/ec2-user/.tiup/bin/tiup", "cluster", scale_out_yaml_file, "--apply"]
+        [
+            "/home/ec2-user/.tiup/bin/tiup",
+            "cluster",
+            "check",
+            scale_out_yaml_file,
+            "--apply",
+        ]
     ).decode("utf-8")
     print(fix_status)
 
