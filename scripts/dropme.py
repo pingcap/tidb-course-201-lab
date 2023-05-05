@@ -9,7 +9,7 @@ def check_queue():
         ["/home/ec2-user/.tiup/bin/tiup", "cluster", "display", "tidb-demo"]
     ).decode("utf-8")
     print(cluster_status)
-    for line in cluster_status:
+    for line in cluster_status.split("\n"):
         print("X", line)
 
 
