@@ -39,21 +39,21 @@ def add_tidb_instance(scale_out_yaml_file: str):
             ]
         ).decode("utf-8")
         print(fix_status)
+
+        cluster_status = subprocess.check_output(
+            [
+                "/home/ec2-user/.tiup/bin/tiup",
+                "cluster",
+                "scale-out",
+                "tidb-demo",
+                scale_out_yaml_file,
+                "--yes",
+            ]
+        ).decode("utf-8")
+        print(cluster_status)
     except subprocess.CalledProcessError as ex:
         print("Scaling out TiDB instance skipped.")
         return 1
-
-    cluster_status = subprocess.check_output(
-        [
-            "/home/ec2-user/.tiup/bin/tiup",
-            "cluster",
-            "scale-out",
-            "tidb-demo",
-            scale_out_yaml_file,
-            "--yes",
-        ]
-    ).decode("utf-8")
-    print(cluster_status)
 
 
 def register_tidb_instance_to_nlb(tidb_address: str):
