@@ -23,8 +23,10 @@ def check_queue():
                 ["/home/ec2-user/.tiup/bin/tiup", "cluster", "display", "tidb-demo"]
             ).decode("utf-8")
             print(cluster_status)
+            print("Node action:", node_action)
             if node_action == "scale-out":
                 for line in cluster_status:
+                    print("X:" + line)
                     if re.match(node_address, line):
                         print(
                             node_type, "node", node_address, "already joined cluster."
