@@ -25,7 +25,20 @@ def create_tidb_yaml(tidb_address: str):
     return "./sd-002-tidb-scale-out.yaml"
 
 
-def add_tidb_instance(scale_out_yaml_file: str):
+def create_tikv_yaml(tikv_address: str):
+    template = """
+    tikv_servers:
+        - host: <IP>
+          port: 20160
+          status_port: 20180
+    """
+    f = open("./sd-002-tikv-scale-out.yaml", "w")
+    f.writelines(template.replace("<IP>", tikv_address))
+    f.close()
+    return "./sd-002-tikv-scale-out.yaml"
+
+
+def add_instance(scale_out_yaml_file: str):
     try:
         fix_status = subprocess.check_output(
             [
@@ -52,7 +65,7 @@ def add_tidb_instance(scale_out_yaml_file: str):
         ).decode("utf-8")
         print(cluster_status)
     except subprocess.CalledProcessError as ex:
-        print("Scaling out TiDB instance skipped.")
+        print("Scaling out skipped.")
         return 1
 
 
@@ -65,6 +78,35 @@ def remove_tidb_instance(tidb_address: str):
                 "scale-in",
                 "tidb-demo",
                 "--node " + tidb_address + ":4000",
+                "--yes",
+            ]
+        ).decode("utf-8")
+        print(cluster_status)
+    except subprocess.CalledProcessError as ex:
+        print("Scaling in TiDB instance skipped.")
+        return 1
+
+
+def remove_tikv_instance(tikv_address: str):
+    try:
+        cluster_status = subprocess.check_output(
+            [
+                "/home/ec2-user/.tiup/bin/tiup",
+                "cluster",
+                "scale-in",
+                "tidb-demo",
+                "--node " + tikv_address + ":20160",
+                "--yes",
+            ]
+        ).decode("utf-8")
+        print(cluster_status)
+        time.sleep(10)
+        cluster_status = subprocess.check_output(
+            [
+                "/home/ec2-user/.tiup/bin/tiup",
+                "cluster",
+                "prune",
+                "tidb-demo",
                 "--yes",
             ]
         ).decode("utf-8")
@@ -128,7 +170,7 @@ def check_queue():
                 print(node_type, "adding node", node_address, "to cluster.")
                 if node_type == "TiDB":
                     yaml = create_tidb_yaml(node_address)
-                    add_tidb_instance(yaml)
+                    add_instance(yaml)
                     register_tidb_instance_to_nlb(node_address)
             elif node_action == "scale-in":
                 for line in cluster_status.split("\n"):
