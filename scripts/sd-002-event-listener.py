@@ -26,6 +26,11 @@ def create_tidb_yaml(tidb_address: str):
 
 
 def add_tidb_instance(scale_out_yaml_file: str):
+    fix_status = subprocess.check_output(
+        ["/home/ec2-user/.tiup/bin/tiup", "cluster", scale_out_yaml_file, "--apply"]
+    ).decode("utf-8")
+    print(fix_status)
+
     cluster_status = subprocess.check_output(
         [
             "/home/ec2-user/.tiup/bin/tiup",
@@ -40,7 +45,8 @@ def add_tidb_instance(scale_out_yaml_file: str):
 
 
 def register_tidb_instance_to_nlb(tidb_address: str):
-    response = elbv2.describe_target_groups(Names=["demo-traget-group"])
+    demo_target_group_name = "demo-target-group"
+    response = elbv2.describe_target_groups(Names=[demo_target_group_name])
     target_group_arn = response["TargetGrouups"][0]["TargetGroupArn"]
     elbv2.register_targets(
         TargetGroupArn=target_group_arn,
