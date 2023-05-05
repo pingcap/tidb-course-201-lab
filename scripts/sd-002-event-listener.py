@@ -89,14 +89,14 @@ def check_queue():
                         print(
                             node_type, "node", node_address, "already joined cluster."
                         )
+                        register_tidb_instance_to_nlb(node_address)
                         sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=r_handle)
                         return
                 print(node_type, "adding node", node_address, "to cluster.")
                 if node_type == "TiDB":
                     yaml = create_tidb_yaml(node_address)
-                    ret = add_tidb_instance(yaml)
-                    if ret != 1:
-                        register_tidb_instance_to_nlb(node_address)
+                    add_tidb_instance(yaml)
+                    register_tidb_instance_to_nlb(node_address)
             elif node_action == "scale-in":
                 for line in cluster_status.split("\n"):
                     if re.match(node_address, line):
