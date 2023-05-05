@@ -25,8 +25,7 @@ def check_queue():
             print(cluster_status)
             print("Node action:", node_action)
             if node_action == "scale-out":
-                for line in cluster_status:
-                    print("X:" + line)
+                for line in cluster_status.split("\n"):
                     if re.match(node_address, line):
                         print(
                             node_type, "node", node_address, "already joined cluster."
@@ -35,7 +34,7 @@ def check_queue():
                         return
                 print(node_type, "adding node", node_address, "to cluster.")
             elif node_action == "scale-in":
-                for line in cluster_status:
+                for line in cluster_status.split("\n"):
                     if re.match(node_address, line):
                         print(node_type, "removing node", node_address, "from cluster.")
                         sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=r_handle)
