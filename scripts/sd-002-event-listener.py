@@ -33,6 +33,9 @@ def check_queue():
                         sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=r_handle)
                         return
                 print(node_type, "adding node", node_address, "to cluster.")
+                if node_type == "TiDB":
+                    yaml = create_tidb_yaml(node_address)
+                    add_tidb_instance(yaml)
             elif node_action == "scale-in":
                 for line in cluster_status.split("\n"):
                     if re.match(node_address, line):
@@ -41,6 +44,35 @@ def check_queue():
                         return
                 print(node_type, "node", node_address, "already left cluster.")
             sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=r_handle)
+
+
+def create_tidb_yaml(tidb_address: str):
+    template = """
+    tidb_servers:
+        - host: <IP>
+          port: 4000
+          status_port: 10080
+          deploy_dir: /tidb-deploy/tidb-4000
+          log_dir: /tidb-deploy/tidb-4000/log
+    """
+    f = open("./sd-002-tidb-scale-out.yaml", "w")
+    f.writelines(template.replace("<IP>", tidb_address))
+    f.close()
+    return "./sd-002-tidb-scale-out.yaml"
+
+
+def add_tidb_instance(scale_out_yaml_file: str):
+    cluster_status = subprocess.check_output(
+        [
+            "/home/ec2-user/.tiup/bin/tiup",
+            "cluster",
+            "scale-out",
+            "tidb-demo",
+            scale_out_yaml_file,
+            "--yes",
+        ]
+    ).decode("utf-8")
+    print(cluster_status)
 
 
 while True:
