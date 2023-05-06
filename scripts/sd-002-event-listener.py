@@ -103,7 +103,7 @@ def remove_tikv_instance(tikv_address: str):
             ]
         ).decode("utf-8")
         print(cluster_status)
-        time.sleep(10)
+        time.sleep(18)
         cluster_status = subprocess.check_output(
             [
                 "/home/ec2-user/.tiup/bin/tiup",
@@ -175,6 +175,9 @@ def check_queue():
                     yaml = create_tidb_yaml(node_address)
                     add_instance(yaml)
                     register_tidb_instance_to_nlb(node_address)
+                elif node_type == "TiKV":
+                    yaml = create_tikv_yaml(node_address)
+                    add_instance(yaml)
             elif node_action == "scale-in":
                 for line in cluster_status.split("\n"):
                     if re.match(node_address, line):
@@ -186,8 +189,13 @@ def check_queue():
                                 QueueUrl=queue_url, ReceiptHandle=r_handle
                             )
                             return
-                deregister_tidb_instance_from_nlb(node_address)
-                print(node_type, "node", node_address, "already left cluster.")
+                        elif node_type == "TiKV":
+                            remove_tikv_instance(node_address)
+                            sqs.delete_message(
+                                QueueUrl=queue_url, ReceiptHandle=r_handle
+                            )
+                            return
+                print(node_type, "node", node_address, "left cluster.")
             sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=r_handle)
 
 
