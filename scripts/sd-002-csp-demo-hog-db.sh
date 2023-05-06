@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in $(seq 1 2);
+for i in $(seq 1 4);
 do
   for db in `~/.tiup/bin/tiup cluster display tidb-demo | grep ':4000' | sed 's/:.*//'`;
   do
