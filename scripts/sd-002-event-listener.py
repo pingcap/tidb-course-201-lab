@@ -169,7 +169,7 @@ def check_queue():
                             sqs.delete_message(
                                 QueueUrl=queue_url, ReceiptHandle=r_handle
                             )
-                            return
+                        return
                 print(node_type, "adding node", node_address, "to cluster.")
                 if node_type == "TiDB":
                     yaml = create_tidb_yaml(node_address)
