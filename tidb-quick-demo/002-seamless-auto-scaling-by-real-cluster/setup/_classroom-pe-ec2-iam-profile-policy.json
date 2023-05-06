@@ -1,0 +1,40 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ManualAdded97",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:List*",
+        "ec2:Describe*"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Sid": "ManualAdded98",
+      "Effect": "Allow",
+      "Action": [
+        "s3:List*",
+        "s3:Get*",
+        "s3:Put*",
+        "s3:Delete*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::pe-class/*"
+      ]
+    },
+    {
+      "Sid": "ManualAdded99",
+      "Effect": "Allow",
+      "Action": [
+        "s3:List*",
+        "s3:Get*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::pe-class"
+      ]
+    }
+  ]
+}

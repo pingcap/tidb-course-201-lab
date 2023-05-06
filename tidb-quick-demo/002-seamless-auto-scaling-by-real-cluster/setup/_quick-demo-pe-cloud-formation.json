@@ -1,0 +1,1288 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "TrainerName": {
+            "Type": "String"
+        },
+        "TrainerEmail": {
+            "Type": "String"
+        }
+    },
+    "Mappings": {
+        "UserDataMap": {
+            "us-west-2": {
+                "common": "#!/bin/bash\necho LANG=en_US.utf-8 >> /etc/environment\necho LC_ALL=en_US.utf-8 >> /etc/environment\nmkdir ~ec2-user/stage/\ncd ~ec2-user/stage/\nrm -rf tidb-course-201-lab/\nyum -y update\nyum -y install git numactl awscli\nyum -y install java-11-amazon-corretto\nrpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022\nwget https://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm\nyum -y install mysql57-community-release-el7-10.noarch.rpm\nyum -y install mysql-community-client\nwget https://pingcap-edu.s3.us-west-2.amazonaws.com/mysql-community-server-5.7.41-1.el7.x86_64.rpm\nrpm -ivh mysql-community-server-5.7.41-1.el7.x86_64.rpm\nwget https://pingcap-edu.s3.us-west-2.amazonaws.com/tidb-admin-dataset.zip\ngit clone https://github.com/pingcap/tidb-course-201-lab.git\nREGION_CODE=`curl http://169.254.169.254/latest/meta-data/placement/region`\necho export REGION_CODE=${REGION_CODE} > ~ec2-user/cloud-env.sh\nalias cp='cp'\ncp -R tidb-course-201-lab/setup/tidb-quick-demo-aws-9-nodes-amz2/* ~ec2-user/\ncp -R tidb-course-201-lab/setup/tidb-lab-mysql-init-amz2/show-mysql-password.sh ~ec2-user/\ncp -R tidb-course-201-lab/scripts/ ~ec2-user/\ncd ~\nchown -R ec2-user:ec2-user ~ec2-user/*\nchmod +x ~ec2-user/*.sh\nchmod +x ~ec2-user/scripts/*.sh\necho \"if [ -f /home/ec2-user/hosts-env.sh ]; then\" >> ~ec2-user/.bashrc\necho \"    source /home/ec2-user/hosts-env.sh\" >> ~ec2-user/.bashrc\necho \"fi;\" >> ~ec2-user/.bashrc\nchown ec2-user:ec2-user ~ec2-user/.bashrc\nsu ec2-user -c \"pip3 install boto3\"\n"
+            }
+        }
+    },
+    "Resources": {
+        "DemoIGW": {
+            "Type": "AWS::EC2::InternetGateway",
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    }
+                ]
+            },
+            "DependsOn": [
+                "DemoVPC"
+            ]
+        },
+        "DemoVPC": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": "10.90.0.0/16",
+                "EnableDnsSupport": "true",
+                "EnableDnsHostnames": "true",
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-vpc"
+                    }
+                ]
+            }
+        },
+        "CageNACL": {
+            "Type": "AWS::EC2::NetworkAcl",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "cage"
+                    }
+                ]
+            }
+        },
+        "CageInboundRule": {
+            "Type": "AWS::EC2::NetworkAclEntry",
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "CageNACL"
+                },
+                "RuleNumber": 100,
+                "Protocol": -1,
+                "RuleAction": "deny",
+                "CidrBlock": "0.0.0.0/0"
+            }
+        },
+        "CageOutboundRule": {
+            "Type": "AWS::EC2::NetworkAclEntry",
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "CageNACL"
+                },
+                "RuleNumber": 100,
+                "Protocol": -1,
+                "Egress": true,
+                "RuleAction": "deny",
+                "CidrBlock": "0.0.0.0/0"
+            }
+        },
+        "IGWAttachment": {
+            "Type": "AWS::EC2::VPCGatewayAttachment",
+            "Properties": {
+                "InternetGatewayId": {
+                    "Ref": "DemoIGW"
+                },
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                }
+            }
+        },
+        "PublicRouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "PE Quick Demo Public Route"
+                    }
+                ]
+            }
+        },
+        "PublicRoute": {
+            "Type": "AWS::EC2::Route",
+            "Properties": {
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "GatewayId": {
+                    "Ref": "DemoIGW"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            },
+            "DependsOn": [
+                "IGWAttachment"
+            ]
+        },
+        "DemoSubnet1": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "CidrBlock": "10.90.1.0/24",
+                "AvailabilityZone": "us-west-2a",
+                "PrivateDnsNameOptionsOnLaunch": {
+                    "EnableResourceNameDnsAAAARecord": false,
+                    "EnableResourceNameDnsARecord": true,
+                    "HostnameType": "ip-name"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-subnet-1"
+                    }
+                ]
+            }
+        },
+        "DemoSubnet2": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "CidrBlock": "10.90.2.0/24",
+                "AvailabilityZone": "us-west-2b",
+                "PrivateDnsNameOptionsOnLaunch": {
+                    "EnableResourceNameDnsAAAARecord": false,
+                    "EnableResourceNameDnsARecord": true,
+                    "HostnameType": "ip-name"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-subnet-2"
+                    }
+                ]
+            }
+        },
+        "DemoSubnet3": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "CidrBlock": "10.90.3.0/24",
+                "AvailabilityZone": "us-west-2c",
+                "PrivateDnsNameOptionsOnLaunch": {
+                    "EnableResourceNameDnsAAAARecord": false,
+                    "EnableResourceNameDnsARecord": true,
+                    "HostnameType": "ip-name"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-subnet-3"
+                    }
+                ]
+            }
+        },
+        "DemoSubnet4": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "CidrBlock": "10.90.4.0/24",
+                "AvailabilityZone": "us-west-2d",
+                "PrivateDnsNameOptionsOnLaunch": {
+                    "EnableResourceNameDnsAAAARecord": false,
+                    "EnableResourceNameDnsARecord": true,
+                    "HostnameType": "ip-name"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-subnet-4"
+                    }
+                ]
+            }
+        },
+        "SubnetRouteTableAssociation1": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DemoSubnet1"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "SubnetRouteTableAssociation2": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DemoSubnet2"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "SubnetRouteTableAssociation3": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DemoSubnet3"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "SubnetRouteTableAssociation4": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DemoSubnet4"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "DemoSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Allow nodes communication.",
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 22,
+                        "ToPort": 22,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 2379,
+                        "ToPort": 2379,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 4000,
+                        "ToPort": 4002,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 3000,
+                        "ToPort": 3000,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "icmp",
+                        "FromPort": -1,
+                        "ToPort": -1,
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "SecurityGroupEgress": [
+                    {
+                        "IpProtocol": "-1",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "quick-demo-sg"
+                    }
+                ]
+            }
+        },
+        "NodeSecurityGroupRefInboundRule": {
+            "Type": "AWS::EC2::SecurityGroupIngress",
+            "Properties": {
+                "IpProtocol": "-1",
+                "SourceSecurityGroupId": {
+                    "Fn::GetAtt": [
+                        "DemoSecurityGroup",
+                        "GroupId"
+                    ]
+                },
+                "GroupId": {
+                    "Fn::GetAtt": [
+                        "DemoSecurityGroup",
+                        "GroupId"
+                    ]
+                }
+            }
+        },
+        "DemoTargetGroup": {
+            "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+            "Properties": {
+                "HealthCheckEnabled": "True",
+                "HealthCheckIntervalSeconds": 5,
+                "HealthCheckPort": "4000",
+                "HealthCheckProtocol": "TCP",
+                "HealthCheckTimeoutSeconds": 5,
+                "HealthyThresholdCount": 2,
+                "Name": "demo-target-group",
+                "Port": 4000,
+                "Protocol": "TCP",
+                "TargetType": "ip",
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                }
+            }
+        },
+        "DemoNLB": {
+            "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+            "Properties": {
+                "Type": "network",
+                "Name": "demo-nlb",
+                "Scheme": "internal",
+                "Subnets": [
+                    {
+                        "Ref": "DemoSubnet1"
+                    },
+                    {
+                        "Ref": "DemoSubnet2"
+                    },
+                    {
+                        "Ref": "DemoSubnet3"
+                    }
+                ]
+            }
+        },
+        "DemoListener": {
+            "Type": "AWS::ElasticLoadBalancingV2::Listener",
+            "Properties": {
+                "DefaultActions": [
+                    {
+                        "Type": "forward",
+                        "ForwardConfig": {
+                            "TargetGroups": [
+                                {
+                                    "TargetGroupArn": {
+                                        "Ref": "DemoTargetGroup"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "LoadBalancerArn": {
+                    "Ref": "DemoNLB"
+                },
+                "Port": 4000,
+                "Protocol": "TCP"
+            }
+        },
+        "TiKVLT": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "Properties": {
+                "VersionDescription": "v1",
+                "LaunchTemplateName": {
+                    "Fn::Sub": "${AWS::StackName}-quick-demo-tikv-lt"
+                },
+                "LaunchTemplateData": {
+                    "Monitoring": {
+                        "Enabled": true
+                    },
+                    "IamInstanceProfile": {
+                        "Name": "pe-service-instance-role"
+                    },
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "DeleteOnTermination": true,
+                                "Encrypted": false,
+                                "VolumeSize": 100,
+                                "VolumeType": "gp2"
+                            }
+                        }
+                    ],
+                    "NetworkInterfaces": [
+                        {
+                            "DeviceIndex": 0,
+                            "AssociatePublicIpAddress": true,
+                            "Groups": [
+                                {
+                                    "Ref": "DemoSecurityGroup"
+                                }
+                            ],
+                            "DeleteOnTermination": true
+                        }
+                    ],
+                    "ImageId": "ami-094125af156557ca2",
+                    "InstanceType": "c5.xlarge",
+                    "KeyName": "pe-class-key",
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "instance",
+                            "Tags": [
+                                {
+                                    "Key": "owner",
+                                    "Value": {
+                                        "Ref": "TrainerEmail"
+                                    }
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "kv"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": {
+                            "Fn::FindInMap": [
+                                "UserDataMap",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "common"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "PDLT": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "Properties": {
+                "VersionDescription": "v1",
+                "LaunchTemplateName": {
+                    "Fn::Sub": "${AWS::StackName}-quick-demo-pd-lt"
+                },
+                "LaunchTemplateData": {
+                    "Monitoring": {
+                        "Enabled": true
+                    },
+                    "IamInstanceProfile": {
+                        "Name": "pe-service-instance-role"
+                    },
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "DeleteOnTermination": true,
+                                "Encrypted": false,
+                                "VolumeSize": 30,
+                                "VolumeType": "gp2"
+                            }
+                        }
+                    ],
+                    "NetworkInterfaces": [
+                        {
+                            "DeviceIndex": 0,
+                            "AssociatePublicIpAddress": true,
+                            "Groups": [
+                                {
+                                    "Ref": "DemoSecurityGroup"
+                                }
+                            ],
+                            "DeleteOnTermination": true
+                        }
+                    ],
+                    "ImageId": "ami-094125af156557ca2",
+                    "InstanceType": "c5.xlarge",
+                    "KeyName": "pe-class-key",
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "instance",
+                            "Tags": [
+                                {
+                                    "Key": "owner",
+                                    "Value": {
+                                        "Ref": "TrainerEmail"
+                                    }
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "pd"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": {
+                            "Fn::FindInMap": [
+                                "UserDataMap",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "common"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "TiDBLT": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "Properties": {
+                "VersionDescription": "v1",
+                "LaunchTemplateName": {
+                    "Fn::Sub": "${AWS::StackName}-quick-demo-tidb-lt"
+                },
+                "LaunchTemplateData": {
+                    "Monitoring": {
+                        "Enabled": true
+                    },
+                    "IamInstanceProfile": {
+                        "Name": "pe-service-instance-role"
+                    },
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "DeleteOnTermination": true,
+                                "Encrypted": false,
+                                "VolumeSize": 30,
+                                "VolumeType": "gp2"
+                            }
+                        }
+                    ],
+                    "NetworkInterfaces": [
+                        {
+                            "DeviceIndex": 0,
+                            "AssociatePublicIpAddress": true,
+                            "Groups": [
+                                {
+                                    "Ref": "DemoSecurityGroup"
+                                }
+                            ],
+                            "DeleteOnTermination": true
+                        }
+                    ],
+                    "ImageId": "ami-094125af156557ca2",
+                    "InstanceType": "c5.xlarge",
+                    "KeyName": "pe-class-key",
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "instance",
+                            "Tags": [
+                                {
+                                    "Key": "owner",
+                                    "Value": {
+                                        "Ref": "TrainerEmail"
+                                    }
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "db"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": {
+                            "Fn::FindInMap": [
+                                "UserDataMap",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "common"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "MonitorLT": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "Properties": {
+                "VersionDescription": "v1",
+                "LaunchTemplateName": {
+                    "Fn::Sub": "${AWS::StackName}-quick-demo-monitor-lt"
+                },
+                "LaunchTemplateData": {
+                    "IamInstanceProfile": {
+                        "Name": "pe-service-instance-role"
+                    },
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "DeleteOnTermination": true,
+                                "Encrypted": false,
+                                "VolumeSize": 100,
+                                "VolumeType": "gp2"
+                            }
+                        }
+                    ],
+                    "NetworkInterfaces": [
+                        {
+                            "DeviceIndex": 0,
+                            "AssociatePublicIpAddress": true,
+                            "Groups": [
+                                {
+                                    "Ref": "DemoSecurityGroup"
+                                }
+                            ],
+                            "DeleteOnTermination": true
+                        }
+                    ],
+                    "ImageId": "ami-094125af156557ca2",
+                    "InstanceType": "c5.xlarge",
+                    "KeyName": "pe-class-key",
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "instance",
+                            "Tags": [
+                                {
+                                    "Key": "owner",
+                                    "Value": {
+                                        "Ref": "TrainerEmail"
+                                    }
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "monitor"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": {
+                            "Fn::FindInMap": [
+                                "UserDataMap",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "common"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "TiKVASG": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "TiKV",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "TiKVLT"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "TiKVLT",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "MaxSize": "5",
+                "MinSize": "3",
+                "DesiredCapacity": "3",
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "DemoSubnet1"
+                    },
+                    {
+                        "Ref": "DemoSubnet2"
+                    },
+                    {
+                        "Ref": "DemoSubnet3"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "trainer",
+                        "Value": {
+                            "Ref": "TrainerName"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "IGWAttachment"
+            ]
+        },
+        "PDASG": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "PD",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "PDLT"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "PDLT",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "MaxSize": "3",
+                "MinSize": "3",
+                "DesiredCapacity": "3",
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "DemoSubnet1"
+                    },
+                    {
+                        "Ref": "DemoSubnet2"
+                    },
+                    {
+                        "Ref": "DemoSubnet3"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "trainer",
+                        "Value": {
+                            "Ref": "TrainerName"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "IGWAttachment"
+            ]
+        },
+        "TiDBASG": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "TiDB",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "TiDBLT"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "TiDBLT",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "MaxSize": "4",
+                "MinSize": "2",
+                "DesiredCapacity": "2",
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "DemoSubnet1"
+                    },
+                    {
+                        "Ref": "DemoSubnet2"
+                    },
+                    {
+                        "Ref": "DemoSubnet3"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "trainer",
+                        "Value": {
+                            "Ref": "TrainerName"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "IGWAttachment"
+            ]
+        },
+        "MonitorASG": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "Monitor",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "MonitorLT"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "TiDBLT",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "MaxSize": "1",
+                "MinSize": "1",
+                "DesiredCapacity": "1",
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "DemoSubnet4"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "trainer",
+                        "Value": {
+                            "Ref": "TrainerName"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "IGWAttachment"
+            ]
+        },
+        "ASGScaleEventHandler": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+                "Code": {
+                    "ZipFile": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "import boto3\n",
+                                "def lambda_handler(event, context):\n",
+                                "    print(event)\n",
+                                "    region = 'us-west-2'\n",
+                                "    sqs = boto3.client('sqs', region_name=region)\n",
+                                "    ec2 = boto3.client('ec2', region_name=region)\n",
+                                "    sts = boto3.client('sts', region_name=region)\n",
+                                "    message = None\n",
+                                "    if 'source' in event:\n",
+                                "        source_type = event['source']\n",
+                                "        if (\n",
+                                "            source_type == 'aws.autoscaling'\n",
+                                "        ):\n",
+                                "            asg_name = event['detail']['AutoScalingGroupName']\n",
+                                "            instance_id = event['detail']['EC2InstanceId']\n",
+                                "            res = ec2.describe_instances(\n",
+                                "                InstanceIds=[\n",
+                                "                    instance_id,\n",
+                                "                ],\n",
+                                "            )\n",
+                                "            ec2_private_ip = res['Reservations'][0]['Instances'][0]['PrivateIpAddress']\n",
+                                "            print(ec2_private_ip)\n",
+                                "            aws_account_id = sts.get_caller_identity()['Account']\n",
+                                "            queue_url = (\n",
+                                "                'https://sqs.'\n",
+                                "                + region\n",
+                                "                + '.amazonaws.com/'\n",
+                                "                + aws_account_id\n",
+                                "                + '/demo-queue'\n",
+                                "            )\n",
+                                "            print(queue_url)\n",
+                                "            if event['detail']['LifecycleTransition'] == 'autoscaling:EC2_INSTANCE_LAUNCHING':\n",
+                                "               message = asg_name + '::scale-out::' + ec2_private_ip\n",
+                                "               node_role = 'default'\n",
+                                "               if asg_name == 'TiDB':\n",
+                                "                   node_role = 'db-as'\n",
+                                "               elif asg_name == 'TiKV':\n",
+                                "                   node_role = 'kv-as'\n",
+                                "               ec2.create_tags(\n",
+                                "                   DryRun=False,\n",
+                                "                   Resources=[\n",
+                                "                       instance_id,\n",
+                                "                   ],\n",
+                                "                   Tags=[\n",
+                                "                       {\n",
+                                "                           'Key': 'role',\n",
+                                "                           'Value': node_role,\n",
+                                "                       },\n",
+                                "                       {\n",
+                                "                           'Key': 'student',\n",
+                                "                           'Value': 'user1'\n",
+                                "                       },\n",
+                                "                   ],\n",
+                                "               )\n",
+                                "            elif event['detail']['LifecycleTransition'] == 'autoscaling:EC2_INSTANCE_TERMINATING':\n",
+                                "               message = asg_name + '::scale-in::' + ec2_private_ip\n",
+                                "            sqs.send_message(QueueUrl=queue_url, MessageBody=message)\n",
+                                "            print(message)\n",
+                                "    return message\n"
+                            ]
+                        ]
+                    }
+                },
+                "Description": "Triggered by instance event in ASG",
+                "FunctionName": "demo-asg-scale-handler",
+                "PackageType": "Zip",
+                "Role": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "arn:aws:iam::",
+                            {
+                                "Ref": "AWS::AccountId"
+                            },
+                            ":role/pe-lambda-role"
+                        ]
+                    ]
+                },
+                "Runtime": "python3.10",
+                "Handler": "index.lambda_handler",
+                "Timeout": 900
+            }
+        },
+        "TiDBScaleOutEventRule": {
+            "Type": "AWS::Events::Rule",
+            "Properties": {
+                "EventPattern": {
+                    "source": [
+                        "aws.autoscaling"
+                    ],
+                    "detail-type": [
+                        "EC2 Instance-launch Lifecycle Action"
+                    ],
+                    "detail": {
+                        "AutoScalingGroupName": [
+                            {
+                                "Ref": "TiDBASG"
+                            }
+                        ]
+                    }
+                },
+                "Name": "demo-db-layer-scale-out-rule",
+                "State": "ENABLED",
+                "Targets": [
+                    {
+                        "Arn": {
+                            "Fn::GetAtt": [
+                                "ASGScaleEventHandler",
+                                "Arn"
+                            ]
+                        },
+                        "Id": "1"
+                    }
+                ]
+            }
+        },
+        "TiDBScaleOutEventToLambdaPermission": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+                "FunctionName": {
+                    "Fn::GetAtt": [
+                        "ASGScaleEventHandler",
+                        "Arn"
+                    ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "events.amazonaws.com",
+                "SourceArn": {
+                    "Fn::GetAtt": [
+                        "TiDBScaleOutEventRule",
+                        "Arn"
+                    ]
+                }
+            }
+        },
+        "TiDBASGScaleOutLifecycleHook": {
+            "Type": "AWS::AutoScaling::LifecycleHook",
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "TiDBASG"
+                },
+                "LifecycleTransition": "autoscaling:EC2_INSTANCE_LAUNCHING",
+                "HeartbeatTimeout": 30,
+                "DefaultResult": "CONTINUE"
+            }
+        },
+        "TiDBScaleInEventRule": {
+            "Type": "AWS::Events::Rule",
+            "Properties": {
+                "EventPattern": {
+                    "source": [
+                        "aws.autoscaling"
+                    ],
+                    "detail-type": [
+                        "EC2 Instance-terminate Lifecycle Action"
+                    ],
+                    "detail": {
+                        "AutoScalingGroupName": [
+                            {
+                                "Ref": "TiDBASG"
+                            }
+                        ]
+                    }
+                },
+                "Name": "demo-db-layer-scale-in-rule",
+                "State": "ENABLED",
+                "Targets": [
+                    {
+                        "Arn": {
+                            "Fn::GetAtt": [
+                                "ASGScaleEventHandler",
+                                "Arn"
+                            ]
+                        },
+                        "Id": "1"
+                    }
+                ]
+            }
+        },
+        "TiDBScaleInEventToLambdaPermission": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+                "FunctionName": {
+                    "Fn::GetAtt": [
+                        "ASGScaleEventHandler",
+                        "Arn"
+                    ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "events.amazonaws.com",
+                "SourceArn": {
+                    "Fn::GetAtt": [
+                        "TiDBScaleInEventRule",
+                        "Arn"
+                    ]
+                }
+            }
+        },
+        "TiDBASGScaleInLifecycleHook": {
+            "Type": "AWS::AutoScaling::LifecycleHook",
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "TiDBASG"
+                },
+                "LifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
+                "HeartbeatTimeout": 120,
+                "DefaultResult": "CONTINUE"
+            }
+        },
+        "TiKVScaleOutEventRule": {
+            "Type": "AWS::Events::Rule",
+            "Properties": {
+                "EventPattern": {
+                    "source": [
+                        "aws.autoscaling"
+                    ],
+                    "detail-type": [
+                        "EC2 Instance-launch Lifecycle Action"
+                    ],
+                    "detail": {
+                        "AutoScalingGroupName": [
+                            {
+                                "Ref": "TiKVASG"
+                            }
+                        ]
+                    }
+                },
+                "Name": "demo-kv-layer-scale-out-rule",
+                "State": "ENABLED",
+                "Targets": [
+                    {
+                        "Arn": {
+                            "Fn::GetAtt": [
+                                "ASGScaleEventHandler",
+                                "Arn"
+                            ]
+                        },
+                        "Id": "1"
+                    }
+                ]
+            }
+        },
+        "TiKVScaleOutEventToLambdaPermission": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+                "FunctionName": {
+                    "Fn::GetAtt": [
+                        "ASGScaleEventHandler",
+                        "Arn"
+                    ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "events.amazonaws.com",
+                "SourceArn": {
+                    "Fn::GetAtt": [
+                        "TiKVScaleOutEventRule",
+                        "Arn"
+                    ]
+                }
+            }
+        },
+        "TiKVASGScaleOutLifecycleHook": {
+            "Type": "AWS::AutoScaling::LifecycleHook",
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "TiKVASG"
+                },
+                "LifecycleTransition": "autoscaling:EC2_INSTANCE_LAUNCHING",
+                "HeartbeatTimeout": 30,
+                "DefaultResult": "CONTINUE"
+            }
+        },
+        "TiKVScaleInEventRule": {
+            "Type": "AWS::Events::Rule",
+            "Properties": {
+                "EventPattern": {
+                    "source": [
+                        "aws.autoscaling"
+                    ],
+                    "detail-type": [
+                        "EC2 Instance-terminate Lifecycle Action"
+                    ],
+                    "detail": {
+                        "AutoScalingGroupName": [
+                            {
+                                "Ref": "TiKVASG"
+                            }
+                        ]
+                    }
+                },
+                "Name": "demo-kv-layer-scale-in-rule",
+                "State": "ENABLED",
+                "Targets": [
+                    {
+                        "Arn": {
+                            "Fn::GetAtt": [
+                                "ASGScaleEventHandler",
+                                "Arn"
+                            ]
+                        },
+                        "Id": "1"
+                    }
+                ]
+            }
+        },
+        "TiKVScaleInEventToLambdaPermission": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+                "FunctionName": {
+                    "Fn::GetAtt": [
+                        "ASGScaleEventHandler",
+                        "Arn"
+                    ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "events.amazonaws.com",
+                "SourceArn": {
+                    "Fn::GetAtt": [
+                        "TiKVScaleInEventRule",
+                        "Arn"
+                    ]
+                }
+            }
+        },
+        "TiKVASGScaleInLifecycleHook": {
+            "Type": "AWS::AutoScaling::LifecycleHook",
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "TiKVASG"
+                },
+                "LifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
+                "HeartbeatTimeout": 300,
+                "DefaultResult": "CONTINUE"
+            }
+        },
+        "DemoQueue": {
+            "Type": "AWS::SQS::Queue",
+            "Properties": {
+                "QueueName": "demo-queue"
+            },
+            "DependsOn": [
+                "ASGScaleEventHandler"
+            ]
+        },
+        "TiDBASGCPUPolicy": {
+            "Type": "AWS::AutoScaling::ScalingPolicy",
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "TiDBASG"
+                },
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "ASGAverageCPUUtilization"
+                    },
+                    "TargetValue": 30.0
+                }
+            }
+        },
+        "TiKVASGCPUPolicy": {
+            "Type": "AWS::AutoScaling::ScalingPolicy",
+            "Properties": {
+                "AutoScalingGroupName": {
+                    "Ref": "TiKVASG"
+                },
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "ASGAverageCPUUtilization"
+                    },
+                    "TargetValue": 30.0
+                }
+            }
+        }
+    }
+}
