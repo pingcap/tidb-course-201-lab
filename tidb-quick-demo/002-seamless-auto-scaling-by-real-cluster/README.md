@@ -14,7 +14,7 @@ DO NOT RUN DEMO CLOUD FORMATION IN PRODUCTION ENVIRONMENT.
 
 3. Setup an EC2 instance IAM role:
    
-   a. On IAM console, create a role for EC2 use case. Name it `pe-service-instance-role`. And, attach following permission policy: [_pe-service-instance-role_policy.json](lib/_pe-service-instance-role_policy.json) to this role.
+   a. On IAM console, create a role for EC2 use case. Name it `pe-service-instance-role`. And, attach following permission policy: [_pe-service-instance-role_policy.json](setup/lib/_pe-service-instance-role_policy.json) to this role.
 
 3. Setup a Lambda IAM role:
 4. Create the demo Cloud Formation stack:
