@@ -2,39 +2,47 @@
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "ManualAdded97",
+      "Sid": "TiDBDemoInstanceProfilePermission01",
       "Effect": "Allow",
-      "Action": [
-        "ec2:List*",
-        "ec2:Describe*"
-      ],
-      "Resource": [
-        "*"
-      ]
+      "Action": "sts:GetCallerIdentity",
+      "Resource": "*"
     },
     {
-      "Sid": "ManualAdded98",
+      "Sid": "TiDBDemoInstanceProfilePermission02",
       "Effect": "Allow",
       "Action": [
-        "s3:List*",
-        "s3:Get*",
-        "s3:Put*",
-        "s3:Delete*"
+        "elasticloadbalancing:DescribeSSLPolicies",
+        "elasticloadbalancing:DescribeTags",
+        "elasticloadbalancing:RegisterTargets",
+        "elasticloadbalancing:DeregisterTargets",
+        "elasticloadbalancing:DescribeLoadBalancerAttributes",
+        "elasticloadbalancing:DescribeLoadBalancers",
+        "elasticloadbalancing:DescribeTargetGroupAttributes",
+        "elasticloadbalancing:DescribeListeners",
+        "elasticloadbalancing:DescribeAccountLimits",
+        "elasticloadbalancing:DescribeTargetHealth",
+        "elasticloadbalancing:DescribeTargetGroups",
+        "elasticloadbalancing:DescribeListenerCertificates",
+        "elasticloadbalancing:DescribeRules"
       ],
-      "Resource": [
-        "arn:aws:s3:::pe-class/*"
-      ]
+      "Resource": "*"
     },
     {
-      "Sid": "ManualAdded99",
+      "Sid": "TiDBDemoInstanceProfilePermission03",
       "Effect": "Allow",
       "Action": [
-        "s3:List*",
-        "s3:Get*"
+        "ec2:Desribe*",
+        "ec2:List*"
       ],
-      "Resource": [
-        "arn:aws:s3:::pe-class"
-      ]
+      "Resource": "*"
+    },
+    {
+      "Sid": "TiDBDemoInstanceProfilePermission04",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:*"
+      ],
+      "Resource": "*"
     }
   ]
 }
