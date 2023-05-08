@@ -1,8 +1,8 @@
 # Notes
-1. DO NOT deploy the demo Cloud Formation in production environment. You are at your own risk.
+1. **DO NOT** deploy the demo Cloud Formation in production environment. You are at your own risk.
 2. This demo requires Python3 and boto3 installed on your local machine.
 3. You need an active AWS account for testing purposes. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role.
-4. MAKE SURE you also follow the instructions to tear down the demo environment after the showcase, otherwise AWS will keep charging you.
+4. **MAKE SURE** you also follow the instructions to tear down the demo environment after the showcase, otherwise AWS will keep charging you.
 5. Estimated demo cost: ~1 USD.
 
 # Demo Preparation
