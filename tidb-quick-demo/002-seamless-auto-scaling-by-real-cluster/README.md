@@ -1,5 +1,5 @@
 # Notes
-DO NOT RUN DEMO CLOUD FORMATION IN PRODUCTION ENVIRONMENT.
+DO NOT deploy the demo Cloud Formation in production environment. You are at your own risk.
 
 # Demo Preparation
 1. First of all, you need an active AWS account for testing purposes.
