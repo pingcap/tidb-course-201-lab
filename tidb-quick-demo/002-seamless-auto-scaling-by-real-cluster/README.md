@@ -7,7 +7,7 @@ DO NOT deploy the demo Cloud Formation in production environment. You are at you
 
    a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
 
-   b. Change the private key permission to `r--`:
+   b. Change the private key file permission to `r--`:
     ```
     $ chmod 400 ~/.ssh/pe-class-key.pem
     ```
@@ -17,6 +17,9 @@ DO NOT deploy the demo Cloud Formation in production environment. You are at you
    a. On IAM console, create a role for EC2 use case. Name it `pe-service-instance-role`. And, attach following permission policy: [_pe-service-instance-role_policy.json](setup/lib/_pe-service-instance-role_policy.json) to this role.
 
 3. Setup a Lambda IAM role:
+
+   a. On IAM console, create a role for Lambda use case. Name it `pe-lambda-role`. And, attach following permission policy: [_pe-lambda-role_policy.json](setup/lib/_pe-lambda-role_policy.json) to this role.
+
 4. Create the demo Cloud Formation stack:
 5. Initialize the demo TiDB Cluster:
 
