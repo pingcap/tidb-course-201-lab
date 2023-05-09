@@ -52,7 +52,6 @@ def add_instance(scale_out_yaml_file: str):
             ]
         ).decode("utf-8")
         print(fix_status)
-
         cluster_status = subprocess.check_output(
             [
                 "/home/ec2-user/.tiup/bin/tiup",
@@ -65,7 +64,8 @@ def add_instance(scale_out_yaml_file: str):
         ).decode("utf-8")
         print(cluster_status)
     except subprocess.CalledProcessError as ex:
-        print("Scaling out skipped.")
+        print("Listener: Scaling out skipped.")
+        print("Listener: Terminate the new instance.")
         return 1
 
 

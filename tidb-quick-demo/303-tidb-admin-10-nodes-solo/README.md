@@ -1,9 +1,8 @@
 # Notes
-1. **DO NOT** deploy the demo Cloud Formation in production environment. You are at your own risk.
-2. This demo requires **Python3** and **boto3** installed on your local machine.
-3. You need an active AWS account for testing purposes. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role. The identity you use must have the permissions to manage following services or resources: IAM roles, VPC, EC2, ELB, SQS, Lambda, IAM roles, CloudWatch, CloudWatch Logs, Auto Scaling Group, EventBridge, CloudFormation. 
+1. **DO NOT** deploy the lab Cloud Formation in production environment. You are at your own risk.
+2. This lab setup requires **Python3** and **boto3** installed on your local machine.
+3. You need an active AWS account in order to run this setup. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role. The identity you use must have the permissions to manage following services or resources: IAM roles, VPC, EC2, ELB, SQS, Lambda, IAM roles, CloudWatch, CloudWatch Logs, Auto Scaling Group, EventBridge, CloudFormation. 
 4. **MAKE SURE** you also follow the instructions to tear down the demo environment after the showcase, otherwise AWS will keep charging you.
-5. Estimated demo cost: ~2 USD.
 
 # Demo Preparation
 1. Setup EC2 instance SSH identity:
@@ -15,7 +14,7 @@
     $ chmod 400 ~/.ssh/pe-class-key.pem
     ```
 
-2. Setup AWS credentials for your terminal.
+2. Setup AWS credentials for yourself.
    
    a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
    b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
@@ -25,19 +24,19 @@
     $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
     ```
 
-3. Create the demo Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
+3. Create the class Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
     $ cd setup/
-    $ ./deploy-quick-demo-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
+    $ ./deploy-lab-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
     ```
     ```
-    $ ./deploy-quick-demo-stack-on-aws.sh gXXXXXXXo gXXXXXXXo@pXXXXXXXm
-      {
-          "StackId": "arn:aws:cloudformation:us-west-2:XXXXXXXXXX:stack/quick-demo-002/d9caf6b0-ed4f-11ed-ac4e-02ca195509c9"
-      }
+    $ ./deploy-lab-stack-on-aws.sh gXXXXXXXo gXXXXXXXo@pXXXXXXXm
+    {
+        "StackId": "arn:aws:cloudformation:us-west-2:XXXXXXXXXX:stack/lab-303-v2/1aa6baa0-ee42-11ed-a1b9-06ee049f6e4d"
+    }
     ```
 
-4. Wait the Cloud Formation stack run to completion. Run following script to check the status, until you get the `COMPLETION` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 4 auto scaling groups, 9 EC2 instances, 1 Lambda function, 1 SQS queue for you:
+4. Wait the Cloud Formation stack run to completion. Run following script to check the status, until you get the `COMPLETION` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 5 auto scaling groups, 10 EC2 instances:
     ```
     $ ./show-quick-demo-stack-on-aws.sh
     ``` 
@@ -46,8 +45,8 @@
       {
           "Stacks": [
               {
-                  "StackId": "arn:aws:cloudformation:us-west-2:XXXXXXXXXX:stack/quick-demo-002/d9caf6b0-ed4f-11ed-ac4e-02ca195509c9",
-                  "StackName": "quick-demo-002",
+                  "StackId": "arn:aws:cloudformation:us-west-2:XXXXXXXXXX:stack/lab-303-v2/1aa6baa0-ee42-11ed-a1b9-06ee049f6e4d",
+                  "StackName": "lab-303-v2",
                   "Parameters": [
                       {
                           "ParameterKey": "TrainerEmail",
@@ -76,12 +75,12 @@
       }
     ```
 
-5. Tag the demo EC2 instances by running `demo_start.sh <YOUR_NAME>`:
+5. Tag the class EC2 instances by running `class_start.sh <YOUR_NAME>`:
     ```
-    $ ./demo_start.sh <YOUR_NAME>
+    $ ./class_start.sh <YOUR_NAME>
     ```
     ```
-      $ ./demo_start.sh gXXXXXXXo
+      $ ./class_start.sh gXXXXXXXo
       ##################################################
       # Waiting for 150 seconds for nodes starting up. #
       ##################################################
