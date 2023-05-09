@@ -252,13 +252,13 @@ sed -i '' \
   -e "s/<HOST_KV3_PRIVATE_IP>/${HOST_KV3_PRIVATE_IP}/g" \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
-  -e "s/<HOST_MONITOR_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
+  -e "s/<HOST_MONITOR1_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
   ./solution-tiup-meta.yaml 2>/dev/null
 
 # Setup scale-out-tikv.yaml
 cp ./template-scale-out-tikv.yaml ./solution-scale-out-tikv.yaml
 sed -i '' \
-  -e "s/<HOST_MONITOR_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
+  -e "s/<HOST_MONITOR1_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
   ./solution-scale-out-tikv.yaml 2>/dev/null
 
 
