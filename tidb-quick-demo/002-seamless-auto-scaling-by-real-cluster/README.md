@@ -71,6 +71,9 @@
                   "StackStatus": "CREATE_COMPLETE",
                   "DisableRollback": false,
                   "NotificationARNs": [],
+                  "Capabilities": [
+                      "CAPABILITY_IAM"
+                  ],
                   "Tags": [],
                   "EnableTerminationProtection": false,
                   "DriftInformation": {
