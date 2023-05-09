@@ -1,6 +1,6 @@
 # Notes
 1. **DO NOT** deploy the lab Cloud Formation in production environment. You are at your own risk.
-2. This lab setup requires **Python3** and **boto3** installed on your local machine.
+2. This lab setup requires **Python3**, **awscli**, and **boto3** installed on your local machine.
 3. You need an active AWS account in order to run this setup. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role. The identity you use must have the permissions to manage following services or resources: IAM roles, VPC, EC2, ELB, SQS, Lambda, IAM roles, CloudWatch, CloudWatch Logs, Auto Scaling Group, EventBridge, CloudFormation. 
 4. **MAKE SURE** you also follow the instructions to tear down the demo environment after the showcase, otherwise AWS will keep charging you.
 
