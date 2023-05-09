@@ -19,7 +19,7 @@
       "Sid": "TiDBDemoLambdaPermission03",
       "Effect": "Allow",
       "Action": [
-        "ec2:Desribe*",
+        "ec2:Describe*",
         "ec2:List*",
         "ec2:DeleteTags",
         "ec2:CreateTags"

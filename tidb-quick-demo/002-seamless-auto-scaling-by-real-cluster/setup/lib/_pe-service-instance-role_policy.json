@@ -11,19 +11,9 @@
       "Sid": "TiDBDemoInstanceProfilePermission02",
       "Effect": "Allow",
       "Action": [
-        "elasticloadbalancing:DescribeSSLPolicies",
-        "elasticloadbalancing:DescribeTags",
         "elasticloadbalancing:RegisterTargets",
         "elasticloadbalancing:DeregisterTargets",
-        "elasticloadbalancing:DescribeLoadBalancerAttributes",
-        "elasticloadbalancing:DescribeLoadBalancers",
-        "elasticloadbalancing:DescribeTargetGroupAttributes",
-        "elasticloadbalancing:DescribeListeners",
-        "elasticloadbalancing:DescribeAccountLimits",
-        "elasticloadbalancing:DescribeTargetHealth",
-        "elasticloadbalancing:DescribeTargetGroups",
-        "elasticloadbalancing:DescribeListenerCertificates",
-        "elasticloadbalancing:DescribeRules"
+        "elasticloadbalancing:Describe*"
       ],
       "Resource": "*"
     },
@@ -31,7 +21,7 @@
       "Sid": "TiDBDemoInstanceProfilePermission03",
       "Effect": "Allow",
       "Action": [
-        "ec2:Desribe*",
+        "ec2:Describe*",
         "ec2:List*"
       ],
       "Resource": "*"
