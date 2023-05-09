@@ -1,7 +1,7 @@
 # Notes
 1. **DO NOT** deploy the demo Cloud Formation in production environment. You are at your own risk.
 2. This demo requires **Python3** and **boto3** installed on your local machine.
-3. You need an active AWS account for testing purposes. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role. The identity you use must have the permissions to manage following services or resources: VPC, EC2, ELB, SQS, Lambda, IAM roles, CloudWatch, CloudWatch Logs, Auto Scaling Group, EventBridge, CloudFormation. 
+3. You need an active AWS account for testing purposes. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role. The identity you use must have the permissions to manage following services or resources: IAM roles, VPC, EC2, ELB, SQS, Lambda, IAM roles, CloudWatch, CloudWatch Logs, Auto Scaling Group, EventBridge, CloudFormation. 
 4. **MAKE SURE** you also follow the instructions to tear down the demo environment after the showcase, otherwise AWS will keep charging you.
 5. Estimated demo cost: ~2 USD.
 
@@ -15,15 +15,7 @@
     $ chmod 400 ~/.ssh/pe-class-key.pem
     ```
 
-2. Setup an EC2 instance IAM role:
-   
-   a. On IAM console, create a role for EC2 use case. Name it `pe-service-instance-role`. And, attach following permission policy: [_pe-service-instance-role_policy.json](setup/lib/_pe-service-instance-role_policy.json) to this role.
-
-3. Setup a Lambda IAM role:
-
-   a. On IAM console, create a role for Lambda use case. Name it `pe-lambda-role`. And, attach following permission policy: [_pe-lambda-role_policy.json](setup/lib/_pe-lambda-role_policy.json) to this role.
-
-4. Setup AWS credentials from the demo runner.
+2. Setup AWS credentials from the demo runner.
    
    a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
    b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
@@ -33,7 +25,7 @@
     $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
     ```
 
-5. Create the demo Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
+3. Create the demo Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
     $ cd setup/
     $ ./deploy-quick-demo-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
@@ -45,7 +37,7 @@
       }
     ```
 
-6. Wait the Cloud Formation stack run to completion. Run following script to check the status, until you get the `COMPLETION` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 4 auto scaling groups, 9 EC2 instances, 1 Lambda function, 1 SQS queue for you:
+4. Wait the Cloud Formation stack run to completion. Run following script to check the status, until you get the `COMPLETION` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 4 auto scaling groups, 9 EC2 instances, 1 Lambda function, 1 SQS queue for you:
     ```
     $ ./show-quick-demo-stack-on-aws.sh
     ``` 
@@ -84,7 +76,7 @@
       }
     ```
 
-7. Tag the demo EC2 instances by running `demo_start.sh <YOUR_NAME>`:
+5. Tag the demo EC2 instances by running `demo_start.sh <YOUR_NAME>`:
     ```
     $ ./demo_start.sh <YOUR_NAME>
     ```
