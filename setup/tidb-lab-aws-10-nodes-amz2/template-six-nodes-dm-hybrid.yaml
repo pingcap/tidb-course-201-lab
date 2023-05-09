@@ -1,0 +1,20 @@
+global:
+  user: "tidb"
+  ssh_port: 22
+  deploy_dir: "/tidb-deploy"
+  data_dir: "/tidb-data"
+  arch: "amd64"
+master_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_PD2_PRIVATE_IP>
+  - host: <HOST_PD3_PRIVATE_IP>
+worker_servers:
+  - host: <HOST_KV1_PRIVATE_IP>
+  - host: <HOST_KV2_PRIVATE_IP>
+  - host: <HOST_KV3_PRIVATE_IP>
+monitoring_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+grafana_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+alertmanager_servers:
+  - host: <HOST_PD1_PRIVATE_IP>

@@ -193,6 +193,75 @@ sed -i '' \
   -e "s/<HOST_TIFLASH1_PRIVATE_IP>/${HOST_TIFLASH1_PRIVATE_IP}/g" \
   ./ten-nodes.yaml 2>/dev/null
 
+# Setup Six Nodes DM Cluster Topology
+cp ./template-six-nodes-dm-hybrid.yaml ./six-nodes-dm-hybrid.yaml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV1_PRIVATE_IP>/${HOST_KV1_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV2_PRIVATE_IP>/${HOST_KV2_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV3_PRIVATE_IP>/${HOST_KV3_PRIVATE_IP}/g" \
+  ./six-nodes-dm-hybrid.yaml 2>/dev/null
+
+# Setup sync-diff task configuration
+cp ./template-sync-diff-config.toml ./sync-diff-config.toml
+sed -i '' \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
+  ./sync-diff-config.toml 2>/dev/null
+
+# Setup three-nodes-scale-out-ticdc.yaml
+cp ./template-three-nodes-scale-out-ticdc.yaml ./three-nodes-scale-out-ticdc.yaml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
+  ./three-nodes-scale-out-ticdc.yaml 2>/dev/null
+
+# Setup lightning-csv.toml
+cp ./template-lightning-csv.toml ./lightning-csv.toml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
+  ./lightning-csv.toml 2>/dev/null
+
+# Setup lightning-p1.toml
+cp ./template-lightning-p1.toml ./lightning-p1.toml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
+  ./lightning-p1.toml 2>/dev/null
+
+# Setup lightning-p2.toml
+cp ./template-lightning-p2.toml ./lightning-p2.toml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
+  ./lightning-p2.toml 2>/dev/null
+
+# Setup TiUP meta.yaml
+cp ./template-tiup-meta.yaml ./solution-tiup-meta.yaml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
+  -e "s/<HOST_TIFLASH1_PRIVATE_IP>/${HOST_TIFLASH1_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV1_PRIVATE_IP>/${HOST_KV1_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV2_PRIVATE_IP>/${HOST_KV2_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV3_PRIVATE_IP>/${HOST_KV3_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
+  -e "s/<HOST_MONITOR_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
+  ./solution-tiup-meta.yaml 2>/dev/null
+
+# Setup scale-out-tikv.yaml
+cp ./template-scale-out-tikv.yaml ./solution-scale-out-tikv.yaml
+sed -i '' \
+  -e "s/<HOST_MONITOR_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
+  ./solution-scale-out-tikv.yaml 2>/dev/null
+
+
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
 

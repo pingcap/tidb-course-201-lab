@@ -1,0 +1,10 @@
+cdc_servers:
+  - host: <HOST_PD1_PRIVATE_IP>
+    gc-ttl: 86400
+    data_dir: "/cdc-data"
+  - host: <HOST_PD2_PRIVATE_IP>
+    gc-ttl: 86400
+    data_dir: "/cdc-data"
+  - host: <HOST_PD3_PRIVATE_IP>
+    gc-ttl: 86400
+    data_dir: "/cdc-data"

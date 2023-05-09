@@ -1,0 +1,8 @@
+tikv_servers:
+  - host: <HOST_MONITOR1_PRIVATE_IP>
+    ssh_port: 22
+    port: 20160
+    status_port: 20180
+    deploy_dir: /tidb-deploy/tikv-20160
+    data_dir: /tidb-data/tikv-20160
+    log_dir: /tidb-deploy/tikv-20160/log
