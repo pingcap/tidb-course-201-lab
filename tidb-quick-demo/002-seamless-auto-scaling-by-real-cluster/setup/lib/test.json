@@ -1,0 +1,166 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "TrainerName": {
+            "Type": "String"
+        },
+        "TrainerEmail": {
+            "Type": "String"
+        }
+    },
+    "Mappings": {
+        "UserDataMap": {
+            "us-west-2": {
+                "common": "#!/bin/bash\necho LANG=en_US.utf-8 >> /etc/environment\necho LC_ALL=en_US.utf-8 >> /etc/environment\nmkdir ~ec2-user/stage/\ncd ~ec2-user/stage/\nrm -rf tidb-course-201-lab/\nyum -y update\nyum -y install git numactl awscli\nyum -y install java-11-amazon-corretto\nrpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022\nwget https://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm\nyum -y install mysql57-community-release-el7-10.noarch.rpm\nyum -y install mysql-community-client\nwget https://pingcap-edu.s3.us-west-2.amazonaws.com/mysql-community-server-5.7.41-1.el7.x86_64.rpm\nrpm -ivh mysql-community-server-5.7.41-1.el7.x86_64.rpm\nwget https://pingcap-edu.s3.us-west-2.amazonaws.com/tidb-admin-dataset.zip\ngit clone https://github.com/pingcap/tidb-course-201-lab.git\nREGION_CODE=`curl http://169.254.169.254/latest/meta-data/placement/region`\necho export REGION_CODE=${REGION_CODE} > ~ec2-user/cloud-env.sh\nalias cp='cp'\ncp -R tidb-course-201-lab/setup/tidb-quick-demo-aws-9-nodes-amz2/* ~ec2-user/\ncp -R tidb-course-201-lab/setup/tidb-lab-mysql-init-amz2/show-mysql-password.sh ~ec2-user/\ncp -R tidb-course-201-lab/scripts/ ~ec2-user/\ncd ~\nchown -R ec2-user:ec2-user ~ec2-user/*\nchmod +x ~ec2-user/*.sh\nchmod +x ~ec2-user/scripts/*.sh\necho \"if [ -f /home/ec2-user/hosts-env.sh ]; then\" >> ~ec2-user/.bashrc\necho \"    source /home/ec2-user/hosts-env.sh\" >> ~ec2-user/.bashrc\necho \"fi;\" >> ~ec2-user/.bashrc\nchown ec2-user:ec2-user ~ec2-user/.bashrc\nsu ec2-user -c \"pip3 install boto3\"\n"
+            }
+        }
+    },
+    "Resources": {
+        "DemoLambdaRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "lambda.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "DemoLambdaPolicy01",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": "sts:GetCallerIdentity",
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "elasticloadbalancing:*"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "ec2:Describe*",
+                                        "ec2:List*",
+                                        "ec2:DeleteTags",
+                                        "ec2:CreateTags"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "sqs:*"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "logs:*"
+                                    ],
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "DemoInstanceRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/"
+            }
+        },
+        "DemoInstanceRolePolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "DemoInstancePolicy01",
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "sts:GetCallerIdentity",
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "elasticloadbalancing:RegisterTargets",
+                                "elasticloadbalancing:DeregisterTargets",
+                                "elasticloadbalancing:Describe*"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "ec2:Describe*",
+                                "ec2:List*"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "sqs:*"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "DemoInstanceRole"
+                    }
+                ]
+            }
+        },
+        "DemoInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "DemoInstanceRole"
+                    }
+                ]
+            }
+        }
+    }
+}

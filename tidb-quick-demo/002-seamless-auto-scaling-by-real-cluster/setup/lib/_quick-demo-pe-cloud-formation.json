@@ -52,7 +52,7 @@
                 ]
             }
         },
-        "IGWAttachment": {
+        "IGWA": {
             "Type": "AWS::EC2::VPCGatewayAttachment",
             "Properties": {
                 "InternetGatewayId": {
@@ -95,10 +95,10 @@
                 }
             },
             "DependsOn": [
-                "IGWAttachment"
+                "IGWA"
             ]
         },
-        "DemoSubnet1": {
+        "SN1": {
             "Type": "AWS::EC2::Subnet",
             "Properties": {
                 "VpcId": {
@@ -125,7 +125,7 @@
                 ]
             }
         },
-        "DemoSubnet2": {
+        "SN2": {
             "Type": "AWS::EC2::Subnet",
             "Properties": {
                 "VpcId": {
@@ -152,7 +152,7 @@
                 ]
             }
         },
-        "DemoSubnet3": {
+        "SN3": {
             "Type": "AWS::EC2::Subnet",
             "Properties": {
                 "VpcId": {
@@ -179,7 +179,7 @@
                 ]
             }
         },
-        "DemoSubnet4": {
+        "SN4": {
             "Type": "AWS::EC2::Subnet",
             "Properties": {
                 "VpcId": {
@@ -210,7 +210,7 @@
             "Type": "AWS::EC2::SubnetRouteTableAssociation",
             "Properties": {
                 "SubnetId": {
-                    "Ref": "DemoSubnet1"
+                    "Ref": "SN1"
                 },
                 "RouteTableId": {
                     "Ref": "PublicRouteTable"
@@ -221,7 +221,7 @@
             "Type": "AWS::EC2::SubnetRouteTableAssociation",
             "Properties": {
                 "SubnetId": {
-                    "Ref": "DemoSubnet2"
+                    "Ref": "SN2"
                 },
                 "RouteTableId": {
                     "Ref": "PublicRouteTable"
@@ -232,7 +232,7 @@
             "Type": "AWS::EC2::SubnetRouteTableAssociation",
             "Properties": {
                 "SubnetId": {
-                    "Ref": "DemoSubnet3"
+                    "Ref": "SN3"
                 },
                 "RouteTableId": {
                     "Ref": "PublicRouteTable"
@@ -243,14 +243,14 @@
             "Type": "AWS::EC2::SubnetRouteTableAssociation",
             "Properties": {
                 "SubnetId": {
-                    "Ref": "DemoSubnet4"
+                    "Ref": "SN4"
                 },
                 "RouteTableId": {
                     "Ref": "PublicRouteTable"
                 }
             }
         },
-        "DemoSecurityGroup": {
+        "DemoSG": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
                 "GroupDescription": "Allow nodes communication.",
@@ -309,25 +309,25 @@
                 ]
             }
         },
-        "NodeSecurityGroupRefInboundRule": {
+        "IRule": {
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
                 "IpProtocol": "-1",
                 "SourceSecurityGroupId": {
                     "Fn::GetAtt": [
-                        "DemoSecurityGroup",
+                        "DemoSG",
                         "GroupId"
                     ]
                 },
                 "GroupId": {
                     "Fn::GetAtt": [
-                        "DemoSecurityGroup",
+                        "DemoSG",
                         "GroupId"
                     ]
                 }
             }
         },
-        "DemoTargetGroup": {
+        "TG": {
             "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
             "Properties": {
                 "HealthCheckEnabled": "True",
@@ -345,7 +345,7 @@
                 }
             }
         },
-        "DemoNLB": {
+        "NLB": {
             "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
             "Properties": {
                 "Type": "network",
@@ -353,18 +353,18 @@
                 "Scheme": "internal",
                 "Subnets": [
                     {
-                        "Ref": "DemoSubnet1"
+                        "Ref": "SN1"
                     },
                     {
-                        "Ref": "DemoSubnet2"
+                        "Ref": "SN2"
                     },
                     {
-                        "Ref": "DemoSubnet3"
+                        "Ref": "SN3"
                     }
                 ]
             }
         },
-        "DemoListener": {
+        "LSNR": {
             "Type": "AWS::ElasticLoadBalancingV2::Listener",
             "Properties": {
                 "DefaultActions": [
@@ -374,7 +374,7 @@
                             "TargetGroups": [
                                 {
                                     "TargetGroupArn": {
-                                        "Ref": "DemoTargetGroup"
+                                        "Ref": "TG"
                                     }
                                 }
                             ]
@@ -382,13 +382,13 @@
                     }
                 ],
                 "LoadBalancerArn": {
-                    "Ref": "DemoNLB"
+                    "Ref": "NLB"
                 },
                 "Port": 4000,
                 "Protocol": "TCP"
             }
         },
-        "TiKVLT": {
+        "KVT": {
             "Type": "AWS::EC2::LaunchTemplate",
             "Properties": {
                 "VersionDescription": "v1",
@@ -421,7 +421,7 @@
                             "AssociatePublicIpAddress": true,
                             "Groups": [
                                 {
-                                    "Ref": "DemoSecurityGroup"
+                                    "Ref": "DemoSG"
                                 }
                             ],
                             "DeleteOnTermination": true
@@ -461,7 +461,7 @@
                 }
             }
         },
-        "PDLT": {
+        "PDT": {
             "Type": "AWS::EC2::LaunchTemplate",
             "Properties": {
                 "VersionDescription": "v1",
@@ -494,7 +494,7 @@
                             "AssociatePublicIpAddress": true,
                             "Groups": [
                                 {
-                                    "Ref": "DemoSecurityGroup"
+                                    "Ref": "DemoSG"
                                 }
                             ],
                             "DeleteOnTermination": true
@@ -534,7 +534,7 @@
                 }
             }
         },
-        "TiDBLT": {
+        "DBT": {
             "Type": "AWS::EC2::LaunchTemplate",
             "Properties": {
                 "VersionDescription": "v1",
@@ -567,7 +567,7 @@
                             "AssociatePublicIpAddress": true,
                             "Groups": [
                                 {
-                                    "Ref": "DemoSecurityGroup"
+                                    "Ref": "DemoSG"
                                 }
                             ],
                             "DeleteOnTermination": true
@@ -607,7 +607,7 @@
                 }
             }
         },
-        "MonitorLT": {
+        "MLT": {
             "Type": "AWS::EC2::LaunchTemplate",
             "Properties": {
                 "VersionDescription": "v1",
@@ -637,7 +637,7 @@
                             "AssociatePublicIpAddress": true,
                             "Groups": [
                                 {
-                                    "Ref": "DemoSecurityGroup"
+                                    "Ref": "DemoSG"
                                 }
                             ],
                             "DeleteOnTermination": true
@@ -677,17 +677,17 @@
                 }
             }
         },
-        "TiKVASG": {
+        "KVG": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
                 "AutoScalingGroupName": "TiKV",
                 "LaunchTemplate": {
                     "LaunchTemplateId": {
-                        "Ref": "TiKVLT"
+                        "Ref": "KVT"
                     },
                     "Version": {
                         "Fn::GetAtt": [
-                            "TiKVLT",
+                            "KVT",
                             "LatestVersionNumber"
                         ]
                     }
@@ -697,13 +697,13 @@
                 "DesiredCapacity": "3",
                 "VPCZoneIdentifier": [
                     {
-                        "Ref": "DemoSubnet1"
+                        "Ref": "SN1"
                     },
                     {
-                        "Ref": "DemoSubnet2"
+                        "Ref": "SN2"
                     },
                     {
-                        "Ref": "DemoSubnet3"
+                        "Ref": "SN3"
                     }
                 ],
                 "Tags": [
@@ -724,20 +724,20 @@
                 ]
             },
             "DependsOn": [
-                "IGWAttachment"
+                "IGWA"
             ]
         },
-        "PDASG": {
+        "PDG": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
                 "AutoScalingGroupName": "PD",
                 "LaunchTemplate": {
                     "LaunchTemplateId": {
-                        "Ref": "PDLT"
+                        "Ref": "PDT"
                     },
                     "Version": {
                         "Fn::GetAtt": [
-                            "PDLT",
+                            "PDT",
                             "LatestVersionNumber"
                         ]
                     }
@@ -747,13 +747,13 @@
                 "DesiredCapacity": "3",
                 "VPCZoneIdentifier": [
                     {
-                        "Ref": "DemoSubnet1"
+                        "Ref": "SN1"
                     },
                     {
-                        "Ref": "DemoSubnet2"
+                        "Ref": "SN2"
                     },
                     {
-                        "Ref": "DemoSubnet3"
+                        "Ref": "SN3"
                     }
                 ],
                 "Tags": [
@@ -774,20 +774,20 @@
                 ]
             },
             "DependsOn": [
-                "IGWAttachment"
+                "IGWA"
             ]
         },
-        "TiDBASG": {
+        "DBG": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
                 "AutoScalingGroupName": "TiDB",
                 "LaunchTemplate": {
                     "LaunchTemplateId": {
-                        "Ref": "TiDBLT"
+                        "Ref": "DBT"
                     },
                     "Version": {
                         "Fn::GetAtt": [
-                            "TiDBLT",
+                            "DBT",
                             "LatestVersionNumber"
                         ]
                     }
@@ -797,13 +797,13 @@
                 "DesiredCapacity": "2",
                 "VPCZoneIdentifier": [
                     {
-                        "Ref": "DemoSubnet1"
+                        "Ref": "SN1"
                     },
                     {
-                        "Ref": "DemoSubnet2"
+                        "Ref": "SN2"
                     },
                     {
-                        "Ref": "DemoSubnet3"
+                        "Ref": "SN3"
                     }
                 ],
                 "Tags": [
@@ -824,20 +824,20 @@
                 ]
             },
             "DependsOn": [
-                "IGWAttachment"
+                "IGWA"
             ]
         },
-        "MonitorASG": {
+        "MG": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
                 "AutoScalingGroupName": "Monitor",
                 "LaunchTemplate": {
                     "LaunchTemplateId": {
-                        "Ref": "MonitorLT"
+                        "Ref": "MLT"
                     },
                     "Version": {
                         "Fn::GetAtt": [
-                            "TiDBLT",
+                            "DBT",
                             "LatestVersionNumber"
                         ]
                     }
@@ -847,7 +847,7 @@
                 "DesiredCapacity": "1",
                 "VPCZoneIdentifier": [
                     {
-                        "Ref": "DemoSubnet4"
+                        "Ref": "SN4"
                     }
                 ],
                 "Tags": [
@@ -868,10 +868,10 @@
                 ]
             },
             "DependsOn": [
-                "IGWAttachment"
+                "IGWA"
             ]
         },
-        "ASGScaleEventHandler": {
+        "EHandler": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
                 "Code": {
@@ -969,7 +969,7 @@
                     "detail": {
                         "AutoScalingGroupName": [
                             {
-                                "Ref": "TiDBASG"
+                                "Ref": "DBG"
                             }
                         ]
                     }
@@ -980,7 +980,7 @@
                     {
                         "Arn": {
                             "Fn::GetAtt": [
-                                "ASGScaleEventHandler",
+                                "EHandler",
                                 "Arn"
                             ]
                         },
@@ -994,7 +994,7 @@
             "Properties": {
                 "FunctionName": {
                     "Fn::GetAtt": [
-                        "ASGScaleEventHandler",
+                        "EHandler",
                         "Arn"
                     ]
                 },
@@ -1008,11 +1008,11 @@
                 }
             }
         },
-        "TiDBASGScaleOutLifecycleHook": {
+        "DBGScaleOutLifecycleHook": {
             "Type": "AWS::AutoScaling::LifecycleHook",
             "Properties": {
                 "AutoScalingGroupName": {
-                    "Ref": "TiDBASG"
+                    "Ref": "DBG"
                 },
                 "LifecycleTransition": "autoscaling:EC2_INSTANCE_LAUNCHING",
                 "HeartbeatTimeout": 30,
@@ -1032,7 +1032,7 @@
                     "detail": {
                         "AutoScalingGroupName": [
                             {
-                                "Ref": "TiDBASG"
+                                "Ref": "DBG"
                             }
                         ]
                     }
@@ -1043,7 +1043,7 @@
                     {
                         "Arn": {
                             "Fn::GetAtt": [
-                                "ASGScaleEventHandler",
+                                "EHandler",
                                 "Arn"
                             ]
                         },
@@ -1057,7 +1057,7 @@
             "Properties": {
                 "FunctionName": {
                     "Fn::GetAtt": [
-                        "ASGScaleEventHandler",
+                        "EHandler",
                         "Arn"
                     ]
                 },
@@ -1071,11 +1071,11 @@
                 }
             }
         },
-        "TiDBASGScaleInLifecycleHook": {
+        "DBGScaleInLifecycleHook": {
             "Type": "AWS::AutoScaling::LifecycleHook",
             "Properties": {
                 "AutoScalingGroupName": {
-                    "Ref": "TiDBASG"
+                    "Ref": "DBG"
                 },
                 "LifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
                 "HeartbeatTimeout": 120,
@@ -1095,7 +1095,7 @@
                     "detail": {
                         "AutoScalingGroupName": [
                             {
-                                "Ref": "TiKVASG"
+                                "Ref": "KVG"
                             }
                         ]
                     }
@@ -1106,7 +1106,7 @@
                     {
                         "Arn": {
                             "Fn::GetAtt": [
-                                "ASGScaleEventHandler",
+                                "EHandler",
                                 "Arn"
                             ]
                         },
@@ -1120,7 +1120,7 @@
             "Properties": {
                 "FunctionName": {
                     "Fn::GetAtt": [
-                        "ASGScaleEventHandler",
+                        "EHandler",
                         "Arn"
                     ]
                 },
@@ -1134,11 +1134,11 @@
                 }
             }
         },
-        "TiKVASGScaleOutLifecycleHook": {
+        "KVGScaleOutLifecycleHook": {
             "Type": "AWS::AutoScaling::LifecycleHook",
             "Properties": {
                 "AutoScalingGroupName": {
-                    "Ref": "TiKVASG"
+                    "Ref": "KVG"
                 },
                 "LifecycleTransition": "autoscaling:EC2_INSTANCE_LAUNCHING",
                 "HeartbeatTimeout": 30,
@@ -1158,7 +1158,7 @@
                     "detail": {
                         "AutoScalingGroupName": [
                             {
-                                "Ref": "TiKVASG"
+                                "Ref": "KVG"
                             }
                         ]
                     }
@@ -1169,7 +1169,7 @@
                     {
                         "Arn": {
                             "Fn::GetAtt": [
-                                "ASGScaleEventHandler",
+                                "EHandler",
                                 "Arn"
                             ]
                         },
@@ -1183,7 +1183,7 @@
             "Properties": {
                 "FunctionName": {
                     "Fn::GetAtt": [
-                        "ASGScaleEventHandler",
+                        "EHandler",
                         "Arn"
                     ]
                 },
@@ -1197,11 +1197,11 @@
                 }
             }
         },
-        "TiKVASGScaleInLifecycleHook": {
+        "KVGScaleInLifecycleHook": {
             "Type": "AWS::AutoScaling::LifecycleHook",
             "Properties": {
                 "AutoScalingGroupName": {
-                    "Ref": "TiKVASG"
+                    "Ref": "KVG"
                 },
                 "LifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
                 "HeartbeatTimeout": 300,
@@ -1214,14 +1214,14 @@
                 "QueueName": "demo-queue"
             },
             "DependsOn": [
-                "ASGScaleEventHandler"
+                "EHandler"
             ]
         },
-        "TiDBASGCPUPolicy": {
+        "DBGCPUPolicy": {
             "Type": "AWS::AutoScaling::ScalingPolicy",
             "Properties": {
                 "AutoScalingGroupName": {
-                    "Ref": "TiDBASG"
+                    "Ref": "DBG"
                 },
                 "PolicyType": "TargetTrackingScaling",
                 "TargetTrackingConfiguration": {
@@ -1232,11 +1232,11 @@
                 }
             }
         },
-        "TiKVASGCPUPolicy": {
+        "KVGCPUPolicy": {
             "Type": "AWS::AutoScaling::ScalingPolicy",
             "Properties": {
                 "AutoScalingGroupName": {
-                    "Ref": "TiKVASG"
+                    "Ref": "KVG"
                 },
                 "PolicyType": "TargetTrackingScaling",
                 "TargetTrackingConfiguration": {
@@ -1246,150 +1246,152 @@
                     "TargetValue": 30.0
                 }
             }
-        }
-    },
-    "DemoLambdaRole": {
-        "Type": "AWS::IAM::Role",
-        "Properties": {
-            "AssumeRolePolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
-                    {
-                        "Effect": "Allow",
-                        "Principal": {
-                            "Service": [
-                                "lambda.amazonaws.com"
+        },
+        "DemoLambdaRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "lambda.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
                             ]
-                        },
-                        "Action": [
-                            "sts:AssumeRole"
-                        ]
-                    }
-                ]
-            },
-            "Path": "/",
-            "Policies": [
-                {
-                    "PolicyDocument": {
-                        "Version": "2012-10-17",
-                        "Statement": [
-                            {
-                                "Effect": "Allow",
-                                "Action": "sts:GetCallerIdentity",
-                                "Resource": "*"
-                            },
-                            {
-                                "Effect": "Allow",
-                                "Action": [
-                                    "elasticloadbalancing:*"
-                                ],
-                                "Resource": "*"
-                            },
-                            {
-                                "Effect": "Allow",
-                                "Action": [
-                                    "ec2:Desribe*",
-                                    "ec2:List*",
-                                    "ec2:DeleteTags",
-                                    "ec2:CreateTags"
-                                ],
-                                "Resource": "*"
-                            },
-                            {
-                                "Effect": "Allow",
-                                "Action": [
-                                    "sqs:*"
-                                ],
-                                "Resource": "*"
-                            },
-                            {
-                                "Effect": "Allow",
-                                "Action": [
-                                    "logs:*"
-                                ],
-                                "Resource": "*"
-                            }
-                        ]
-                    }
-                }
-            ]
-        }
-    },
-    "DemoInstanceRole": {
-        "Type": "AWS::IAM::Role",
-        "Properties": {
-            "AssumeRolePolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
                     {
-                        "Effect": "Allow",
-                        "Principal": {
-                            "Service": [
-                                "ec2.amazonaws.com"
+                        "PolicyName": "DemoLambdaPolicy01",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": "sts:GetCallerIdentity",
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "elasticloadbalancing:*"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "ec2:Describe*",
+                                        "ec2:List*",
+                                        "ec2:DeleteTags",
+                                        "ec2:CreateTags"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "sqs:*"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "logs:*"
+                                    ],
+                                    "Resource": "*"
+                                }
                             ]
+                        }
+                    }
+                ]
+            }
+        },
+        "DemoInstanceRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/"
+            }
+        },
+        "DemoInstanceRolePolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "DemoInstancePolicy01",
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "sts:GetCallerIdentity",
+                            "Resource": "*"
                         },
-                        "Action": [
-                            "sts:AssumeRole"
-                        ]
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "elasticloadbalancing:RegisterTargets",
+                                "elasticloadbalancing:DeregisterTargets",
+                                "elasticloadbalancing:Describe*"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "ec2:Describe*",
+                                "ec2:List*"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "sqs:*"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "DemoInstanceRole"
                     }
                 ]
-            },
-            "Path": "/"
-        }
-    },
-    "DemoInstanceRolePolicy": {
-        "Type": "AWS::IAM::Policy",
-        "Properties": {
-            "PolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
+            }
+        },
+        "DemoInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
                     {
-                        "Effect": "Allow",
-                        "Action": "sts:GetCallerIdentity",
-                        "Resource": "*"
-                    },
-                    {
-                        "Effect": "Allow",
-                        "Action": [
-                            "elasticloadbalancing:RegisterTargets",
-                            "elasticloadbalancing:DeregisterTargets",
-                            "elasticloadbalancing:Describe*"
-                        ],
-                        "Resource": "*"
-                    },
-                    {
-                        "Effect": "Allow",
-                        "Action": [
-                            "ec2:Desribe*",
-                            "ec2:List*"
-                        ],
-                        "Resource": "*"
-                    },
-                    {
-                        "Effect": "Allow",
-                        "Action": [
-                            "sqs:*"
-                        ],
-                        "Resource": "*"
+                        "Ref": "DemoInstanceRole"
                     }
                 ]
-            },
-            "Roles": [
-                {
-                    "Ref": "DemoInstanceRole"
-                }
-            ]
-        }
-    },
-    "DemoInstanceProfile": {
-        "Type": "AWS::IAM::InstanceProfile",
-        "Properties": {
-            "Path": "/",
-            "Roles": [
-                {
-                    "Ref": "DemoInstanceRole"
-                }
-            ]
+            }
         }
     }
 }
