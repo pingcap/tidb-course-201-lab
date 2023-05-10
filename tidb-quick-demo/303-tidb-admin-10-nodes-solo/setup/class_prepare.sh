@@ -6,14 +6,14 @@ STUDENTS_COUNT=1
 
 for IDX in $(seq 1 ${STUDENTS_COUNT});
 do
-    HOST_MONITOR_PUBLIC_IP=`aws ec2 describe-instances \
+    HOST_MONITOR1_PUBLIC_IP=`aws ec2 describe-instances \
       --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user${IDX}" "Name=tag:role,Values=monitor1" "Name=tag:trainer,Values=${TRAINER}" \
       --query "Reservations[0].Instances[0].PublicIpAddress" \
       --output text \
       --region ${REGION_CODE}`
     
-    ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ec2-user@${HOST_MONITOR_PUBLIC_IP} ./00-prepare-node-roles-for-user.sh user${IDX} ${TRAINER}
-    ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ec2-user@${HOST_MONITOR_PUBLIC_IP} cat ./hosts-env.sh
+    ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ec2-user@${HOST_MONITOR1_PUBLIC_IP} ./00-prepare-node-roles-for-user.sh user${IDX} ${TRAINER}
+    ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ec2-user@${HOST_MONITOR1_PUBLIC_IP} cat ./hosts-env.sh
 
     for PD_IDX in $(seq 1 2);
     do
