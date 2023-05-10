@@ -1,5 +1,5 @@
 user: tidb
-tidb_version: v6.1.0
+tidb_version: v6.5.0
 topology:
   global:
     user: tidb
@@ -44,7 +44,7 @@ topology:
   - host: <HOST_DB2_PRIVATE_IP>
     ssh_port: 22
     port: 4000
-    status_port: 10081
+    status_port: 10080
     deploy_dir: /tidb-deploy/tidb-4000
     log_dir: /tidb-deploy/tidb-4000/log
     arch: amd64
@@ -85,8 +85,8 @@ topology:
     log_dir: /tidb-deploy/tikv-20160/log
     config:
       server.labels:
-        region: virginia
-        zone: az1
+        region: oregon
+        zone: az3
     arch: amd64
     os: linux
   tiflash_servers:
@@ -142,8 +142,8 @@ topology:
     log_dir: /tidb-deploy/pd-2379/log
     config:
       server.labels:
-        region: virginia
-        zone: az1
+        region: oregon
+        zone: az3
     arch: amd64
     os: linux
   monitoring_servers:
