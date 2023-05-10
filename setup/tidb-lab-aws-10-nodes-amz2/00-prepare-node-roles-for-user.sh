@@ -237,7 +237,7 @@ sed -i '' \
 cp ./template-lightning-p2.toml ./lightning-p2.toml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
-  -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
   ./lightning-p2.toml 2>/dev/null
 
 # Setup TiUP meta.yaml
