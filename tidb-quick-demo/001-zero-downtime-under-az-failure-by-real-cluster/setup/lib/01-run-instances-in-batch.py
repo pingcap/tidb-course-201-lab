@@ -47,11 +47,11 @@ def _run_pd_nodes(session: boto3.Session, trainer_name: str, student_count: int)
 
 
 def _run_kv_nodes(session: boto3.Session, trainer_name: str, student_count: int):
-    _run_nodes(session, trainer_name, student_count, "TiKV", 3, 5, 3)
+    _run_nodes(session, trainer_name, student_count, "TiKV", 3, 3, 3)
 
 
 def _run_db_nodes(session: boto3.Session, trainer_name: str, student_count: int):
-    _run_nodes(session, trainer_name, student_count, "TiDB", 2, 4, 2)
+    _run_nodes(session, trainer_name, student_count, "TiDB", 2, 2, 2)
 
 
 if __name__ == "__main__":
