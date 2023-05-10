@@ -21,7 +21,9 @@ EOF
 exit
 EOFX
 
-ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_PD1_PRIVATE_IP} "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql -pq1w2e3R4_"
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_PD1_PRIVATE_IP} << EOF
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql -pq1w2e3R4_
+EOF
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << EOF
 CREATE TABLE test.T1(id INT PRIMARY KEY, name VARCHAR(20));
