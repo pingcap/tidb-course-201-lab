@@ -131,7 +131,232 @@
       ```
 
 # Demo Workflow
-1. TODO
+1. Get the public ip of the monitor instance.
+    ```
+    $ ./check_nodes.sh | grep monitor | awk -F"|" '{print $3}'
+    ```
+    ```
+    $ ./check_nodes.sh | grep monitor | awk -F"|" '{print $3}'
+    18.x.x.163
+    ```
+
+2. Open **4 terminals**, and SSH (enabling forward) to the mornitor instance.
+    a. Add the private key identity to the SSH authentication agent:
+      ```
+      $ ssh-add ~/.ssh/pe-class-key.pem
+      ``` 
+
+    b. SSH into the `monitor` instance with forwarding enabeld:
+      ```
+      $ ssh -A ec2-user@<monitor_public_ip>
+      ```
+      ```
+      $ ssh -A ec2-user@18.x.x.163
+      Last login: Mon May  8 03:27:29 2023
+
+             __|  __|_  )
+             _|  (     /   Amazon Linux 2 AMI
+            ___|\___|___|
+
+      https://aws.amazon.com/amazon-linux-2/
+      [ec2-user@ip-10-90-4-254 ~]$
+      ```
+
+3. On all **4 terminals**, connect to TiDB.
+   ```
+   $ ./connect-db1.sh
+   ```
+   ```
+   $ ./connect-db1.sh
+   Welcome to the MySQL monitor.  Commands end with ; or \g.
+   ...
+   tidb:db1> 
+   ```
+
+4. In terminal 1, check the value of the system variable `tidb_enable_metadata_lock`. If the value is `ON`, update the value to `OFF`.
+    ```
+    tidb:db1> SHOW VARIABLES LIKE "tidb_enable_metadata_lock"; 
+    tidb:db1> SET GLOBAL tidb_enable_metadata_lock = OFF;
+    ```
+    ```
+    tidb:db1> SHOW VARIABLES LIKE "tidb_enable_metadata_lock"; 
+    +---------------------------+-------+
+    | Variable_name             | Value |
+    +---------------------------+-------+
+    | tidb_enable_metadata_lock | ON    |
+    +---------------------------+-------+
+    1 row in set (0.00 sec)
+
+    tidb:db1> SET GLOBAL tidb_enable_metadata_lock = OFF;
+    uery OK, 0 rows affected (0.02 sec)
+    ```
+
+5. In terminal 1, create the database `demo`, table `t1`, insert some values into the table, and start a transaction.
+    ```
+    tidb:db1> DROP DATABASE IF EXISTS demo;
+    tidb:db1> CREATE DATABASE demo;
+    tidb:db1> USE demo;
+    tidb:db1> CREATE TABLE IF NOT EXISTS t1 (
+                id BIGINT NOT NULL PRIMARY KEY auto_increment,
+                num INT
+                );
+    tidb:db1> INSERT INTO t1(num) VALUES (1);
+    tidb:db1> INSERT INTO t1(num) VALUES (2);
+    tidb:db1> BEGIN;
+    tidb:db1> INSERT INTO t1(num) VALUES (3);
+    ```
+    ```
+    tidb:db1> DROP DATABASE IF EXISTS demo;
+    Query OK, 0 rows affected (0.52 sec)
+
+    tidb:db1> CREATE DATABASE demo;
+    Query OK, 0 rows affected (0.53 sec)
+
+    tidb:db1> USE demo;
+    Database changed
+
+    tidb:db1> CREATE TABLE IF NOT EXISTS t1 (
+    ->  id BIGINT NOT NULL PRIMARY KEY auto_increment,
+    ->  num INT
+    -> );
+    Query OK, 0 rows affected (0.53 sec)
+
+    tidb:db1> INSERT INTO t1(num) VALUES (1);
+    Query OK, 1 row affected (0.01 sec)
+
+    tidb:db1> INSERT INTO t1(num) VALUES (2);
+    Query OK, 1 row affected (0.00 sec)
+
+    tidb:db1> BEGIN;
+    Query OK, 0 rows affected (0.00 sec)
+
+    tidb:db1> INSERT INTO t1(num) VALUES (3);
+    Query OK, 1 row affected (0.00 sec)
+    ```
+
+6. In terminal 2, create an index.
+    ```
+    tidb:db1> USE demo;
+    tidb:db1> CREATE INDEX idx1 ON t1 (num);
+    ```
+    ```
+    tidb:db1> USE demo;
+    Reading table information for completion of table and column names
+    You can turn off this feature to get a quicker startup with -A
+
+    Database changed
+    tidb:db1> CREATE INDEX idx1 ON t1 (num);
+    Query OK, 0 rows affected (9.03 sec)
+    ```
+
+7. In terminal 3, insert a record into the table.
+    ```
+    tidb:db1> USE demo;
+    tidb:db1> INSERT INTO t1(num) VALUES (4); 
+    ```
+    ```
+    tidb:db1> USE demo;
+    Reading table information for completion of table and column names
+    You can turn off this feature to get a quicker startup with -A
+
+    Database changed
+    tidb:db1> INSERT INTO t1(num) VALUES (4); 
+    Query OK, 1 row affected (0.00 sec)
+    ```
+
+8. In terminal 4, query the table.
+    ```
+    tidb:db1> USE demo;
+    tidb:db1> SELECT * FROM t1; 
+    ```
+    ```
+    tidb:db1> USE demo;
+    Reading table information for completion of table and column names
+    You can turn off this feature to get a quicker startup with -A
+
+    Database changed
+    tidb:db1> SELECT * FROM t1; 
+    +----+------+
+    | id | num  |
+    +----+------+
+    |  1 |    1 |
+    |  2 |    2 |
+    |  4 |    4 |
+    +----+------+
+    3 rows in set (0.00 sec)
+    ```
+
+9. Commit the transaction in terminal 1.
+    ```
+    tidb:db1> COMMIT;
+    ERROR 8028 (HY000): Information schema is changed during the execution of the statement(for example, table definition may be updated by other DDL ran in parallel). If you see this error often, try increasing `tidb_max_delta_schema_count`. [try again later]
+    ```
+
+10. In terminal 1, change the value of the system variable `tidb_enable_metadata_lock` to `ON`.
+    ```
+    tidb:db1> SET GLOBAL tidb_enable_metadata_lock = ON;
+    tidb:db1> SHOW VARIABLES LIKE "tidb_enable_metadata_lock"; 
+    ```
+    ```
+    tidb:db1> SET GLOBAL tidb_enable_metadata_lock = ON;
+    uery OK, 0 rows affected (0.02 sec)
+
+    tidb:db1> SHOW VARIABLES LIKE "tidb_enable_metadata_lock"; 
+    +---------------------------+-------+
+    | Variable_name             | Value |
+    +---------------------------+-------+
+    | tidb_enable_metadata_lock | ON    |
+    +---------------------------+-------+
+    1 row in set (0.00 sec)
+    ```
+
+11. Repeat the step 5 to 9. Observe the difference. Then, exit the connection with TiDB.
+
+12. In all four terminals, connect to PD1.
+    ```
+    $ ./ssh-to-pd1.sh 
+    ```
+    ```
+    $ ./ssh-to-pd1.sh 
+    Last login: Thu May 11 00:51:19 2023 from ip-10-90-4-254.us-west-2.compute.internal
+
+        __|  __|_  )
+        _|  (     /   Amazon Linux 2 AMI
+        ___|\___|___|
+
+    https://aws.amazon.com/amazon-linux-2/
+    ```
+13. In terminal 1, start MySQL server instance:
+    ```
+    $ sudo service mysqld start
+    ```
+    ```
+    $ sudo service mysqld start
+    Redirecting to /bin/systemctl start mysqld.service
+    ```
+
+14. Get the temporary password for `root@'localhost'`, then **jot down it** for subsequent steps. 
+   ```
+   $ ./show-mysql-password.sh
+   ```
+   ```
+   $ ./show-mysql-password.sh
+   SyJujk,V8amm
+   ```
+
+15. Log in MySQL server on port 3306 as `root@'localhost'` and change the default password to `q1w2e3R4_'`. 
+   ```
+   $ mysql -u root -p -h 127.0.0.1 -P 3306
+   ```
+   ```sql
+   ALTER USER root@'localhost' IDENTIFIED BY 'q1w2e3R4_';
+   ```
+   ```
+   mysql> ALTER USER root@'localhost' IDENTIFIED BY 'q1w2e3R4_';
+   Query OK, 0 rows affected (0.00 sec)
+   ```
+
+16. Repeat step 5 to 9 in the terminal 1 to 4, observe the results. Note that you need to login to MySQL on terminal 2, 3, and 4.
 
 # Tear Down the Demo Environment
 1. On your local machine, under `setup` directory, run `remove-quick-demo-stack-on-aws.sh` and `show-quick-demo-stack-on-aws.sh`:
