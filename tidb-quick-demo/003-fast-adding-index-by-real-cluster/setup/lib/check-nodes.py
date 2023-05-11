@@ -20,7 +20,11 @@ def _check(
     session: boto3.Session,
     trainer_name: str,
 ):
-    c5_xlarge_minute_price = 0.0028333333333333335 + 0.00022768670309653916
+    c5_xlarge_instance_minute_price = 0.0028333333333333335
+    ebs_gp2_100gb_minute_price = 0.00023148148148148146
+    c5_xlarge_minute_price = (
+        c5_xlarge_instance_minute_price + ebs_gp2_100gb_minute_price
+    )
     ec2_client = session.client("ec2")
     response = None
     if trainer_name == "all":

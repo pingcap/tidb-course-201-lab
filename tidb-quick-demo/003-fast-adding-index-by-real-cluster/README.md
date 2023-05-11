@@ -3,7 +3,7 @@
 2. This demo requires **Python3**, **awscli**, and **boto3** installed on your local machine.
 3. You need an active AWS account for testing purposes. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role. The identity you use must have the permissions to manage following services or resources: IAM roles, VPC, EC2, ELB, SQS, Lambda, IAM roles, CloudWatch, CloudWatch Logs, Auto Scaling Group, EventBridge, CloudFormation. 
 4. **MAKE SURE** you also follow the instructions to tear down the demo environment after the showcase, otherwise AWS will keep charging you.
-5. Estimated demo cost: ~2 USD.
+5. Estimated demo cost: ~1 USD.
 
 # Demo Preparation
 1. Setup EC2 instance SSH identity:
