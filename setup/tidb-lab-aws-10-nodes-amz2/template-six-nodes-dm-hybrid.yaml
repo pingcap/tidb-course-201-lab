@@ -13,8 +13,8 @@ worker_servers:
   - host: <HOST_KV2_PRIVATE_IP>
   - host: <HOST_KV3_PRIVATE_IP>
 monitoring_servers:
-  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_MONITOR1_PRIVATE_IP>
 grafana_servers:
-  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_MONITOR1_PRIVATE_IP>
 alertmanager_servers:
-  - host: <HOST_PD1_PRIVATE_IP>
+  - host: <HOST_MONITOR1_PRIVATE_IP>
