@@ -7,19 +7,19 @@ import java.util.Date;
 public class DemoJdbcEndlessInsertDummyCSPWithLB {
 
     public static void main(String[] args) {
-        Thread[] workers = new Thread[] { new InsertWorker1(args[0]), new InsertWorker2(args[0]),
-                new InsertWorker3(args[0]), new InsertWorker4(args[0]) };
+        Thread[] workers = new Thread[] { new InsertWorkerCSP1(args[0]), new InsertWorkerCSP2(args[0]),
+                new InsertWorkerCSP3(args[0]), new InsertWorkerCSP4(args[0]) };
         for (Thread worker : workers) {
             new Thread(worker).start();
         }
     }
 }
 
-class InsertWorker1 extends Thread {
+class InsertWorkerCSP1 extends Thread {
 
     private String lbName;
 
-    public InsertWorker1(String lbName) {
+    public InsertWorkerCSP1(String lbName) {
         super();
         this.lbName = lbName;
     }
@@ -45,14 +45,17 @@ class InsertWorker1 extends Thread {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-                dateTime = new Date().toString();
+                if (dateTime == null) {
+                    dateTime = new Date().toString();
+                }
                 ps.setString(1, "worker1");
                 ps.setString(2, "time");
-                ps.setString(3, new Date().toString());
+                ps.setString(3, dateTime);
                 ps.setString(4, "interval");
                 ps.setInt(5, interval);
                 ps.setQueryTimeout(1);
                 ps.executeUpdate();
+                dateTime = null;
                 System.out.println(
                         "Worker 1 -> TiDB:" + dateTime + " at " + hostName);
                 if (!exceptionBackoff) {
@@ -71,11 +74,11 @@ class InsertWorker1 extends Thread {
     }
 }
 
-class InsertWorker2 extends Thread {
+class InsertWorkerCSP2 extends Thread {
 
     private String lbName;
 
-    public InsertWorker2(String lbName) {
+    public InsertWorkerCSP2(String lbName) {
         super();
         this.lbName = lbName;
     }
@@ -101,10 +104,12 @@ class InsertWorker2 extends Thread {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-                dateTime = new Date().toString();
+                if (dateTime == null) {
+                    dateTime = new Date().toString();
+                }
                 ps.setString(1, "worker2");
                 ps.setString(2, "time");
-                ps.setString(3, new Date().toString());
+                ps.setString(3, dateTime);
                 ps.setString(4, "interval");
                 ps.setInt(5, interval);
                 ps.setQueryTimeout(1);
@@ -127,11 +132,11 @@ class InsertWorker2 extends Thread {
     }
 }
 
-class InsertWorker3 extends Thread {
+class InsertWorkerCSP3 extends Thread {
 
     private String lbName;
 
-    public InsertWorker3(String lbName) {
+    public InsertWorkerCSP3(String lbName) {
         super();
         this.lbName = lbName;
     }
@@ -157,10 +162,12 @@ class InsertWorker3 extends Thread {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-                dateTime = new Date().toString();
+                if (dateTime == null) {
+                    dateTime = new Date().toString();
+                }
                 ps.setString(1, "worker3");
                 ps.setString(2, "time");
-                ps.setString(3, new Date().toString());
+                ps.setString(3, dateTime);
                 ps.setString(4, "interval");
                 ps.setInt(5, interval);
                 ps.setQueryTimeout(1);
@@ -183,11 +190,11 @@ class InsertWorker3 extends Thread {
     }
 }
 
-class InsertWorker4 extends Thread {
+class InsertWorkerCSP4 extends Thread {
 
     private String lbName;
 
-    public InsertWorker4(String lbName) {
+    public InsertWorkerCSP4(String lbName) {
         super();
         this.lbName = lbName;
     }
@@ -213,10 +220,12 @@ class InsertWorker4 extends Thread {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
-                dateTime = new Date().toString();
+                if (dateTime == null) {
+                    dateTime = new Date().toString();
+                }
                 ps.setString(1, "worker4");
                 ps.setString(2, "time");
-                ps.setString(3, new Date().toString());
+                ps.setString(3, dateTime);
                 ps.setString(4, "interval");
                 ps.setInt(5, interval);
                 ps.setQueryTimeout(1);
