@@ -16,6 +16,8 @@ openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout key.pem -ou
 
 scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no key.pem ec2-user@${HOST_DB1_PRIVATE_IP}:/home/ec2-user/
 scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no cert.pem ec2-user@${HOST_DB1_PRIVATE_IP}:/home/ec2-user/
+scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no key.pem ec2-user@${HOST_DB2_PRIVATE_IP}:/home/ec2-user/
+scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no cert.pem ec2-user@${HOST_DB2_PRIVATE_IP}:/home/ec2-user/
 
 HOST_TIPROXY1_PRIVATE_IP=`aws ec2 describe-instances \
   --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user1" "Name=tag:role,Values=tiproxy1" "Name=tag:trainer,Values=${TRAINER}" \
@@ -36,4 +38,6 @@ scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tiproxy.toml ec2
 ./start-tiproxy.sh ${HOST_TIPROXY2_PRIVATE_IP} &
 
 cp .tiup/storage/cluster/clusters/tidb-demo/meta.yaml .tiup/storage/cluster/clusters/tidb-demo/meta.yaml.bak
+cp ./meta.yaml .tiup/storage/cluster/clusters/tidb-demo/meta.yaml
 
+tiup cluster reload tidb-demo --yes
