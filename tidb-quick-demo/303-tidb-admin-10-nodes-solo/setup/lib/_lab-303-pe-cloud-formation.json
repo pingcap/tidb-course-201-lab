@@ -47,7 +47,9 @@
                     },
                     {
                         "Key": "Name",
-                        "Value": "demo-vpc"
+                        "Value": {
+                            "Ref": "TrainerName"
+                        }
                     }
                 ]
             }
@@ -120,7 +122,18 @@
                     },
                     {
                         "Key": "Name",
-                        "Value": "demo-subnet-1"
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "TrainerName"
+                                    },
+                                    "subnet",
+                                    "1"
+                                ]
+                            ]
+                        }
                     }
                 ]
             }
@@ -147,7 +160,18 @@
                     },
                     {
                         "Key": "Name",
-                        "Value": "demo-subnet-2"
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "TrainerName"
+                                    },
+                                    "subnet",
+                                    "2"
+                                ]
+                            ]
+                        }
                     }
                 ]
             }
@@ -174,7 +198,18 @@
                     },
                     {
                         "Key": "Name",
-                        "Value": "demo-subnet-3"
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "TrainerName"
+                                    },
+                                    "subnet",
+                                    "3"
+                                ]
+                            ]
+                        }
                     }
                 ]
             }
@@ -201,7 +236,18 @@
                     },
                     {
                         "Key": "Name",
-                        "Value": "demo-subnet-4"
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "TrainerName"
+                                    },
+                                    "subnet",
+                                    "4"
+                                ]
+                            ]
+                        }
                     }
                 ]
             }
@@ -304,7 +350,17 @@
                     },
                     {
                         "Key": "Name",
-                        "Value": "quick-demo-sg"
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    {
+                                        "Ref": "TrainerName"
+                                    },
+                                    "-sg"
+                                ]
+                            ]
+                        }
                     }
                 ]
             }
@@ -332,7 +388,16 @@
             "Properties": {
                 "VersionDescription": "v1",
                 "LaunchTemplateName": {
-                    "Fn::Sub": "${AWS::StackName}-quick-demo-tikv-lt"
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "tikv",
+                            "lt"
+                        ]
+                    ]
                 },
                 "LaunchTemplateData": {
                     "Monitoring": {
@@ -405,7 +470,16 @@
             "Properties": {
                 "VersionDescription": "v1",
                 "LaunchTemplateName": {
-                    "Fn::Sub": "${AWS::StackName}-quick-demo-pd-lt"
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "pd",
+                            "lt"
+                        ]
+                    ]
                 },
                 "LaunchTemplateData": {
                     "Monitoring": {
@@ -478,7 +552,16 @@
             "Properties": {
                 "VersionDescription": "v1",
                 "LaunchTemplateName": {
-                    "Fn::Sub": "${AWS::StackName}-quick-demo-tidb-lt"
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "tidb",
+                            "lt"
+                        ]
+                    ]
                 },
                 "LaunchTemplateData": {
                     "Monitoring": {
@@ -551,7 +634,16 @@
             "Properties": {
                 "VersionDescription": "v1",
                 "LaunchTemplateName": {
-                    "Fn::Sub": "${AWS::StackName}-quick-demo-tiflash-lt"
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "tiflash",
+                            "lt"
+                        ]
+                    ]
                 },
                 "LaunchTemplateData": {
                     "IamInstanceProfile": {
@@ -621,7 +713,16 @@
             "Properties": {
                 "VersionDescription": "v1",
                 "LaunchTemplateName": {
-                    "Fn::Sub": "${AWS::StackName}-quick-demo-monitor-lt"
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "monitor",
+                            "lt"
+                        ]
+                    ]
                 },
                 "LaunchTemplateData": {
                     "IamInstanceProfile": {
@@ -689,7 +790,18 @@
         "KVG": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
-                "AutoScalingGroupName": "TiKV",
+                "AutoScalingGroupName": {
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "TiKV",
+                            "asg"
+                        ]
+                    ]
+                },
                 "LaunchTemplate": {
                     "LaunchTemplateId": {
                         "Ref": "KVT"
@@ -739,7 +851,18 @@
         "PDG": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
-                "AutoScalingGroupName": "PD",
+                "AutoScalingGroupName": {
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "PD",
+                            "asg"
+                        ]
+                    ]
+                },
                 "LaunchTemplate": {
                     "LaunchTemplateId": {
                         "Ref": "PDT"
@@ -789,7 +912,18 @@
         "DBG": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
-                "AutoScalingGroupName": "TiDB",
+                "AutoScalingGroupName": {
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "TiDB",
+                            "asg"
+                        ]
+                    ]
+                },
                 "LaunchTemplate": {
                     "LaunchTemplateId": {
                         "Ref": "DBT"
@@ -839,7 +973,18 @@
         "TFG": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
-                "AutoScalingGroupName": "TiFlash",
+                "AutoScalingGroupName": {
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "TiFlash",
+                            "asg"
+                        ]
+                    ]
+                },
                 "LaunchTemplate": {
                     "LaunchTemplateId": {
                         "Ref": "TFLT"
@@ -883,7 +1028,18 @@
         "MG": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
-                "AutoScalingGroupName": "Monitor",
+                "AutoScalingGroupName": {
+                    "Fn::Join": [
+                        "-",
+                        [
+                            {
+                                "Ref": "TrainerName"
+                            },
+                            "Monitor",
+                            "asg"
+                        ]
+                    ]
+                },
                 "LaunchTemplate": {
                     "LaunchTemplateId": {
                         "Ref": "MLT"

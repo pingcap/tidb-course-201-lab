@@ -1,5 +1,5 @@
 # Notes
-1. **DO NOT** deploy the lab Cloud Formation in production environment. You are at your own risk.
+1. **DO NOT** deploy the lab CloudFormation in production environment. You are at your own risk.
 2. This lab setup requires **Python3**, **awscli**, and **boto3** installed on your local machine.
 3. You need an active AWS account in order to run this setup. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role. The identity you use must have the permissions to manage following services or resources: IAM roles, VPC, EC2, ELB, SQS, Lambda, IAM roles, CloudWatch, CloudWatch Logs, Auto Scaling Group, EventBridge, CloudFormation. 
 4. **MAKE SURE** you also follow the instructions to tear down the demo environment after the showcase, otherwise AWS will keep charging you.
@@ -24,7 +24,7 @@
     $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
     ```
 
-3. Create the class Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
+3. Create the class CloudFormation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
     $ cd setup/
     $ ./deploy-lab-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
@@ -36,7 +36,7 @@
     }
     ```
 
-4. Wait the Cloud Formation stack run to completion. Run following script to check the status, until you get the `COMPLETION` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 5 auto scaling groups, 10 EC2 instances:
+4. Wait the CloudFormation stack run to completion. Run following script to check the status, until you get the `COMPLETION` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 5 auto scaling groups, 10 EC2 instances:
     ```
     $ ./show-quick-demo-stack-on-aws.sh
     ``` 
@@ -163,7 +163,7 @@
    }
    ```
 
-2. Verify that the Cloud Formation stack had been dropped successfully. Run `show-lab-stack-on-aws.sh` until you get a `Stack with id lab-303-v2 does not exist` error message:
+2. Verify that the CloudFormation stack had been dropped successfully. Run `show-lab-stack-on-aws.sh` until you get a `Stack with id lab-303-v2 does not exist` error message:
    ```
    $ ./show-lab-stack-on-aws.sh
    An error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id lab-303-v2 does not exist

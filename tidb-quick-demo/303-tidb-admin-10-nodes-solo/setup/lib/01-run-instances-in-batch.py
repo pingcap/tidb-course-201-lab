@@ -29,7 +29,7 @@ def _run_nodes(
     max_nodes_count_target = max_nodes_per_student * student_count
     desired_nodes_count_target = desired_nodes_per_student * student_count
     asg_client = session.client("autoscaling")
-    asg_name = node_type
+    asg_name = "-".join([trainer_name, node_type, "asg"])
     asg_client.update_auto_scaling_group(
         AutoScalingGroupName=asg_name,
         MinSize=min_nodes_count_target,
