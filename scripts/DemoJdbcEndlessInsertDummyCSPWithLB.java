@@ -55,9 +55,9 @@ class InsertWorkerCSP1 extends Thread {
                 ps.setInt(5, interval);
                 ps.setQueryTimeout(1);
                 ps.executeUpdate();
-                dateTime = null;
                 System.out.println(
                         "Worker 1 -> TiDB:" + dateTime + " at " + hostName);
+                dateTime = null;
                 if (!exceptionBackoff) {
                     try {
                         Thread.sleep(1000);
@@ -116,6 +116,7 @@ class InsertWorkerCSP2 extends Thread {
                 ps.executeUpdate();
                 System.out.println(
                         "Worker 2 -> TiDB:" + dateTime + " at " + hostName);
+                dateTime = null;
                 if (!exceptionBackoff) {
                     try {
                         Thread.sleep(1000);
@@ -174,6 +175,7 @@ class InsertWorkerCSP3 extends Thread {
                 ps.executeUpdate();
                 System.out.println(
                         "Worker 3 -> TiDB:" + dateTime + " at " + hostName);
+                dateTime = null;
                 if (!exceptionBackoff) {
                     try {
                         Thread.sleep(1000);
@@ -232,6 +234,7 @@ class InsertWorkerCSP4 extends Thread {
                 ps.executeUpdate();
                 System.out.println(
                         "Worker 4 -> TiDB:" + dateTime + " at " + hostName);
+                dateTime = null;
                 if (!exceptionBackoff) {
                     try {
                         Thread.sleep(1000);
