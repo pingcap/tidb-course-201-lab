@@ -247,6 +247,13 @@ sed -i '' \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
   ./lightning-sql.toml 2>/dev/null
 
+# Setup lightning-init.toml
+cp ./template-lightning-init.toml ./solution-lightning-init.toml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
+  ./solution-lightning-init.toml 2>/dev/null
+
 # Setup TiUP meta.yaml
 cp ./template-tiup-meta.yaml ./solution-tiup-meta.yaml
 sed -i '' \

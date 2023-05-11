@@ -1,0 +1,20 @@
+[lightning]
+level = "info"
+file = "tidb-lightning.log"
+
+[tikv-importer]
+incremental-import = true
+backend = "local"
+sorted-kv-dir = "/tmp/sorted-kv-dir"
+
+[mydumper]
+data-source-dir = "/home/ec2-user/stage/TiDB-Administration-exercise-data/exercise-10"
+filter = ['*.*', '!mysql.*', '!sys.*', '!INFORMATION_SCHEMA.*', '!PERFORMANCE_SCHEMA.*', '!METRICS_SCHEMA.*', '!INSPECTION_SCHEMA.*']
+
+[tidb]
+host = "<HOST_DB1_PRIVATE_IP>"
+port = 4000
+user = "ltask"
+password = "q1w2e3R4_"
+status-port = 10080
+pd-addr = "<HOST_PD1_PRIVATE_IP>:2379"
