@@ -9,8 +9,8 @@
 
 ## Folders Description
 + Assets to setup [TiDB quick demo](/tidb-quick-demo) environment.
-+ All scripts are placed in [scripts/](/scripts) folder.
-+ All dependent assets support the scripts are placed in [scripts/misc/](/scripts/misc) folder.
++ All scripts are placed in [scripts](/scripts) folder.
++ All dependent assets support the scripts are placed in [misc](/scripts/misc) folder.
 
 ## Additional Readings
 + [TiDB Documentation](https://docs.pingcap.com/)
