@@ -8,17 +8,18 @@
 # Demo Preparation
 1. Setup EC2 instance SSH identity:
 
-   a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
+    + a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
 
-   b. Change the private key file permission to `r--`:
+    + b. Change the private key file permission to `r--`:
     ```
     $ chmod 400 ~/.ssh/pe-class-key.pem
     ```
 
 2. Setup AWS credentials for your terminal.
    
-   a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
-   b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
+    + a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
+   
+    + b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
     ```
     $ export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
     $ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRECT_ACCESS_KEY>"
