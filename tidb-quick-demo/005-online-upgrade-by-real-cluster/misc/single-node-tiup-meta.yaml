@@ -1,0 +1,131 @@
+user: tidb
+tidb_version: v6.5.1
+topology:
+  global:
+    user: tidb
+    ssh_port: 22
+    ssh_type: builtin
+    deploy_dir: /tidb-deploy
+    data_dir: /tidb-data
+    os: linux
+    arch: amd64
+  monitored:
+    node_exporter_port: 9100
+    blackbox_exporter_port: 9115
+    deploy_dir: /tidb-deploy/monitor-9100
+    data_dir: /tidb-data/monitor-9100
+    log_dir: /tidb-deploy/monitor-9100/log
+  server_configs:
+    tidb:
+      security.auto-tls: true
+      security.session-token-signing-cert: /home/tidb/cert.pem
+      security.session-token-signing-key: /home/tidb/key.pem
+      graceful-wait-before-shutdown: 10
+    tikv:
+      log.level: warn
+    pd:
+      replication.location-labels:
+      - region
+      - zone
+      replication.max-replicas: 3
+    tidb_dashboard: {}
+    tiflash: {}
+    tiflash-learner: {}
+    pump: {}
+    drainer: {}
+    cdc: {}
+    kvcdc: {}
+    grafana: {}
+  tidb_servers:
+  - host: 10.0.0.56
+    ssh_port: 22
+    port: 4000
+    status_port: 10080
+    deploy_dir: /tidb-deploy/tidb-4000
+    log_dir: /tidb-deploy/tidb-4000/log
+    arch: amd64
+    os: linux
+  - host: 10.0.0.56
+    ssh_port: 22
+    port: 4001
+    status_port: 10081
+    deploy_dir: /tidb-deploy/tidb-4001
+    log_dir: /tidb-deploy/tidb-4001/log
+    arch: amd64
+    os: linux
+  tikv_servers:
+  - host: 10.0.0.56
+    ssh_port: 22
+    port: 20160
+    status_port: 20180
+    deploy_dir: /tidb-deploy/tikv-20160
+    data_dir: /tidb-data/tikv-20160
+    log_dir: /tidb-deploy/tikv-20160/log
+    config:
+      server.labels:
+        region: oregon
+        zone: az1
+    arch: amd64
+    os: linux
+  tiflash_servers:
+  - host: 10.0.0.56
+    ssh_port: 22
+    tcp_port: 9000
+    http_port: 8123
+    flash_service_port: 3930
+    flash_proxy_port: 20170
+    flash_proxy_status_port: 20292
+    metrics_port: 8234
+    deploy_dir: /tidb-deploy/tiflash-9000
+    data_dir: /tidb-data/tiflash-9000
+    log_dir: /tidb-deploy/tiflash-9000/log
+    arch: amd64
+    os: linux
+  pd_servers:
+  - host: 10.0.0.56
+    ssh_port: 22
+    name: pd-10.80.0.17-2379
+    client_port: 2379
+    peer_port: 2380
+    deploy_dir: /tidb-deploy/pd-2379
+    data_dir: /tidb-data/pd-2379
+    log_dir: /tidb-deploy/pd-2379/log
+    config:
+      server.labels:
+        region: oregon
+        zone: az1
+    arch: amd64
+    os: linux
+  monitoring_servers:
+  - host: 10.0.0.56
+    ssh_port: 22
+    port: 9090
+    ng_port: 12020
+    deploy_dir: /tidb-deploy/prometheus-9090
+    data_dir: /tidb-data/prometheus-9090
+    log_dir: /tidb-deploy/prometheus-9090/log
+    external_alertmanagers: []
+    arch: amd64
+    os: linux
+  grafana_servers:
+  - host: 10.0.0.56
+    ssh_port: 22
+    port: 3000
+    deploy_dir: /tidb-deploy/grafana-3000
+    arch: amd64
+    os: linux
+    username: admin
+    password: admin
+    anonymous_enable: false
+    root_url: ""
+    domain: ""
+  alertmanager_servers:
+  - host: 10.0.0.56
+    ssh_port: 22
+    web_port: 9093
+    cluster_port: 9094
+    deploy_dir: /tidb-deploy/alertmanager-9093
+    data_dir: /tidb-data/alertmanager-9093
+    log_dir: /tidb-deploy/alertmanager-9093/log
+    arch: amd64
+    os: linux
