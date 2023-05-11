@@ -8,22 +8,23 @@
 # Demo Preparation
 1. Setup EC2 instance SSH identity:
 
-   a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
+    + a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
 
-   b. Change the private key file permission to `r--`:
-    ```
-    $ chmod 400 ~/.ssh/pe-class-key.pem
-    ```
+    + b. Change the private key file permission to `r--`:
+      ```
+      $ chmod 400 ~/.ssh/pe-class-key.pem
+      ```
 
 2. Setup AWS credentials for your terminal.
    
-   a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
-   b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
-    ```
-    $ export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
-    $ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRECT_ACCESS_KEY>"
-    $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
-    ```
+    + a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
+    
+    + b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
+      ```
+      $ export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
+      $ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRECT_ACCESS_KEY>"
+      $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
+      ```
 
 3. Create the demo Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
@@ -129,7 +130,7 @@
     $ ssh-add ~/.ssh/pe-class-key.pem
     ```
 
-9.  Provision the demo cluster topology by running `demo_prewarm.sh <YOUR_NAME>`:
+9. Provision the demo cluster topology by running `demo_prewarm.sh <YOUR_NAME>`:
     ```
     $ ./demo_prewarm.sh <YOUR_NAME>
     ```
@@ -152,40 +153,40 @@
     ```
 
 11. Initialize the demo TiDB Cluster.
-    a. Login monitor instance, if you are prompted, enter `yes`:
-    ```
-    $ ssh -A ec2-user@18.x.x.163
-    ```
+    + a. Login monitor instance, if you are prompted, enter `yes`:
+      ```
+      $ ssh -A ec2-user@18.x.x.163
+      ```
 
-    b. On monitor instance, run `create-cluster-v651.sh` to create the TiDB cluster named `tidb-demo`. It takes around 5 minutes to complete.
+    + b. On monitor instance, run `create-cluster-v651.sh` to create the TiDB cluster named `tidb-demo`. It takes around 5 minutes to complete.
     ```
     $ ./create-cluster-v651.sh 
-    ...
-    Started cluster `tidb-demo` successfully
-    tiup is checking updates for component cluster ...
-    Starting component `cluster`: /home/ec2-user/.tiup/components/cluster/v1.12.1/tiup-cluster display tidb-demo
-    Cluster type:       tidb
-    Cluster name:       tidb-demo
-    Cluster version:    v6.5.1
-    Deploy user:        tidb
-    SSH type:           builtin
-    Dashboard URL:      http://10.90.3.214:2379/dashboard
-    Grafana URL:        http://10.90.4.10:3000
-    ID                 Role          Host         Ports        OS/Arch       Status  Data Dir                      Deploy Dir
-    --                 ----          ----         -----        -------       ------  --------                      ----------
-    10.90.4.10:9093    alertmanager  10.90.4.10   9093/9094    linux/x86_64  Up      /tidb-data/alertmanager-9093  /tidb-deploy/alertmanager-9093
-    10.90.4.10:3000    grafana       10.90.4.10   3000         linux/x86_64  Up      -                             /tidb-deploy/grafana-3000
-    10.90.1.246:2379   pd            10.90.1.246  2379/2380    linux/x86_64  Up|L    /tidb-data/pd-2379            /tidb-deploy/pd-2379
-    10.90.2.161:2379   pd            10.90.2.161  2379/2380    linux/x86_64  Up      /tidb-data/pd-2379            /tidb-deploy/pd-2379
-    10.90.3.214:2379   pd            10.90.3.214  2379/2380    linux/x86_64  Up|UI   /tidb-data/pd-2379            /tidb-deploy/pd-2379
-    10.90.4.10:9090    prometheus    10.90.4.10   9090/12020   linux/x86_64  Up      /tidb-data/prometheus-9090    /tidb-deploy/prometheus-9090
-    10.90.1.65:4000    tidb          10.90.1.65   4000/10080   linux/x86_64  Up      -                             /tidb-deploy/tidb-4000
-    10.90.2.51:4000    tidb          10.90.2.51   4000/10080   linux/x86_64  Up      -                             /tidb-deploy/tidb-4000
-    10.90.1.135:20160  tikv          10.90.1.135  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
-    10.90.2.194:20160  tikv          10.90.2.194  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
-    10.90.3.220:20160  tikv          10.90.3.220  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
-    Total nodes: 11
-    ```
+      ...
+      Started cluster `tidb-demo` successfully
+      tiup is checking updates for component cluster ...
+      Starting component `cluster`: /home/ec2-user/.tiup/components/cluster/v1.12.1/tiup-cluster display tidb-demo
+      Cluster type:       tidb
+      Cluster name:       tidb-demo
+      Cluster version:    v6.5.1
+      Deploy user:        tidb
+      SSH type:           builtin
+      Dashboard URL:      http://10.90.3.214:2379/dashboard
+      Grafana URL:        http://10.90.4.10:3000
+      ID                 Role          Host         Ports        OS/Arch       Status  Data Dir                      Deploy Dir
+      --                 ----          ----         -----        -------       ------  --------                      ----------
+      10.90.4.10:9093    alertmanager  10.90.4.10   9093/9094    linux/x86_64  Up      /tidb-data/alertmanager-9093  /tidb-deploy/alertmanager-9093
+      10.90.4.10:3000    grafana       10.90.4.10   3000         linux/x86_64  Up      -                             /tidb-deploy/grafana-3000
+      10.90.1.246:2379   pd            10.90.1.246  2379/2380    linux/x86_64  Up|L    /tidb-data/pd-2379            /tidb-deploy/pd-2379
+      10.90.2.161:2379   pd            10.90.2.161  2379/2380    linux/x86_64  Up      /tidb-data/pd-2379            /tidb-deploy/pd-2379
+      10.90.3.214:2379   pd            10.90.3.214  2379/2380    linux/x86_64  Up|UI   /tidb-data/pd-2379            /tidb-deploy/pd-2379
+      10.90.4.10:9090    prometheus    10.90.4.10   9090/12020   linux/x86_64  Up      /tidb-data/prometheus-9090    /tidb-deploy/prometheus-9090
+      10.90.1.65:4000    tidb          10.90.1.65   4000/10080   linux/x86_64  Up      -                             /tidb-deploy/tidb-4000
+      10.90.2.51:4000    tidb          10.90.2.51   4000/10080   linux/x86_64  Up      -                             /tidb-deploy/tidb-4000
+      10.90.1.135:20160  tikv          10.90.1.135  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
+      10.90.2.194:20160  tikv          10.90.2.194  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
+      10.90.3.220:20160  tikv          10.90.3.220  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
+      Total nodes: 11
+      ```
 
 # Demo Workflow
 1. Get the public ip of the monitor instance.
@@ -198,12 +199,12 @@
     ```
 
 2. SSH (enabling forward) to the mornitor instance.
-    a. Add the private key identity to the SSH authentication agent:
+    + a. Add the private key identity to the SSH authentication agent:
       ```
       $ ssh-add ~/.ssh/pe-class-key.pem
       ``` 
 
-    b. SSH into the `monitor` instance with forwarding enabeld:
+    + b. SSH into the `monitor` instance with forwarding enabeld:
       ```
       $ ssh -A ec2-user@<monitor_public_ip>
       ```

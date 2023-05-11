@@ -8,22 +8,23 @@
 # Demo Preparation
 1. Setup EC2 instance SSH identity:
 
-   a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
+    + a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
 
-   b. Change the private key file permission to `r--`:
-    ```
-    $ chmod 400 ~/.ssh/pe-class-key.pem
-    ```
+    + b. Change the private key file permission to `r--`:
+      ```
+      $ chmod 400 ~/.ssh/pe-class-key.pem
+      ```
 
 2. Setup AWS credentials for your terminal.
    
-   a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
-   b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
-    ```
-    $ export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
-    $ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRECT_ACCESS_KEY>"
-    $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
-    ```
+    + a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
+    
+    + b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
+      ```
+      $ export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
+      $ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRECT_ACCESS_KEY>"
+      $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
+      ```
 
 3. Create the demo Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
@@ -89,12 +90,12 @@
       # Reporting End - 2023-05-08 11:44:24.198537 with 10 nodes.
     ```
 
-8. Add the private key identity to the SSH authentication agent:
+6. Add the private key identity to the SSH authentication agent:
     ```
     $ ssh-add ~/.ssh/pe-class-key.pem
     ```
 
-9.  Provision the demo cluster topology by running `demo_prewarm.sh <YOUR_NAME>`:
+7. Provision the demo cluster topology by running `demo_prewarm.sh <YOUR_NAME>`:
     ```
     $ ./demo_prewarm.sh <YOUR_NAME>
     ```
@@ -107,7 +108,7 @@
     # Reporting End - 2023-05-08 11:47:38.302259 with 10 nodes.
     ```
 
-10. Get the public IP address of the monitor EC2 instance. Run `check_nodes.sh`:
+8. Get the public IP address of the monitor EC2 instance. Run `check_nodes.sh`:
     ```
     $ ./check_nodes.sh | grep monitor | awk -F"|" '{print $3}'
     ```
@@ -116,18 +117,18 @@
     18.x.x.163
     ```
 
-11. Initialize the demo TiDB Cluster.
-    a. Login monitor instance, if you are prompted, enter `yes`:
-    ```
-    $ ssh -A ec2-user@18.x.x.163
-    ```
+9. Initialize the demo TiDB Cluster.
+    + a. Login monitor instance, if you are prompted, enter `yes`:
+      ```
+      $ ssh -A ec2-user@18.x.x.163
+      ```
 
-    b. On monitor instance, run `create-cluster-v651.sh` to create the TiDB cluster named `tidb-demo`. It takes around 5 minutes to complete.
-    ```
-    $ ./create-cluster-v651.sh 
-    ...
-    Total nodes: 12
-    ```
+    + b. On monitor instance, run `create-cluster-v651.sh` to create the TiDB cluster named `tidb-demo`. It takes around 5 minutes to complete.
+      ```
+      $ ./create-cluster-v651.sh 
+      ...
+      Total nodes: 12
+      ```
 
 # Demo Workflow
 1. TODO
