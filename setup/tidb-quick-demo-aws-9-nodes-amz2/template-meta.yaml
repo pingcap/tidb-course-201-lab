@@ -17,10 +17,10 @@ topology:
     log_dir: /tidb-deploy/monitor-9100/log
   server_configs:
     tidb:
-			security.auto-tls: true
-			security.session-token-signing-cert: /home/ec2-user/cert.pem
-			security.session-token-signing-key: /home/ec2-user/key.pem
-			graceful-wait-before-shutdown: 10
+     security.auto-tls: true
+     security.session-token-signing-cert: /home/ec2-user/cert.pem
+     security.session-token-signing-key: /home/ec2-user/key.pem
+     graceful-wait-before-shutdown: 10
     tikv: {}
     pd:
       replication.location-labels:
