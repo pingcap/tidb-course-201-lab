@@ -18,7 +18,7 @@ graceful-wait-before-shutdown = 30
 # possible values:
 #		"" => enable static routing.
 #		"pd-addr:pd-port" => automatically tidb discovery.
-pd-addrs = "<HOST_PD1_PRIVATE_IP>:2379"
+pd-addrs = "<HOST_PD1_PRIVATE_IP>:2379,<HOST_PD2_PRIVATE_IP>:2379,<HOST_PD3_PRIVATE_IP>:2379"
 
 # possible values:
 #		0 => no limitation.
@@ -76,11 +76,7 @@ level = "warn"
 # peer object:
 #   1. requires: cert/key/ca or auto-certs
 #   2. useless/forbid: skip-ca
-	[server]
-		cert = "/home/ec2-user/cert.pem"
-		key = "/home/ec2-user/key.pem"
-		auto-certs = false
-		skip-ca = true
+
 	# client object
 	[security.cluster-tls]
 	# access to other components like TiDB or PD, will use this
