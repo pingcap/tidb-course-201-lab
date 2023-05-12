@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script is for TiDB Quick Demo 005 - Online Upgrade.
+
 source ./hosts-env.sh
 
 REGION_CODE=us-west-2
