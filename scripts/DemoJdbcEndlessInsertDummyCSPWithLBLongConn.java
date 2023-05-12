@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class DemoJdbcEndlessInsertDummyCSPWithLBTiProxy {
+public class DemoJdbcEndlessInsertDummyCSPWithLBLongConn {
 
     public static void main(String[] args) {
         Thread[] workers = new Thread[] { new InsertWorkerCSPTiProxy1(args[0]), new InsertWorkerCSPTiProxy2(args[0]),
@@ -24,16 +24,10 @@ class InsertWorkerCSPTiProxy1 extends Thread {
         this.lbName = lbName;
     }
 
-    @Override
-    public void run() {
+    public Connection getOneConnection(String hostName) {
         String connectionString = null;
         Connection connection = null;
-        int interval = 0;
-        String sqlInsertIntoTable = null;
-        PreparedStatement ps = null;
-        String dateTime = null;
-        String hostName = this.lbName;
-        boolean exceptionBackoff = false;
+        // Get one connection.
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
@@ -42,6 +36,29 @@ class InsertWorkerCSPTiProxy1 extends Thread {
                 connection = DriverManager.getConnection(
                         connectionString,
                         "root", "");
+                return connection;
+            } catch (SQLException exp) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        Connection connection = null;
+        int interval = 0;
+        String sqlInsertIntoTable = null;
+        PreparedStatement ps = null;
+        String dateTime = null;
+        String hostName = this.lbName;
+        boolean exceptionBackoff = false;
+        connection = this.getOneConnection(hostName);
+        while (true) {
+            try {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
@@ -68,6 +85,12 @@ class InsertWorkerCSPTiProxy1 extends Thread {
                 exceptionBackoff = false;
             } catch (SQLException e) {
                 exceptionBackoff = true;
+                try {
+                    connection.close();
+                } catch (SQLException e1) {
+                    System.out.println("Work 1 discards connection and try to get a new connection");
+                }
+                connection = this.getOneConnection(hostName);
                 continue;
             }
         }
@@ -83,16 +106,10 @@ class InsertWorkerCSPTiProxy2 extends Thread {
         this.lbName = lbName;
     }
 
-    @Override
-    public void run() {
+    public Connection getOneConnection(String hostName) {
         String connectionString = null;
         Connection connection = null;
-        int interval = 0;
-        String sqlInsertIntoTable = null;
-        PreparedStatement ps = null;
-        String dateTime = null;
-        String hostName = this.lbName;
-        boolean exceptionBackoff = false;
+        // Get one connection.
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
@@ -101,6 +118,29 @@ class InsertWorkerCSPTiProxy2 extends Thread {
                 connection = DriverManager.getConnection(
                         connectionString,
                         "root", "");
+                return connection;
+            } catch (SQLException exp) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        Connection connection = null;
+        int interval = 0;
+        String sqlInsertIntoTable = null;
+        PreparedStatement ps = null;
+        String dateTime = null;
+        String hostName = this.lbName;
+        boolean exceptionBackoff = false;
+        connection = this.getOneConnection(hostName);
+        while (true) {
+            try {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
@@ -127,6 +167,12 @@ class InsertWorkerCSPTiProxy2 extends Thread {
                 exceptionBackoff = false;
             } catch (SQLException e) {
                 exceptionBackoff = true;
+                try {
+                    connection.close();
+                } catch (SQLException e1) {
+                    System.out.println("Work 2 discards connection and try to get a new connection");
+                }
+                connection = this.getOneConnection(hostName);
                 continue;
             }
         }
@@ -142,16 +188,10 @@ class InsertWorkerCSPTiProxy3 extends Thread {
         this.lbName = lbName;
     }
 
-    @Override
-    public void run() {
+    public Connection getOneConnection(String hostName) {
         String connectionString = null;
         Connection connection = null;
-        int interval = 0;
-        String sqlInsertIntoTable = null;
-        PreparedStatement ps = null;
-        String dateTime = null;
-        String hostName = this.lbName;
-        boolean exceptionBackoff = false;
+        // Get one connection.
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
@@ -160,6 +200,29 @@ class InsertWorkerCSPTiProxy3 extends Thread {
                 connection = DriverManager.getConnection(
                         connectionString,
                         "root", "");
+                return connection;
+            } catch (SQLException exp) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        Connection connection = null;
+        int interval = 0;
+        String sqlInsertIntoTable = null;
+        PreparedStatement ps = null;
+        String dateTime = null;
+        String hostName = this.lbName;
+        boolean exceptionBackoff = false;
+        connection = this.getOneConnection(hostName);
+        while (true) {
+            try {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
@@ -186,6 +249,12 @@ class InsertWorkerCSPTiProxy3 extends Thread {
                 exceptionBackoff = false;
             } catch (SQLException e) {
                 exceptionBackoff = true;
+                try {
+                    connection.close();
+                } catch (SQLException e1) {
+                    System.out.println("Work 3 discards connection and try to get a new connection");
+                }
+                connection = this.getOneConnection(hostName);
                 continue;
             }
         }
@@ -201,16 +270,10 @@ class InsertWorkerCSPTiProxy4 extends Thread {
         this.lbName = lbName;
     }
 
-    @Override
-    public void run() {
+    public Connection getOneConnection(String hostName) {
         String connectionString = null;
         Connection connection = null;
-        int interval = 0;
-        String sqlInsertIntoTable = null;
-        PreparedStatement ps = null;
-        String dateTime = null;
-        String hostName = this.lbName;
-        boolean exceptionBackoff = false;
+        // Get one connection.
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
@@ -219,6 +282,29 @@ class InsertWorkerCSPTiProxy4 extends Thread {
                 connection = DriverManager.getConnection(
                         connectionString,
                         "root", "");
+                return connection;
+            } catch (SQLException exp) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        Connection connection = null;
+        int interval = 0;
+        String sqlInsertIntoTable = null;
+        PreparedStatement ps = null;
+        String dateTime = null;
+        String hostName = this.lbName;
+        boolean exceptionBackoff = false;
+        connection = this.getOneConnection(hostName);
+        while (true) {
+            try {
                 // Do something in the connection
                 sqlInsertIntoTable = "INSERT INTO test.dummy (name, event, tidb_instance) VALUES (?,JSON_OBJECT(?,?,?,?), (SELECT instance FROM information_schema.cluster_processlist WHERE host=(SELECT host FROM information_schema.processlist WHERE id=CONNECTION_ID())))";
                 ps = connection.prepareStatement(sqlInsertIntoTable);
@@ -245,6 +331,12 @@ class InsertWorkerCSPTiProxy4 extends Thread {
                 exceptionBackoff = false;
             } catch (SQLException e) {
                 exceptionBackoff = true;
+                try {
+                    connection.close();
+                } catch (SQLException e1) {
+                    System.out.println("Work 4 discards connection and try to get a new connection");
+                }
+                connection = this.getOneConnection(hostName);
                 continue;
             }
         }
