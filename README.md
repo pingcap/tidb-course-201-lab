@@ -1,6 +1,6 @@
 # Lab Assets for TiDB Training Courses
 ## Caution:
-+ All scripts in this repository provide **no production warranty**; they are for **learning purposes only**. Use them at your own risk.
++ All scripts in this repository provide **no production warranty**; they are for study purposes only.
 + Please ask your instructor for guidance on how to use the scripts in this repository.
 
 ## TiDB Trainings Provided by PingCAP
