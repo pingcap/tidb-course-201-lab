@@ -1,5 +1,12 @@
 #!/bin/bash
 
+source ./hosts-env.sh
+
+REGION_CODE=us-west-2
+
+TRAINER=${1}
+
+# Place X509 to TiDB nodes.
 HOST_DB1_PRIVATE_IP=`aws ec2 describe-instances \
   --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user1" "Name=tag:role,Values=db1" "Name=tag:trainer,Values=${TRAINER}" \
   --query "Reservations[0].Instances[0].PrivateIpAddress" \
@@ -19,6 +26,7 @@ scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no cert.pem ec2-use
 scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no key.pem ec2-user@${HOST_DB2_PRIVATE_IP}:/home/ec2-user/
 scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no cert.pem ec2-user@${HOST_DB2_PRIVATE_IP}:/home/ec2-user/
 
+# Place TiProxy configuration to TiProxy nodes.
 HOST_TIPROXY1_PRIVATE_IP=`aws ec2 describe-instances \
   --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user1" "Name=tag:role,Values=tiproxy1" "Name=tag:trainer,Values=${TRAINER}" \
   --query "Reservations[0].Instances[0].PrivateIpAddress" \
@@ -34,10 +42,11 @@ HOST_TIPROXY2_PRIVATE_IP=`aws ec2 describe-instances \
 scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tiproxy.toml ec2-user@${HOST_TIPROXY1_PRIVATE_IP}:/home/ec2-user/
 scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tiproxy.toml ec2-user@${HOST_TIPROXY2_PRIVATE_IP}:/home/ec2-user/
 
+# Start TiProxy layer
 ./start-tiproxy.sh ${HOST_TIPROXY1_PRIVATE_IP} &
 ./start-tiproxy.sh ${HOST_TIPROXY2_PRIVATE_IP} &
 
+# Reload the TiDB cluster
 cp .tiup/storage/cluster/clusters/tidb-demo/meta.yaml .tiup/storage/cluster/clusters/tidb-demo/meta.yaml.bak
 cp ./meta.yaml .tiup/storage/cluster/clusters/tidb-demo/meta.yaml
-
-tiup cluster reload tidb-demo --yes
+~/.tiup/bin/tiup cluster reload tidb-demo --yes

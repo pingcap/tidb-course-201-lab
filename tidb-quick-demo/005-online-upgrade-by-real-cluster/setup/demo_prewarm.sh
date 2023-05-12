@@ -4,8 +4,10 @@ REGION_CODE=us-west-2
 TRAINER=${1}
 STUDENTS_COUNT=1
 
+# Prepare Monitor1, PD1 and PD2
 for IDX in $(seq 1 ${STUDENTS_COUNT});
 do
+    # Prepare the Monitor1
     HOST_MONITOR_PUBLIC_IP=`aws ec2 describe-instances \
       --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user${IDX}" "Name=tag:role,Values=monitor1" "Name=tag:trainer,Values=${TRAINER}" \
       --query "Reservations[0].Instances[0].PublicIpAddress" \
@@ -15,6 +17,7 @@ do
     ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ec2-user@${HOST_MONITOR_PUBLIC_IP} ./00-prepare-node-roles-for-user.sh user${IDX} ${TRAINER}
     ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ec2-user@${HOST_MONITOR_PUBLIC_IP} cat ./hosts-env.sh
 
+    # Prepare the PD1 and PD2
     for PD_IDX in $(seq 1 2);
     do
       HOST_PD_PUBLIC_IP=`aws ec2 describe-instances \
@@ -29,6 +32,7 @@ do
     done;
 done; 
 
+# Register 2 TiProxy nodes to NLB
 VPC_ID=`aws ec2 describe-vpcs --filters "Name=tag:Name,Values=demo-vpc" --query "Vpcs[0].VpcId" --output text --region us-west-2`
 
 DEMO_TG_ARN=`aws elbv2 describe-target-groups \
