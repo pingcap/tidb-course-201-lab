@@ -16,5 +16,6 @@
 + [TiDB Documentation](https://docs.pingcap.com/)
 + [TiDB Developer Guide](https://docs.pingcap.com/tidb/stable/dev-guide-overview)
 
+---------------------------------------------------------------------------------
 
-<img src="/diagram/PE-One-Page-20230512.jpeg" width="90%" align="top"/>
+<img src="/diagram/PE-One-Page-20230512.jpeg" width="100%" align="top"/>
