@@ -128,6 +128,19 @@ HOST_MONITOR1_PUBLIC_IP=`aws ec2 describe-instances \
 --output text \
 --region ${REGION_CODE}`
 
+# (optional) nodes TiProxy
+HOST_TIPROXY1_PRIVATE_IP=`aws ec2 describe-instances \
+  --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user1" "Name=tag:role,Values=tiproxy1" "Name=tag:trainer,Values=${TRAINER}" \
+  --query "Reservations[0].Instances[0].PrivateIpAddress" \
+  --output text \
+  --region ${REGION_CODE}`
+
+HOST_TIPROXY2_PRIVATE_IP=`aws ec2 describe-instances \
+  --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user1" "Name=tag:role,Values=tiproxy2" "Name=tag:trainer,Values=${TRAINER}" \
+  --query "Reservations[0].Instances[0].PrivateIpAddress" \
+  --output text \
+  --region ${REGION_CODE}`
+
 echo export HOST_MONITOR1_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} > ./hosts-env.sh
 echo export HOST_MONITOR1_PUBLIC_IP=${HOST_MONITOR1_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_CM_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} >> ./hosts-env.sh
@@ -148,7 +161,8 @@ echo export HOST_KV2_PRIVATE_IP=${HOST_KV2_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_KV2_PUBLIC_IP=${HOST_KV2_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_KV3_PRIVATE_IP=${HOST_KV3_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_KV3_PUBLIC_IP=${HOST_KV3_PUBLIC_IP} >> ./hosts-env.sh
-
+echo export HOST_TIPROXY1_PRIVATE_IP=${HOST_TIPROXY1_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_TIPROXY2_PRIVATE_IP=${HOST_TIPROXY2_PRIVATE_IP} >> ./hosts-env.sh
 
 source ./hosts-env.sh
 
