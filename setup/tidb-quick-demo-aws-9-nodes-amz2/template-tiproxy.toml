@@ -18,7 +18,7 @@ graceful-wait-before-shutdown = 30
 # possible values:
 #		"" => enable static routing.
 #		"pd-addr:pd-port" => automatically tidb discovery.
-pd-addrs = "<HOST_PD1_PRIVATE_IP>:2379,<HOST_PD2_PRIVATE_IP>:2379,<HOST_PD3_PRIVATE_IP>:2379"
+pd-addrs = ["<HOST_PD1_PRIVATE_IP>:2379,<HOST_PD2_PRIVATE_IP>:2379,<HOST_PD3_PRIVATE_IP>:2379"]
 
 # possible values:
 #		0 => no limitation.
