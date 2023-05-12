@@ -179,7 +179,7 @@ sed -i '' \
   ./nine-nodes.yaml 2>/dev/null
 
 # Setup TiUP Cluster Topology
-cp ./template-meta.toml ./meta.toml
+cp ./template-meta.yaml ./meta.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
@@ -190,7 +190,7 @@ sed -i '' \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
   -e "s/<HOST_MONITOR1_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
-  ./meta.toml 2>/dev/null
+  ./meta.yaml 2>/dev/null
 
 # Setup TiProxy
 cp ./template-tiproxy.toml ./tiproxy.toml
