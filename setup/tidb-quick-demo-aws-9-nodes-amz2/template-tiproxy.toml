@@ -3,7 +3,7 @@
 [proxy]
 # addr = "0.0.0.0:6000"
 # tcp-keep-alive = true
-# require-backend-tls = true
+require-backend-tls = false
 
 # possible values:
 #   "" => disable proxy protocol.
