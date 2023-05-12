@@ -13,7 +13,7 @@ require-backend-tls = false
 # possible values:
 # 	0 => disable graceful shutdown.
 # 	30 => graceful shutdown waiting time in 30 seconds.
-# graceful-wait-before-shutdown = 0
+graceful-wait-before-shutdown = 30
 
 # possible values:
 #		"" => enable static routing.
@@ -39,7 +39,7 @@ pd-addrs = "<HOST_PD1_PRIVATE_IP>:2379"
 
 [log]
 
-# level = "info"
+level = "warn"
 
 # possible values:
 # 	"tidb" => formats used by tidb, check https://github.com/tikv/rfcs/blob/master/text/0018-unified-log-format.md.
@@ -76,7 +76,11 @@ pd-addrs = "<HOST_PD1_PRIVATE_IP>:2379"
 # peer object:
 #   1. requires: cert/key/ca or auto-certs
 #   2. useless/forbid: skip-ca
-
+	[server]
+		cert = "/home/ec2-user/cert.pem"
+		key = "/home/ec2-user/key.pem"
+		auto-certs = false
+		skip-ca = true
 	# client object
 	[security.cluster-tls]
 	# access to other components like TiDB or PD, will use this
