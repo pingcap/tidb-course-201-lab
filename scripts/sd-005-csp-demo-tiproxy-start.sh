@@ -21,6 +21,6 @@ scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tiproxy.toml ec2
 ./sd-005-tiproxy.sh ${HOST_TIPROXY2_PRIVATE_IP} &
 
 # Reload the TiDB cluster
-cp .tiup/storage/cluster/clusters/tidb-demo/meta.yaml .tiup/storage/cluster/clusters/tidb-demo/meta.yaml.bak
-cp ./meta.yaml .tiup/storage/cluster/clusters/tidb-demo/meta.yaml
+cp ~/.tiup/storage/cluster/clusters/tidb-demo/meta.yaml ~/.tiup/storage/cluster/clusters/tidb-demo/meta.yaml.bak
+cp ~/meta.yaml ~/.tiup/storage/cluster/clusters/tidb-demo/meta.yaml
 ~/.tiup/bin/tiup cluster reload tidb-demo --yes
