@@ -1,5 +1,5 @@
 user: tidb
-tidb_version: v6.5.1
+tidb_version: v6.5.0
 topology:
   global:
     user: tidb
