@@ -18,4 +18,4 @@
 
 ---------------------------------------------------------------------------------
 
-<img src="/diagram/PE-One-Page-20230512.jpeg" width="100%" align="top"/>
+<img src="/diagram/PE-One-Page-20230512.jpeg" width="80%" align="center"/>
