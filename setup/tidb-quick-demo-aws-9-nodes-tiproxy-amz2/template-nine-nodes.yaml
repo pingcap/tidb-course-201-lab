@@ -9,7 +9,8 @@ server_configs:
     replication.location-labels: ["region","zone"]
     replication.max-replicas: 3
   tidb:
-    security.auto-tls: true
+    security.session-token-signing-cert: /home/ec2-user/cert.pem
+    security.session-token-signing-key: /home/ec2-user/key.pem
     graceful-wait-before-shutdown: 10
 pd_servers:
   - host: <HOST_PD1_PRIVATE_IP>

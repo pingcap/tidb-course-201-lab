@@ -1,3 +1,5 @@
 [security]
 auto-tls = true
 rsa-key-size = 4096
+security.session-token-signing-cert = "/tmp/tidb-playgrond/cert.pem"
+security.session-token-signing-key = "/tmp/tidb-playground/key.pem"

@@ -128,6 +128,19 @@ HOST_MONITOR1_PUBLIC_IP=`aws ec2 describe-instances \
 --output text \
 --region ${REGION_CODE}`
 
+# (optional) nodes TiProxy
+HOST_TIPROXY1_PRIVATE_IP=`aws ec2 describe-instances \
+  --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user1" "Name=tag:role,Values=tiproxy1" "Name=tag:trainer,Values=${TRAINER}" \
+  --query "Reservations[0].Instances[0].PrivateIpAddress" \
+  --output text \
+  --region ${REGION_CODE}`
+
+HOST_TIPROXY2_PRIVATE_IP=`aws ec2 describe-instances \
+  --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user1" "Name=tag:role,Values=tiproxy2" "Name=tag:trainer,Values=${TRAINER}" \
+  --query "Reservations[0].Instances[0].PrivateIpAddress" \
+  --output text \
+  --region ${REGION_CODE}`
+
 echo export HOST_MONITOR1_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} > ./hosts-env.sh
 echo export HOST_MONITOR1_PUBLIC_IP=${HOST_MONITOR1_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_CM_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} >> ./hosts-env.sh
@@ -148,6 +161,8 @@ echo export HOST_KV2_PRIVATE_IP=${HOST_KV2_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_KV2_PUBLIC_IP=${HOST_KV2_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_KV3_PRIVATE_IP=${HOST_KV3_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_KV3_PUBLIC_IP=${HOST_KV3_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_TIPROXY1_PRIVATE_IP=${HOST_TIPROXY1_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_TIPROXY2_PRIVATE_IP=${HOST_TIPROXY2_PRIVATE_IP} >> ./hosts-env.sh
 
 source ./hosts-env.sh
 
@@ -163,7 +178,7 @@ echo ssh -A ${HOST_KV2_PRIVATE_IP} > ./ssh-to-kv2.sh
 echo ssh -A ${HOST_KV3_PRIVATE_IP} > ./ssh-to-kv3.sh
 chmod +x ./*.sh
 
-# Setup Nine Nodes TiDB Cluster Topology
+# Setup Ten Nodes TiDB Cluster Topology
 cp ./template-nine-nodes.yaml ./nine-nodes.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
@@ -190,6 +205,14 @@ sed -i '' \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
   -e "s/<HOST_MONITOR1_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
   ./meta.yaml 2>/dev/null
+
+# Setup TiProxy
+cp ./template-tiproxy.toml ./tiproxy.toml
+sed -i '' \
+  -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
+  -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
+  ./tiproxy.toml 2>/dev/null
 
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
