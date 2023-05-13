@@ -1,0 +1,11 @@
+resource_type,resource_tag,resource_name,related_resource,best_practice,current_practice,comment
+EBS,N/A,vol-087763082a6914a56,N/A,Encrypt,False,N/A,
+EBS,N/A,vol-058d6c5474cd5d918,N/A,Encrypt,False,N/A,
+EBS,N/A,vol-0d7c3cb55b80671f1,N/A,Encrypt,False,N/A,
+EBS,N/A,vol-0be07b958381c84da,N/A,Encrypt,False,N/A,
+EBS,N/A,vol-073fe3dfefdeab63a,N/A,Encrypt,False,N/A,
+EBS,N/A,vol-0ad367008fd0016ca,N/A,Encrypt,False,N/A,
+EBS,N/A,vol-02fc0b56519bc8dae,N/A,Encrypt,False,N/A,
+EBS,N/A,vol-01a1fea5c4bce9edb,N/A,Encrypt,False,N/A,
+EBS,N/A,vol-05ce63c612335b450,N/A,Encrypt,False,N/A,
+EBS,N/A,vol-05cb46c5f4442aae7,N/A,Encrypt,False,N/A,
