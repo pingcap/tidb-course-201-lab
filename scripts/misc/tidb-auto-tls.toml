@@ -1,0 +1,3 @@
+[security]
+auto-tls = true
+rsa-key-size = 4096
