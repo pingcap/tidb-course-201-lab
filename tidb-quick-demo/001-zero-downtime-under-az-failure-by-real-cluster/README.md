@@ -247,6 +247,12 @@
     "NewAssociationId": "aclassoc-0bf20fbe08121ddec"
    }
    ```
+
+7. Recover the connectivity for the network you close in the previous step:
+   ```
+   $ ./sd-001-csp-demo-subnet-open.sh demo-subnet-1
+   ```
+
 # Tear Down the Demo Environment
 1. On your local machine, under `setup` directory, run `remove-quick-demo-stack-on-aws.sh` and `show-quick-demo-stack-on-aws.sh`:
    ```
