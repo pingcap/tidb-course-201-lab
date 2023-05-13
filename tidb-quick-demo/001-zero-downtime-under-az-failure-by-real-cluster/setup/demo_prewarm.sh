@@ -29,31 +29,4 @@ do
     done;
 done; 
 
-VPC_ID=`aws ec2 describe-vpcs --filters "Name=tag:Name,Values=demo-vpc" --query "Vpcs[0].VpcId" --output text --region us-west-2`
-
-DEMO_TG_ARN=`aws elbv2 describe-target-groups \
-  --names demo-target-group \
-  --query "TargetGroups[0].TargetGroupArn" \
-  --output text \
-  --region us-west-2`
-
-HOST_DB1_PRIVATE_IP=`aws ec2 describe-instances \
-  --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user1" "Name=tag:role,Values=db1" "Name=tag:trainer,Values=${TRAINER}" \
-  --query "Reservations[0].Instances[0].PrivateIpAddress" \
-  --output text \
-  --region ${REGION_CODE}`
-
-HOST_DB2_PRIVATE_IP=`aws ec2 describe-instances \
-  --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=user1" "Name=tag:role,Values=db2" "Name=tag:trainer,Values=${TRAINER}" \
-  --query "Reservations[0].Instances[0].PrivateIpAddress" \
-  --output text \
-  --region ${REGION_CODE}`
-
-aws elbv2 register-targets \
-  --target-group-arn ${DEMO_TG_ARN} \
-  --targets "Id=${HOST_DB1_PRIVATE_IP},Port=4000" "Id=${HOST_DB2_PRIVATE_IP},Port=4000" \
-  --region us-west-2
-
-echo TiDB instances registered to NLB target group ${DEMO_TG_ARN}
-
 ./check_nodes.sh
