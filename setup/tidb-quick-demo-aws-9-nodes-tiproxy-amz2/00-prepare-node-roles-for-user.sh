@@ -217,7 +217,7 @@ sed -i '' \
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
 
-# Place X509 to TiDB and TiProxy nodes.
+# Place X509 to TiDB nodes.
 openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout key.pem -out cert.pem -subj "/CN=example.com"
 
 chmod 400 key.pem
