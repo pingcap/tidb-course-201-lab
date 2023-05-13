@@ -896,7 +896,8 @@
                             "Effect": "Allow",
                             "Action": [
                                 "ec2:Describe*",
-                                "ec2:List*"
+                                "ec2:List*",
+                                "ec2:ReplaceNetworkAcl*"
                             ],
                             "Resource": "*"
                         },
