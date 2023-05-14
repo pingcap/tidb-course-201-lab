@@ -4,17 +4,17 @@ REGION_CODE=us-west-2
 TRAINER=${1}
 STUDENTS_COUNT=1
 
-# python lib/01-run-instances-in-batch.py ${TRAINER}
-
 echo
 echo "##################################################"
-echo "# Waiting for 150 seconds for nodes starting up. #"
+echo "# Waiting for 120 seconds for nodes starting up. #"
 echo "##################################################"
 echo
 
 sleep 150;
-
+python lib/01-run-instances-in-batch.py ${TRAINER}
+sleep 5;
 python lib/02-assign-tags-in-batch.py ${TRAINER}
+sleep 5;
 
 for IDX in $(seq 1 ${STUDENTS_COUNT});
 do

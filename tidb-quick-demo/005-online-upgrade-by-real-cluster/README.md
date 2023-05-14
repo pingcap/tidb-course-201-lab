@@ -87,6 +87,80 @@
     $ ./demo_start.sh <YOUR_NAME>
     ```
     ```
+    $ ./demo_start.sh guanglei
+
+##################################################
+# Waiting for 150 seconds for nodes starting up. #
+##################################################
+
+1 students with 0 monitor node(s).
+ERROR: Total available monitor nodes count is 0 instead of 1.
+SOLUTION: Please wait and retry later or contact PE team.
+ssh: Could not resolve hostname none: nodename nor servname provided, or not known
+ssh: Could not resolve hostname none: nodename nor servname provided, or not known
+ssh: Could not resolve hostname none: nodename nor servname provided, or not known
+ssh: Could not resolve hostname none: nodename nor servname provided, or not known
+/etc/my.conf prepared on pd1
+ssh: Could not resolve hostname none: nodename nor servname provided, or not known
+ssh: Could not resolve hostname none: nodename nor servname provided, or not known
+/etc/my.conf prepared on pd2
+
+An error occurred (ValidationError) when calling the RegisterTargets operation: The IP address 'None' is not a valid IPv4 address
+TiProxy instances registered to NLB target group arn:aws:elasticloadbalancing:us-west-2:373771598235:targetgroup/demo-target-group/dfbfcbb628bd0d20
+
+* Note: Setup in progress for i-0f55ead8f5fb0beee.
+* Note: i-0f55ead8f5fb0beee might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-0e53e0a0a6b1953b7.
+* Note: i-0e53e0a0a6b1953b7 might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-06c293c21b2b7d66b.
+* Note: i-06c293c21b2b7d66b might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-0796c63dbec1529c4.
+* Note: i-0796c63dbec1529c4 might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-0bb9eb7bdf1caef74.
+* Note: i-0bb9eb7bdf1caef74 might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-0f30a85e7240205c6.
+* Note: i-0f30a85e7240205c6 might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-0577f402d23e2747f.
+* Note: i-0577f402d23e2747f might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-07a5ec4125e4db59a.
+* Note: i-07a5ec4125e4db59a might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-0621e143a2a0c40ce.
+* Note: i-0621e143a2a0c40ce might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-0dcdacb1cb4e81f03.
+* Note: i-0dcdacb1cb4e81f03 might need to be adding two tags with keys: `role` and `student` manually.
+
+* Note: Setup in progress for i-0ee2c3f33a5d9aad0.
+* Note: i-0ee2c3f33a5d9aad0 might need to be adding two tags with keys: `role` and `student` manually.
+
+# Running Nodes for All Trainers.
+
+
+| Instance ID         | Public IP        | Private IP       | Name          | Instructor | Student | Role      | Up Time (mins) |
+| :------------------ | :--------------- | :----------------| :------------ | :--------- | :------ | :-------- |:-------------- |
+| i-0577f402d23e2747f | 35.86.155.15     | 10.90.1.134      | kv            | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-0621e143a2a0c40ce | 35.87.26.192     | 10.90.2.198      | db            | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-06c293c21b2b7d66b | 52.40.78.96      | 10.90.2.81       | kv            | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-0796c63dbec1529c4 | 54.200.140.226   | 10.90.2.166      | tiproxy       | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-07a5ec4125e4db59a | 35.89.110.231    | 10.90.1.184      | pd            | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-0bb9eb7bdf1caef74 | 34.213.44.75     | 10.90.2.51       | pd            | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-0dcdacb1cb4e81f03 | 54.149.26.186    | 10.90.3.174      | tiproxy       | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-0e53e0a0a6b1953b7 | 34.220.193.161   | 10.90.3.54       | pd            | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-0ee2c3f33a5d9aad0 | 54.186.24.236    | 10.90.3.150      | kv            | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-0f30a85e7240205c6 | 54.200.160.90    | 10.90.1.82       | db            | guanglei.bao@pingcap.com |   |   | 6              | 
+| i-0f55ead8f5fb0beee | 18.246.0.200     | 10.90.4.8        | monitor       | guanglei.bao@pingcap.com |   |   | 6              | 
+
+# Class Total Cost: 0.21999999999999997 (USD)
+
+# Reporting End - 2023-05-14 11:13:44.669796 with 11 nodes.
     ```
 
 7.  Get the public IP address of the monitor EC2 instance. Run `check_nodes.sh`:
