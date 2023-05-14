@@ -6,13 +6,12 @@ STUDENTS_COUNT=1
 
 echo
 echo "##################################################"
-echo "# Waiting for 120 seconds for nodes starting up. #"
+echo "# Waiting for 150 seconds for nodes starting up. #"
 echo "##################################################"
 echo
 
-sleep 120;
 python lib/01-run-instances-in-batch.py ${TRAINER}
-sleep 5;
+sleep 150;
 python lib/02-assign-tags-in-batch.py ${TRAINER}
 sleep 5;
 

@@ -32,7 +32,7 @@
     $ ./deploy-quick-demo-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
     ```
     ```
-    $ ./deploy-quick-demo-stack-on-aws.sh gXXXXXXXo gXXXXXXXo@pXXXXXXXm
+    $ ./deploy-quick-demo-stack-on-aws.sh gxxxxxxxi gxxxxxxxi@pXXXXXXXm
       {
           "StackId": "arn:aws:cloudformation:us-west-2:XXXXXXXXXX:stack/quick-demo-002/d9caf6b0-ed4f-11ed-ac4e-02ca195509c9"
       }
@@ -52,11 +52,11 @@
                   "Parameters": [
                       {
                           "ParameterKey": "TrainerEmail",
-                          "ParameterValue": "gXXXXXXXo@pXXXXXXXm"
+                          "ParameterValue": "gxxxxxxxi@pXXXXXXXm"
                       },
                       {
                           "ParameterKey": "TrainerName",
-                          "ParameterValue": "gXXXXXXXo"
+                          "ParameterValue": "gxxxxxxxi"
                       }
                   ],
                   "CreationTime": "2023-05-08T03:24:33.184Z",
@@ -87,80 +87,97 @@
     $ ./demo_start.sh <YOUR_NAME>
     ```
     ```
-    $ ./demo_start.sh guanglei
+    $ ./demo_start.sh gxxxxxxi
 
-##################################################
-# Waiting for 150 seconds for nodes starting up. #
-##################################################
+      ##################################################
+      # Waiting for 150 seconds for nodes starting up. #
+      ##################################################
 
-1 students with 0 monitor node(s).
-ERROR: Total available monitor nodes count is 0 instead of 1.
-SOLUTION: Please wait and retry later or contact PE team.
-ssh: Could not resolve hostname none: nodename nor servname provided, or not known
-ssh: Could not resolve hostname none: nodename nor servname provided, or not known
-ssh: Could not resolve hostname none: nodename nor servname provided, or not known
-ssh: Could not resolve hostname none: nodename nor servname provided, or not known
-/etc/my.conf prepared on pd1
-ssh: Could not resolve hostname none: nodename nor servname provided, or not known
-ssh: Could not resolve hostname none: nodename nor servname provided, or not known
-/etc/my.conf prepared on pd2
+      1 students with 1 monitor node(s).
+      1 students with 3 pd node(s).
+      1 students with 3 kv node(s).
+      1 students with 2 db node(s).
+      1 students with 2 tiproxy node(s).
+      Tagging i-05e057b50753f1bf4 with class-user1:monitor1
+      Tagging monitor nodes completed.
+      Tagging i-08795e0a2fa5cb542 with class-user1:pd1
+      Tagging i-009cd15e6520cd64f with class-user1:pd2
+      Tagging i-030a6221138417aba with class-user1:pd3
+      Tagging pd nodes completed.
+      Tagging i-056c6f3fc861bb656 with class-user1:kv1
+      Tagging i-0c4668ac797846a7c with class-user1:kv2
+      Tagging i-09d256b2dd4ddc06e with class-user1:kv3
+      Tagging kv nodes completed.
+      Tagging i-0e213e8721b3fd53c with class-user1:db1
+      Tagging i-09a07eb498f444b95 with class-user1:db2
+      Tagging db nodes completed.
+      Tagging i-0b31f8159dd6865c5 with class-user1:tiproxy1
+      Tagging i-0ac1181710bea2944 with class-user1:tiproxy2
+      Tagging tiproxy nodes completed.
+      Warning: Permanently added '34.xx.xx.53' (ED25519) to the list of known hosts.
+      Generating a 4096 bit RSA private key
+      ............++
+      .........................................++
+      writing new private key to 'key.pem'
+      -----
+      Warning: Permanently added '10.xx.xx.216' (ECDSA) to the list of known hosts.
+      Warning: Permanently added '10.xx.xx.216' (ECDSA) to the list of known hosts.
+      Warning: Permanently added '10.xx.xx.163' (ECDSA) to the list of known hosts.
+      Warning: Permanently added '10.xx.xx.163' (ECDSA) to the list of known hosts.
+      Warning: Permanently added '10.xx.xx.5' (ECDSA) to the list of known hosts.
+      Warning: Permanently added '10.xx.xx.15' (ECDSA) to the list of known hosts.
 
-An error occurred (ValidationError) when calling the RegisterTargets operation: The IP address 'None' is not a valid IPv4 address
-TiProxy instances registered to NLB target group arn:aws:elasticloadbalancing:us-west-2:373771598235:targetgroup/demo-target-group/dfbfcbb628bd0d20
+      9 nodes are prepared for user user1 and trainer gxxxxxxi.
+      Warning: Permanently added '34.xx.xx.53' (ED25519) to the list of known hosts.
+      export HOST_MONITOR1_PRIVATE_IP=10.xx.xx.236
+      export HOST_MONITOR1_PUBLIC_IP=34.xx.xx.53
+      export HOST_CM_PRIVATE_IP=10.xx.xx.236
+      export HOST_CM_PUBLIC_IP=34.xx.xx.53
+      export HOST_PD1_PRIVATE_IP=10.xx.xx.79
+      export HOST_PD1_PUBLIC_IP=35.xx.xx.123
+      export HOST_PD2_PRIVATE_IP=10.xx.xx.239
+      export HOST_PD2_PUBLIC_IP=34.xx.xx.130
+      export HOST_PD3_PRIVATE_IP=10.xx.xx.60
+      export HOST_PD3_PUBLIC_IP=34.xx.xx.128
+      export HOST_DB1_PRIVATE_IP=10.xx.xx.216
+      export HOST_DB1_PUBLIC_IP=35.xx.xx.177
+      export HOST_DB2_PRIVATE_IP=10.xx.xx.163
+      export HOST_DB2_PUBLIC_IP=34.xx.xx.74
+      export HOST_KV1_PRIVATE_IP=10.xx.xx.54
+      export HOST_KV1_PUBLIC_IP=54.xx.xx.211
+      export HOST_KV2_PRIVATE_IP=10.xx.xx.13
+      export HOST_KV2_PUBLIC_IP=54.xx.xx.114
+      export HOST_KV3_PRIVATE_IP=10.xx.xx.174
+      export HOST_KV3_PUBLIC_IP=54.xx.xx.197
+      export HOST_TIPROXY1_PRIVATE_IP=10.xx.xx.5
+      export HOST_TIPROXY2_PRIVATE_IP=10.xx.xx.15
+      Warning: Permanently added '35.xx.xx.123' (ED25519) to the list of known hosts.
+      Warning: Permanently added '35.xx.xx.123' (ED25519) to the list of known hosts.
+      /etc/my.conf prepared on pd1
+      Warning: Permanently added '34.xx.xx.130' (ED25519) to the list of known hosts.
+      Warning: Permanently added '34.xx.xx.130' (ED25519) to the list of known hosts.
+      /etc/my.conf prepared on pd2
+      TiProxy instances registered to NLB target group arn:aws:elasticloadbalancing:us-west-2:373771598235:targetgroup/demo-target-group/46536346caf8778d
 
-* Note: Setup in progress for i-0f55ead8f5fb0beee.
-* Note: i-0f55ead8f5fb0beee might need to be adding two tags with keys: `role` and `student` manually.
+      # Running Nodes for All Trainers.
 
-* Note: Setup in progress for i-0e53e0a0a6b1953b7.
-* Note: i-0e53e0a0a6b1953b7 might need to be adding two tags with keys: `role` and `student` manually.
+      | Instance ID         | Public IP    | Private IP   | Name    | Instructor | Student | Role     | Up Time (mins) |
+      | :------------------ | :----------- | :----------- | :------ | :--------- | :------ | :------- | :------------- |
+      | i-0e213e8721b3fd53c | 35.xx.xx.177 | 10.xx.xx.216 | db      | gxxxxxxi   | user1   | db1      | 5              |
+      | i-09a07eb498f444b95 | 34.xx.xx.74  | 10.xx.xx.163 | db      | gxxxxxxi   | user1   | db2      | 5              |
+      | i-056c6f3fc861bb656 | 54.xx.xx.211 | 10.xx.xx.54  | kv      | gxxxxxxi   | user1   | kv1      | 5              |
+      | i-0c4668ac797846a7c | 54.xx.xx.114 | 10.xx.xx.13  | kv      | gxxxxxxi   | user1   | kv2      | 5              |
+      | i-09d256b2dd4ddc06e | 54.xx.xx.197 | 10.xx.xx.174 | kv      | gxxxxxxi   | user1   | kv3      | 5              |
+      | i-05e057b50753f1bf4 | 34.xx.xx.53  | 10.xx.xx.236 | monitor | gxxxxxxi   | user1   | monitor1 | 5              |
+      | i-08795e0a2fa5cb542 | 35.xx.xx.123 | 10.xx.xx.79  | pd      | gxxxxxxi   | user1   | pd1      | 5              |
+      | i-009cd15e6520cd64f | 34.xx.xx.130 | 10.xx.xx.239 | pd      | gxxxxxxi   | user1   | pd2      | 5              |
+      | i-030a6221138417aba | 34.xx.xx.128 | 10.xx.xx.60  | pd      | gxxxxxxi   | user1   | pd3      | 5              |
+      | i-0b31f8159dd6865c5 | 52.xx.xx.53  | 10.xx.xx.5   | tiproxy | gxxxxxxi   | user1   | tiproxy1 | 5              |
+      | i-0ac1181710bea2944 | 35.xx.xx.53  | 10.xx.xx.15  | tiproxy | gxxxxxxi   | user1   | tiproxy2 | 5              |
 
-* Note: Setup in progress for i-06c293c21b2b7d66b.
-* Note: i-06c293c21b2b7d66b might need to be adding two tags with keys: `role` and `student` manually.
+      # Class Total Cost: 0.21999999999999997 (USD)
 
-* Note: Setup in progress for i-0796c63dbec1529c4.
-* Note: i-0796c63dbec1529c4 might need to be adding two tags with keys: `role` and `student` manually.
-
-* Note: Setup in progress for i-0bb9eb7bdf1caef74.
-* Note: i-0bb9eb7bdf1caef74 might need to be adding two tags with keys: `role` and `student` manually.
-
-* Note: Setup in progress for i-0f30a85e7240205c6.
-* Note: i-0f30a85e7240205c6 might need to be adding two tags with keys: `role` and `student` manually.
-
-* Note: Setup in progress for i-0577f402d23e2747f.
-* Note: i-0577f402d23e2747f might need to be adding two tags with keys: `role` and `student` manually.
-
-* Note: Setup in progress for i-07a5ec4125e4db59a.
-* Note: i-07a5ec4125e4db59a might need to be adding two tags with keys: `role` and `student` manually.
-
-* Note: Setup in progress for i-0621e143a2a0c40ce.
-* Note: i-0621e143a2a0c40ce might need to be adding two tags with keys: `role` and `student` manually.
-
-* Note: Setup in progress for i-0dcdacb1cb4e81f03.
-* Note: i-0dcdacb1cb4e81f03 might need to be adding two tags with keys: `role` and `student` manually.
-
-* Note: Setup in progress for i-0ee2c3f33a5d9aad0.
-* Note: i-0ee2c3f33a5d9aad0 might need to be adding two tags with keys: `role` and `student` manually.
-
-# Running Nodes for All Trainers.
-
-
-| Instance ID         | Public IP        | Private IP       | Name          | Instructor | Student | Role      | Up Time (mins) |
-| :------------------ | :--------------- | :----------------| :------------ | :--------- | :------ | :-------- |:-------------- |
-| i-0577f402d23e2747f | 35.86.155.15     | 10.90.1.134      | kv            | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-0621e143a2a0c40ce | 35.87.26.192     | 10.90.2.198      | db            | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-06c293c21b2b7d66b | 52.40.78.96      | 10.90.2.81       | kv            | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-0796c63dbec1529c4 | 54.200.140.226   | 10.90.2.166      | tiproxy       | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-07a5ec4125e4db59a | 35.89.110.231    | 10.90.1.184      | pd            | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-0bb9eb7bdf1caef74 | 34.213.44.75     | 10.90.2.51       | pd            | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-0dcdacb1cb4e81f03 | 54.149.26.186    | 10.90.3.174      | tiproxy       | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-0e53e0a0a6b1953b7 | 34.220.193.161   | 10.90.3.54       | pd            | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-0ee2c3f33a5d9aad0 | 54.186.24.236    | 10.90.3.150      | kv            | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-0f30a85e7240205c6 | 54.200.160.90    | 10.90.1.82       | db            | guanglei.bao@pingcap.com |   |   | 6              | 
-| i-0f55ead8f5fb0beee | 18.246.0.200     | 10.90.4.8        | monitor       | guanglei.bao@pingcap.com |   |   | 6              | 
-
-# Class Total Cost: 0.21999999999999997 (USD)
-
-# Reporting End - 2023-05-14 11:13:44.669796 with 11 nodes.
+      # Reporting End - 2023-05-14 11:49:09.636190 with 11 nodes.
     ```
 
 7.  Get the public IP address of the monitor EC2 instance. Run `check_nodes.sh`:
@@ -169,13 +186,13 @@ TiProxy instances registered to NLB target group arn:aws:elasticloadbalancing:us
     ```
     ```
     $ ./check_nodes.sh | grep monitor | awk -F"|" '{print $3}'
-    18.x.x.163
+    34.xx.xx.53
     ```
 
 8. Initialize the demo TiDB Cluster.
     + a. Login monitor instance, if you are prompted, enter `yes`:
       ```
-      $ ssh -A ec2-user@18.x.x.163
+      $ ssh -A ec2-user@34.xx.xx.53
       ```
 
     + b. On monitor instance, run `create-cluster-v651.sh` to create the TiDB cluster named `tidb-demo`. It takes around 5 minutes to complete.
@@ -190,21 +207,21 @@ TiProxy instances registered to NLB target group arn:aws:elasticloadbalancing:us
       Cluster version:    v6.5.1
       Deploy user:        ec2-user
       SSH type:           builtin
-      Dashboard URL:      http://10.90.3.214:2379/dashboard
-      Grafana URL:        http://10.90.4.10:3000
+      Dashboard URL:      http://10.xx.xx.214:2379/dashboard
+      Grafana URL:        http://10.xx.xx.10:3000
       ID                 Role          Host         Ports        OS/Arch       Status  Data Dir                      Deploy Dir
       --                 ----          ----         -----        -------       ------  --------                      ----------
-      10.90.4.10:9093    alertmanager  10.90.4.10   9093/9094    linux/x86_64  Up      /tidb-data/alertmanager-9093  /tidb-deploy/alertmanager-9093
-      10.90.4.10:3000    grafana       10.90.4.10   3000         linux/x86_64  Up      -                             /tidb-deploy/grafana-3000
-      10.90.1.246:2379   pd            10.90.1.246  2379/2380    linux/x86_64  Up|L    /tidb-data/pd-2379            /tidb-deploy/pd-2379
-      10.90.2.161:2379   pd            10.90.2.161  2379/2380    linux/x86_64  Up      /tidb-data/pd-2379            /tidb-deploy/pd-2379
-      10.90.3.214:2379   pd            10.90.3.214  2379/2380    linux/x86_64  Up|UI   /tidb-data/pd-2379            /tidb-deploy/pd-2379
-      10.90.4.10:9090    prometheus    10.90.4.10   9090/12020   linux/x86_64  Up      /tidb-data/prometheus-9090    /tidb-deploy/prometheus-9090
-      10.90.1.65:4000    tidb          10.90.1.65   4000/10080   linux/x86_64  Up      -                             /tidb-deploy/tidb-4000
-      10.90.2.51:4000    tidb          10.90.2.51   4000/10080   linux/x86_64  Up      -                             /tidb-deploy/tidb-4000
-      10.90.1.135:20160  tikv          10.90.1.135  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
-      10.90.2.194:20160  tikv          10.90.2.194  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
-      10.90.3.220:20160  tikv          10.90.3.220  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
+      10.xx.xx.236:9093   alertmanager  10.xx.xx.236  9093/9094    linux/x86_64  Up      /tidb-data/alertmanager-9093  /tidb-deploy/alertmanager-9093
+      10.xx.xx.236:3000   grafana       10.xx.xx.236  3000         linux/x86_64  Up      -                             /tidb-deploy/grafana-3000
+      10.xx.xx.60:2379    pd            10.xx.xx.60   2379/2380    linux/x86_64  Up      /tidb-data/pd-2379            /tidb-deploy/pd-2379
+      10.xx.xx.239:2379   pd            10.xx.xx.239  2379/2380    linux/x86_64  Up|L    /tidb-data/pd-2379            /tidb-deploy/pd-2379
+      10.xx.xx.79:2379    pd            10.xx.xx.79   2379/2380    linux/x86_64  Up|UI   /tidb-data/pd-2379            /tidb-deploy/pd-2379
+      10.xx.xx.236:9090   prometheus    10.xx.xx.236  9090/12020   linux/x86_64  Up      /tidb-data/prometheus-9090    /tidb-deploy/prometheus-9090
+      10.xx.xx.216:4000   tidb          10.xx.xx.216  4000/10080   linux/x86_64  Up      -                             /tidb-deploy/tidb-4000
+      10.xx.xx.163:4000   tidb          10.xx.xx.163  4000/10080   linux/x86_64  Up      -                             /tidb-deploy/tidb-4000
+      10.xx.xx.54:20160   tikv          10.xx.xx.54   20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
+      10.xx.xx.13:20160   tikv          10.xx.xx.13   20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
+      10.xx.xx.174:20160  tikv          10.xx.xx.174  20160/20180  linux/x86_64  Up      /tidb-data/tikv-20160         /tidb-deploy/tikv-20160
       Total nodes: 11
       ```
 
@@ -221,7 +238,7 @@ TiProxy instances registered to NLB target group arn:aws:elasticloadbalancing:us
     ```
     ```
     $ ./check_nodes.sh | grep monitor | awk -F"|" '{print $3}'
-    18.x.x.163
+    34.xx.xx.53
     ```
 
 2. SSH (enabling forward) to the mornitor instance.
@@ -235,7 +252,7 @@ TiProxy instances registered to NLB target group arn:aws:elasticloadbalancing:us
       $ ssh -A ec2-user@<monitor_public_ip>
       ```
       ```
-      $ ssh -A ec2-user@18.x.x.163
+      $ ssh -A ec2-user@34.xx.xx.53
       Last login: Mon May  8 03:27:29 2023
 
              __|  __|_  )
@@ -260,7 +277,7 @@ TiProxy instances registered to NLB target group arn:aws:elasticloadbalancing:us
 5. Open a new terminal window, login monitor instance, run workload checker, and keep the terminal window open:
    ```
    $ ssh-add ~/.ssh/pe-class-key.pem
-   $ ssh -A ec2-user@18.x.x.163
+   $ ssh -A ec2-user@34.xx.xx.53
    $ cd scripts/
    $ ./sd-002-csp-demo-workload-check.sh
    ``` 
@@ -269,10 +286,11 @@ TiProxy instances registered to NLB target group arn:aws:elasticloadbalancing:us
 6. Upgrade your TiDB cluster from v6.5.1 to v6.5.2:
    ```
    $ ssh-add ~/.ssh/pe-class-key.pem
-   $ ssh -A ec2-user@18.x.x.163
-   $ cd scripts/
-   $ ./sd-002-csp-demo-hog-db.sh
-   ``` 
+   $ ssh -A ec2-user@34.xx.xx.53
+   $ tiup cluster upgrade tidb-demo v6.5.2 --yes
+   ```
+
+7. Obverse that the sample application connection has never affected during the upgrade.
 
 # Tear Down the Demo Environment
 1. On your local machine, under `setup` directory, run `remove-quick-demo-stack-on-aws.sh` and `show-quick-demo-stack-on-aws.sh`:
