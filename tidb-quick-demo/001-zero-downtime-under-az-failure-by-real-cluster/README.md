@@ -77,7 +77,12 @@
       }
     ```
 
-5. Tag the demo EC2 instances by running `demo_start.sh <YOUR_NAME>`:
+5. Add the private key identity to the SSH authentication agent:
+    ```
+    $ ssh-add ~/.ssh/pe-class-key.pem
+    ```
+
+6. Tag the demo EC2 instances by running `demo_start.sh <YOUR_NAME>`:
     ```
     $ ./demo_start.sh <YOUR_NAME>
     ```
@@ -125,25 +130,7 @@
       # Reporting End - 2023-05-08 11:44:24.198537 with 9 nodes.
     ```
 
-8. Add the private key identity to the SSH authentication agent:
-    ```
-    $ ssh-add ~/.ssh/pe-class-key.pem
-    ```
-
-9. Provision the demo cluster topology by running `demo_prewarm.sh <YOUR_NAME>`:
-    ```
-    $ ./demo_prewarm.sh <YOUR_NAME>
-    ```
-    ```
-    $ ./demo_prewarm.sh gXXXXXXXo
-    Warning: Permanently added '18.x.x.163' (ED25519) to the list of known hosts.
-
-    9 nodes are prepared for user user1 and trainer gXXXXXXXo.
-    ...
-    # Reporting End - 2023-05-08 11:47:38.302259 with 9 nodes.
-    ```
-
-10. Get the public IP address of the monitor EC2 instance. Run `check_nodes.sh`:
+7.  Get the public IP address of the monitor EC2 instance. Run `check_nodes.sh`:
     ```
     $ ./check_nodes.sh | grep monitor | awk -F"|" '{print $3}'
     ```
@@ -152,7 +139,7 @@
     18.x.x.163
     ```
 
-11. Initialize the demo TiDB Cluster.
+8.  Initialize the demo TiDB Cluster.
     + a. Login monitor instance, if you are prompted, enter `yes`:
       ```
       $ ssh -A ec2-user@18.x.x.163
