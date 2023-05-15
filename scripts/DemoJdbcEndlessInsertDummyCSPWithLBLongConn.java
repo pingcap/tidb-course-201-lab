@@ -88,8 +88,9 @@ class InsertWorkerCSPTiProxy1 extends Thread {
                 try {
                     connection.close();
                 } catch (SQLException e1) {
-                    System.out.println("Work 1 discards connection and try to get a new connection");
+                    continue;
                 }
+                System.out.println("Work 1 discards connection and try to get a new connection");
                 connection = this.getOneConnection(hostName);
                 continue;
             }
@@ -170,8 +171,9 @@ class InsertWorkerCSPTiProxy2 extends Thread {
                 try {
                     connection.close();
                 } catch (SQLException e1) {
-                    System.out.println("Work 2 discards connection and try to get a new connection");
+                    continue;
                 }
+                System.out.println("Work 2 discards connection and try to get a new connection");
                 connection = this.getOneConnection(hostName);
                 continue;
             }
@@ -252,8 +254,9 @@ class InsertWorkerCSPTiProxy3 extends Thread {
                 try {
                     connection.close();
                 } catch (SQLException e1) {
-                    System.out.println("Work 3 discards connection and try to get a new connection");
+                    continue;
                 }
+                System.out.println("Work 3 discards connection and try to get a new connection");
                 connection = this.getOneConnection(hostName);
                 continue;
             }
@@ -334,8 +337,9 @@ class InsertWorkerCSPTiProxy4 extends Thread {
                 try {
                     connection.close();
                 } catch (SQLException e1) {
-                    System.out.println("Work 4 discards connection and try to get a new connection");
+                    continue;
                 }
+                System.out.println("Work 4 discards connection and try to get a new connection");
                 connection = this.getOneConnection(hostName);
                 continue;
             }
