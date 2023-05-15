@@ -55,7 +55,7 @@ def _run_db_nodes(session: boto3.Session, trainer_name: str, student_count: int)
 
 
 def _run_tiproxy_nodes(session: boto3.Session, trainer_name: str, student_count: int):
-    _run_nodes(session, trainer_name, student_count, "TiProxy", 2, 2, 2)
+    _run_nodes(session, trainer_name, student_count, "TiProxy", 1, 1, 1)
 
 
 if __name__ == "__main__":
