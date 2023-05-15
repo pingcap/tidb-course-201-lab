@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mysql -h HOST_DB1_PRIVATE_IP -P 4000 -uroot 2>/dev/null << EOF
+mysql -h ${HOST_DB1_PRIVATE_IP} -P 4000 -uroot 2>/dev/null << EOF
 SET GLOBAL tidb_enable_metadata_lock = OFF;
 SET GLOBAL autocommit = OFF;
 DROP DATABASE IF EXISTS demo;
