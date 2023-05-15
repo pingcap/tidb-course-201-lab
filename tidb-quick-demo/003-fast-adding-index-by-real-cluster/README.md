@@ -162,6 +162,7 @@
       [ec2-user@ip-10-90-4-254 ~]$
       ```
 
+## Demo 1: TiDB with Metadata Lock disabled when dealing with long transactions.
 3. On all **4 terminals**, connect to TiDB.
    ```
    $ ./connect-db1.sh
@@ -292,7 +293,24 @@
     ERROR 8028 (HY000): Information schema is changed during the execution of the statement(for example, table definition may be updated by other DDL ran in parallel). If you see this error often, try increasing `tidb_max_delta_schema_count`. [try again later]
     ```
 
-10. In terminal 1, change the value of the system variable `tidb_enable_metadata_lock` to `ON`.
+## Demo 2: TiDB with Metadata Lock Disabled when dealing with short transactions.
+10. In terminal 1, change directory, and start the Java program to keep inserting some values into the `t1` table.
+    ```
+    $ ./sd-003-csp-demo-8028-retry.sh
+    ```
+    ```
+    $ ./sd-003-csp-demo-8028-retry.sh
+    Connecton established.
+    0 rows inserted.
+    1 rows inserted.
+    2 rows inserted.
+    ...
+    ```
+
+11. In terminal 2, terminal 3, and terminal 4, repeat step 6, 7, and 8. Observe the difference.
+
+## Demo 3: TiDB with Metadata Lock enabled.
+12. In terminal 1, change the value of the system variable `tidb_enable_metadata_lock` to `ON`.
     ```
     tidb:db1> SET GLOBAL tidb_enable_metadata_lock = ON;
     tidb:db1> SHOW VARIABLES LIKE "tidb_enable_metadata_lock"; 
@@ -310,9 +328,11 @@
     1 row in set (0.00 sec)
     ```
 
-11. Repeat the step 5 to 9. Observe the difference. Then, exit the connection with TiDB.
+13. Repeat the step 6, 7 and 8. Observe the difference. Then, exit the connection with TiDB.
 
-12. In all four terminals, connect to PD1.
+## Demo 4: MySQL
+
+14. In all four terminals, connect to PD1.
     ```
     $ ./ssh-to-pd1.sh 
     ```
@@ -326,7 +346,7 @@
 
     https://aws.amazon.com/amazon-linux-2/
     ```
-13. In terminal 1, start MySQL server instance:
+15. In terminal 1, start MySQL server instance:
     ```
     $ sudo service mysqld start
     ```
@@ -335,7 +355,7 @@
     Redirecting to /bin/systemctl start mysqld.service
     ```
 
-14. Get the temporary password for `root@'localhost'`, then **jot down it** for subsequent steps. 
+16. Get the temporary password for `root@'localhost'`, then **jot down it** for subsequent steps. 
    ```
    $ ./show-mysql-password.sh
    ```
@@ -344,7 +364,7 @@
    SyJujk,V8amm
    ```
 
-15. Log in MySQL server on port 3306 as `root@'localhost'` and change the default password to `q1w2e3R4_'`. 
+17. Log in MySQL server on port 3306 as `root@'localhost'` and change the default password to `q1w2e3R4_'`. 
    ```
    $ mysql -u root -p -h 127.0.0.1 -P 3306
    ```
@@ -356,7 +376,7 @@
    Query OK, 0 rows affected (0.00 sec)
    ```
 
-16. Repeat step 5 to 9 in the terminal 1 to 4, observe the results. Note that you need to login to MySQL on terminal 2, 3, and 4.
+18. Repeat step 5, 6, 7, and 8 in terminal 1 to 4, observe the results. Note that you need to login to MySQL on terminal 2, 3, and 4.
 
 # Tear Down the Demo Environment
 1. On your local machine, under `setup` directory, run `remove-quick-demo-stack-on-aws.sh` and `show-quick-demo-stack-on-aws.sh`:
