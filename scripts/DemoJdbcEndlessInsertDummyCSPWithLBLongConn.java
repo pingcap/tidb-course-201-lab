@@ -31,8 +31,8 @@ class InsertWorkerCSPTiProxy1 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=1000";
-                DriverManager.setLoginTimeout(1);
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=2000";
+                DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
                         "root", "");
@@ -70,7 +70,7 @@ class InsertWorkerCSPTiProxy1 extends Thread {
                 ps.setString(3, dateTime);
                 ps.setString(4, "interval");
                 ps.setInt(5, interval);
-                ps.setQueryTimeout(1);
+                ps.setQueryTimeout(2);
                 ps.executeUpdate();
                 System.out.println(
                         "Worker 1 -> TiDB:" + dateTime + " at " + hostName);
@@ -114,8 +114,8 @@ class InsertWorkerCSPTiProxy2 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=1000";
-                DriverManager.setLoginTimeout(1);
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=2000";
+                DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
                         "root", "");
@@ -153,7 +153,7 @@ class InsertWorkerCSPTiProxy2 extends Thread {
                 ps.setString(3, dateTime);
                 ps.setString(4, "interval");
                 ps.setInt(5, interval);
-                ps.setQueryTimeout(1);
+                ps.setQueryTimeout(2);
                 ps.executeUpdate();
                 System.out.println(
                         "Worker 2 -> TiDB:" + dateTime + " at " + hostName);
@@ -197,8 +197,8 @@ class InsertWorkerCSPTiProxy3 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=1000";
-                DriverManager.setLoginTimeout(1);
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=2000";
+                DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
                         "root", "");
@@ -236,7 +236,7 @@ class InsertWorkerCSPTiProxy3 extends Thread {
                 ps.setString(3, dateTime);
                 ps.setString(4, "interval");
                 ps.setInt(5, interval);
-                ps.setQueryTimeout(1);
+                ps.setQueryTimeout(2);
                 ps.executeUpdate();
                 System.out.println(
                         "Worker 3 -> TiDB:" + dateTime + " at " + hostName);
@@ -280,8 +280,8 @@ class InsertWorkerCSPTiProxy4 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=1000";
-                DriverManager.setLoginTimeout(1);
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=2000";
+                DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
                         "root", "");
@@ -319,7 +319,7 @@ class InsertWorkerCSPTiProxy4 extends Thread {
                 ps.setString(3, dateTime);
                 ps.setString(4, "interval");
                 ps.setInt(5, interval);
-                ps.setQueryTimeout(1);
+                ps.setQueryTimeout(2);
                 ps.executeUpdate();
                 System.out.println(
                         "Worker 4 -> TiDB:" + dateTime + " at " + hostName);
