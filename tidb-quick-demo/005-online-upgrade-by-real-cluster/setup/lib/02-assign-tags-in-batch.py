@@ -156,7 +156,7 @@ def _get_db_instance_ids(
 def _get_tiproxy_instance_ids(
     session: boto3.Session, trainer_name: str, student_count: int
 ) -> list:
-    return _get_node_instance_ids(session, trainer_name, student_count, "tiproxy", 1)
+    return _get_node_instance_ids(session, trainer_name, student_count, "tiproxy", 2)
 
 
 def _assign_pd_to_students(session: boto3.Session, instance_ids: list):
@@ -176,7 +176,7 @@ def _assign_monitor_to_students(session: boto3.Session, instance_ids: list):
 
 
 def _assign_tiproxy_to_students(session: boto3.Session, instance_ids: list):
-    _assign_nodes_to_students(session, instance_ids, "tiproxy", 1)
+    _assign_nodes_to_students(session, instance_ids, "tiproxy", 2)
 
 
 if __name__ == "__main__":

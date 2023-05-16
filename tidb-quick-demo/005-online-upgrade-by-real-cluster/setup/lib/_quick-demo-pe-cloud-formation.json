@@ -963,9 +963,9 @@
                         ]
                     }
                 },
-                "MaxSize": "1",
-                "MinSize": "1",
-                "DesiredCapacity": "1",
+                "MaxSize": "2",
+                "MinSize": "2",
+                "DesiredCapacity": "2",
                 "VPCZoneIdentifier": [
                     {
                         "Ref": "SN1"
