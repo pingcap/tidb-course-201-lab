@@ -296,10 +296,10 @@
 ## Demo 2: TiDB with Metadata Lock Disabled when dealing with short transactions.
 10. In terminal 1, change directory, and start the Java program to keep inserting some values into the `t1` table.
     ```
-    $ ./sd-003-csp-demo-8028-retry.sh
+    $ ./sd-003-csp-demo-workload-tidb-8028.sh
     ```
     ```
-    $ ./sd-003-csp-demo-8028-retry.sh
+    $ ./sd-003-csp-demo-workload-tidb-8028.sh
     Connecton established.
     0 rows inserted.
     1 rows inserted.
@@ -328,7 +328,7 @@
     1 row in set (0.00 sec)
     ```
 
-13. Repeat the step 6, 7 and 8. Observe the difference. Then, exit the connection with TiDB.
+13. Repeat the step 5, 6, 7 and 8. Observe the difference. Then, exit the connection with TiDB.
 
 ## Demo 4: MySQL
 
