@@ -28,7 +28,10 @@
 
 3. Create the demo Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
-    $ cd setup/
+    $ git clone https://github.com/pingcap/tidb-course-201-lab.git
+    $ cd tidb-course-201-lab/tidb-quick-demo/002-seamless-auto-scaling-by-real-cluster/setup/
+    ```
+    ```
     $ ./deploy-quick-demo-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
     ```
     ```

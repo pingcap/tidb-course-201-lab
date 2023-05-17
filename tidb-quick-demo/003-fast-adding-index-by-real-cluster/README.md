@@ -1,9 +1,10 @@
 # Notes
-1. **DO NOT** deploy the demo Cloud Formation in production environment. You are at your own risk.
-2. This demo requires **Python3**, **awscli**, and **boto3** installed on your local machine.
-3. You need an active AWS account for testing purposes. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role. The identity you use must have the permissions to manage following services or resources: IAM roles, VPC, EC2, ELB, SQS, Lambda, IAM roles, CloudWatch, CloudWatch Logs, Auto Scaling Group, EventBridge, CloudFormation. 
-4. **MAKE SURE** you also follow the instructions to tear down the demo environment after the showcase, otherwise AWS will keep charging you.
-5. Estimated demo cost: ~1 USD.
+1. **You can perform this demo on TiUP Playground using your local node, without the need to use an actual TiDB cluster to demonstrate.**
+2. **DO NOT** deploy the demo Cloud Formation in production environment. You are at your own risk.
+3. This demo requires **Python3**, **awscli**, and **boto3** installed on your local machine.
+4. You need an active AWS account for testing purposes. And, your IAM user or role should have the permissions to create various AWS resources, it should be an admin IAM user/role or a power user/role. The identity you use must have the permissions to manage following services or resources: IAM roles, VPC, EC2, ELB, SQS, Lambda, IAM roles, CloudWatch, CloudWatch Logs, Auto Scaling Group, EventBridge, CloudFormation. 
+5. **MAKE SURE** you also follow the instructions to tear down the demo environment after the showcase, otherwise AWS will keep charging you.
+6. Estimated demo cost: ~1 USD.
 
 # Demo Preparation
 1. Setup EC2 instance SSH identity:
@@ -28,7 +29,10 @@
 
 3. Create the demo Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
-    $ cd setup/
+    $ git clone https://github.com/pingcap/tidb-course-201-lab.git
+    $ cd tidb-course-201-lab/tidb-quick-demo/003-fast-adding-index-by-real-cluster/
+    ```
+    ```
     $ ./deploy-quick-demo-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
     ```
     ```
