@@ -1,0 +1,1006 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "TrainerName": {
+            "Type": "String"
+        },
+        "TrainerEmail": {
+            "Type": "String"
+        }
+    },
+    "Mappings": {
+        "UserDataMap": {
+            "us-west-2": {
+                "common": "#!/bin/bash\necho LANG=en_US.utf-8 >> /etc/environment\necho LC_ALL=en_US.utf-8 >> /etc/environment\nrpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022\nmkdir ~ec2-user/stage/\ncd ~ec2-user/stage/\nrm -rf tidb-course-201-lab/\nyum -y update\nyum -y install git numactl awscli\nyum -y install java-11-amazon-corretto\nwget https://pingcap-edu.s3.us-west-2.amazonaws.com/tidb-admin-dataset.zip\ngit clone https://github.com/pingcap/tidb-course-201-lab.git\nREGION_CODE=`curl http://169.254.169.254/latest/meta-data/placement/region`\necho export REGION_CODE=${REGION_CODE} > ~ec2-user/cloud-env.sh\nalias cp='cp'\ncp -R tidb-course-201-lab/setup/tidb-lab-aws-10-nodes-amz2/* ~ec2-user/\ncp -R tidb-course-201-lab/setup/tidb-lab-mysql-init-amz2/show-mysql-password.sh ~ec2-user/\ncp -R tidb-course-201-lab/scripts/ ~ec2-user/\ncd ~\nchown -R ec2-user:ec2-user ~ec2-user/*\nchmod +x ~ec2-user/*.sh\nchmod +x ~ec2-user/scripts/*.sh\necho \"if [ -f /home/ec2-user/hosts-env.sh ]; then\" >> ~ec2-user/.bashrc\necho \"    source /home/ec2-user/hosts-env.sh\" >> ~ec2-user/.bashrc\necho \"fi;\" >> ~ec2-user/.bashrc\nchown ec2-user:ec2-user ~ec2-user/.bashrc\nsu ec2-user -c \"pip3 install boto3\"\nwget https://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm\nyum -y install mysql57-community-release-el7-10.noarch.rpm\nyum -y install mysql-community-client\nwget https://pingcap-edu.s3.us-west-2.amazonaws.com/mysql-5.7.42-1.el7.x86_64.rpm-bundle.tar\ntar xvf mysql-5.7.42-1.el7.x86_64.rpm-bundle.tar\nrpm -ivh --force mysql-community-common-5.7.42-1.el7.x86_64.rpm mysql-community-server-5.7.42-1.el7.x86_64.rpm\n"
+            }
+        }
+    },
+    "Resources": {
+        "DemoIGW": {
+            "Type": "AWS::EC2::InternetGateway",
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    }
+                ]
+            },
+            "DependsOn": [
+                "DemoVPC"
+            ]
+        },
+        "DemoVPC": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": "10.90.0.0/16",
+                "EnableDnsSupport": "true",
+                "EnableDnsHostnames": "true",
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-vpc"
+                    }
+                ]
+            }
+        },
+        "IGWA": {
+            "Type": "AWS::EC2::VPCGatewayAttachment",
+            "Properties": {
+                "InternetGatewayId": {
+                    "Ref": "DemoIGW"
+                },
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                }
+            }
+        },
+        "PublicRouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "PE Quick Demo Public Route"
+                    }
+                ]
+            }
+        },
+        "PublicRoute": {
+            "Type": "AWS::EC2::Route",
+            "Properties": {
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "GatewayId": {
+                    "Ref": "DemoIGW"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            },
+            "DependsOn": [
+                "IGWA"
+            ]
+        },
+        "SN1": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "CidrBlock": "10.90.1.0/24",
+                "AvailabilityZone": "us-west-2a",
+                "PrivateDnsNameOptionsOnLaunch": {
+                    "EnableResourceNameDnsAAAARecord": false,
+                    "EnableResourceNameDnsARecord": true,
+                    "HostnameType": "ip-name"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-subnet-1"
+                    }
+                ]
+            }
+        },
+        "SN2": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "CidrBlock": "10.90.2.0/24",
+                "AvailabilityZone": "us-west-2b",
+                "PrivateDnsNameOptionsOnLaunch": {
+                    "EnableResourceNameDnsAAAARecord": false,
+                    "EnableResourceNameDnsARecord": true,
+                    "HostnameType": "ip-name"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-subnet-2"
+                    }
+                ]
+            }
+        },
+        "SN3": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "CidrBlock": "10.90.3.0/24",
+                "AvailabilityZone": "us-west-2c",
+                "PrivateDnsNameOptionsOnLaunch": {
+                    "EnableResourceNameDnsAAAARecord": false,
+                    "EnableResourceNameDnsARecord": true,
+                    "HostnameType": "ip-name"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-subnet-3"
+                    }
+                ]
+            }
+        },
+        "SN4": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "CidrBlock": "10.90.4.0/24",
+                "AvailabilityZone": "us-west-2d",
+                "PrivateDnsNameOptionsOnLaunch": {
+                    "EnableResourceNameDnsAAAARecord": false,
+                    "EnableResourceNameDnsARecord": true,
+                    "HostnameType": "ip-name"
+                },
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "demo-subnet-4"
+                    }
+                ]
+            }
+        },
+        "SRTA1": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "SN1"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "SRTA2": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "SN2"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "SRTA3": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "SN3"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "SRTA4": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "SN4"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "DemoSG": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Allow nodes communication.",
+                "VpcId": {
+                    "Ref": "DemoVPC"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 22,
+                        "ToPort": 22,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 2379,
+                        "ToPort": 2379,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 4000,
+                        "ToPort": 4002,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 3000,
+                        "ToPort": 3000,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "icmp",
+                        "FromPort": -1,
+                        "ToPort": -1,
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "SecurityGroupEgress": [
+                    {
+                        "IpProtocol": "-1",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        }
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "quick-demo-sg"
+                    }
+                ]
+            }
+        },
+        "IRule": {
+            "Type": "AWS::EC2::SecurityGroupIngress",
+            "Properties": {
+                "IpProtocol": "-1",
+                "SourceSecurityGroupId": {
+                    "Fn::GetAtt": [
+                        "DemoSG",
+                        "GroupId"
+                    ]
+                },
+                "GroupId": {
+                    "Fn::GetAtt": [
+                        "DemoSG",
+                        "GroupId"
+                    ]
+                }
+            }
+        },
+        "KVT": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "Properties": {
+                "VersionDescription": "v1",
+                "LaunchTemplateName": {
+                    "Fn::Sub": "${AWS::StackName}-quick-demo-tikv-lt"
+                },
+                "LaunchTemplateData": {
+                    "Monitoring": {
+                        "Enabled": true
+                    },
+                    "IamInstanceProfile": {
+                        "Name": {
+                            "Ref": "DemoInstanceProfile"
+                        }
+                    },
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "DeleteOnTermination": true,
+                                "Encrypted": false,
+                                "VolumeSize": 100,
+                                "VolumeType": "gp2"
+                            }
+                        }
+                    ],
+                    "NetworkInterfaces": [
+                        {
+                            "DeviceIndex": 0,
+                            "AssociatePublicIpAddress": true,
+                            "Groups": [
+                                {
+                                    "Ref": "DemoSG"
+                                }
+                            ],
+                            "DeleteOnTermination": true
+                        }
+                    ],
+                    "ImageId": "ami-094125af156557ca2",
+                    "InstanceType": "c5.xlarge",
+                    "KeyName": "pe-class-key",
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "instance",
+                            "Tags": [
+                                {
+                                    "Key": "owner",
+                                    "Value": {
+                                        "Ref": "TrainerEmail"
+                                    }
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "kv"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": {
+                            "Fn::FindInMap": [
+                                "UserDataMap",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "common"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "PDT": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "Properties": {
+                "VersionDescription": "v1",
+                "LaunchTemplateName": {
+                    "Fn::Sub": "${AWS::StackName}-quick-demo-pd-lt"
+                },
+                "LaunchTemplateData": {
+                    "Monitoring": {
+                        "Enabled": true
+                    },
+                    "IamInstanceProfile": {
+                        "Name": {
+                            "Ref": "DemoInstanceProfile"
+                        }
+                    },
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "DeleteOnTermination": true,
+                                "Encrypted": false,
+                                "VolumeSize": 30,
+                                "VolumeType": "gp2"
+                            }
+                        }
+                    ],
+                    "NetworkInterfaces": [
+                        {
+                            "DeviceIndex": 0,
+                            "AssociatePublicIpAddress": true,
+                            "Groups": [
+                                {
+                                    "Ref": "DemoSG"
+                                }
+                            ],
+                            "DeleteOnTermination": true
+                        }
+                    ],
+                    "ImageId": "ami-094125af156557ca2",
+                    "InstanceType": "c5.xlarge",
+                    "KeyName": "pe-class-key",
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "instance",
+                            "Tags": [
+                                {
+                                    "Key": "owner",
+                                    "Value": {
+                                        "Ref": "TrainerEmail"
+                                    }
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "pd"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": {
+                            "Fn::FindInMap": [
+                                "UserDataMap",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "common"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "DBT": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "Properties": {
+                "VersionDescription": "v1",
+                "LaunchTemplateName": {
+                    "Fn::Sub": "${AWS::StackName}-quick-demo-tidb-lt"
+                },
+                "LaunchTemplateData": {
+                    "Monitoring": {
+                        "Enabled": true
+                    },
+                    "IamInstanceProfile": {
+                        "Name": {
+                            "Ref": "DemoInstanceProfile"
+                        }
+                    },
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "DeleteOnTermination": true,
+                                "Encrypted": false,
+                                "VolumeSize": 30,
+                                "VolumeType": "gp2"
+                            }
+                        }
+                    ],
+                    "NetworkInterfaces": [
+                        {
+                            "DeviceIndex": 0,
+                            "AssociatePublicIpAddress": true,
+                            "Groups": [
+                                {
+                                    "Ref": "DemoSG"
+                                }
+                            ],
+                            "DeleteOnTermination": true
+                        }
+                    ],
+                    "ImageId": "ami-094125af156557ca2",
+                    "InstanceType": "c5.xlarge",
+                    "KeyName": "pe-class-key",
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "instance",
+                            "Tags": [
+                                {
+                                    "Key": "owner",
+                                    "Value": {
+                                        "Ref": "TrainerEmail"
+                                    }
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "db"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": {
+                            "Fn::FindInMap": [
+                                "UserDataMap",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "common"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "TFLT": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "Properties": {
+                "VersionDescription": "v1",
+                "LaunchTemplateName": {
+                    "Fn::Sub": "${AWS::StackName}-quick-demo-tiflash-lt"
+                },
+                "LaunchTemplateData": {
+                    "IamInstanceProfile": {
+                        "Name": {
+                            "Ref": "DemoInstanceProfile"
+                        }
+                    },
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "DeleteOnTermination": true,
+                                "Encrypted": false,
+                                "VolumeSize": 100,
+                                "VolumeType": "gp2"
+                            }
+                        }
+                    ],
+                    "NetworkInterfaces": [
+                        {
+                            "DeviceIndex": 0,
+                            "AssociatePublicIpAddress": true,
+                            "Groups": [
+                                {
+                                    "Ref": "DemoSG"
+                                }
+                            ],
+                            "DeleteOnTermination": true
+                        }
+                    ],
+                    "ImageId": "ami-094125af156557ca2",
+                    "InstanceType": "c5.xlarge",
+                    "KeyName": "pe-class-key",
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "instance",
+                            "Tags": [
+                                {
+                                    "Key": "owner",
+                                    "Value": {
+                                        "Ref": "TrainerEmail"
+                                    }
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "tiflash"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": {
+                            "Fn::FindInMap": [
+                                "UserDataMap",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "common"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "MLT": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "Properties": {
+                "VersionDescription": "v1",
+                "LaunchTemplateName": {
+                    "Fn::Sub": "${AWS::StackName}-quick-demo-monitor-lt"
+                },
+                "LaunchTemplateData": {
+                    "IamInstanceProfile": {
+                        "Name": {
+                            "Ref": "DemoInstanceProfile"
+                        }
+                    },
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "DeleteOnTermination": true,
+                                "Encrypted": false,
+                                "VolumeSize": 100,
+                                "VolumeType": "gp2"
+                            }
+                        }
+                    ],
+                    "NetworkInterfaces": [
+                        {
+                            "DeviceIndex": 0,
+                            "AssociatePublicIpAddress": true,
+                            "Groups": [
+                                {
+                                    "Ref": "DemoSG"
+                                }
+                            ],
+                            "DeleteOnTermination": true
+                        }
+                    ],
+                    "ImageId": "ami-094125af156557ca2",
+                    "InstanceType": "c5.xlarge",
+                    "KeyName": "pe-class-key",
+                    "TagSpecifications": [
+                        {
+                            "ResourceType": "instance",
+                            "Tags": [
+                                {
+                                    "Key": "owner",
+                                    "Value": {
+                                        "Ref": "TrainerEmail"
+                                    }
+                                },
+                                {
+                                    "Key": "Name",
+                                    "Value": "monitor"
+                                }
+                            ]
+                        }
+                    ],
+                    "UserData": {
+                        "Fn::Base64": {
+                            "Fn::FindInMap": [
+                                "UserDataMap",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                "common"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "KVG": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "TiKV",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "KVT"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "KVT",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "MaxSize": "0",
+                "MinSize": "0",
+                "DesiredCapacity": "0",
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "SN1"
+                    },
+                    {
+                        "Ref": "SN2"
+                    },
+                    {
+                        "Ref": "SN3"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "trainer",
+                        "Value": {
+                            "Ref": "TrainerName"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "IGWA"
+            ]
+        },
+        "PDG": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "PD",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "PDT"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "PDT",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "MaxSize": "0",
+                "MinSize": "0",
+                "DesiredCapacity": "0",
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "SN1"
+                    },
+                    {
+                        "Ref": "SN2"
+                    },
+                    {
+                        "Ref": "SN3"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "trainer",
+                        "Value": {
+                            "Ref": "TrainerName"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "IGWA"
+            ]
+        },
+        "DBG": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "TiDB",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "DBT"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "DBT",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "MaxSize": "0",
+                "MinSize": "0",
+                "DesiredCapacity": "0",
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "SN1"
+                    },
+                    {
+                        "Ref": "SN2"
+                    },
+                    {
+                        "Ref": "SN3"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "trainer",
+                        "Value": {
+                            "Ref": "TrainerName"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "IGWA"
+            ]
+        },
+        "TFG": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "TiFlash",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "TFLT"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "TFLT",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "MaxSize": "0",
+                "MinSize": "0",
+                "DesiredCapacity": "0",
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "SN4"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "trainer",
+                        "Value": {
+                            "Ref": "TrainerName"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "IGWA"
+            ]
+        },
+        "MG": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "Monitor",
+                "LaunchTemplate": {
+                    "LaunchTemplateId": {
+                        "Ref": "MLT"
+                    },
+                    "Version": {
+                        "Fn::GetAtt": [
+                            "MLT",
+                            "LatestVersionNumber"
+                        ]
+                    }
+                },
+                "MaxSize": "0",
+                "MinSize": "0",
+                "DesiredCapacity": "0",
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "SN4"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "owner",
+                        "Value": {
+                            "Ref": "TrainerEmail"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "trainer",
+                        "Value": {
+                            "Ref": "TrainerName"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "IGWA"
+            ]
+        },
+        "DemoInstanceRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/"
+            }
+        },
+        "DemoInstanceRolePolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "DemoInstancePolicy01",
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "sts:GetCallerIdentity",
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "elasticloadbalancing:RegisterTargets",
+                                "elasticloadbalancing:DeregisterTargets",
+                                "elasticloadbalancing:Describe*"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "ec2:Describe*",
+                                "ec2:List*"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "sqs:*"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "DemoInstanceRole"
+                    }
+                ]
+            }
+        },
+        "DemoInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "DemoInstanceRole"
+                    }
+                ]
+            }
+        }
+    }
+}
