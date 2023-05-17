@@ -42,7 +42,7 @@
     }
     ```
 
-4. Wait the CloudFormation stack run to completion. Run following script to check the status, until you get the `COMPLETION` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 5 auto scaling groups, 10 EC2 instances:
+4. Wait the CloudFormation stack run to completion. Run following script to check the status, until you get the `CREATE_COMPLETE` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 5 auto scaling groups:
     ```
     $ ./show-quick-demo-stack-on-aws.sh
     ``` 
@@ -81,7 +81,7 @@
       }
     ```
 
-5. Tag the class EC2 instances by running `class_start.sh <YOUR_NAME>`:
+5. Launch and tag the class EC2 instances by running `class_start.sh <YOUR_NAME>`. This step will launch 10 EC2 instances:
     ```
     $ ./class_start.sh <YOUR_NAME>
     ```
