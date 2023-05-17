@@ -8,14 +8,14 @@ import java.util.Random;
 public class DemoJdbcEndlessInsertDummyV2 {
 
     public static void main(String[] args) {
-        Runnable[] workers = new Runnable[] { new InsertWorker1(), new InsertWorker2(), new InsertWorker3() };
+        Runnable[] workers = new Runnable[] { new InsertWorker1V2(), new InsertWorker2V2(), new InsertWorker3V2() };
         for (Runnable worker : workers) {
             new Thread(worker).start();
         }
     }
 }
 
-class InsertWorker1 implements Runnable {
+class InsertWorker1V2 implements Runnable {
 
     @Override
     public void run() {
@@ -61,7 +61,7 @@ class InsertWorker1 implements Runnable {
     }
 }
 
-class InsertWorker2 implements Runnable {
+class InsertWorker2V2 implements Runnable {
 
     @Override
     public void run() {
@@ -107,7 +107,7 @@ class InsertWorker2 implements Runnable {
     }
 }
 
-class InsertWorker3 implements Runnable {
+class InsertWorker3V2 implements Runnable {
 
     @Override
     public void run() {

@@ -7,26 +7,32 @@
 # Lab Environment Preparation
 1. Setup EC2 instance SSH identity:
 
-   a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
+    + a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
 
-   b. Change the private key file permission to `r--`:
-    ```
-    $ chmod 400 ~/.ssh/pe-class-key.pem
-    ```
+    + b. Change the private key file permission to `r--`:
+      ```
+      $ chmod 400 ~/.ssh/pe-class-key.pem
+      ```
 
 2. Setup AWS credentials for yourself.
    
-   a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
-   b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
-    ```
-    $ export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
-    $ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRECT_ACCESS_KEY>"
-    $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
-    ```
+    + a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
+
+    + b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
+      ```
+      $ export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
+      $ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRECT_ACCESS_KEY>"
+      $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
+      ```
 
 3. Create the class CloudFormation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
-    $ cd setup/
+    $ git clone https://github.com/pingcap/tidb-course-201-lab.git
+    ```
+    ```
+    $ cd tidb-course-201-lab/tidb-quick-demo/303-tidb-admin-10-nodes-solo/setup
+    ```
+    ```
     $ ./deploy-lab-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
     ```
     ```
@@ -143,7 +149,7 @@
 
     10 nodes are prepared for user user1 and trainer gXXXXXXXo.
     ...
-    # Reporting End - 2023-05-08 11:47:38.302259 with 9 nodes.
+    # Reporting End - 2023-05-08 11:47:38.302259 with 10 nodes.
     ```
 
 # Tear Down the Lab Environment
