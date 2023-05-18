@@ -155,7 +155,7 @@
 # Tear Down the Lab Environment
 1. On your local machine, under `setup` directory, run `remove-lab-stack-on-aws.sh` and `show-lab-stack-on-aws.sh`:
    ```
-   $ cd setup/
+   $ cd tidb-course-201-lab/tidb-quick-demo/303-tidb-admin-10-nodes-solo/setup
    $ ./remove-lab-stack-on-aws.sh 
    $ ./show-lab-stack-on-aws.sh 
    {
