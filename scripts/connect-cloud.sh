@@ -7,7 +7,7 @@ export MYSQL_PS1="tidb-cloud> "
 # CentOS/RedHat/Fedora: --ssl-ca=/etc/pki/tls/certs/ca-bundle.crt
 # OpenSUSE: --ssl-ca=/etc/ssl/ca-bundle.pem
 
-mysql --connect-timeout 15 \
+mysql --connect-timeout 15 --verbose \
   -u $TIDB_CLOUD_USERNAME \
   -h $TIDB_CLOUD_HOST \
   -P 4000 \
