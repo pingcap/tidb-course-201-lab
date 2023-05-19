@@ -19,3 +19,5 @@ echo -e "\n### System Variables:\n"
 mysql -h ${TIDB_ADDRESS} -uroot -P${TIDB_PORT} << EOF
 SHOW VARIABLES LIKE '%${SEARCH_PARAMETER}%';
 EOF
+
+echo
