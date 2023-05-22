@@ -2,7 +2,7 @@
 
 SEARCH_PARAMETER=${1}
 
-echo -e "\nSearching parameter or system variables contain \"${SEARCH_PARAMETER}\"\n"
+echo -e "\n# Searching parameter or system variables contain \"${SEARCH_PARAMETER}\"\n"
 
 TIDB_ADDRESS=127.0.0.1
 TIDB_PORT=4000

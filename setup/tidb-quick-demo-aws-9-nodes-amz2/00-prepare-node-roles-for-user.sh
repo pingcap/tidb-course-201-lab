@@ -10,7 +10,6 @@ export USER=${1}
 # The instructor's name tag shared by your instructor.
 export TRAINER=${2}
 
-# Setup PD1,2,3 as all node roles (4 ASGs: 1 ASG for PD, 1 ASG for TiFlash, 1 ASG for KV, 1 ASG for DB)
 # Node 1
 HOST_PD1_PRIVATE_IP=`aws ec2 describe-instances \
 --filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=${USER}" "Name=tag:role,Values=pd1" "Name=tag:trainer,Values=${TRAINER}" \
