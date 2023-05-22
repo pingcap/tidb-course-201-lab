@@ -229,7 +229,7 @@
    $ ./sd-001-csp-demo-workload-check.sh
    ``` 
 
-6. Open a new terminal window, pick up one subnet to isolate. The candidate subnets are `demo-subnet-1`, `demo-subnet-2` or `demo-subnet-3` with `PD`, `TiKV` and `TiDB` instances in it (do NOT choose `demo-subnet-4`, it contains the `monitor` instance only). Execute `sd-001-csp-demo-subnet-close.sh demo-subnet-1|demo-subnet-2|demo-subnet-3`. For example the subnet `demo-subnet-1`:
+6. Open a new terminal window, login `monitor1` instance, and pick up one subnet to isolate. The candidate subnets are `demo-subnet-1`, `demo-subnet-2` or `demo-subnet-3` with `PD`, `TiKV` and `TiDB` instances in it (do NOT choose `demo-subnet-4`, it contains the `monitor` instance only). Execute `sd-001-csp-demo-subnet-close.sh demo-subnet-1|demo-subnet-2|demo-subnet-3`. For example the subnet `demo-subnet-1`:
    ```
    $ cd scripts/
    $ ./sd-001-csp-demo-subnet-close.sh demo-subnet-1
