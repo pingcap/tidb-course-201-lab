@@ -250,7 +250,7 @@
    $ ./sd-002-csp-demo-event-listener-start.sh
    ``` 
 
-7. Trigger the SQL layer auto scale-out. Open a new terminal window, login monitor instance, run hogger for TiDB servers:
+7. Trigger the SQL layer auto scale-out. Open a new terminal window, login monitor instance, run hogger for TiDB servers. You can observe the terminal where event listener runs (the terminal opened in Step 6). You may need to wait for five minutes.
    ```
    $ ssh-add ~/.ssh/pe-class-key.pem
    $ ssh -A ec2-user@18.x.x.163
@@ -258,7 +258,7 @@
    $ ./sd-002-csp-demo-hog-db.sh
    ``` 
 
-8. Trigger the Storage layer auto scale-out. Open a new terminal window, login monitor instance, run hogger for TiKV servers:
+8. Trigger the Storage layer auto scale-out. Open a new terminal window, login monitor instance, run hogger for TiKV servers.You can observe the terminal where event listener runs (the terminal opened in Step 6). You may need to wait for five minutes.
    ```
    $ ./sd-002-csp-demo-hog-kv.sh
    ``` 
