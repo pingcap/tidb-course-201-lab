@@ -194,7 +194,7 @@ sed -i '' \
   ./solution-topology-ten-nodes.yaml 2>/dev/null
 
 # Setup Six Nodes DM Cluster Topology
-cp ./template-six-nodes-dm-hybrid.yaml ./six-nodes-dm-hybrid.yaml
+cp ./template-dm-six-nodes.yaml ./solution-dm-topology-six-nodes.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
@@ -203,7 +203,7 @@ sed -i '' \
   -e "s/<HOST_KV2_PRIVATE_IP>/${HOST_KV2_PRIVATE_IP}/g" \
   -e "s/<HOST_KV3_PRIVATE_IP>/${HOST_KV3_PRIVATE_IP}/g" \
   -e "s/<HOST_MONITOR1_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
-  ./six-nodes-dm-hybrid.yaml 2>/dev/null
+  ./solution-dm-topology-six-nodes.yaml 2>/dev/null
 
 # Setup sync-diff task configuration
 cp ./template-sync-diff-config.toml ./sync-diff-config.toml
