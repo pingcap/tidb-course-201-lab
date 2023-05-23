@@ -179,7 +179,7 @@ echo ssh -A ${HOST_TIFLASH1_PRIVATE_IP} > ./ssh-to-tiflash1.sh
 chmod +x ./*.sh
 
 # Setup Ten Nodes TiDB Cluster Topology
-cp ./template-ten-nodes.yaml ./ten-nodes.yaml
+cp ./template-ten-nodes.yaml ./solution-topology-ten-nodes.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
@@ -191,7 +191,7 @@ sed -i '' \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
   -e "s/<HOST_MONITOR1_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
   -e "s/<HOST_TIFLASH1_PRIVATE_IP>/${HOST_TIFLASH1_PRIVATE_IP}/g" \
-  ./ten-nodes.yaml 2>/dev/null
+  ./solution-topology-ten-nodes.yaml 2>/dev/null
 
 # Setup Six Nodes DM Cluster Topology
 cp ./template-six-nodes-dm-hybrid.yaml ./six-nodes-dm-hybrid.yaml
