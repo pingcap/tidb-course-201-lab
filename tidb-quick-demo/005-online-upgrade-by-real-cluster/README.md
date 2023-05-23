@@ -282,11 +282,11 @@
    $ ssh-add ~/.ssh/pe-class-key.pem
    $ ssh -A ec2-user@34.xx.xx.53
    $ cd scripts/
-   $ ./sd-002-csp-demo-workload-check.sh
+   $ ./sd-005-csp-demo-workload-check.sh
    ``` 
 
 
-6. Upgrade your TiDB cluster from v6.5.1 to v6.5.2:
+6. Open a new terminal window, upgrade your TiDB cluster from v6.5.1 to v6.5.2:
    ```
    $ ssh-add ~/.ssh/pe-class-key.pem
    $ ssh -A ec2-user@34.xx.xx.53
