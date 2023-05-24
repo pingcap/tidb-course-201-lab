@@ -206,47 +206,47 @@ sed -i '' \
   ./solution-dm-topology-six-nodes.yaml 2>/dev/null
 
 # Setup sync-diff task configuration
-cp ./template-sync-diff-config.toml ./sync-diff-config.toml
+cp ./template-sync-diff-config.toml ./solution-sync-diff-config.toml
 sed -i '' \
   -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
-  ./sync-diff-config.toml 2>/dev/null
+  ./solution-sync-diff-config.toml 2>/dev/null
 
 # Setup three-nodes-scale-out-ticdc.yaml
-cp ./template-three-nodes-scale-out-ticdc.yaml ./three-nodes-scale-out-ticdc.yaml
+cp ./template-three-nodes-scale-out-ticdc.yaml ./solution-three-nodes-scale-out-ticdc.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
   -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
-  ./three-nodes-scale-out-ticdc.yaml 2>/dev/null
+  ./solution-three-nodes-scale-out-ticdc.yaml 2>/dev/null
 
 # Setup lightning-csv.toml
-cp ./template-lightning-csv.toml ./lightning-csv.toml
+cp ./template-lightning-csv.toml ./solution-lightning-csv.toml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
-  ./lightning-csv.toml 2>/dev/null
+  ./solution-lightning-csv.toml 2>/dev/null
 
 # Setup lightning-p1.toml
-cp ./template-lightning-p1.toml ./lightning-p1.toml
+cp ./template-lightning-p1.toml ./solution-lightning-p1.toml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
-  ./lightning-p1.toml 2>/dev/null
+  ./solution-lightning-p1.toml 2>/dev/null
 
 # Setup lightning-p2.toml
-cp ./template-lightning-p2.toml ./lightning-p2.toml
+cp ./template-lightning-p2.toml ./solution-lightning-p2.toml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
-  ./lightning-p2.toml 2>/dev/null
+  ./solution-lightning-p2.toml 2>/dev/null
 
 # Setup lightning-sql.toml
-cp ./template-lightning-sql.toml ./lightning-sql.toml
+cp ./template-lightning-sql.toml ./solution-lightning-sql.toml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
-  ./lightning-sql.toml 2>/dev/null
+  ./solution-lightning-sql.toml 2>/dev/null
 
 # Setup lightning-init.toml
 cp ./template-lightning-init.toml ./solution-lightning-init.toml
