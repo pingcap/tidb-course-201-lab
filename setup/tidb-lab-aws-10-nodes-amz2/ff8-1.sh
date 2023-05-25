@@ -22,7 +22,7 @@ CREATE TABLE emp.`sal` (`emp_no` INT(11) NOT NULL, `salary` INT(11) NOT NULL, `f
 SELECT COUNT(*) FROM emp.sal;
 EOF
 
-tiup tidb-lightning:v6.5.1 -config lightning-csv.toml
+tiup tidb-lightning:v6.5.1 -config solution-lightning-csv.toml
 
 mysql -h ${HOST_DB1_PRIVATE_IP} -uroot -P4000 << 'EOF'
 SELECT COUNT(*) FROM emp.sal;
