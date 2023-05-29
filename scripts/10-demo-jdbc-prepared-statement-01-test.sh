@@ -3,6 +3,6 @@
 # Run ./10-demo-jdbc-prepared-statement-01-show.sh 
 
 rm -f DemoJdbcPreparedStatement.class
-javac -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcPreparedStatementTest.java
+javac -cp .:misc/mysql-connector-java-5.1.36-bin.jar DemoJdbcPreparedStatementTest.java
 sleep 1
-java -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcPreparedStatementTest
+java -cp .:misc/mysql-connector-java-5.1.36-bin.jar DemoJdbcPreparedStatementTest

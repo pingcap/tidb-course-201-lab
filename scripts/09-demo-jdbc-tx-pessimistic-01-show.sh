@@ -3,6 +3,6 @@
 # Run ./09-demo-jdbc-tx-pessimistic-01-show.sh cloud|local
 
 rm -f DemoJdbcTxPessimisticLock.class
-javac -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcTxPessimisticLock.java
+javac -cp .:misc/mysql-connector-java-5.1.36-bin.jar DemoJdbcTxPessimisticLock.java
 sleep 1
-java -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcTxPessimisticLock $*
+java -cp .:misc/mysql-connector-java-5.1.36-bin.jar DemoJdbcTxPessimisticLock $*
