@@ -368,7 +368,7 @@
                     ],
                     "ImageId": "ami-094125af156557ca2",
                     "InstanceType": "c5.xlarge",
-                    "KeyName": "pe-a pa cclass-key",
+                    "KeyName": "pe-class-key",
                     "TagSpecifications": [
                         {
                             "ResourceType": "instance",
@@ -441,7 +441,7 @@
                     ],
                     "ImageId": "ami-094125af156557ca2",
                     "InstanceType": "c5.xlarge",
-                    "KeyName": "pe-apac-class-key",
+                    "KeyName": "pe-class-key",
                     "TagSpecifications": [
                         {
                             "ResourceType": "instance",
@@ -514,7 +514,7 @@
                     ],
                     "ImageId": "ami-094125af156557ca2",
                     "InstanceType": "c5.xlarge",
-                    "KeyName": "pe-apac-class-key",
+                    "KeyName": "pe-class-key",
                     "TagSpecifications": [
                         {
                             "ResourceType": "instance",
@@ -584,7 +584,7 @@
                     ],
                     "ImageId": "ami-094125af156557ca2",
                     "InstanceType": "c5.xlarge",
-                    "KeyName": "pe-apac-class-key",
+                    "KeyName": "pe-class-key",
                     "TagSpecifications": [
                         {
                             "ResourceType": "instance",
@@ -654,7 +654,7 @@
                     ],
                     "ImageId": "ami-094125af156557ca2",
                     "InstanceType": "c5.xlarge",
-                    "KeyName": "pe-apac-class-key",
+                    "KeyName": "pe-class-key",
                     "TagSpecifications": [
                         {
                             "ResourceType": "instance",
