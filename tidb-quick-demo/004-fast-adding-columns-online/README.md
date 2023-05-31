@@ -239,10 +239,10 @@
     Query OK, 1 row affected (0.00 sec)
     ```
 
-6. In terminal 2, create an index.
+6. In terminal 2, add a column to the table `t1`.
     ```
     tidb:db1> USE demo;
-    tidb:db1> CREATE INDEX idx1 ON t1 (num);
+    tidb:db1> ALTER TABLE t1 ADD COLUMN c1 INT;
     ```
     ```
     tidb:db1> USE demo;
@@ -250,7 +250,7 @@
     You can turn off this feature to get a quicker startup with -A
 
     Database changed
-    tidb:db1> CREATE INDEX idx1 ON t1 (num);
+    tidb:db1> ALTER TABLE t1 ADD COLUMN c1 INT;
     Query OK, 0 rows affected (9.03 sec)
     ```
 
