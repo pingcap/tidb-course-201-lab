@@ -30,7 +30,7 @@
 3. Create the demo Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
     $ git clone https://github.com/pingcap/tidb-course-201-lab.git
-    $ cd tidb-course-201-lab/tidb-quick-demo/003-fast-adding-index-by-real-cluster/
+    $ cd tidb-course-201-lab/tidb-quick-demo/003-fast-adding-index-by-real-cluster/setup/
     ```
     ```
     $ ./deploy-quick-demo-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>

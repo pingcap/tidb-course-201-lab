@@ -30,7 +30,7 @@
 3. Create the demo Cloud Formation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
     ```
     $ git clone https://github.com/pingcap/tidb-course-201-lab.git
-    $ cd tidb-course-201-lab/tidb-quick-demo/004-fast-adding-columns-online/
+    $ cd tidb-course-201-lab/tidb-quick-demo/004-fast-adding-columns-online/setup/
     ```
     ```
     $ ./deploy-quick-demo-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
@@ -239,10 +239,10 @@
     Query OK, 1 row affected (0.00 sec)
     ```
 
-6. In terminal 2, create an index.
+6. In terminal 2, add a column to the table `t1`.
     ```
     tidb:db1> USE demo;
-    tidb:db1> CREATE INDEX idx1 ON t1 (num);
+    tidb:db1> ALTER TABLE t1 ADD COLUMN c1 INT;
     ```
     ```
     tidb:db1> USE demo;
@@ -250,7 +250,7 @@
     You can turn off this feature to get a quicker startup with -A
 
     Database changed
-    tidb:db1> CREATE INDEX idx1 ON t1 (num);
+    tidb:db1> ALTER TABLE t1 ADD COLUMN c1 INT;
     Query OK, 0 rows affected (9.03 sec)
     ```
 
@@ -281,13 +281,13 @@
 
     Database changed
     tidb:db1> SELECT * FROM t1; 
-    +----+------+
-    | id | num  |
-    +----+------+
-    |  1 |    1 |
-    |  2 |    2 |
-    |  4 |    4 |
-    +----+------+
+    +----+------+------+
+    | id | num  | c1   |
+    +----+------+------+
+    |  1 |    1 | NULL |
+    |  2 |    2 | NULL |
+    |  4 |    4 | NULL |
+    +----+------+------+
     3 rows in set (0.00 sec)
     ```
 

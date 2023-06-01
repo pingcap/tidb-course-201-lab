@@ -368,7 +368,7 @@
                     ],
                     "ImageId": "ami-094125af156557ca2",
                     "InstanceType": "c5.xlarge",
-                    "KeyName": "pe-a pa cclass-key",
+                    "KeyName": "pe-apac-class-key",
                     "TagSpecifications": [
                         {
                             "ResourceType": "instance",
