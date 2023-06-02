@@ -32,7 +32,7 @@ public class DemoJdbcPreparedStatement8028v2 {
             PreparedStatement psMainInsert = connection.prepareStatement(MAIN_TASK);
             for (int i = 0; i < 2000000; i++) {
                 I = i;
-                System.out.println(i + " rows inserted." );
+                System.out.println(i + " rows to be inserted." );
                 psMainInsert.executeUpdate();
                 Thread.sleep(1000);
                 connection.commit();
@@ -56,7 +56,7 @@ public class DemoJdbcPreparedStatement8028v2 {
                         PreparedStatement psMainInsert = connection.prepareStatement(MAIN_TASK);
                         for (int i = I; i < 200000; i++) {
                             I = i;
-                            System.out.println(i + " rows inserted." );
+                            System.out.println(i + " rows to be inserted." );
                             psMainInsert.executeUpdate();
                             connection.commit();
                             Thread.sleep(1000);
