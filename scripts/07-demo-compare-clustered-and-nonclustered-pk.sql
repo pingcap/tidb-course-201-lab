@@ -120,7 +120,7 @@ WHERE table_name = 'auto_increment_t1_clustered';
 /* Create a single row for table 2 */
 INSERT INTO test.t2_nonclustered (id, name, varname)
 VALUES (50, 'A', 'V1');
-ANALYZE TABLE test.auto_increment_t1_clustered;
+ANALYZE TABLE test.t2_nonclustered;
 /* Query 3: Data in table 2 */
 SELECT COUNT(DISTINCT id),
     COUNT(*),
@@ -155,3 +155,8 @@ EXPLAIN
 SELECT varname
 FROM test.t2_nonclustered
 WHERE id BETWEEN 10 AND 100;
+/* Query 7: Check _tidb_rowid column */
+SELECT _tidb_rowid
+FROM test.t2_nonclustered;
+SELECT _tidb_rowid
+FROM test.auto_increment_t1_clustered;

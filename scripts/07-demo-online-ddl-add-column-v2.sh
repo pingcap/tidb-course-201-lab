@@ -16,6 +16,6 @@ EOF
 
 
 rm -f DemoJdbcPreparedStatement8028v2.class
-javac -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcPreparedStatement8028v2.java
+javac -cp .:misc/mysql-connector-java-5.1.36-bin.jar DemoJdbcPreparedStatement8028v2.java
 sleep 1
-java -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcPreparedStatement8028v2 127.0.0.1 4000 root
+java -cp .:misc/mysql-connector-java-5.1.36-bin.jar DemoJdbcPreparedStatement8028v2 127.0.0.1 4000 root
