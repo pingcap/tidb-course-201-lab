@@ -1,7 +1,8 @@
 #!/bin/bash
 
-mysql -h 127.0.0.1 -P 4000 -uroot 2>/dev/null << EOF
+mysql -h 127.0.0.1 -P 4000 -uroot << EOF
 SET GLOBAL tidb_enable_metadata_lock = OFF;
+SET autocommit = OFF;
 SET GLOBAL autocommit = OFF;
 DROP DATABASE IF EXISTS demo;
 CREATE DATABASE demo;
@@ -11,9 +12,10 @@ CREATE TABLE IF NOT EXISTS t1 (
        num INT
        );
 INSERT INTO t1(num) VALUES (1);
+COMMIT;
 INSERT INTO t1(num) VALUES (2);
+COMMIT;
 EOF
-
 
 rm -f DemoJdbcPreparedStatement8028v2.class
 javac -cp .:misc/mysql-connector-java-5.1.36-bin.jar DemoJdbcPreparedStatement8028v2.java
