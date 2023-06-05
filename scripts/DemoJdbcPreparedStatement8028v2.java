@@ -30,12 +30,13 @@ public class DemoJdbcPreparedStatement8028v2 {
 
             // Start workload
             PreparedStatement psMainInsert = connection.prepareStatement(MAIN_TASK);
-            for (int i = 0; i < 2000000; i++) {
+            for (int i = 1; i < 2000000; i++) {
                 I = i;
-                System.out.println(i + " rows inserted." );
+                System.out.println("Record " + i + " to be inserted." );
                 psMainInsert.executeUpdate();
                 Thread.sleep(1000);
                 connection.commit();
+                
             }
         } catch (SQLException e) {
             System.out.println("Main task error.");
@@ -56,7 +57,7 @@ public class DemoJdbcPreparedStatement8028v2 {
                         PreparedStatement psMainInsert = connection.prepareStatement(MAIN_TASK);
                         for (int i = I; i < 200000; i++) {
                             I = i;
-                            System.out.println(i + " rows inserted." );
+                            System.out.println("Record " + i + " to be inserted." );
                             psMainInsert.executeUpdate();
                             connection.commit();
                             Thread.sleep(1000);
