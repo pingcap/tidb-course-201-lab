@@ -27,8 +27,14 @@ You will receive a table from your instructor that describes the exercise enviro
       ``` 
 
 2. Connect to your EC2 instance, using the following commands with `SSH` forward enabled. The example is using the `monitor1` node as the login target:
+    
+    Add the private key identity to the OpenSSH authentication agent.
     ```
     $ ssh-add  ~/.ssh/<key_file>
+    ```
+    
+    The option `-A` for command `SSH` is crucial as it enables the forwarding of connections from an authentication agent. It is necessary to support passwordless hands-on steps throughout the exercise workflows.
+    ```
     $ ssh -A ec2-user@34.220.83.xx
     ```
 
