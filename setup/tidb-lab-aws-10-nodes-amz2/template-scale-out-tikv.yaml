@@ -6,3 +6,8 @@ tikv_servers:
     deploy_dir: /tidb-deploy/tikv-20160
     data_dir: /tidb-data/tikv-20160
     log_dir: /tidb-deploy/tikv-20160/log
+    config:
+      server.labels:
+        region: oregon
+        zone: az4
+        storage-performance: high
