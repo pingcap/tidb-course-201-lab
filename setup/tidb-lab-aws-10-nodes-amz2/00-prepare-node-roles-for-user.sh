@@ -199,7 +199,7 @@ sed -i '' \
   -e "s/<HOST_KV1_PRIVATE_IP>/${HOST_KV1_PRIVATE_IP}/g" \
   -e "s/<HOST_KV2_PRIVATE_IP>/${HOST_KV2_PRIVATE_IP}/g" \
   -e "s/<HOST_KV3_PRIVATE_IP>/${HOST_KV3_PRIVATE_IP}/g" \
-  ./solution-dm-topology-six-nodes.yaml 2>/dev/null
+  ./solution-topology-placement-rule.yaml 2>/dev/null
 
 # Setup Six Nodes DM Cluster Topology
 cp ./template-dm-six-nodes.yaml ./solution-dm-topology-six-nodes.yaml
