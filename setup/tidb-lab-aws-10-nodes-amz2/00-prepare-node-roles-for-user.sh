@@ -194,7 +194,7 @@ sed -i '' \
   ./solution-topology-ten-nodes.yaml 2>/dev/null
 
 # Setup Placement Rule Topology
-cp ./template-topology-placement-rule ./solution-topology-placement-rule.yaml
+cp ./template-topology-placement-rule.yaml ./solution-topology-placement-rule.yaml
 sed -i '' \
   -e "s/<HOST_KV1_PRIVATE_IP>/${HOST_KV1_PRIVATE_IP}/g" \
   -e "s/<HOST_KV2_PRIVATE_IP>/${HOST_KV2_PRIVATE_IP}/g" \
