@@ -193,6 +193,14 @@ sed -i '' \
   -e "s/<HOST_TIFLASH1_PRIVATE_IP>/${HOST_TIFLASH1_PRIVATE_IP}/g" \
   ./solution-topology-ten-nodes.yaml 2>/dev/null
 
+# Setup Placement Rule Topology
+cp ./template-topology-placement-rule ./solution-topology-placement-rule.yaml
+sed -i '' \
+  -e "s/<HOST_KV1_PRIVATE_IP>/${HOST_KV1_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV2_PRIVATE_IP>/${HOST_KV2_PRIVATE_IP}/g" \
+  -e "s/<HOST_KV3_PRIVATE_IP>/${HOST_KV3_PRIVATE_IP}/g" \
+  ./solution-topology-placement-rule.yaml 2>/dev/null
+
 # Setup Six Nodes DM Cluster Topology
 cp ./template-dm-six-nodes.yaml ./solution-dm-topology-six-nodes.yaml
 sed -i '' \

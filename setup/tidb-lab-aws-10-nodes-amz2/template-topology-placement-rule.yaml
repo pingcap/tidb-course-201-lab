@@ -1,0 +1,37 @@
+tikv_servers:
+  - host: <HOST_KV1_PRIVATE_IP>
+    ssh_port: 22
+    port: 20161
+    status_port: 20181
+    deploy_dir: /tidb-deploy/tikv-20161
+    data_dir: /tidb-data/tikv-20161
+    log_dir: /tidb-deploy/tikv-20161/log
+    config:
+      server.labels:
+        region: oregon
+        zone: az1
+        storage-performance: low
+  - host: <HOST_KV2_PRIVATE_IP>
+    ssh_port: 22
+    port: 20161
+    status_port: 20181
+    deploy_dir: /tidb-deploy/tikv-20161
+    data_dir: /tidb-data/tikv-20161
+    log_dir: /tidb-deploy/tikv-20161/log
+    config:
+      server.labels:
+        region: oregon
+        zone: az2
+        storage-performance: low
+  - host: <HOST_KV3_PRIVATE_IP>
+    ssh_port: 22
+    port: 20161
+    status_port: 20181
+    deploy_dir: /tidb-deploy/tikv-20161
+    data_dir: /tidb-data/tikv-20161
+    log_dir: /tidb-deploy/tikv-20161/log
+    config:
+      server.labels:
+        region: oregon
+        zone: az3
+        storage-performance: low
