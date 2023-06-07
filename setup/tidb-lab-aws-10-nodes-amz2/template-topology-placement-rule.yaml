@@ -9,7 +9,7 @@ tikv_servers:
     config:
       server.labels:
         region: oregon
-        zone: az4
+        zone: az1
         storage-performance: low
   - host: <HOST_KV2_PRIVATE_IP>
     ssh_port: 22
@@ -21,7 +21,7 @@ tikv_servers:
     config:
       server.labels:
         region: oregon
-        zone: az4
+        zone: az2
         storage-performance: low
   - host: <HOST_KV3_PRIVATE_IP>
     ssh_port: 22
@@ -33,5 +33,5 @@ tikv_servers:
     config:
       server.labels:
         region: oregon
-        zone: az4
+        zone: az3
         storage-performance: low
