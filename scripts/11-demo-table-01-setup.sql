@@ -1,183 +1,174 @@
 /* source 11-demo-table-01-setup.sql */
 /* Setup the schema for CLUSTERED vs. NONCLUSTERED primary keys */
+/* Ensure the replica setting */
+SET CONFIG PD replication.max-replicas = 3;
 /* Table t1: Clustered */
-DROP TABLE IF EXISTS test.auto_random_t1_clustered;
-CREATE TABLE test.auto_random_t1_clustered (
-    id BIGINT PRIMARY KEY AUTO_RANDOM,
-    id2 BIGINT,
-    name CHAR(255),
-    varname VARCHAR(200)
+DROP TABLE IF EXISTS test.p;
+DROP TABLE IF EXISTS test.c;
+/* Table p will contain 524288 rows */
+CREATE TABLE test.p (
+    pid INT PRIMARY KEY AUTO_INCREMENT,
+    insert_batch_id INT NOT NULL,
+    charname CHAR(100) NOT NULL,
+    varname VARCHAR(30) NOT NULL
 );
-/* Table t2: Non-Clustered */
-DROP TABLE IF EXISTS test.t2_nonclustered;
-CREATE TABLE test.t2_nonclustered (
-    id BIGINT PRIMARY KEY NONCLUSTERED,
-    id2 BIGINT,
-    name CHAR(255),
-    varname CHAR(200)
+/* Table c will contain 8388608 rows */
+CREATE TABLE test.c (
+    cid INT PRIMARY KEY AUTO_INCREMENT,
+    pid INT NOT NULL,
+    insert_batch_id INT NOT NULL,
+    charname CHAR(100) NOT NULL,
+    varname VARCHAR(30) NOT NULL
 );
-/* Table t5: Clustered with no primary key */
-DROP TABLE IF EXISTS test.t5_nonclustered;
-CREATE TABLE test.t5_nonclustered (
-    id BIGINT,
-    id2 BIGINT,
-    name CHAR(255),
-    varname CHAR(200)
-);
-/* Populate Seed */
-INSERT INTO test.auto_random_t1_clustered (name, varname)
-VALUES ('A', 'V1'),
-    ('B', 'V1'),
-    ('C', 'V2'),
-    ('D', 'V2');
-UPDATE test.auto_random_t1_clustered
-SET id2 = id;
-/* Flooding with data 2M rows to t1 */
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+/* Populate test.p */
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+VALUES (NULL, 0, 'A', 'W'),
+    (NULL, 0, 'B', 'X'),
+    (NULL, 0, 'C', 'Y'),
+    (NULL, 0, 'D', 'Z');
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.p (pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+/* Populate test.c */
+INSERT INTO test.c (cid, pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    pid,
+    0,
+    charname,
     varname
-from test.auto_random_t1_clustered;
-INSERT INTO test.auto_random_t1_clustered
-select null,
-    id2,
-    name,
+FROM test.p;
+INSERT INTO test.c (cid, pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    pid,
+    LAST_INSERT_ID(),
+    charname,
     varname
-from test.auto_random_t1_clustered;
-/* Flooding with data 2M rows to t2 */
-INSERT INTO test.t2_nonclustered
-select *
-from test.auto_random_t1_clustered
-where name = 'A';
-INSERT INTO test.t2_nonclustered
-select *
-from test.auto_random_t1_clustered
-where name = 'B';
-INSERT INTO test.t2_nonclustered
-select *
-from test.auto_random_t1_clustered
-where name = 'C';
-INSERT INTO test.t2_nonclustered
-select *
-from test.auto_random_t1_clustered
-where name = 'D';
-/* Flooding with data 2M rows to t5 */
-INSERT INTO test.t5_nonclustered
-select *
-from test.t2_nonclustered
-where name = 'A';
-INSERT INTO test.t5_nonclustered
-select *
-from test.t2_nonclustered
-where name = 'B';
-INSERT INTO test.t5_nonclustered
-select *
-from test.t2_nonclustered
-where name = 'C';
-INSERT INTO test.t5_nonclustered
-select *
-from test.t2_nonclustered
-where name = 'D';
+FROM test.c;
+INSERT INTO test.c (cid, pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    pid,
+    LAST_INSERT_ID(),
+    charname,
+    varname
+FROM test.c;
+INSERT INTO test.c (cid, pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    pid,
+    LAST_INSERT_ID(),
+    charname,
+    varname
+FROM test.c;
+INSERT INTO test.c (cid, pid, insert_batch_id, charname, varname)
+SELECT NULL,
+    pid,
+    LAST_INSERT_ID(),
+    charname,
+    varname
+FROM test.c;
+/* CBO */
+ANALYZE TABLE test.p;
+ANALYZE TABLE test.c;
+/* Ouptut Rows Count */
+SELECT COUNT(*)
+FROM test.p;
+SELECT COUNT(*)
+FROM test.c;
