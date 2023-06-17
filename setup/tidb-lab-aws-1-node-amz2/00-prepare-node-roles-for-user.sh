@@ -36,8 +36,8 @@ echo export HOST_KV1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_KV1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
 echo export HOST_TIFLASH1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
 echo export HOST_TIFLASH1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
-echo export HOST_MONITOR_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
-echo export HOST_MONITOR_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_MONITOR1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_MONITOR1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
 
 source ./hosts-env.sh
 
@@ -45,20 +45,21 @@ echo ssh -A ${HOST_CM_PRIVATE_IP} > ./ssh-to-cm.sh
 echo ssh -A ${HOST_PD1_PRIVATE_IP} > ./ssh-to-pd1.sh
 echo ssh -A ${HOST_DB1_PRIVATE_IP} > ./ssh-to-db1.sh
 echo ssh -A ${HOST_DB2_PRIVATE_IP} > ./ssh-to-db2.sh
-echo ssh -A ${HOST_MONITOR_PRIVATE_IP} > ./ssh-to-monitor.sh
+echo ssh -A ${HOST_MONITOR1_PRIVATE_IP} > ./ssh-to-monitor1.sh
 echo ssh -A ${HOST_KV1_PRIVATE_IP} > ./ssh-to-kv1.sh
 echo ssh -A ${HOST_TIFLASH1_PRIVATE_IP} > ./ssh-to-tiflash1.sh
 chmod +x ./*.sh
 
 # Setup Single Node TiDB Cluster Topology
-cp ./template-single-node-hybrid.yaml ./single-node-hybrid.yaml
+cp ./template-single-node-hybrid.yaml ./solution-topology-single-nodes.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_TIFLASH1_PRIVATE_IP>/${HOST_TIFLASH1_PRIVATE_IP}/g" \
   -e "s/<HOST_KV1_PRIVATE_IP>/${HOST_KV1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
-  ./single-node-hybrid.yaml 2>/dev/null
+  -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
+  ./solution-topology-single-nodes.yaml 2>/dev/null
 
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
