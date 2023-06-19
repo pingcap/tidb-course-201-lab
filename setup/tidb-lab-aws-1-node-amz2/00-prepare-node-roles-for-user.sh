@@ -12,32 +12,32 @@ export TRAINER=${2}
 
 # Setup PD1, KV1, DB1 and TiFlash1 on single node.
 # Node 1
-HOST_PD1_PRIVATE_IP=`aws ec2 describe-instances \
---filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=${USER}" "Name=tag:role,Values=pd1" "Name=tag:trainer,Values=${TRAINER}" \
+HOST_MONITOR1_PRIVATE_IP=`aws ec2 describe-instances \
+--filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=${USER}" "Name=tag:role,Values=monitor1" "Name=tag:trainer,Values=${TRAINER}" \
 --query "Reservations[0].Instances[0].PrivateIpAddress" \
 --output text \
 --region ${REGION_CODE}`
 
-HOST_PD1_PUBLIC_IP=`aws ec2 describe-instances \
---filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=${USER}" "Name=tag:role,Values=pd1" "Name=tag:trainer,Values=${TRAINER}" \
+HOST_MONITOR1_PUBLIC_IP=`aws ec2 describe-instances \
+--filter "Name=instance-state-name,Values=running" "Name=tag:student,Values=${USER}" "Name=tag:role,Values=monitor1" "Name=tag:trainer,Values=${TRAINER}" \
 --query "Reservations[0].Instances[0].PublicIpAddress" \
 --output text \
 --region ${REGION_CODE}`
 
-echo export HOST_CM_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} > ./hosts-env.sh
-echo export HOST_CM_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
-echo export HOST_PD1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
-echo export HOST_PD1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
-echo export HOST_DB1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
-echo export HOST_DB1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
-echo export HOST_DB2_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
-echo export HOST_DB2_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
-echo export HOST_KV1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
-echo export HOST_KV1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
-echo export HOST_TIFLASH1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
-echo export HOST_TIFLASH1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
-echo export HOST_MONITOR1_PRIVATE_IP=${HOST_PD1_PRIVATE_IP} >> ./hosts-env.sh
-echo export HOST_MONITOR1_PUBLIC_IP=${HOST_PD1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_MONITOR1_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} > ./hosts-env.sh
+echo export HOST_MONITOR1_PUBLIC_IP=${HOST_MONITOR1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_CM_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_CM_PUBLIC_IP=${HOST_MONITOR1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_PD1_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_PD1_PUBLIC_IP=${HOST_MONITOR1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_DB1_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_DB1_PUBLIC_IP=${HOST_MONITOR1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_DB2_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_DB2_PUBLIC_IP=${HOST_MONITOR1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_KV1_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_KV1_PUBLIC_IP=${HOST_MONITOR1_PUBLIC_IP} >> ./hosts-env.sh
+echo export HOST_TIFLASH1_PRIVATE_IP=${HOST_MONITOR1_PRIVATE_IP} >> ./hosts-env.sh
+echo export HOST_TIFLASH1_PUBLIC_IP=${HOST_MONITOR1_PUBLIC_IP} >> ./hosts-env.sh
 
 source ./hosts-env.sh
 
