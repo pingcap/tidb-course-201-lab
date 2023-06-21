@@ -7,25 +7,25 @@
 # Lab Environment Preparation
 1. Setup EC2 instance SSH identity:
 
-    + a. On EC2 console, go to region "us-west-2" (Oregon). Under `Key Pairs` section, create a new key pair with name `pe-class-key`, and save the private key file (for example: `pe-class-key.pem`) to local directory `~/.ssh/`.
+    + a. On EC2 console, go to region "ap-southeast-1" (Singapore). Under `Key Pairs` section, create a new key pair with name `pe-class-key-singapore`, and save the private key file (for example: `pe-class-key-singapore.pem`) to local directory `~/.ssh/`.
 
     + b. Change the private key file permission to `r--`:
       ```
-      $ chmod 400 ~/.ssh/pe-class-key.pem
+      $ chmod 400 ~/.ssh/pe-class-key-singapore.pem
       ```
 
 2. Setup AWS credentials for yourself.
    
-    + a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
+    + a. If you use permanent IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
 
     + b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
       ```
       $ export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
-      $ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRECT_ACCESS_KEY>"
+      $ export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRET_ACCESS_KEY>"
       $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
       ```
 
-3. Create the class CloudFormation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "us-west-2" (Oregon) region:
+3. Create the class CloudFormation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "ap-southeast-1" (Oregon) region:
     ```
     $ git clone https://github.com/pingcap/tidb-course-201-lab.git
     ```
@@ -38,7 +38,7 @@
     ```
     $ ./deploy-lab-stack-on-aws.sh gXXXXXXXo gXXXXXXXo@pXXXXXXXm
     {
-        "StackId": "arn:aws:cloudformation:us-west-2:XXXXXXXXXX:stack/lab-303-v2/1aa6baa0-ee42-11ed-a1b9-06ee049f6e4d"
+        "StackId": "arn:aws:cloudformation:ap-southeast-1:XXXXXXXXXX:stack/lab-303-v2/1aa6baa0-ee42-11ed-a1b9-06ee049f6e4d"
     }
     ```
 
@@ -51,7 +51,7 @@
       {
           "Stacks": [
               {
-                  "StackId": "arn:aws:cloudformation:us-west-2:XXXXXXXXXX:stack/lab-303-v2/1aa6baa0-ee42-11ed-a1b9-06ee049f6e4d",
+                  "StackId": "arn:aws:cloudformation:ap-southeast-1:XXXXXXXXXX:stack/lab-303-v2/1aa6baa0-ee42-11ed-a1b9-06ee049f6e4d",
                   "StackName": "lab-303-v2",
                   "Parameters": [
                       {
@@ -136,7 +136,7 @@
 
 6. Add the private key identity to the SSH authentication agent:
     ```
-    $ ssh-add ~/.ssh/pe-class-key.pem
+    $ ssh-add ~/.ssh/pe-class-key-singapore.pem
     ```
 
 7.  Provision the class cluster `tidb-test` topology by running `class_prepare.sh <YOUR_NAME>`:
