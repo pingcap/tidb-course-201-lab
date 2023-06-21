@@ -44,10 +44,10 @@
 
 4. Wait the CloudFormation stack run to completion. Run following script to check the status, until you get the `CREATE_COMPLETE` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 5 auto scaling groups:
     ```
-    $ ./show-quick-demo-stack-on-aws.sh
+    $ ./show-lab-stack-on-aws.sh
     ``` 
     ```
-    $ ./show-quick-demo-stack-on-aws.sh 
+    $ ./show-lab-stack-on-aws.sh 
       {
           "Stacks": [
               {

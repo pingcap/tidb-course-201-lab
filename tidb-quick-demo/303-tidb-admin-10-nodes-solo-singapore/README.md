@@ -25,12 +25,12 @@
       $ export AWS_SESSION_TOKEN="<YOUR_SESSION_TOKEN>"
       ```
 
-3. Create the class CloudFormation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "ap-southeast-1" (Oregon) region:
+3. Create the class CloudFormation stack. Provide your name and your email as input parameters (for resource tagging purpose, otherwise the demo steps will fail). This stack will be created in "ap-southeast-1" (Singapore) region:
     ```
     $ git clone https://github.com/pingcap/tidb-course-201-lab.git
     ```
     ```
-    $ cd tidb-course-201-lab/tidb-quick-demo/303-tidb-admin-10-nodes-solo/setup
+    $ cd tidb-course-201-lab/tidb-quick-demo/303-tidb-admin-10-nodes-solo-singapore/setup
     ```
     ```
     $ ./deploy-lab-stack-on-aws.sh <YOUR_NAME> <YOUR_EMAIL>
@@ -44,10 +44,10 @@
 
 4. Wait the CloudFormation stack run to completion. Run following script to check the status, until you get the `CREATE_COMPLETE` status on `StackStatus` attribute in the output. It will create 1 VPC, 4 subnets, 5 auto scaling groups:
     ```
-    $ ./show-quick-demo-stack-on-aws.sh
+    $ ./show-lab-stack-on-aws.sh
     ``` 
     ```
-    $ ./show-quick-demo-stack-on-aws.sh 
+    $ ./show-lab-stack-on-aws.sh 
       {
           "Stacks": [
               {
@@ -155,7 +155,7 @@
 # Tear Down the Lab Environment
 1. On your local machine, under `setup` directory, run `remove-lab-stack-on-aws.sh` and `show-lab-stack-on-aws.sh`:
    ```
-   $ cd tidb-course-201-lab/tidb-quick-demo/303-tidb-admin-10-nodes-solo/setup
+   $ cd tidb-course-201-lab/tidb-quick-demo/303-tidb-admin-10-nodes-solo-singapore/setup
    $ ./remove-lab-stack-on-aws.sh 
    $ ./show-lab-stack-on-aws.sh 
    {
