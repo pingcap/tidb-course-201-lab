@@ -152,6 +152,11 @@
     # Reporting End - 2023-05-08 11:47:38.302259 with 10 nodes.
     ```
 
+8. Log in `monitor` node.
+   ```
+   ssh -A ec2-user@<public_ip_of_monitor1>
+   ```
+
 # Tear Down the Lab Environment
 1. On your local machine, under `setup` directory, run `remove-lab-stack-on-aws.sh` and `show-lab-stack-on-aws.sh`:
    ```
