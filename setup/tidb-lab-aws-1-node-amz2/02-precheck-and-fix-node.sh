@@ -1,6 +1,6 @@
 #!/bin/bash
-~/.tiup/bin/tiup cluster check solution-topology-single-nodes.yaml --apply && \
-~/.tiup/bin/tiup cluster check solution-topology-single-nodes.yaml
+~/.tiup/bin/tiup cluster check solution-topology-single-node.yaml --apply && \
+~/.tiup/bin/tiup cluster check solution-topology-single-node.yaml
 
 echo "############################################################################################"
 echo "## It's safe to ignore disk and cpu-governor check failures in this classroom environment. #"

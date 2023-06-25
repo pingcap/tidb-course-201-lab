@@ -51,7 +51,7 @@ echo ssh -A ${HOST_TIFLASH1_PRIVATE_IP} > ./ssh-to-tiflash1.sh
 chmod +x ./*.sh
 
 # Setup Single Node TiDB Cluster Topology
-cp ./template-single-node-hybrid.yaml ./solution-topology-single-nodes.yaml
+cp ./template-single-node-hybrid.yaml ./solution-topology-single-node.yaml
 sed -i '' \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_TIFLASH1_PRIVATE_IP>/${HOST_TIFLASH1_PRIVATE_IP}/g" \
@@ -59,7 +59,7 @@ sed -i '' \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
   -e "s/<HOST_MONITOR1_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
-  ./solution-topology-single-nodes.yaml 2>/dev/null
+  ./solution-topology-single-node.yaml 2>/dev/null
 
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
