@@ -1,8 +1,8 @@
-user: tidb
+user: ec2-user
 tidb_version: v6.1.0
 topology:
   global:
-    user: tidb
+    user: ec2-user
     ssh_port: 22
     ssh_type: builtin
     deploy_dir: /tidb-deploy
