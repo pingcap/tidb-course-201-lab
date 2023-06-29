@@ -61,16 +61,6 @@ You will receive a table from your instructor that describes the exercise enviro
 1. After successfully logging in EC2 instance (you use `monitor1` node as the Control Machine throughout the course), you will see the following prompt:
       ```
       ...
-         ,     #_
-         ~\_  ####_        Amazon Linux 2023
-        ~~  \_#####\
-        ~~     \###|
-        ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
-         ~~       V~' '->
-          ~~~         /
-            ~~._.   _/
-               _/ _/
-             _/m/'
       Last login: Fri Jun  2 03:56:22 2023
       [ec2-user@ip-10-0-1-33 ~]$ 
       ```
