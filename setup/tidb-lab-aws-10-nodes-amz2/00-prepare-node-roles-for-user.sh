@@ -284,6 +284,13 @@ sed -i '' \
   -e "s/<HOST_MONITOR1_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
   ./solution-scale-out-tikv.yaml 2>/dev/null
 
+# Setup clean-bucket.sh script
+cp ./template-clean-bucket.sh ./clean-bucket.sh
+sed -i '' \
+  -e "s/<TRAINER>/${TRAINER}/g" \
+  -e "s/<USER>/${USER}/g" \
+  ./clean-bucket.sh 2>/dev/null
+
 
 # Copy hosts-env.sh to user home. It's also a safe operation if the PWD is user home. 
 cp ./hosts-env.sh ~/hosts-env.sh 2>>/dev/null
