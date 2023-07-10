@@ -1,5 +1,4 @@
 /* source 11-demo-table-01-setup-small.sql */
-/* Setup the schema for CLUSTERED vs. NONCLUSTERED primary keys */
 /* Ensure the replica setting */
 SET CONFIG PD replication.max-replicas = 3;
 /* Table t1: Clustered */
