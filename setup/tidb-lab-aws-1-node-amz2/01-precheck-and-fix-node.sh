@@ -1,4 +1,7 @@
 #!/bin/bash
+curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
+~/.tiup/bin/tiup update --all
+
 ~/.tiup/bin/tiup cluster check solution-topology-single-node.yaml --apply && \
 ~/.tiup/bin/tiup cluster check solution-topology-single-node.yaml
 
