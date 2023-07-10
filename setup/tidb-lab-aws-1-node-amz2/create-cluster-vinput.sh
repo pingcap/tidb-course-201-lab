@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./01-precheck-and-fix-node.sh
+./02-precheck-and-fix-node.sh
 
 VERSION=${1}
 # Creating the TiDB cluster named tidb-test, version ${VERSION}
