@@ -142,13 +142,6 @@ SELECT NULL,
     charname,
     varname
 FROM test.c;
-INSERT INTO test.c (cid, pid, insert_batch_id, charname, varname)
-SELECT NULL,
-    pid,
-    LAST_INSERT_ID(),
-    charname,
-    varname
-FROM test.c;
 /* CBO */
 ANALYZE TABLE test.p;
 ANALYZE TABLE test.c;
