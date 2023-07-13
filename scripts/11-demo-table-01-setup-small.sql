@@ -1,5 +1,4 @@
 /* source 11-demo-table-01-setup-small.sql */
-/* Setup the schema for CLUSTERED vs. NONCLUSTERED primary keys */
 /* Ensure the replica setting */
 SET CONFIG PD replication.max-replicas = 3;
 /* Table t1: Clustered */
@@ -136,13 +135,6 @@ SELECT NULL,
     charname,
     varname
 FROM test.p;
-INSERT INTO test.c (cid, pid, insert_batch_id, charname, varname)
-SELECT NULL,
-    pid,
-    LAST_INSERT_ID(),
-    charname,
-    varname
-FROM test.c;
 INSERT INTO test.c (cid, pid, insert_batch_id, charname, varname)
 SELECT NULL,
     pid,
