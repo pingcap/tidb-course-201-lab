@@ -31,7 +31,7 @@ class InsertWorkerCSPTiProxy1 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=2000";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=10000";
                 DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -114,7 +114,7 @@ class InsertWorkerCSPTiProxy2 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=2000";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=10000";
                 DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -197,7 +197,7 @@ class InsertWorkerCSPTiProxy3 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=2000";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=10000";
                 DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -280,7 +280,7 @@ class InsertWorkerCSPTiProxy4 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=2000";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=true&connectTimeout=10000";
                 DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
