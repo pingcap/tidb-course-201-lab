@@ -224,14 +224,14 @@ openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout key.pem -ou
 
 chmod 400 key.pem
 
-scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no key.pem ec2-user@${HOST_DB1_PRIVATE_IP}:/home/ec2-user/
-scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no cert.pem ec2-user@${HOST_DB1_PRIVATE_IP}:/home/ec2-user/
-scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no key.pem ec2-user@${HOST_DB2_PRIVATE_IP}:/home/ec2-user/
-scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no cert.pem ec2-user@${HOST_DB2_PRIVATE_IP}:/home/ec2-user/
+scp -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no key.pem ec2-user@${HOST_DB1_PRIVATE_IP}:/home/ec2-user/
+scp -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no cert.pem ec2-user@${HOST_DB1_PRIVATE_IP}:/home/ec2-user/
+scp -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no key.pem ec2-user@${HOST_DB2_PRIVATE_IP}:/home/ec2-user/
+scp -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no cert.pem ec2-user@${HOST_DB2_PRIVATE_IP}:/home/ec2-user/
 
 # Place TiProxy configuration to TiProxy nodes.
-scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /home/ec2-user/tiproxy.toml ec2-user@${HOST_TIPROXY1_PRIVATE_IP}:/home/ec2-user/
-scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /home/ec2-user/tiproxy.toml ec2-user@${HOST_TIPROXY2_PRIVATE_IP}:/home/ec2-user/
+scp -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /home/ec2-user/tiproxy.toml ec2-user@${HOST_TIPROXY1_PRIVATE_IP}:/home/ec2-user/
+scp -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /home/ec2-user/tiproxy.toml ec2-user@${HOST_TIPROXY2_PRIVATE_IP}:/home/ec2-user/
 
 
 echo

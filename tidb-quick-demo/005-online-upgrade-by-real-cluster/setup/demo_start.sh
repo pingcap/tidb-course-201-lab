@@ -43,7 +43,7 @@ do
     done;
 done; 
 
-# Register 1 TiProxy nodes to NLB
+# Register 2 TiProxy nodes to NLB
 VPC_ID=`aws ec2 describe-vpcs --filters "Name=tag:Name,Values=demo-vpc" --query "Vpcs[0].VpcId" --output text --region us-west-2`
 
 DEMO_TG_ARN=`aws elbv2 describe-target-groups \
