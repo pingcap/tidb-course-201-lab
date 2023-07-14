@@ -236,8 +236,8 @@ ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HO
 ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_DB2_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/cert.pem /home/ec2-user/ --region ${REGION_CODE}; chmod 400 /home/ec2-user/cert.pem"
 
 # Place TiProxy configuration to TiProxy nodes.
-ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_TIPROXY1_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/tiproxy.toml/home/ec2-user/ --region ${REGION_CODE}"
-ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_TIPROXY2_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/tiproxy.toml/home/ec2-user/ --region ${REGION_CODE}"
+ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_TIPROXY1_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/tiproxy.toml /home/ec2-user/ --region ${REGION_CODE}"
+ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_TIPROXY2_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/tiproxy.toml /home/ec2-user/ --region ${REGION_CODE}"
 
 echo
 echo "11 nodes are prepared for user ${USER} and trainer ${TRAINER}."
