@@ -3,7 +3,7 @@
 [proxy]
 # addr = "0.0.0.0:6000"
 # tcp-keep-alive = true
-require-backend-tls = true
+# require-backend-tls = true
 
 # possible values:
 #   "" => disable proxy protocol.
@@ -13,7 +13,7 @@ require-backend-tls = true
 # possible values:
 # 	0 => disable graceful shutdown.
 # 	30 => graceful shutdown waiting time in 30 seconds.
-graceful-wait-before-shutdown = 10
+# graceful-wait-before-shutdown = 10
 
 # possible values:
 #		"" => enable static routing.
