@@ -231,9 +231,9 @@ aws s3 cp tiproxy.toml s3://${BUCKET}/${TRAINER}/${USER}/ --region ${REGION_CODE
 sleep 1;
 
 ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_DB1_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/key.pem /home/ec2-user/ --region ${REGION_CODE}; chmod 400 /home/ec2-user/key.pem"
-ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_DB1_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/cert.pem /home/ec2-user/ --region ${REGION_CODE}; chmod 400 /home/ec2-user/cert.pem"
+ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_DB1_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/cert.pem /home/ec2-user/ --region ${REGION_CODE}"
 ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_DB2_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/key.pem /home/ec2-user/ --region ${REGION_CODE}; chmod 400 /home/ec2-user/key.pem"
-ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_DB2_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/cert.pem /home/ec2-user/ --region ${REGION_CODE}; chmod 400 /home/ec2-user/cert.pem"
+ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_DB2_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/cert.pem /home/ec2-user/ --region ${REGION_CODE}"
 
 # Place TiProxy configuration to TiProxy nodes.
 ssh -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@${HOST_TIPROXY1_PRIVATE_IP} "aws s3 cp s3://${BUCKET}/${TRAINER}/${USER}/tiproxy.toml /home/ec2-user/ --region ${REGION_CODE}"
