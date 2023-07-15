@@ -31,7 +31,9 @@ class InsertWorkerCSPTiProxy1 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=false&connectTimeout=30000";
+                // +
+                // "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=false&connectTimeout=30000";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true";
                 // DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -114,7 +116,9 @@ class InsertWorkerCSPTiProxy2 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=false&connectTimeout=30000";
+                // +
+                // "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=false&connectTimeout=30000";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true";
                 // DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -197,7 +201,9 @@ class InsertWorkerCSPTiProxy3 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=false&connectTimeout=30000";
+                // +
+                // "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=false&connectTimeout=30000";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true";
                 // DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
@@ -280,7 +286,9 @@ class InsertWorkerCSPTiProxy4 extends Thread {
         while (true) {
             try {
                 connectionString = "jdbc:mysql://" + hostName + ":" + "6000"
-                        + "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=false&connectTimeout=30000";
+                // +
+                // "/test?useServerPrepStmts=true&cachePrepStmts=true&queryTimeoutKillsConnection=false&connectTimeout=30000";
+                        + "/test?useServerPrepStmts=true&cachePrepStmts=true";
                 // DriverManager.setLoginTimeout(2);
                 connection = DriverManager.getConnection(
                         connectionString,
