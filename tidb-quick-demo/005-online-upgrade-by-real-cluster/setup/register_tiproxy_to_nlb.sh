@@ -30,3 +30,7 @@ aws elbv2 register-targets \
   --region ${REGION_CODE}
 
 echo TiProxy instances registered to NLB target group ${DEMO_TG_ARN}
+
+echo Waiting for 1 minute for health check ...
+sleep 60;
+echo Done
