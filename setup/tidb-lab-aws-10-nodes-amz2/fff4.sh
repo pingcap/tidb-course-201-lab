@@ -1,20 +1,15 @@
 #!/bin/bash
 
-# Fast forward E1
-./ff3-3.sh
 source .bash_profile
 source ./hosts-env.sh
 
+./fff3.sh
+
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << EOF
+DROP USER IF EXISTS 'jack'@'${HOST_CM_PRIVATE_IP}';
 CREATE USER 'jack'@'${HOST_CM_PRIVATE_IP}' IDENTIFIED BY 'pingcap';
 CREATE ROLE r_manager, r_staff;
-SELECT user, host, authentication_string FROM mysql.user\G
-SELECT * FROM mysql.user WHERE user='r_staff'\G
 ALTER USER 'jack'@'${HOST_CM_PRIVATE_IP}' IDENTIFIED BY 'tidb';
-EOF
-
-mysql -h ${HOST_DB1_PRIVATE_IP} -P 4000 -ujack -ptidb << EOF
-SELECT TIDB_VERSION()\G
 EOF
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << EOF
@@ -45,11 +40,6 @@ EOF
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -ujack -ppingcap << EOF
 USE test;
-SELECT CURRENT_ROLE();
-SHOW GRANTS;
 SET ROLE ALL;
-SELECT CURRENT_ROLE();
-SHOW GRANTS;
-SELECT * FROM emp LIMIT 1;
 DELETE FROM emp WHERE id=1;
 EOF
