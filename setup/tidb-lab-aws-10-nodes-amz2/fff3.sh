@@ -5,12 +5,10 @@ source ./hosts-env.sh
 
 ./destroy-all.sh
 ./01-precheck-and-fix-nodes.sh
-
-# Creating the TiDB cluster named tidb-test, version 6.5.0
 ~/.tiup/bin/tiup cluster deploy tidb-test 6.5.0 ./solution-topology-ten-nodes-fff3.yaml --yes
-
 ~/.tiup/bin/tiup cluster start tidb-test
-sleep 10;
+
+sleep 5;
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << 'EOFX'
 DROP DATABASE IF EXISTS tidb;
