@@ -5,9 +5,10 @@
 source .bash_profile
 source ./hosts-env.sh
 
-mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << EOF
+mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << 'EOFX'
 SELECT tidb_version()\G
 SHOW DATABASES;
+DROP DATABASE IF EXISTS tidb;
 CREATE DATABASE tidb;
 USE tidb;
 CREATE TABLE `tab_tidb` (
@@ -20,4 +21,4 @@ KEY `idx_age` (`age`));
 INSERT INTO `tab_tidb` VALUES (1,'TiDB',6,'TiDB-v6.1.0');
 SELECT * FROM tab_tidb;
 SHOW PROCESSLIST;
-EOF
+EOFX

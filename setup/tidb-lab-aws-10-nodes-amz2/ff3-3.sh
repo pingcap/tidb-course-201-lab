@@ -10,9 +10,9 @@ cp ./solution-tiup-meta.yaml .tiup/storage/cluster/clusters/tidb-test/meta.yaml
 
 tiup cluster reload tidb-test --yes
 
-mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << EOF
+mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << 'EOFX'
 SHOW CONFIG WHERE type='tikv' and name='log.level';
-EOF
+EOFX
 
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_KV1_PRIVATE_IP} cat /tidb-deploy/tikv-20160/conf/tikv.toml
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_KV2_PRIVATE_IP} cat /tidb-deploy/tikv-20160/conf/tikv.toml
