@@ -8,7 +8,7 @@ source ./hosts-env.sh
 ~/.tiup/bin/tiup cluster deploy tidb-test 6.5.1 ./solution-topology-ten-nodes-fff3.yaml --yes
 ~/.tiup/bin/tiup cluster start tidb-test
 
-sleep 5;
+sleep 25;
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << 'EOFX'
 DROP DATABASE IF EXISTS tidb;
