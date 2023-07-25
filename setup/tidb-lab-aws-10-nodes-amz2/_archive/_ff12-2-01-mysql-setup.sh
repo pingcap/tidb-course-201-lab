@@ -9,9 +9,9 @@ source ./hosts-env.sh
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_PD1_PRIVATE_IP} << 'EOFX'
 echo "Operating on `hostname`"
 sudo service mysqld start
-X=q1w2e3R4_
+X=`sudo grep 'temporary password' /var/log/mysqld.log | sed 's/.*: //'`
 mysql -h localhost -P 3306 -uroot -p$X --connect-expired-password << 'EOF'
-DROP USER IF EXISTS dm_user@'%';
+ALTER USER root@'localhost' identified by 'q1w2e3R4_';
 CREATE USER dm_user@'%' identified by 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO dm_user@'%';
 SET @@global.show_compatibility_56=ON;
@@ -22,9 +22,9 @@ EOFX
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_PD2_PRIVATE_IP} << 'EOFX'
 echo "Operating on `hostname`"
 sudo service mysqld start
-X=q1w2e3R4_
+X=`sudo grep 'temporary password' /var/log/mysqld.log | sed 's/.*: //'`
 mysql -h localhost -P 3306 -uroot -p$X --connect-expired-password << 'EOF'
-DROP USER IF EXISTS dm_user@'%';
+ALTER USER root@'localhost' identified by 'q1w2e3R4_';
 CREATE USER dm_user@'%' identified by 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO dm_user@'%';
 SET @@global.show_compatibility_56=ON;

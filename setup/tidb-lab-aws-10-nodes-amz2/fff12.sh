@@ -11,12 +11,13 @@ tiup install dm dmctl:v6.5.1
 tiup dm deploy dm-test v6.5.1 ./solution-dm-topology-six-nodes.yaml --yes
 tiup dm start dm-test
 
+# Fast forward E12-2-mysql-setup
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_PD1_PRIVATE_IP} << 'EOFX'
 echo "Operating on `hostname`"
 sudo service mysqld start
-X=`sudo grep 'temporary password' /var/log/mysqld.log | sed 's/.*: //'`
+X=q1w2e3R4_
 mysql -h localhost -P 3306 -uroot -p$X --connect-expired-password << 'EOF'
-ALTER USER root@'localhost' identified by 'q1w2e3R4_';
+DROP USER IF EXISTS dm_user@'%';
 CREATE USER dm_user@'%' identified by 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO dm_user@'%';
 SET @@global.show_compatibility_56=ON;
@@ -27,9 +28,9 @@ EOFX
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_PD2_PRIVATE_IP} << 'EOFX'
 echo "Operating on `hostname`"
 sudo service mysqld start
-X=`sudo grep 'temporary password' /var/log/mysqld.log | sed 's/.*: //'`
+X=q1w2e3R4_
 mysql -h localhost -P 3306 -uroot -p$X --connect-expired-password << 'EOF'
-ALTER USER root@'localhost' identified by 'q1w2e3R4_';
+DROP USER IF EXISTS dm_user@'%';
 CREATE USER dm_user@'%' identified by 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO dm_user@'%';
 SET @@global.show_compatibility_56=ON;
