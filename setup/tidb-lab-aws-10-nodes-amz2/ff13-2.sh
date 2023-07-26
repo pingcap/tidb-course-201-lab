@@ -38,7 +38,7 @@ tiup cdc:v6.5.1 cli changefeed list --pd=http://${HOST_PD1_PRIVATE_IP}:2379
 
 tiup cdc:v6.5.1 cli changefeed query --pd=http://${HOST_PD3_PRIVATE_IP}:2379 --changefeed-id=replication-task-1 
 
-mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot -p << EOF
+mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << EOF
 SELECT * FROM test.T1;
 INSERT INTO test.T1 VALUES(1, 'Tom');
 SELECT * FROM test.T1;
