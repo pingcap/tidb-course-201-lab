@@ -27,7 +27,6 @@ pd_servers:
       server.labels:
         region: oregon
         zone: az2
-      
   - host: <HOST_PD3_PRIVATE_IP>
     client_port: 2379
     peer_port: 2380
