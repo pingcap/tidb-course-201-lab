@@ -53,6 +53,7 @@ chmod +x ./*.sh
 # Setup Single Node TiDB Cluster Topology
 cp ./template-single-node-hybrid.yaml ./solution-topology-single-node.yaml
 sed -i '' \
+  -e "s/<HOST_PD1_PUBLIC_IP>/${HOST_PD1_PUBLIC_IP}/g" \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_TIFLASH1_PRIVATE_IP>/${HOST_TIFLASH1_PRIVATE_IP}/g" \
   -e "s/<HOST_KV1_PRIVATE_IP>/${HOST_KV1_PRIVATE_IP}/g" \
