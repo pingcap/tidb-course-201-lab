@@ -9,4 +9,4 @@ UI_PUBLIC_IP=`aws ec2 describe-instances \
 --output text \
 --region ${REGION_CODE}`
 
-echo http://${UI_PUBLIC_IP}:2379/dashboard
+echo http://${UI_PUBLIC_IP}:2379/dashboard/
