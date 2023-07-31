@@ -12,16 +12,16 @@ pd_servers:
   - host: <HOST_PD1_PRIVATE_IP>
     client_port: 2379
     peer_port: 2380
-    advertise-client-urls: "http://<HOST_PD1_PUBLIC_IP>:2379"
     config:
+      advertise-client-urls: "http://<HOST_PD1_PUBLIC_IP>:2379"
       server.labels:
         region: oregon
         zone: az1
   - host: <HOST_PD2_PRIVATE_IP>
     client_port: 2379
     peer_port: 2380
-    advertise-client-urls: "http://<HOST_PD2_PUBLIC_IP>:2379"
     config:
+      advertise-client-urls: "http://<HOST_PD2_PUBLIC_IP>:2379"
       server.labels:
         region: oregon
         zone: az2
@@ -29,8 +29,8 @@ pd_servers:
   - host: <HOST_PD3_PRIVATE_IP>
     client_port: 2379
     peer_port: 2380
-    advertise-client-urls: "http://<HOST_PD3_PUBLIC_IP>:2379"
     config:
+      advertise-client-urls: "http://<HOST_PD3_PUBLIC_IP>:2379"
       server.labels:
         region: oregon
         zone: az3
