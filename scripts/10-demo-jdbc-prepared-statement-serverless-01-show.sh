@@ -4,6 +4,5 @@
 
 rm -f DemoJdbcPreparedStatementServerless.class
 javac -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcPreparedStatementServerless.java
-
 sleep 1
 java -cp .:misc/mysql-connector-java-8.0.27.jar DemoJdbcPreparedStatementServerless $*
