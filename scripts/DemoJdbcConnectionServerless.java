@@ -7,9 +7,10 @@ import java.sql.*;
 public class DemoJdbcConnectionServerless {
     public static void main(String[] args) {
         Connection connection = null;
-        String username = args[0];
-        String password = args[1];
-        String connection_string = "jdbc:mysql://gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/test?user=" + 
+        String host = args[0];  // e.g. gateway01.ap-southeast-1.prod.aws.tidbcloud.com
+        String username = args[1]; // e.g. 3hB7dXAzvejd5sc.root
+        String password = args[2]; // e.g. f0rRmzNqljdueyJr
+        String connection_string = "jdbc:mysql://" + host + ":4000/test?user=" + 
                 username + "&password=" + password + "&sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3";
 
         try {
