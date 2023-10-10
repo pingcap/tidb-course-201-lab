@@ -284,6 +284,9 @@ sed -i '' \
 # Setup TiUP meta.yaml
 cp ./template-tiup-meta.yaml ./solution-tiup-meta.yaml
 sed -i '' \
+  -e "s/<HOST_PD1_PUBLIC_IP>/${HOST_PD1_PUBLIC_IP}/g" \
+  -e "s/<HOST_PD2_PUBLIC_IP>/${HOST_PD2_PUBLIC_IP}/g" \
+  -e "s/<HOST_PD2_PUBLIC_IP>/${HOST_PD3_PUBLIC_IP}/g" \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
   -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
