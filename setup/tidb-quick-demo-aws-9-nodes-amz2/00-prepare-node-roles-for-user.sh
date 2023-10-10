@@ -177,6 +177,7 @@ sed -i '' \
   -e "s/<HOST_DB1_PRIVATE_IP>/${HOST_DB1_PRIVATE_IP}/g" \
   -e "s/<HOST_DB2_PRIVATE_IP>/${HOST_DB2_PRIVATE_IP}/g" \
   -e "s/<HOST_MONITOR1_PRIVATE_IP>/${HOST_MONITOR1_PRIVATE_IP}/g" \
+  -e "s/<HOST_MONITOR1_PUBLIC_IP>/${HOST_MONITOR1_PUBLIC_IP}/g" \
   ./nine-nodes.yaml 2>/dev/null
 
 # Setup TiUP Cluster Topology
