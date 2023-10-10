@@ -74,11 +74,11 @@ tikv_servers:
 #     data_dir: /tidb-data/tiflash-9000
 #     log_dir: /tidb-deploy/tiflash-9000/log
 monitoring_servers:
-  - host: <HOST_MONITOR1_PRIVATE_IP>
+  - host: <HOST_MONITOR1_PUBLIC_IP>
 grafana_servers:
-  - host: <HOST_MONITOR1_PRIVATE_IP>
+  - host: <HOST_MONITOR1_PUBLIC_IP>
 alertmanager_servers:
-  - host: <HOST_MONITOR1_PRIVATE_IP>
+  - host: <HOST_MONITOR1_PUBLIC_IP>
 #pump_servers:
 #  - host: 127.0.0.1
 #drainer_servers:
