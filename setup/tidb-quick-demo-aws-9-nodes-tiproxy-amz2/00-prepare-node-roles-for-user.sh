@@ -183,6 +183,9 @@ chmod +x ./*.sh
 # Setup Ten Nodes TiDB Cluster Topology
 cp ./template-nine-nodes.yaml ./nine-nodes.yaml
 sed -i '' \
+  -e "s/<HOST_PD1_PUBLIC_IP>/${HOST_PD1_PUBLIC_IP}/g" \
+  -e "s/<HOST_PD2_PUBLIC_IP>/${HOST_PD2_PUBLIC_IP}/g" \
+  -e "s/<HOST_PD3_PUBLIC_IP>/${HOST_PD3_PUBLIC_IP}/g" \
   -e "s/<HOST_PD1_PRIVATE_IP>/${HOST_PD1_PRIVATE_IP}/g" \
   -e "s/<HOST_PD2_PRIVATE_IP>/${HOST_PD2_PRIVATE_IP}/g" \
   -e "s/<HOST_PD3_PRIVATE_IP>/${HOST_PD3_PRIVATE_IP}/g" \
