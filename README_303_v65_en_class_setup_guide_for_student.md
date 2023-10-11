@@ -45,7 +45,7 @@ You will receive a table from your instructor that describes the exercise enviro
 
 2. Convert the private key file (`*.pem`), from your instructor, to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). 
 
-   You may follow the [guide]((https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html)) by AWS in the section `Convert your private key using PuTTYgen`.
+   You may follow the [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) by AWS in the section `Convert your private key using PuTTYgen`.
 
 3. Configure the key-quartermaster.
    + Open `Pageant` from the start menu. (Note: it may run off to the system tray)
