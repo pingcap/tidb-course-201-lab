@@ -1,4 +1,4 @@
-# Course TiDB Administration Class Setup Guide for Students [v6.5]
+# Course TiDB Administration Class Setup Guide for Students
 
 ## Exercises Nodes Information
 You will receive a table from your instructor that describes the exercise environment before each hands-on exercise. Such as the following, assume that you are assigned as `user2`:
