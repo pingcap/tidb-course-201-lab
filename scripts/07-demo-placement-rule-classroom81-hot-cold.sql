@@ -23,7 +23,7 @@ DROP PLACEMENT POLICY IF EXISTS cold;
 CREATE PLACEMENT POLICY cold
   CONSTRAINTS="[+storage-performance=low]";
 
-/* Query 3: Show the definition of created placement pilicies */
+/* Query 3: Show the definition of created placement policies */
 SELECT policy_name, constraints FROM information_schema.placement_policies;
 
 /* Create a partitioned table */

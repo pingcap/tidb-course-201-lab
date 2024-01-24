@@ -15,7 +15,7 @@ CREATE PLACEMENT POLICY seattle PRIMARY_REGION = "seattle" REGIONS = "seattle,to
 /* Create the geo-location placement policy favor for tokyo */
 DROP PLACEMENT POLICY IF EXISTS tokyo;
 CREATE PLACEMENT POLICY tokyo PRIMARY_REGION = "tokyo" REGIONS = "tokyo,seattle" FOLLOWERS = 2;
-/* Query 3: Show the definition of created placement pilicies */
+/* Query 3: Show the definition of created placement policies */
 SELECT policy_name,
   primary_region,
   regions

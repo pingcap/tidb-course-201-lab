@@ -4,7 +4,7 @@
 select @@tidb_enable_async_commit;
 select @@tidb_enable_1pc;
 
-/* Pessmistic locks help causal consistency to ensure the tx order */
+/* Pessimistic locks help causal consistency to ensure the tx order */
 
 start transaction with causal consistency only;
 update test.tc set name='C' where id=1;

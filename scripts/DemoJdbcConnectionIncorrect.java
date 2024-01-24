@@ -8,7 +8,7 @@ public class DemoJdbcConnectionIncorrect {
         try {
             // Connect to TiDB server instance directly
             connection = DriverManager.getConnection(
-                    "jdbc:mysq://localhost:40/test", "root", "");
+                    "jdbc:mysql://localhost:4000/test", "root", "");
             System.out.println("Connection established.");
         } catch (Exception e) {
             System.out.println("Error: " + e);

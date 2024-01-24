@@ -17,7 +17,7 @@
 
 2. Setup AWS credentials for your terminal.
    
-    + a. If you use permenant IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
+    + a. If you use permanent IAM power user, follow the [instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) to set up the **default** awscli profile.
     
     + b. If you use temporary IAM power user or IAM role, set your credentials to following environment variables in your local terminal:
       ```
@@ -244,13 +244,13 @@
     34.xx.xx.53
     ```
 
-2. SSH (enabling forward) to the mornitor instance.
+2. SSH (enabling forward) to the monitor instance.
     + a. Add the private key identity to the SSH authentication agent:
       ```
       $ ssh-add ~/.ssh/pe-class-key.pem
       ``` 
 
-    + b. SSH into the `monitor` instance with forwarding enabeld:
+    + b. SSH into the `monitor` instance with forwarding enabled:
       ```
       $ ssh -A ec2-user@<monitor_public_ip>
       ```
