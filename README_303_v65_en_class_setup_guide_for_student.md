@@ -139,4 +139,4 @@ You will receive a table from your instructor that describes the exercise enviro
       -rw-r--r--. 1 ec2-user ec2-user  4281 Jun  2 03:56 template-tiup-meta.yaml
       ```
 
-3. This guide stops here, follow the instructions from your instructor and the lab guide to complete the execises. 
+3. This guide stops here, follow the instructions from your instructor and the lab guide to complete the exercises. 

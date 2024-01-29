@@ -13,12 +13,11 @@ dist/
 /docs/build/
 __pycache__/
 *.swp
-.DS_Store
 ~*
 *~
 ~$*
 .vscode/
-*.swp
 /student-guide/diagram/*
 /scripts/raw-*
 /scripts/*.class
+.idea

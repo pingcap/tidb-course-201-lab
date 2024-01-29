@@ -50,7 +50,7 @@ You will receive a table from your instructor that describes the exercise enviro
    <img src="./ninja-kits/diagram/PuttyAllowAgentForwarding_aa_001_20230109.png" width="50%" align="top"/>
 
 ## Scripts Introduction
-1. After successfully logging in EC2 instance (you use `pd1` node as the Control Machine throughout the course), you will see the following prompt. The VM node you currenly logging in is the de facto `Control Machine`:
+1. After successfully logging in EC2 instance (you use `pd1` node as the Control Machine throughout the course), you will see the following prompt. The VM node you're currently logging in is the de facto `Control Machine`:
       ```
       Last login: Sat Jan 28 09:24:36 2023 from 120.204.xx.xx
 
@@ -94,7 +94,7 @@ You will receive a table from your instructor that describes the exercise enviro
       -rw-r--r-- 1 ec2-user ec2-user 1924 Jan 29 10:26 template-eight-nodes-hybrid.yaml
       ```
 
-3. Follow the instructions on the lab guide to complete the execises. 
+3. Follow the instructions on the lab guide to complete the exercises. 
 
 ## (Optional) Step-by-Step Fast Forward Scripts [Do NOT use these steps unless you are told to do so.]
 1.  Gather nodes information and setup the sample topology file.
@@ -114,17 +114,17 @@ You will receive a table from your instructor that describes the exercise enviro
     $ ./02-precheck-and-fix-nodes.sh
     ```
 
-4. Deploy a TiDB cluster. In execises, your cluster name is `tidb-test`.
+4. Deploy a TiDB cluster. In exercises, your cluster name is `tidb-test`.
     ```
     $ ./03-create-cluster.sh 
     ```
 
-5. Start your cluser. In execises, your cluster name is `tidb-test`.
+5. Start your cluster. In exercises, your cluster name is `tidb-test`.
     ```
     $ ./start-cluster.sh
     ```
     
-6. Check the status of your cluster. In execises, your cluster name is `tidb-test`.
+6. Check the status of your cluster. In exercises, your cluster name is `tidb-test`.
     ```
     $ ./check-cluster.sh 
     ```

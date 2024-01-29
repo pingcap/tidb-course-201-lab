@@ -3,7 +3,7 @@
 export MYSQL_PS1="tidb-cloud> "
 
 # Default `--ssl-ca` option is for macOS/Alpine. For other system, please modify the `--ssl-ca` option respectively.
-# Debian/Unbuntu/Arch: --ssl-ca=/etc/ssl/certs/ca-certificates.crt
+# Debian/Ubuntu/Arch: --ssl-ca=/etc/ssl/certs/ca-certificates.crt
 # CentOS/RedHat/Fedora: --ssl-ca=/etc/pki/tls/certs/ca-bundle.crt
 # OpenSUSE: --ssl-ca=/etc/ssl/ca-bundle.pem
 

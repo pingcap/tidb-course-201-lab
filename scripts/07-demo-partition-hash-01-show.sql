@@ -31,5 +31,5 @@ EXPLAIN SELECT * FROM test.t1 where x=0;
 EXPLAIN SELECT * FROM test.t1 where x=2;
 EXPLAIN SELECT * FROM test.t1 where x=9;
 
-/* Query 2: Check multiple partitions query with range preficate */
+/* Query 2: Check multiple partitions query with range predicate */
 EXPLAIN SELECT * FROM test.t1 where x between 7 and 9;
