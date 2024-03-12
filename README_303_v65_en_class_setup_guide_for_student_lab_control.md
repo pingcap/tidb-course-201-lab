@@ -20,11 +20,16 @@ After you have started you lab, you will see a table describing the lab environm
 1. Please ensure that your laptop and internet connection have access to port 22 on the internet host.
 
 ## Laptop Setup and SSH Login (Linux or macOS)
-1. Please download private key file, `*.pem`, and then set the permission is `400`.
-      ```
-      $ mv <key_file> ~/.ssh/ 
-      $ chmod 400 ~/.ssh/<key_file>
-      ``` 
+0. For Linux user, please make sure that ssh-agent is running. You can start ssh-agent by the following command:
+   ```
+   eval `ssh-agent`
+   ```
+
+1. Download private key file, `*.pem`, and then set the permission is `400`.
+   ```
+   $ mv <key_file> ~/.ssh/ 
+   $ chmod 400 ~/.ssh/<key_file>
+   ``` 
 
 2. Connect to your EC2 instance, using the following commands with `SSH` forward enabled. The example is using the `monitor1` node as the login target:
     

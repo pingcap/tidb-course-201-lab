@@ -20,6 +20,11 @@ You will receive a table from your instructor that describes the exercise enviro
 1. Please ensure that your laptop and internet connection have access to port 22 on the internet host.
 
 ## Laptop Setup and SSH Login (Linux or macOS)
+0. For Linux user, please make sure that ssh-agent is running. You can start ssh-agent by the following command:
+   ```
+   eval `ssh-agent`
+   ```
+   
 1. You will receive a private key file, `*.pem`, from your instructor, make sure the permission is set to `400`.
       ```
       $ mv <key_file> ~/.ssh/ 
