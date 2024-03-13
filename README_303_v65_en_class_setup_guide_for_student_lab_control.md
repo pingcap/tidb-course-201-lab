@@ -1,20 +1,20 @@
 # Course TiDB Administration Class Setup Guide for Students
 
 ## Exercises Nodes Information
-You will receive a table from your instructor that describes the exercise environment before each hands-on exercise. Such as the following, assume that you are assigned as `user2`:
+After you have started you lab, you will see a table describing the lab environment. Here is an example:
       
       | Instance ID         | Public IP    | Private IP  | Name    | Instructor | Student | Role     | Up Time (mins) |
       | :------------------ | :----------- | :---------- | :------ | :--------- | :------ | :------- | :------------- |
-      | i-08151997dd939a6bd | 54.xx.xx.70  | 10.90.2.209 | db      | gXXXXXXXo  | user2   | db1      | 3              |
-      | i-093c618d76e4e5b25 | 52.xx.xx.15  | 10.90.3.6   | db      | gXXXXXXXo  | user2   | db2      | 3              |
-      | i-095a704ff26b8e4cf | 34.xx.xx.47  | 10.90.3.86  | kv      | gXXXXXXXo  | user2   | kv1      | 2              |
-      | i-015057ecff55e09b5 | 34.xx.xx.38  | 10.90.1.84  | kv      | gXXXXXXXo  | user2   | kv2      | 2              |
-      | i-056f185f8bfdfd293 | 35.xx.xx.198 | 10.90.2.253 | kv      | gXXXXXXXo  | user2   | kv3      | 2              |
-      | i-0bb0553841ecc0451 | 35.xx.xx.55  | 10.90.4.220 | monitor | gXXXXXXXo  | user2   | monitor1 | 3              |
-      | i-0823a3a917d5bf87f | 35.xx.xx.193 | 10.90.1.124 | pd      | gXXXXXXXo  | user2   | pd1      | 3              |
-      | i-0bd3492919928e185 | 35.xx.xx.248 | 10.90.2.124 | pd      | gXXXXXXXo  | user2   | pd2      | 3              |
-      | i-01847bab040690d96 | 34.xx.xx.209 | 10.90.3.168 | pd      | gXXXXXXXo  | user2   | pd3      | 3              |
-      | i-04d8f0c4345244f51 | 34.xx.xx.183 | 10.90.4.74  | tiflash | gXXXXXXXo  | user2   | tiflash1 | 3              |
+      | i-08151997dd939a6bd | 54.xx.xx.70  | 10.90.2.209 | db      | gXXXXXXXo  | user1   | db1      | 3              |
+      | i-093c618d76e4e5b25 | 52.xx.xx.15  | 10.90.3.6   | db      | gXXXXXXXo  | user1   | db2      | 3              |
+      | i-095a704ff26b8e4cf | 34.xx.xx.47  | 10.90.3.86  | kv      | gXXXXXXXo  | user1   | kv1      | 2              |
+      | i-015057ecff55e09b5 | 34.xx.xx.38  | 10.90.1.84  | kv      | gXXXXXXXo  | user1   | kv2      | 2              |
+      | i-056f185f8bfdfd293 | 35.xx.xx.198 | 10.90.2.253 | kv      | gXXXXXXXo  | user1   | kv3      | 2              |
+      | i-0bb0553841ecc0451 | 35.xx.xx.55  | 10.90.4.220 | monitor | gXXXXXXXo  | user1   | monitor1 | 3              |
+      | i-0823a3a917d5bf87f | 35.xx.xx.193 | 10.90.1.124 | pd      | gXXXXXXXo  | user1   | pd1      | 3              |
+      | i-0bd3492919928e185 | 35.xx.xx.248 | 10.90.2.124 | pd      | gXXXXXXXo  | user1   | pd2      | 3              |
+      | i-01847bab040690d96 | 34.xx.xx.209 | 10.90.3.168 | pd      | gXXXXXXXo  | user1   | pd3      | 3              |
+      | i-04d8f0c4345244f51 | 34.xx.xx.183 | 10.90.4.74  | tiflash | gXXXXXXXo  | user1   | tiflash1 | 3              |
 
 ## Assumptions
 1. Please ensure that your laptop and internet connection have access to port 22 on the internet host.
@@ -24,12 +24,12 @@ You will receive a table from your instructor that describes the exercise enviro
    ```
    eval `ssh-agent`
    ```
-   
-1. You will receive a private key file, `*.pem`, from your instructor, make sure the permission is set to `400`.
-      ```
-      $ mv <key_file> ~/.ssh/ 
-      $ chmod 400 ~/.ssh/<key_file>
-      ``` 
+
+1. Download private key file, `*.pem`, and then set the permission is `400`.
+   ```
+   $ mv <key_file> ~/.ssh/ 
+   $ chmod 400 ~/.ssh/<key_file>
+   ``` 
 
 2. Connect to your EC2 instance, using the following commands with `SSH` forward enabled. The example is using the `monitor1` node as the login target:
     
