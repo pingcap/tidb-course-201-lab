@@ -28,7 +28,7 @@ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_KV3_PR
 
 ~/.tiup/bin/tiup br:v6.5.1 backup full --pd "${HOST_PD1_PRIVATE_IP}:2379" --storage "local:///tmp/backup" --ratelimit 128 --log-file backupfull.log
 
-ssh ${HOST_KV1_PRIVATE_IP} find /tmp/backup/
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_KV1_PRIVATE_IP} find /tmp/backup/
 
 ls /tmp/backup/
 
