@@ -33,3 +33,9 @@ ssh ${HOST_KV1_PRIVATE_IP} find /tmp/backup/
 ls /tmp/backup/
 
 ~/.tiup/bin/tiup br:v6.5.1 backup db --db emp --pd "${HOST_PD1_PRIVATE_IP}:2379" --storage "s3://pe-class-${REGION_NAME}/${TRAINER_TAG}/user1/emp" --s3.region ${REGION_CODE} --send-credentials-to-tikv=false --ratelimit 128 --log-file backupdb.log
+
+mysql -h ${HOST_DB1_PRIVATE_IP} -uroot -P4000 << 'EOF'
+DROP DATABASE emp;
+EOF
+
+~/.tiup/bin/tiup br:v6.5.1 restore db --pd "${HOST_PD1_PRIVATE_IP}:2379" --db "emp" --storage "s3://pe-class-${REGION_NAME}/${TRAINER_TAG}/user1/emp" --s3.region ${REGION_CODE} --send-credentials-to-tikv=false --log-file restoredb.log
