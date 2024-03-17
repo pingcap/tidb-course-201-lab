@@ -1,7 +1,11 @@
 #!/bin/bash
 
+TRAINER_TAG=${1}
+REGION_NAME=${2}
+
 source .bash_profile
 source ./hosts-env.sh
+source ./cloud-env.sh
 
 ./fff8.sh
 
@@ -27,3 +31,5 @@ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_KV3_PR
 ssh ${HOST_KV1_PRIVATE_IP} find /tmp/backup/
 
 ls /tmp/backup/
+
+~/.tiup/bin/tiup br:v6.5.1 backup db --db emp --pd "${HOST_PD1_PRIVATE_IP}:2379" --storage "s3://pe-class-${REGION_NAME}/${TRAINER_TAG}/user1/emp" --s3.region ${REGION_CODE} --send-credentials-to-tikv=false --ratelimit 128 --log-file backupdb.log
