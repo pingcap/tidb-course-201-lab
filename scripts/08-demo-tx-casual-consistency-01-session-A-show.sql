@@ -4,7 +4,7 @@
 select @@tidb_enable_async_commit;
 select @@tidb_enable_1pc;
 
-/* Pessmistic locks help causal consistency to ensure the tx order */
+/* Pessimistic locks help causal consistency to ensure the tx order */
 
 drop table if exists test.tc;
 create table test.tc(id int, name char(10));

@@ -167,7 +167,7 @@ FROM test.c;
 /* CBO */
 ANALYZE TABLE test.p;
 ANALYZE TABLE test.c;
-/* Ouptut Rows Count */
+/* Output Rows Count */
 SELECT COUNT(*)
 FROM test.p;
 SELECT COUNT(*)
