@@ -20,7 +20,8 @@ CREATE USER ltask@'%' IDENTIFIED BY 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO ltask@'%';
 EOF
 
-nohup ~/.tiup/bin/tiup tidb-lightning:v6.5.1 -config solution-lightning-init.toml > nohup.out &
+~/.tiup/bin/tiup tidb-lightning:v6.5.1 -config solution-lightning-init.toml > nohup.out
+rm -rf /tmp/tidb_lightning_checkpoint.pb
 
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_KV1_PRIVATE_IP} mkdir /tmp/backup
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -A ${HOST_KV2_PRIVATE_IP} mkdir /tmp/backup

@@ -12,8 +12,8 @@ mysql -h ${HOST_DB1_PRIVATE_IP} -uroot -P4000 << 'EOF'
 DROP DATABASE IF EXISTS emp;
 EOF
 
-nohup ~/.tiup/bin/tiup tidb-lightning:v6.5.1 -config solution-lightning-sql.toml > nohup.out & 
-sleep 10
+~/.tiup/bin/tiup tidb-lightning:v6.5.1 -config solution-lightning-sql.toml
+rm -rf /tmp/tidb_lightning_checkpoint.pb
 
 ~/.tiup/bin/tiup dumpling:v6.5.1 -uroot -P4000 -h ${HOST_DB1_PRIVATE_IP} --filetype sql -t 8 -o /tmp/dep -r 200000 -F 256MiB -T emp.dep
 

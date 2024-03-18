@@ -34,3 +34,5 @@ rm -rf /tmp/tidb_lightning_checkpoint.pb
 nohup ~/.tiup/bin/tiup tidb-lightning:v6.5.1 -config solution-lightning-p1.toml > nohup.out & 
 sleep 10
 ~/.tiup/bin/tiup tidb-lightning:v6.5.1 -config solution-lightning-p2.toml
+
+rm -rf /tmp/tidb_lightning_checkpoint.pb
