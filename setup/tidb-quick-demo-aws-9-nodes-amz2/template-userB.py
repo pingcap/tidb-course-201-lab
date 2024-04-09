@@ -8,7 +8,7 @@ conn = mysql.connector.connect(
     host="<HOST_DB2_PRIVATE_IP>",
     port=4000,
     user="userB",
-    password="",
+    password="tidb",
 )
 cursor = conn.cursor()
 
