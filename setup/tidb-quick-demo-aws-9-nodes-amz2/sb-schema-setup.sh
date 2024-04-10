@@ -2,7 +2,7 @@
 
 source ./hosts-env.sh
 
-mysql -h ${HOST_DB1_PRIVATE_IP} -uroot -P4000 << 'EOFX'
+mysql -h ${HOST_DB1_PRIVATE_IP} -uroot -P4000 --verbose << 'EOFX'
 CREATE DATABASE sbtest;
 CREATE USER 'userA'@'%' IDENTIFIED BY 'tidb';
 CREATE USER 'userB'@'%' IDENTIFIED BY 'tidb';

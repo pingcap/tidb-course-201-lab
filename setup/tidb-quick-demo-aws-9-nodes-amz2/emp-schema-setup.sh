@@ -2,7 +2,7 @@
 
 source ./hosts-env.sh
 
-mysql -h ${HOST_DB1_PRIVATE_IP} -uroot -P4000 << 'EOFX'
+mysql -h ${HOST_DB1_PRIVATE_IP} -uroot -P4000 --verbose << 'EOFX'
 CREATE USER ltask@'%' IDENTIFIED BY 'q1w2e3R4_';
 GRANT ALL PRIVILEGES ON *.* TO ltask@'%';
 DROP DATABASE IF EXISTS emp;
