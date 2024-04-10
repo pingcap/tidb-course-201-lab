@@ -11,6 +11,6 @@ USE emp;
 CREATE TABLE `sal` ( `emp_no` INT(11) NOT NULL, `salary` INT(11) NOT NULL, `from_date` DATE NOT NULL, `to_date` DATE NOT NULL, PRIMARY KEY (`emp_no`,`from_date`));
 EOFX
 
-~/.tiup/bin/tiup install tidb-lightning:v7.1.0
+~/.tiup/bin/tiup install tidb-lightning:v7.5.1
 
-~/.tiup/bin/tiup tidb-lightning:v7.1.0 -config solution-lightning-csv.toml
+~/.tiup/bin/tiup tidb-lightning:v7.5.1 -config solution-lightning-csv.toml
