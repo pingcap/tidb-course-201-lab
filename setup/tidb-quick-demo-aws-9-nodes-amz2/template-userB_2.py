@@ -5,7 +5,7 @@ import sys
 
 conn = mysql.connector.connect(
     database="emp",
-    host="<HOST_DB2_PRIVATE_IP>",
+    host="<HOST_DB1_PRIVATE_IP>",
     port=4000,
     user="userB",
     password="tidb",
