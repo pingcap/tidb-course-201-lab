@@ -6,7 +6,7 @@ VERSION=${1}
 
 # Creating the TiDB cluster named tidb-test, version ${VERSION}
 ~/.tiup/bin/tiup mirror set tidb-community-server-${VERSION}-linux-amd64
-~/.tiup/bin/tiup cluster deploy tidb-test ${VERSION} ./nine-nodes.yaml --yes
+~/.tiup/bin/tiup cluster deploy tidb-test ${VERSION} ./solution-topology-ten-nodes.yaml --yes
 sleep 3;
 
 ~/.tiup/bin/tiup cluster start tidb-test

@@ -3,10 +3,7 @@
 source .bash_profile
 source ./hosts-env.sh
 
-./destroy-all.sh
-./01-precheck-and-fix-nodes.sh
-~/.tiup/bin/tiup cluster deploy tidb-test 6.5.1 ./solution-topology-ten-nodes-fff3.yaml --yes
-~/.tiup/bin/tiup cluster start tidb-test
+./create-cluster-v651.sh
 
 sleep 25;
 

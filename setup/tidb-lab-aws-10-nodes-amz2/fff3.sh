@@ -3,11 +3,7 @@
 source .bash_profile
 source ./hosts-env.sh
 
-./destroy-all.sh
-./01-precheck-and-fix-nodes.sh
-~/.tiup/bin/tiup cluster deploy tidb-test 6.5.0 ./solution-topology-ten-nodes-fff3.yaml --yes
-~/.tiup/bin/tiup cluster start tidb-test
-
+./create-cluster-v650.sh
 sleep 5;
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << 'EOFX'
