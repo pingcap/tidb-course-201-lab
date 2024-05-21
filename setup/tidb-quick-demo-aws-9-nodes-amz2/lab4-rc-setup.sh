@@ -14,5 +14,5 @@ CREATE RESOURCE GROUP rg2 RU_PER_SEC=500 PRIORITY=MEDIUM;
 ALTER USER userA RESOURCE GROUP rg1;
 ALTER USER userB RESOURCE GROUP rg2;
 SELECT * FROM information_schema.resource_groups;
-SELECT Host,user, User_attributes FROM mysql.user WHERE user IN ('userA','userB');
+SELECT Host, User, User_attributes FROM mysql.user WHERE user IN ('userA','userB');
 EOFX
