@@ -2,7 +2,7 @@
 VERSION=${1}
 REGION_NAME=${2}
 
-./01-precheck-and-fix-nodes.sh
+./01-precheck-and-fix-nodes.sh ${REGION_NAME}
 ./destroy-all.sh
 
 # Creating the TiDB cluster named tidb-test, version ${VERSION}
