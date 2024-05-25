@@ -1,7 +1,8 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 # Fast forward E12-2-01
-./ff12-2-01-mysql-setup.sh
+./ff12-2-01-mysql-setup.sh ${REGION_NAME}
 source .bash_profile
 source ./hosts-env.sh
 

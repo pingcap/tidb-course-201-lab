@@ -1,7 +1,8 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 # Fast forward E12-2-02
-./ff12-2-02-tidb-setup.sh
+./ff12-2-02-tidb-setup.sh ${REGION_NAME}
 source .bash_profile
 source ./hosts-env.sh
 
