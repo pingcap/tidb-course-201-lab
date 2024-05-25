@@ -1,10 +1,11 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 source .bash_profile
 source ./hosts-env.sh
 
 # Fast forward E1
-./create-cluster-v650.sh
+./create-cluster-v650.sh ${REGION_NAME}
 
 sleep 5;
 

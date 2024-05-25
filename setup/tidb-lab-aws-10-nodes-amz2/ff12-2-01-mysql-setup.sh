@@ -1,7 +1,8 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 # Fast forward E12-1
-./ff12-1.sh
+./ff12-1.sh ${REGION_NAME}
 source .bash_profile
 source ./hosts-env.sh
 

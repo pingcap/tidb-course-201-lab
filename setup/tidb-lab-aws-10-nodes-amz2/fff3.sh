@@ -1,9 +1,10 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 source .bash_profile
 source ./hosts-env.sh
 
-./create-cluster-v650.sh
+./create-cluster-v650.sh ${REGION_NAME}
 sleep 5;
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << 'EOFX'

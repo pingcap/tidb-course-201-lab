@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Fast forward E8-1
-./ff8-1.sh
+./ff8-1.sh ${REGION_NAME}
 source .bash_profile
 source ./hosts-env.sh
 

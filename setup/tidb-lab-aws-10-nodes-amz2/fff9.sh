@@ -1,9 +1,10 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 source .bash_profile
 source ./hosts-env.sh
 
-./fff8.sh
+./fff8.sh ${REGION_NAME}
 
 ~/.tiup/bin/tiup install dumpling:v6.5.1
 unzip -u stage/tidb-admin-dataset.zip -d stage/

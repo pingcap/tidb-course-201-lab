@@ -1,9 +1,10 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 source .bash_profile
 source ./hosts-env.sh
 
-./fff7.sh
+./fff7.sh ${REGION_NAME} 
 
 mysql -h ${HOST_DB1_PRIVATE_IP} -uroot -P4000 << 'EOF'
 DROP USER IF EXISTS ltask@'%';

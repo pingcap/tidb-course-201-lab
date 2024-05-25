@@ -1,9 +1,10 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 source .bash_profile
 source ./hosts-env.sh
 
-./fff7.sh
+./fff7.sh ${REGION_NAME}
 
 wget https://download.pingcap.org/tidb-community-toolkit-v6.5.1-linux-amd64.tar.gz
 tar xvf tidb-community-toolkit-v6.5.1-linux-amd64.tar.gz

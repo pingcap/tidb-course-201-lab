@@ -1,9 +1,10 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 source .bash_profile
 source ./hosts-env.sh
 
-./fff8.sh
+./fff8.sh ${REGION_NAME}
 
 # Fast forward E12-1
 ~/.tiup/bin/tiup install dm dmctl:v6.5.1

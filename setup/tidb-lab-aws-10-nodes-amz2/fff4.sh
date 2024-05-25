@@ -1,9 +1,10 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 source .bash_profile
 source ./hosts-env.sh
 
-./fff3.sh
+./fff3.sh ${REGION_NAME}
 
 mysql -h${HOST_DB1_PRIVATE_IP} -P4000 -uroot << EOF
 DROP USER IF EXISTS 'jack'@'${HOST_CM_PRIVATE_IP}';

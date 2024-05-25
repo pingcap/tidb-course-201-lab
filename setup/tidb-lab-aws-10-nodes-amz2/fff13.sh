@@ -1,9 +1,10 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 source .bash_profile
 source ./hosts-env.sh
 
-./fff12.sh
+./fff12.sh ${REGION_NAME}
 
 # 13-1
 ~/.tiup/bin/tiup cluster scale-out tidb-test solution-three-nodes-scale-out-ticdc.yaml --yes

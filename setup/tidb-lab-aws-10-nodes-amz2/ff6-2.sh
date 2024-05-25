@@ -1,7 +1,8 @@
 #!/bin/bash
+REGION_NAME=${1}
 
 # Fast forward E6-1
-./ff6-1.sh
+./ff6-1.sh ${REGION_NAME}
 source .bash_profile
 source ./hosts-env.sh
 
