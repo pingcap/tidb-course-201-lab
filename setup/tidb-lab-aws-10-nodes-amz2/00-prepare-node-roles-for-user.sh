@@ -5,6 +5,21 @@
 # Setup ENV
 source ~/cloud-env.sh
 
+case ${REGION_CODE} in
+    "us-west-2")
+        REGION_NAME="oregon"
+        ;;
+    "ap-northeast-1")
+        REGION_NAME="tokyo"
+        ;;
+    "ap-southeast-1")
+        REGION_NAME="singapore"
+        ;;
+    "eu-central-1")
+        REGION_NAME="frankfurt"
+        ;;
+esac
+
 # Enter the classroom username such as "user1" assigned by the instructor. 
 export USER=${1}
 # The instructor's name tag shared by your instructor.
@@ -164,18 +179,17 @@ echo export HOST_TIFLASH1_PRIVATE_IP=${HOST_TIFLASH1_PRIVATE_IP} >> ./hosts-env.
 echo export HOST_TIFLASH1_PUBLIC_IP=${HOST_TIFLASH1_PUBLIC_IP} >> ./hosts-env.sh
 
 source ./hosts-env.sh
-
-echo ssh -A ${HOST_CM_PRIVATE_IP} > ./ssh-to-cm.sh
-echo ssh -A ${HOST_PD1_PRIVATE_IP} > ./ssh-to-pd1.sh
-echo ssh -A ${HOST_PD2_PRIVATE_IP} > ./ssh-to-pd2.sh
-echo ssh -A ${HOST_PD3_PRIVATE_IP} > ./ssh-to-pd3.sh
-echo ssh -A ${HOST_DB1_PRIVATE_IP} > ./ssh-to-db1.sh
-echo ssh -A ${HOST_DB2_PRIVATE_IP} > ./ssh-to-db2.sh
-echo ssh -A ${HOST_MONITOR1_PRIVATE_IP} > ./ssh-to-monitor1.sh
-echo ssh -A ${HOST_KV1_PRIVATE_IP} > ./ssh-to-kv1.sh
-echo ssh -A ${HOST_KV2_PRIVATE_IP} > ./ssh-to-kv2.sh
-echo ssh -A ${HOST_KV3_PRIVATE_IP} > ./ssh-to-kv3.sh
-echo ssh -A ${HOST_TIFLASH1_PRIVATE_IP} > ./ssh-to-tiflash1.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_CM_PRIVATE_IP} > ./ssh-to-cm.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_PD1_PRIVATE_IP} > ./ssh-to-pd1.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_PD2_PRIVATE_IP} > ./ssh-to-pd2.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_PD3_PRIVATE_IP} > ./ssh-to-pd3.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_DB1_PRIVATE_IP} > ./ssh-to-db1.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_DB2_PRIVATE_IP} > ./ssh-to-db2.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_MONITOR1_PRIVATE_IP} > ./ssh-to-monitor1.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_KV1_PRIVATE_IP} > ./ssh-to-kv1.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_KV2_PRIVATE_IP} > ./ssh-to-kv2.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_KV3_PRIVATE_IP} > ./ssh-to-kv3.sh
+echo ssh -i ~/.ssh/pe-class-key-${REGION_NAME}.pem ${HOST_TIFLASH1_PRIVATE_IP} > ./ssh-to-tiflash1.sh
 chmod +x ./*.sh
 
 # Setup Ten Nodes TiDB Cluster Topology
