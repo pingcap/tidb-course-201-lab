@@ -8,6 +8,6 @@ tikv_servers:
     log_dir: /tidb-deploy/tikv-20160/log
     config:
       server.labels:
-        region: oregon
+        region: virginia
         zone: az4
         storage-performance: high

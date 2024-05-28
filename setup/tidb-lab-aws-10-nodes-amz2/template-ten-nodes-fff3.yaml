@@ -17,7 +17,7 @@ pd_servers:
     advertise_client_addr: "http://<HOST_PD1_PUBLIC_IP>:2379"
     config:
       server.labels:
-        region: oregon
+        region: seattle
         zone: az1
   - host: <HOST_PD2_PRIVATE_IP>
     client_port: 2379
@@ -25,7 +25,7 @@ pd_servers:
     advertise_client_addr: "http://<HOST_PD2_PUBLIC_IP>:2379"
     config:
       server.labels:
-        region: oregon
+        region: seattle
         zone: az2
   - host: <HOST_PD3_PRIVATE_IP>
     client_port: 2379
@@ -33,7 +33,7 @@ pd_servers:
     advertise_client_addr: "http://<HOST_PD3_PUBLIC_IP>:2379"
     config:
       server.labels:
-        region: oregon
+        region: seattle
         zone: az3
 tidb_servers:
   - host: <HOST_DB1_PRIVATE_IP>
@@ -52,7 +52,7 @@ tikv_servers:
     status_port: 20180
     config:
       server.labels:
-        region: oregon
+        region: seattle
         zone: az1
         storage-performance: high
   - host: <HOST_KV2_PRIVATE_IP>
@@ -60,7 +60,7 @@ tikv_servers:
     status_port: 20180
     config:
       server.labels:
-        region: oregon
+        region: seattle
         zone: az2
         storage-performance: high
   - host: <HOST_KV3_PRIVATE_IP>
@@ -68,7 +68,7 @@ tikv_servers:
     status_port: 20180
     config:
       server.labels:
-        region: oregon
+        region: seattle
         zone: az3
         storage-performance: high
 tiflash_servers:
