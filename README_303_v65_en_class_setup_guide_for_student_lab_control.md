@@ -4,7 +4,7 @@
 1. Please ensure that your laptop and internet connection have access to port 22, port 2379, and port 3000 on the internet host.
 
 ## Laptop Setup and SSH Login (Linux or macOS)
-1. No pre-configuration requited.
+1. No pre-configuration required.
    
 2. On the day of the training, the lab guide will direct you to download a private key file (`*.pem`) and then set its permissions to `400`. For example:
    ```
