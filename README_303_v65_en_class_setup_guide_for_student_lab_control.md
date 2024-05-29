@@ -1,43 +1,29 @@
-# Course TiDB Administration Class Setup Guide for Students
-
-## Exercises Nodes Information
-After you have started you lab, you will see a table describing the lab environment. Here is an example:
-      
-      | Instance ID         | Public IP    | Private IP  | SUGGESTED ROLE    | Instructor | Student | NAME     | Up Time (mins) |
-      | :------------------ | :----------- | :---------- | :---------------- | :--------- | :------ | :------- | :------------- |
-      | i-08151997dd939a6bd | 54.xx.xx.70  | 10.90.2.209 | db                | gXXXXXXXo  | user1   | db1      | 3              |
-      | i-093c618d76e4e5b25 | 52.xx.xx.15  | 10.90.3.6   | db                | gXXXXXXXo  | user1   | db2      | 3              |
-      | i-095a704ff26b8e4cf | 34.xx.xx.47  | 10.90.3.86  | kv                | gXXXXXXXo  | user1   | kv1      | 2              |
-      | i-015057ecff55e09b5 | 34.xx.xx.38  | 10.90.1.84  | kv                | gXXXXXXXo  | user1   | kv2      | 2              |
-      | i-056f185f8bfdfd293 | 35.xx.xx.198 | 10.90.2.253 | kv                | gXXXXXXXo  | user1   | kv3      | 2              |
-      | i-0bb0553841ecc0451 | 35.xx.xx.55  | 10.90.4.220 | monitor           | gXXXXXXXo  | user1   | monitor1 | 3              |
-      | i-0823a3a917d5bf87f | 35.xx.xx.193 | 10.90.1.124 | pd                | gXXXXXXXo  | user1   | pd1      | 3              |
-      | i-0bd3492919928e185 | 35.xx.xx.248 | 10.90.2.124 | pd                | gXXXXXXXo  | user1   | pd2      | 3              |
-      | i-01847bab040690d96 | 34.xx.xx.209 | 10.90.3.168 | pd                | gXXXXXXXo  | user1   | pd3      | 3              |
-      | i-04d8f0c4345244f51 | 34.xx.xx.183 | 10.90.4.74  | tiflash           | gXXXXXXXo  | user1   | tiflash1 | 3              |
+# TiDB Database Administration for Self-Hosted Deployments Lab Environment Setup Guide for Students
 
 ## Assumptions
-1. Please ensure that your laptop and internet connection have access to port 22 on the internet host.
+1. Please ensure that your laptop and internet connection have access to port 22, port 2379, and port 3000 on the internet host.
 
 ## Laptop Setup and SSH Login (Linux or macOS)
-1. Download private key file, `*.pem`, and then set the permission is `400`.
+1. No pre-configuration requited.
+   
+2. On the day of the training, the lab guide will direct you to download a private key file (`*.pem`) and then set its permissions to `400`. For example:
    ```
    $ mv <key_file> ~/.ssh/ 
    $ chmod 400 ~/.ssh/<key_file>
    ``` 
 
-2. You can now follow the lab guide to connect to EC2 instances.
+3. Follow the lab guide to connect to EC2 instances.
 
 ## Laptop Setup and SSH Login (Windows)
 1. Install [PuTTY](https://www.putty.org/) on your computer.
    
    Download and install PuTTY from the [PuTTY](https://www.putty.org/) official page. If you already have an older version of PuTTY installed, we recommend that you download the latest version. Be sure to install the entire suite.
 
-2. Convert the private key file (`*.pem`), to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). 
+2. On the day of training, the lab guide will direct you to download a private key file (`*.pem`). You need to convert the private key file (`*.pem`), to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). 
 
    You may follow the [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) by AWS in the section `Convert your private key using PuTTYgen`.
 
-3. Connect to EC2 Instance from Windows using PuTTy.
+5. Connect to EC2 Instance from Windows using PuTTy.
 
    You may follow the [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html#putty-ssh) by AWS in the section `Connect to your Linux instance`.
 
