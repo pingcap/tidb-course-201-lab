@@ -15,6 +15,8 @@
 3. Follow the lab guide to connect to EC2 instances.
 
 ## Laptop Setup and SSH Login (Windows)
+Windows users can consider using the Windows WSL or a terminal emulator. PuTTy is the recommended terminal emulator. Instructions for using PuTTy to connect to EC2 is provided below.  
+
 1. Install [PuTTY](https://www.putty.org/) on your computer.
    
    Download and install PuTTY from the [PuTTY](https://www.putty.org/) official page. If you already have an older version of PuTTY installed, we recommend that you download the latest version. Be sure to install the entire suite.
@@ -23,7 +25,7 @@
 
    You may follow the [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) by AWS in the section `Convert your private key using PuTTYgen`.
 
-5. Connect to EC2 Instance from Windows using PuTTy.
+3. Connect to EC2 Instance from Windows using PuTTy.
 
    You may follow the [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html#putty-ssh) by AWS in the section `Connect to your Linux instance`.
 
