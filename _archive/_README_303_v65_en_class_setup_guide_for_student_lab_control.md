@@ -1,31 +1,66 @@
-# TiDB Database Administration for Self-Hosted Deployments Lab Environment Setup Guide for Students
+# Course TiDB Administration Class Setup Guide for Students
+
+## Exercises Nodes Information
+After you have started you lab, you will see a table describing the lab environment. Here is an example:
+      
+      | Instance ID         | Public IP    | Private IP  | Name    | Instructor | Student | Role     | Up Time (mins) |
+      | :------------------ | :----------- | :---------- | :------ | :--------- | :------ | :------- | :------------- |
+      | i-08151997dd939a6bd | 54.xx.xx.70  | 10.90.2.209 | db      | gXXXXXXXo  | user1   | db1      | 3              |
+      | i-093c618d76e4e5b25 | 52.xx.xx.15  | 10.90.3.6   | db      | gXXXXXXXo  | user1   | db2      | 3              |
+      | i-095a704ff26b8e4cf | 34.xx.xx.47  | 10.90.3.86  | kv      | gXXXXXXXo  | user1   | kv1      | 2              |
+      | i-015057ecff55e09b5 | 34.xx.xx.38  | 10.90.1.84  | kv      | gXXXXXXXo  | user1   | kv2      | 2              |
+      | i-056f185f8bfdfd293 | 35.xx.xx.198 | 10.90.2.253 | kv      | gXXXXXXXo  | user1   | kv3      | 2              |
+      | i-0bb0553841ecc0451 | 35.xx.xx.55  | 10.90.4.220 | monitor | gXXXXXXXo  | user1   | monitor1 | 3              |
+      | i-0823a3a917d5bf87f | 35.xx.xx.193 | 10.90.1.124 | pd      | gXXXXXXXo  | user1   | pd1      | 3              |
+      | i-0bd3492919928e185 | 35.xx.xx.248 | 10.90.2.124 | pd      | gXXXXXXXo  | user1   | pd2      | 3              |
+      | i-01847bab040690d96 | 34.xx.xx.209 | 10.90.3.168 | pd      | gXXXXXXXo  | user1   | pd3      | 3              |
+      | i-04d8f0c4345244f51 | 34.xx.xx.183 | 10.90.4.74  | tiflash | gXXXXXXXo  | user1   | tiflash1 | 3              |
 
 ## Assumptions
-1. Please ensure that your laptop and internet connection have access to port 22, port 2379, and port 3000 on the internet host.
+1. Please ensure that your laptop and internet connection have access to port 22 on the internet host.
 
 ## Laptop Setup and SSH Login (Linux or macOS)
-1. No pre-configuration required.
-   
-2. On the day of the training, the lab guide will direct you to download a private key file (`*.pem`) and then set its permissions to `400`. For example:
+0. For Linux user, please make sure that ssh-agent is running. You can start ssh-agent by the following command:
+   ```
+   eval `ssh-agent`
+   ```
+
+1. Download private key file, `*.pem`, and then set the permission is `400`.
    ```
    $ mv <key_file> ~/.ssh/ 
    $ chmod 400 ~/.ssh/<key_file>
    ``` 
 
-3. Follow the lab guide to connect to EC2 instances.
+2. Connect to your EC2 instance, using the following commands with `SSH` forward enabled. The example is using the `monitor1` node as the login target:
+    
+    Add the private key identity to the OpenSSH authentication agent.
+    ```
+    $ ssh-add  ~/.ssh/<key_file>
+    ```
+    
+    The option `-A` for command `SSH` is crucial as it enables the forwarding of connections from an authentication agent. It is necessary to support passwordless hands-on steps throughout the exercise workflows.
+    ```
+    $ ssh -A ec2-user@34.220.83.xx
+    ```
 
 ## Laptop Setup and SSH Login (Windows)
 1. Install [PuTTY](https://www.putty.org/) on your computer.
    
    Download and install PuTTY from the [PuTTY](https://www.putty.org/) official page. If you already have an older version of PuTTY installed, we recommend that you download the latest version. Be sure to install the entire suite.
 
-2. On the day of training, the lab guide will direct you to download a private key file (`*.pem`). You need to convert the private key file (`*.pem`), to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). 
+2. Convert the private key file (`*.pem`), from your instructor, to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). 
 
    You may follow the [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) by AWS in the section `Convert your private key using PuTTYgen`.
 
-5. Connect to EC2 Instance from Windows using PuTTy.
+3. Configure the key-quartermaster.
+   + Open `Pageant` from the start menu. (Note: it may run off to the system tray)
+   + Click `Add Key` to include the key in `*.ppk` format.
 
-   You may follow the [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html#putty-ssh) by AWS in the section `Connect to your Linux instance`.
+4. Connect to EC2 Instance from Windows using PuTTy.
+
+   Make sure that you also allow the agent SSH forwarding in PuTTY (See the image below. It might be slightly different from yours due to software versions).
+
+   <img src="./ninja-kits/diagram/PuttyAllowAgentForwarding_aa_001_20230109.png" width="50%" align="top"/>
 
 ## Scripts Introduction
 1. After successfully logging in EC2 instance (you use `monitor1` node as the Control Machine throughout the course), you will see the following prompt:
