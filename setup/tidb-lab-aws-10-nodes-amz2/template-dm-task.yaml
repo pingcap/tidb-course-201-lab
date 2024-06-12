@@ -14,7 +14,7 @@ mysql-instances:  # configure data sources that need to be migrated for the data
     filter-rules: ["trace-table-filter-rule", "user-table-filter-rule" , "store-table-filter-rule"]
     block-allow-list: "log-ignored"
     mydumper-config-name: "global"
-- source-id: "mysql-replica-02"
+  - source-id: "mysql-replica-02"
     route-rules: ["instance-2-user-schema-rule", "instance-2-store-schema-rule","salesdb-schema-route-rule"]
     filter-rules: ["trace-table-filter-rule", "user-table-filter-rule" , "store-table-filter-rule"]
     block-allow-list: "log-ignored"
