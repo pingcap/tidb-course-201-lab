@@ -1,43 +1,41 @@
-# TiDB Database Administration for Self-Hosted Deployments Lab Environment Setup Guide for Students
+# TiDB 数据库管理 学生实验设置指南
 
-## Assumptions
-1. Please ensure that your laptop and internet connection have access to port 22, port 2379, and port 3000 on the internet host.
+## 前提条件
+1. 请确保您的电脑和网络可以访问端口 22，端口 2379，端口 3000.
 
-## Laptop Setup and SSH Login (Linux or macOS)
-1. No pre-configuration required.
-   
-2. On the day of the training, the lab guide will direct you to download a private key file (`*.pem`) and then set its permissions to `400`. For example:
+## 电脑设置和 SSH 登陆 （Linux or macOS）
+1. 您无需进行预设置。
+
+2. 参与培训当天，实验指南会指引您下载私钥（`*.pem`），并给予私钥 `400` 的权限。例如：
    ```
    $ mv <key_file> ~/.ssh/ 
    $ chmod 400 ~/.ssh/<key_file>
    ``` 
 
-3. Follow the lab guide to connect to EC2 instances.
+3. 根据实验指南，连接并登陆 EC2 实例。
 
-## Laptop Setup and SSH Login (Windows)
-Windows users can consider using the Windows WSL or a terminal emulator. PuTTY is the recommended terminal emulator. Instructions for using PuTTY to connect to EC2 are provided below.  
+## 电脑设置和 SSH 登陆 （Windows）
+Windows 用户可以考虑使用 Windows WSL 或终端仿真器。我们推荐 PuTTY 作为终端仿真器。下面是使用PuTTY 连接到 EC2 的说明。
 
-1. Install [PuTTY](https://www.putty.org/) on your computer.
-   
-   Download and install PuTTY from the [PuTTY](https://www.putty.org/) official page. If you already have an older version of PuTTY installed, we recommend that you download the latest version. Be sure to install the entire suite.
+1. 在您的电脑上安装 [PuTTY](https://www.putty.org/)。
+   从 [PuTTY](https://www.putty.org/) 官方页面下载并安装 PuTTY。如果您已经安装了旧版本的 PuTTY，我们建议您下载最新版本。确保安装整个套件。
 
-2. On the day of training, the lab guide will direct you to download a private key file (`*.pem`). You need to convert the private key file (`*.pem`), to `*.ppk` format using [PuTTYgen](https://www.puttygen.com/). 
+2. 参与培训当天，实验指南会指引你下载私钥（`*.pem`）。您需要使用 [PuTTYgen](https://www.puttygen.com/) 将私钥文件（`*.pem`）转换为 `*.ppk` 格式。
 
-   You may follow the [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-from-windows.html) by AWS in the section `Convert your private key using PuTTYgen`.
+   您可以参考 AWS 官方[文档](https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/connect-linux-inst-from-windows.html) 中“使用 PuTTYgen 转换私有密钥” 部分。
 
-3. Connect to EC2 Instance from Windows using PuTTY.
+3. 使用 PuTTY 连接到 EC2。
+   您可以参考 AWS 官方[文档](https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/connect-linux-inst-from-windows.html) 中“连接到您的 Linux 实例” 部分。
 
-   You may follow the [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-from-windows.html) by AWS in the section `Connect to your Linux instance`.
-
-## Scripts Introduction
-1. After successfully logging in EC2 instance (you use `monitor1` node as the Control Machine throughout the course), you will see the following prompt:
+## 脚本介绍
+1. 成功登录 EC2 实例后（在整个课程中你使用 `monitor1` 节点作为控制机），你将看到以下提示：
       ```
       ...
       Last login: Fri Jun  2 03:56:22 2023
       [ec2-user@ip-10-0-1-33 ~]$ 
       ```
 
-2. Scripts for hands-on exercises are staged at your home directory, run `ls -lF` to verify the result:
+2. 实践练习的脚本位于你的主目录中，您可以运行 `ls -lF` 来验证结果：
       ```
       $ ls -lF
       total 292
@@ -111,4 +109,4 @@ Windows users can consider using the Windows WSL or a terminal emulator. PuTTY i
       -rw-r--r--. 1 ec2-user ec2-user  4281 Jun  2 03:56 template-tiup-meta.yaml
       ```
 
-3. This guide stops here, follow the instructions from your instructor and the lab guide to complete the exercises. 
+3. 本指南到此结束，请按照您的老师和实验室指南的说明完成练习。
