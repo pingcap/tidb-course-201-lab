@@ -1,0 +1,35 @@
+[lightning]
+level = "info"
+file = "tidb-lightning-csv.log"
+
+[tikv-importer]
+backend = "local"
+sorted-kv-dir = "/tmp/sorted-kv-dir"
+
+[mydumper]
+data-source-dir = "/home/ec2-user/stage/TiDB-Administration-exercise-data-v2/exercise-lightning/Importing-CSV-File"
+filter = ['*.*', '!mysql.*', '!sys.*', '!INFORMATION_SCHEMA.*', '!PERFORMANCE_SCHEMA.*', '!METRICS_SCHEMA.*', '!INSPECTION_SCHEMA.*']
+
+[[mydumper.files]]
+pattern = '(?i)(?:[/]*/)*emp\.sal\.(00000000[0-1]|000000001)\.csv'
+schema = "emp"
+table = "sal"
+type = "csv"
+
+[mydumper.csv]
+separator = ','
+delimiter = '"'
+terminator = ""
+header = true
+not-null = false
+null = '\N'
+backslash-escape = true
+trim-last-separator = false
+
+[tidb]
+host = "<HOST_DB1_PRIVATE_IP>"
+port = 4000
+user = "ltask"
+password = "q1w2e3R4_"
+status-port = 10080
+pd-addr = "<HOST_PD1_PRIVATE_IP>:2379"

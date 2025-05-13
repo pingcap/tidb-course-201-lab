@@ -1,0 +1,108 @@
+# workdir = "./work"
+
+[proxy]
+# addr = "0.0.0.0:6000"
+# tcp-keep-alive = true
+require-backend-tls = false
+
+# possible values:
+#   "" => disable proxy protocol.
+#   "v2" => accept proxy protocol if any, require backends to support proxy protocol.
+# proxy-protocol = ""
+
+# possible values:
+# 	0 => disable graceful shutdown.
+# 	30 => graceful shutdown waiting time in 30 seconds.
+graceful-wait-before-shutdown = 30
+
+# possible values:
+#		"" => enable static routing.
+#		"pd-addr:pd-port" => automatically tidb discovery.
+pd-addrs = "<HOST_PD1_PRIVATE_IP>:2379,<HOST_PD2_PRIVATE_IP>:2379,<HOST_PD3_PRIVATE_IP>:2379"
+
+# possible values:
+#		0 => no limitation.
+#		100 => accept as many as 100 connections.
+# max-connections = 0
+
+[api]
+# addr = "0.0.0.0:3080"
+
+# enable HTTP basic auth or not.
+#
+# enable-basic-auth = false
+# user = ""
+# password = ""
+
+# same as [proxy.proxy-protocol], but for HTTP port
+# proxy-protocol = ""
+
+[log]
+
+level = "warn"
+
+# possible values:
+# 	"tidb" => formats used by tidb, check https://github.com/tikv/rfcs/blob/master/text/0018-unified-log-format.md.
+# 	"json" => structured json formats.
+# 	"console" => log format for human.
+# encoder = "tidb"
+
+[log.log-file]
+# non-empty filename will enable logging to file.
+#
+# filename = ""
+# max-size = 300
+# max-days = 3
+# max-backups = 3
+
+[security]
+# tls object is either of type server, client, or peer
+# [xxxx]
+#   ca = "ca.pem"
+#   cert = "c.pem"
+#   key = "k.pem"
+#   auto-certs = true # mostly used by tests. It will generate certs if no cert/key is specified.
+# 	rsa-key-size = 4096 # generated RSA keysize if auto-certs is enabled.
+# 	autocert-expire-duration = "72h" # default expire duration for auto certs.
+#   skip-ca = true
+#   min-tls-version = "1.1" # specify minimum TLS version
+# client object:
+#   1. requires: ca or skip-ca(skip verify server certs)
+#   2. optionally: cert/key will be used if server asks, i.e. server-side client verification
+#   3. useless/forbid: auto-certs
+# server object:
+#   1. requires: cert/key or auto-certs(generate a temporary cert, mostly for testing)
+#   2. optionally: ca will enable server-side client verification. If skip-ca is true with non-empty ca, server will only verify clients if it can provide any cert. Otherwise, clients must provide a cert.
+# peer object:
+#   1. requires: cert/key/ca or auto-certs
+#   2. useless/forbid: skip-ca
+
+	# client object
+	[security.cluster-tls]
+	# access to other components like TiDB or PD, will use this
+	# skip-ca = true
+
+	# client object
+	[security.sql-tls]
+	# access to other components like TiDB or PD, will use this
+	skip-ca = true
+
+	# server object
+	[security.server-tls]
+	# proxy SQL or HTTP port will use this
+	# auto-certs: true
+
+	# peer object
+	[security.peer-tls]
+	# internal communication between proxies
+	# auto-certs: true
+
+[metrics]
+
+# WARNING: know what you are doing, these two are for debugging.
+# metrics-addr = ""
+# metrics-interval = 0
+
+[advance]
+
+# ignore-wrong-namespace = true
