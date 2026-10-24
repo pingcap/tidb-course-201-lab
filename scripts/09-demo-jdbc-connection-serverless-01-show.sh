@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Run ./09-demo-jdbc-connection-serverless-01-show.sh <host_name> <user_name> <password>
-# e.g. ./09-demo-jdbc-connection-serverless-01-show.sh gateway01.ap-southeast-1.prod.aws.tidbcloud.com 3hB7dXAzvejd5sc.root f0rRmzNqljdueyJr
+# e.g. ./09-demo-jdbc-connection-serverless-01-show.sh gateway01.ap-southeast-1.prod.aws.tidbcloud.com <user_prefix>.root <password>
 
 rm -f DemoJdbcConnectionServerless.class
 
